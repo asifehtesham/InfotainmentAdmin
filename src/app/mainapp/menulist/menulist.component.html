@@ -1,0 +1,225 @@
+<div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+    <mat-card>
+        <mat-card-content>
+            <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+                <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+
+                    <div class="page-sub-title">
+                        MENU LIST
+                    </div>
+                    <mat-form-field id="search" appearance="outline">
+                        <input placeholder="Search" minlength="2" (keyup)="applyFilter($event.target['value'])"
+                            matInput #search>
+                            <a mat-icon-button *ngIf="search.value" matSuffix md-icon-button
+                                aria-label="Clear" (click)="search.value=''">
+                                <mat-icon>close</mat-icon>
+                            </a>
+                    </mat-form-field>
+                    <div>
+                        <a mat-button mat-flat-button color="warn" (click)="revert()">
+                            <mat-icon>add</mat-icon> Add
+                        </a>
+                        
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start stretch">
+                   
+                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl"> 
+                        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding> 
+                            <button mat-icon-button disabled></button>
+                            <div fxFlex="400">
+                                {{node.title}}
+                                
+                                <mat-icon style="font-size:18px;margin-left:3px;cursor:pointer" (click)="onEdit(node.id)">edit</mat-icon>
+                                <mat-icon style="font-size:18px;font-weight:bold;cursor:pointer" (click)="onAdd(node.id)">add</mat-icon>
+                            </div>
+                            <div>
+                                <span matBadge="{{node.children.length}}" matBadgeOverlap="false"></span>
+                            </div>
+                        </mat-tree-node> 
+                        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                            <button mat-icon-button matTreeNodeToggle
+                                    [attr.aria-label]="'Toggle ' + node.title">
+                            <mat-icon class="mat-icon-rtl-mirror">
+                                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                            </mat-icon>
+                            </button>
+                            <div fxFlex="400">
+                                {{node.title}}
+                                 
+                                <mat-icon style="font-size:18px;margin-left:3px;cursor:pointer" (click)="onEdit(node.id)">edit</mat-icon>
+                                <mat-icon style="font-size:18px;font-weight:bold;cursor:pointer" (click)="onAdd(node.id)">add</mat-icon>
+                            </div>
+                            <div>
+                                <span matBadge="{{node.children.length}}" matBadgeOverlap="false"></span>
+                            </div>
+                        </mat-tree-node>
+                        </mat-tree>
+                    <ng-template #loading>
+                        <app-loading align="center"></app-loading>
+                    </ng-template>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div fxFlex="40" fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="menuForm">
+                <input type="hidden" id="id" formControlName="id">
+                    <mat-tab-group>
+                        <mat-tab label="">
+                            <ng-template mat-tab-label>Menu Detail</ng-template>
+                            <ng-template matTabContent>
+                                <mat-dialog-content>
+                                    <div fxLayout="column" fxLayoutAlign="start stretch">
+                                        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                            <mat-label class="label m-2">Name</mat-label>
+                                            <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+            
+                                                <input type="text" id="title" class="input" placeholder="Enter Name"
+                                                    formControlName="title" required matInput #title>
+                                                    <a mat-icon-button *ngIf="title.value" matSuffix md-icon-button
+                                                    aria-label="Clear" (click)="title.value=''">
+                                                    <mat-icon>close</mat-icon>
+                                                    </a>
+                                                <mat-error *ngIf="">
+                                                    Please enter a valid Title
+                                                </mat-error>
+                                                
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                            <mat-label class="label m-2">URL</mat-label>
+                                            <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+            
+                                                <input type="text" id="url" class="input" placeholder="Enter URL"
+                                                    formControlName="url" required matInput #url>
+                                                    <a mat-icon-button *ngIf="url.value" matSuffix md-icon-button
+                                                    aria-label="Clear" (click)="url.value=''">
+                                                    <mat-icon>close</mat-icon>
+                                                    </a>
+                                                <mat-error *ngIf="">
+                                                    Please enter a valid URL
+                                                </mat-error>
+                                                
+                                            </mat-form-field>
+
+
+                                            <!-- .... st -->
+
+                                            <mat-form-field class="example-full-width">
+                                                <input
+                                                  type="text"
+                                                  placeholder="Pick one"
+                                                  aria-label="Number"
+                                                  matInput
+                                                  [formControl]="myControl"
+                                                  [matAutocomplete]="auto"
+                                                />
+                                                <mat-autocomplete #auto="matAutocomplete">
+                                                  <mat-option
+                                                    *ngFor="let option of filteredOptions | async"
+                                                    [value]="option"
+                                                  >
+                                                    <span
+                                                      *ngIf="option.indexOf('/pages') != -1"
+                                                      style="
+                                                        border-radius: 0.5rem;
+                                                        padding: 5px;
+                                                        background: #ffa42a;
+                                                        color: #fff;
+                                                        font-size: 12px;
+                                                        font-weight: 600;
+                                                      "
+                                                      >PAGE</span
+                                                    >
+                              
+                                                    <span
+                                                      *ngIf="option.indexOf('/blog') != -1"
+                                                      style="
+                                                        border-radius: 0.5rem;
+                                                        padding: 5px;
+                                                        background: #363663;
+                                                        color: #fff;
+                                                        font-size: 12px;
+                                                        font-weight: 600;
+                                                      "
+                                                      >BLOG</span
+                                                    >
+                              
+                              
+                              
+                                                    <span
+                                                      *ngIf="option.indexOf('/news') != -1"
+                                                      style="
+                                                        border-radius: 0.5rem;
+                                                        padding: 5px;
+                                                        background: #57201e;
+                                                        color: #fff;
+                                                        font-size: 12px;
+                                                        font-weight: 600;
+                                                      "
+                                                      >NEWS</span
+                                                    >
+                              
+                              
+                                                    
+                              
+                              
+                                                    {{ option }}
+                                                  </mat-option>
+                                                </mat-autocomplete>
+                                              </mat-form-field>
+
+                                              
+                                            <!-- st end -->
+
+
+
+
+                                            <!-- st end -->
+                                        </div>
+                                        <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap>
+                                            <div fxLayout="column" fxLayoutAlign="start stretch" fxFlexOffset="1" fxFlex>
+                                                
+                                                <mat-label class="label m-2">Parent Menu</mat-label>
+                                                <mat-form-field class="full-width" fxFlex appearance="outline">
+                                                    <input matInput readonly value="" formControlName="parentId">
+                                                </mat-form-field>
+                                                                                                    
+                                            </div>                                         
+                                        </div>
+                                        <div *ngIf="selectedId>0">
+                                            <button style="margin-top:10px;margin-left:5px;float:right" class="check" mat-raised-button color="warn" (click)="onMove()">
+                                                <span class="material-icons">drive_file_move</span> Move To
+                                            </button> 
+                                        </div>
+                                    </div>
+                                </mat-dialog-content>
+                            </ng-template>
+                        </mat-tab>
+                    </mat-tab-group>
+                
+                <mat-dialog-actions align="end" > 
+                    <button style="margin-top:13px" mat-raised-button color="primary" type="submit" [disabled]="!menuForm.valid"
+                    
+                        (click)="save()">
+                        <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
+                    </button>
+                    <button style="margin-top:13px;margin-left:10px;" *ngIf="selectedId>0" mat-raised-button color="warn" 
+                    
+                        (click)="delete()">
+                        <mat-icon>delete</mat-icon> Delete
+                    </button>
+                </mat-dialog-actions>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+    
+
+      
+      

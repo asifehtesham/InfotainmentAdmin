@@ -1,0 +1,17 @@
+step 1
+<!-- <ng-container [cdkPortalOutlet]="selectedPortal"></ng-container> -->
+<ng-template [cdkPortalOutlet]="selectedPortal"></ng-template>
+<!-- <ng-container [ngTemplateOutlet]="adHost"></ng-container> -->
+<!-- <ng-container adHost></ng-container> -->
+step 2
+<!-- <ng-template adHost></ng-template> -->
+step 3
+<div #domPortalContent>
+    <ng-content></ng-content>
+</div>
+<!-- <ng-template #templatePortalContent>{{html}}</ng-template> -->
+<ng-template #templatePortalContent>
+
+    <div id="contentDiv" [innerHtml]="data"></div>
+    <!-- <ng-template content></ng-template> -->
+</ng-template>

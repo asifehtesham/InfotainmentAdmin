@@ -1,0 +1,19 @@
+<!-- <mat-card>
+    <mat-card-content fxLayout="row wrap" fxLayoutGap="20px"> -->
+<div *ngIf="loadEmptyMsg">
+    <strong style="color: gray;">No results found</strong>
+</div>
+<div id="loading" align="center" *ngIf="!loadEmptyMsg">
+    <!-- <div class="loader-container" style="position: inherit; width: 100px; height: 100px;"> -->
+    <div fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- <img id="loading-image" src="./assets/Images/Ajax-Preloader.gif" alt="Loading..." style="height:10%" />Loading... -->
+    <p>Please wait...</p>
+</div>
+<!-- </mat-card-content>
+</mat-card> -->

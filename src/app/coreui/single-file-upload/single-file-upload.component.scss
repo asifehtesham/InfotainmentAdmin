@@ -1,0 +1,25 @@
+.uploadfilecontainer {
+    //background-image: url("../../../assets/hmg.png");
+    background-repeat: no-repeat;
+    //background-size: 200px;
+    background-position: center;
+    min-height: 120px;
+    width: 98%;
+    margin: 0px auto;
+    border: 2px dashed #1C8ADB;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.uploadfilecontainer>img {
+    min-height: 100px;
+    max-height: 160px;
+    text-align: center;
+    align-content: center;
+}
+
+.uploadfilecontainer:hover {
+    cursor: pointer;
+    background-color: #9ecbec !important;
+    opacity: 0.8;
+}

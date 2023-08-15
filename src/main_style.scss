@@ -1,0 +1,182 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "../node_modules/grapesjs/dist/css/grapes.min.css";
+
+//@import "~@fortawesome/fontawesome-free/css/all.css";
+//@import "../node_modules/ngx-bar-rating/themes/br-default-theme.css";
+//@import url("~ngx-bar-rating/themes/br-default-theme.scss");
+@import '../node_modules/ngx-bar-rating/themes/br-default-theme';
+@import '../node_modules/ngx-bar-rating/themes/br-stars-theme.scss';
+@import '../node_modules/@fortawesome/fontawesome-free/css/all.css';
+// @import url("~ngx-bar-rating/themes/br-stars-theme.scss");
+// @import url("~@fortawesome/fontawesome-free/css/all.css");
+
+@font-face {
+  font-family: Montserrat;
+  src: url("assets/fonts/Montserrat-Light.ttf") format("truetype"),
+    url("assets/fonts/Montserrat-Medium.ttf") format("truetype"),
+    url("assets/fonts/Montserrat-Regular.ttf") format("truetype"),
+    url("assets/fonts/Montserrat-SemiBold.ttf") format("truetype"),
+    url("assets/fonts/Montserrat-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal
+}
+
+@font-face {
+  font-family: OpenSans;
+  src: url("assets/fonts/OpenSans-Light.ttf") format("truetype"),
+    url("assets/fonts/OpenSans-Medium.ttf") format("truetype"),
+    url("assets/fonts/OpenSans-Regular.ttf") format("truetype"),
+    url("assets/fonts/OpenSans-SemiBold.ttf") format("truetype"),
+    url("assets/fonts/OpenSans-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("/assets/fonts/Roboto-Light.ttf") format("truetype"),
+    url("/assets/fonts/Roboto-Medium.ttf") format("truetype"),
+    url("/assets/fonts/Roboto-Regular.ttf") format("truetype"),
+    url("/assets/fonts/Roboto-Bold.ttf") format("truetype");
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Montserrat, Roboto, OpenSans, sans-serif;
+  margin: 0;
+
+  // -webkit-font-smoothing: antialiased;
+  // -moz-osx-font-smoothing: grayscale;
+  //font-family: 'Archivo';
+  font-weight: 400;
+  font-size: 15px;
+  overflow-x: hidden;
+  overflow-y: auto
+}
+
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  //margin-left: 12px !important;
+  //margin-right: 12px !important;
+}
+
+.fa-large {
+  font-size: 20px;
+}
+
+.fa-normal {
+  font-size: 14px;
+}
+
+.fa-normal16 {
+  font-size: 16px;
+}
+
+.fa-red {
+  color: #c52738 !important;
+}
+
+.icon-button {
+  width: 24px;
+  padding: 0px;
+  height: 24px;
+}
+
+.brand-logo {
+  background: #18BADD;
+  width: 35px;
+  padding: 5px;
+  color: #fff;
+  border-radius: 35px;
+  display: inline-block;
+
+  transition: .3s opacity;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+
+.page-title {
+  color: #18BADD !important;
+  font-size: 17px;
+  margin-bottom: 0;
+  margin-right: 20px;
+  white-space: nowrap;
+  font-family: Montserrat, Roboto, OpenSans, sans-serif;
+}
+
+.page-sub-title {
+  color: #202121 !important;
+  font-size: 15px;
+  margin-bottom: 0;
+  margin-right: 20px;
+  white-space: nowrap;
+  font-family: Montserrat, Roboto, OpenSans, sans-serif;
+  text-wrap: wrap;
+}
+
+
+
+
+.title-sub {
+  font-family: Montserrat, Roboto, OpenSans, sans-serif !important;
+  font-weight: 900 !important;
+  color: #202121 !important;
+  line-height: 2 !important;
+  font-size: 20px !important;
+}
+
+.mat-divider-white {
+  margin: 0 45px;
+  border-top: 1px solid #fff;
+}
+
+.w20 {
+  width: 20px;
+  height: 20px;
+  //line-height: 20px;
+}
+
+.mr-2,
+.mx-2 {
+  margin-right: 0.5rem !important;
+}
+
+.m-2 {
+  margin: 0.5rem 0 !important;
+}
+
+.m-3 {
+  margin: 1rem 0 !important;
+}
+
+.navlink {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333537;
+}
+
+.mat-list-item {
+  height: 40px !important;
+}
+
+span.gjs-pn-btn.fa {
+  font-size: 18px !important;
+  padding-top: 7px;
+}

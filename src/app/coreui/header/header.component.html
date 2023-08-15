@@ -1,0 +1,83 @@
+<mat-toolbar color="primary" class="mat-elevation-z0" fxFlex fxLayout="column" fxLayoutAlign="space-around stretch"
+    style="height:64px !important;min-height:64px !important;">
+    <mat-toolbar-row fxFlex fxFlexFill style="padding: 20px 0px 0px 5px;"
+        style="height:64px !important;min-height:64px !important;">
+        <!-- <button mat-icon-button (click)="toggleSideBar()" class="headerButton">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-divider></mat-divider> -->
+        <span class="page-title">
+            <!-- <img src="./assets/hmg.png" width="60px"> -->
+            Infotainment Admin
+        </span>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="10px">
+                <!-- <li>
+                    <button mat-icon-button>
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>help_outline</mat-icon>
+                    </button>
+                </li> -->
+                <li>
+                    <button mat-button [matMenuTriggerFor]="language" class="headerButton">
+                        <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+                        Language
+                        <!-- <mat-icon matListIcon class="fa fa-large" fontSet="fa-regular"
+                            fontIcon="fa-caret-down"></mat-icon> -->
+                    </button>
+                    <mat-menu #language="matMenu">
+                        <button mat-menu-item (click)="changeLocale()">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <img class="w20 mr-2" src="../../../assets/flags/us.svg">
+                                <span class="navlink">English</span>
+                            </div>
+                        </button>
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="changeLocale()">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <img class="w20 mr-2" src="../../../assets/flags/sa.svg">
+                                <span class="navlink">Arabic</span>
+                            </div>
+                        </button>
+                    </mat-menu>
+                </li>
+
+                <li>
+                    <button mat-icon-button (click)="changeLocale()" class="icon-button">
+                        <!-- <mat-icon matBadge="" matBadgeColor="warn">notifications</mat-icon> -->
+                        <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa"
+                            fontIcon="fa-envelope"></mat-icon>
+
+                    </button>
+                </li>
+                <li>
+                    <button mat-icon-button (click)="changeLocale()" class="icon-button">
+                        <!-- <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon> -->
+                        <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa" fontIcon="fa-bell"></mat-icon>
+                    </button>
+                </li>
+                <li>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="icon-button">
+                        <!-- <mat-icon class="custom-icon" fontSet="fa" fontIcon="fa-user-circle"></mat-icon> -->
+                        <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa" fontIcon="fa-user"></mat-icon>
+                        <!-- <i class="fa-solid fa-circle-user"></i> -->
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="signout()">
+                            <mat-icon>exit_to_app</mat-icon>
+                            Log out
+                        </button>
+                    </mat-menu>
+
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+
+
+</mat-toolbar>

@@ -1,0 +1,387 @@
+<form [formGroup]="serviceForm">
+  <div class="m-3">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      style="height: 40px"
+    >
+      <div fxFlex>
+        <h5 mat-dialog-title class="title-sub">Service Detail</h5>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+        <button
+          mat-flat-button
+          [mat-dialog-close]="true"
+          color="primary"
+          type="submit"
+          (click)="save()"
+          [disabled]="!serviceForm.valid"
+        >
+          <mat-icon
+            class="customfab-icon-white"
+            fontSet="fa"
+            fontIcon="fa-save"
+          ></mat-icon>
+          Save
+        </button>
+        <button mat-icon-button mat-dialog-close cdkFocusInitial>
+          <mat-icon
+            class="fa fa-large mr-2"
+            fontSet="fa"
+            fontIcon="fa-times"
+          ></mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <!-- <mat-dialog-content> -->
+  <input type="hidden" id="ID" formControlName="ID" />
+  <div fxLayout="column" fxFlexFill>
+    <mat-tab-group>
+      <mat-tab label="Page Info">
+        <ng-template mat-tab-label> Basic Info </ng-template>
+        <ng-template matTabContent>
+          <mat-dialog-content>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+              <app-single-file-upload
+                fxFlex="50"
+                #imageControl
+                (complete)="onFileComplete($event)"
+              >
+              </app-single-file-upload>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Title</mat-label>
+                <mat-form-field
+                  fxLayout="column"
+                  class="full-width"
+                  fxFlex
+                  appearance="outline"
+                >
+                  <input
+                    type="text"
+                    id="Title"
+                    class="input"
+                    placeholder="Enter Title"
+                    formControlName="title"
+                    required
+                    matInput
+                    #Title
+                  />
+                  <a
+                    mat-icon-button
+                    *ngIf="Title.value"
+                    matSuffix
+                    md-icon-button
+                    aria-label="Clear"
+                    (click)="Title.value = ''"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </a>
+                  <mat-error *ngIf=""> Please enter a valid Title </mat-error>
+                </mat-form-field>
+              </div>
+              <!-- <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap>
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10" fxFlex>
+                                    <mat-label class="label m-2">slug</mat-label>
+                                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                        <input type="text" id="slug" class="input" placeholder="Enter slug"
+                                            formControlName="slug" required matInput #slug>
+                                        <a mat-icon-button *ngIf="slug.value" matSuffix md-icon-button
+                                            aria-label="Clear" (click)="slug.value=''">
+                                            <mat-icon>close</mat-icon>
+                                        </a>
+                                        <mat-error *ngIf="">
+                                            Please enter a valid slug
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
+              <div
+                fxLayout="row"
+                fxLayoutAlign="space-between stretch"
+                fxLayoutGap
+              >
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                  fxLayoutGap
+                  fxFlex
+                >
+                  <mat-label class="label m-2">Available From</mat-label>
+                  <mat-form-field
+                    class="full-width"
+                    class="full-width"
+                    fxFlex
+                    appearance="outline"
+                  >
+                    <input
+                      matInput
+                      [matDatepicker]="availableStartDate"
+                      formControlName="availableStartDate"
+                      placeholder="Start Date"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="availableStartDate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #availableStartDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                  fxFlexOffset="1"
+                  fxFlex
+                >
+                  <mat-label class="label m-2">Expires on</mat-label>
+                  <mat-form-field
+                    class="full-width"
+                    class="full-width"
+                    fxFlex
+                    appearance="outline"
+                  >
+                    <input
+                      matInput
+                      [matDatepicker]="availableEndDate"
+                      formControlName="availableEndDate"
+                      placeholder="Start Date"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="availableEndDate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #availableEndDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-checkbox
+                  class="full-width"
+                  formControlName="isPublish"
+                  fxFlex
+                  >Publish</mat-checkbox
+                >
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Content</mat-label>
+                <angular-editor
+                  fxFlex
+                  id="editor1"
+                  formControlName="content"
+                  [config]="editorConfig"
+                >
+                </angular-editor>
+              </div>
+            </div>
+          </mat-dialog-content>
+        </ng-template>
+      </mat-tab>
+      <mat-tab *ngIf="id > 0">
+        <ng-template mat-tab-label> Service Links </ng-template>
+        <ng-template matTabContent>
+          <mat-dialog-content>
+            <div
+              fxLayout="row"
+              fxLayoutAlign="space-between stretch"
+              fxLayoutGap
+            >
+              <div
+                fxLayout="column"
+                fxLayoutAlign="start stretch"
+                fxLayoutGap
+                fxFlex
+              >
+                <mat-form-field class="full-width" appearance="outline">
+                  <input
+                    type="text"
+                    id="linkTitle"
+                    class="input"
+                    placeholder="Enter Link Title"
+                    formControlName="serviceLinkTitle"
+                    required
+                    matInput
+                    #linkTitle
+                  />
+                  <a
+                    mat-icon-button
+                    *ngIf="linkTitle.value"
+                    matSuffix
+                    md-icon-button
+                    aria-label="Clear"
+                    (click)="linkTitle.value = ''"
+                    ><mat-icon>close</mat-icon></a
+                  >
+                </mat-form-field>
+              </div>
+              <div
+                fxLayout="column"
+                fxLayoutAlign="start stretch"
+                fxFlexOffset="1"
+                fxFlex
+              >
+                <mat-form-field class="example-full-width">
+                  <input
+                    type="text"
+                    placeholder="Pick one"
+                    aria-label="Number"
+                    matInput
+                    [formControl]="myControl"
+                    [matAutocomplete]="auto"
+                  />
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option
+                      *ngFor="let option of filteredOptions | async"
+                      [value]="option"
+                    >
+                      <span
+                        *ngIf="option.indexOf('/pages') != -1"
+                        style="
+                          border-radius: 0.5rem;
+                          padding: 5px;
+                          background: #ffa42a;
+                          color: #fff;
+                          font-size: 12px;
+                          font-weight: 600;
+                        "
+                        >PAGE</span
+                      >
+
+                      <span
+                        *ngIf="option.indexOf('/blog') != -1"
+                        style="
+                          border-radius: 0.5rem;
+                          padding: 5px;
+                          background: #363663;
+                          color: #fff;
+                          font-size: 12px;
+                          font-weight: 600;
+                        "
+                        >BLOG</span
+                      >
+
+
+
+                      <span
+                        *ngIf="option.indexOf('/news') != -1"
+                        style="
+                          border-radius: 0.5rem;
+                          padding: 5px;
+                          background: #57201e;
+                          color: #fff;
+                          font-size: 12px;
+                          font-weight: 600;
+                        "
+                        >NEWS</span
+                      >
+
+
+                      
+
+
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+
+                
+              </div>
+            </div>
+
+            <div style="float: right">
+              <!-- (click)= "myControl.value=''" -->
+
+              <a
+                style="margin-left: 5px; height: 45px"
+                *ngIf="value == 'Add'"
+                mat-raised-button
+                color="primary"
+                (click)="addLink(linkTitle.value, myControl.value)"
+              >
+                <mat-icon
+                  class="customfab-icon-white"
+                  fontSet="fa"
+                  fontIcon="fa-save"
+                ></mat-icon>
+                {{ value }}
+              </a>
+
+              <!-- (click)= "myControl.value=''" -->
+
+              <a
+                style="margin-left: 5px; height: 45px"
+                *ngIf="value == 'Update'"
+                mat-raised-button
+                color="primary"
+                (click)="updateLink(linkTitle.value, myControl.value)"
+              >
+                <mat-icon
+                  class="customfab-icon-white"
+                  fontSet="fa"
+                  fontIcon="fa-edit"
+                ></mat-icon>
+                {{ value }}
+              </a>
+            </div>
+
+            <div
+              cdkDropList
+              class="example-list mt-20"
+              (cdkDropListDropped)="drop($event)"
+            >
+              <div
+                class="example-box"
+                *ngFor="let link of sortLinks; index as i"
+                cdkDrag
+              >
+                <!-- <div class="drag-index">{{i+1}}</div> -->
+                <div class="w-10 drag-icon">
+                  <i class="material-icons">reorder</i>
+                </div>
+                <div class="w-100 drag-content">
+                  <a target="_blank" href="{{ link.link }}">
+                    {{ link.title }}
+                  </a>
+                </div>
+                <div class="w-10 delete-icon d-flex">
+                  <button mat-icon-button (click)="editLink(link)">
+                    <i class="material-icons">edit_outline</i>
+                  </button>
+                  <button mat-icon-button (click)="deleteLink(link)">
+                    <i class="material-icons">delete_outline</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </mat-dialog-content>
+        </ng-template>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label> SEO </ng-template>
+        <ng-template matTabContent> </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <!-- </mat-dialog-content> -->
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!serviceForm.valid"
+      (click)="save()"
+    >
+      <mat-icon
+        class="customfab-icon-white"
+        fontSet="fa"
+        fontIcon="fa-save"
+      ></mat-icon>
+      Save
+    </button>
+  </mat-dialog-actions>
+</form>

@@ -1,0 +1,43 @@
+<div fxLayout="row" fxLayoutAlign="stretch stretch">
+
+    <button fxFlexFill mat-stroked-button (click)="btnClick()" type="button" cdkOverlayOrigin
+        #trigger="cdkOverlayOrigin">
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10">
+            <span>{{label}}:&nbsp;</span>
+            <div *ngFor="let durationGroup of config.controls;let i = index">
+                <label *ngIf="durationGroup.value.value > 0">
+                    {{durationGroup.value.value}} {{durationGroup.value.duration}},
+                </label>
+            </div>
+        </div>
+    </button>
+
+    <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="isOpen"
+        [cdkConnectedOverlayHasBackdrop]="true" [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+        (backdropClick)="btnClick()">
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <!-- {{config.value | json}} -->
+                <div *ngFor="let durationGroup of config.controls;let i = index" [formGroup]="durationGroup"
+                    fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+                    <div>{{durationGroup.value.duration | titlecase}}</div>
+                    <mat-form-field fxFlex="45" appearance="outline" floatLabel="none">
+                        <input type="number" formControlName="value" matInput #duration
+                            [value]="durationGroup.value.value">
+                        <button mat-button matSuffix mat-icon-button aria-label="Clear"
+                            (click)="onClickPlus(durationGroup, duration)">
+                            <mat-icon class="customfab-icon-black-sm" fontSet="fa" fontIcon="fa-plus"></mat-icon>
+                        </button>
+                        <button mat-button matPrefix mat-icon-button aria-label="Clear"
+                            (click)="onClickMinus(durationGroup)">
+                            <mat-icon class="customfab-icon-black-sm" fontSet="fa" fontIcon="fa-minus"></mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid Duration
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+</div>

@@ -1,0 +1,72 @@
+<mat-drawer-container  *ngIf="onlyPage"  >
+    <mat-drawer [mode]="sideNavMode" class="sidenav" #sidenav [opened]="true" style="overflow: hidden;"
+        class="'mat-drawer-collaped'">
+        <app-sidebar fxFlex (toggleSideBarForMe)="sideBarToggler()"></app-sidebar>
+        <!-- <app-sidenav [iconOnly]="true"></app-sidenav> -->
+    </mat-drawer>
+    <mat-drawer-content style="z-index: unset;overflow: hidden; ">
+
+
+
+
+
+
+
+
+
+
+        
+        <mat-drawer-container>
+
+                            <!-- working -->
+                            <!-- <mat-drawer [mode]="sideNavMode" class="sidenav" #sidenav [opened]="true" style="overflow: hidden;"
+                        [@draweranimation]="!sideNavOpened? 'enter' : 'leave'"
+                        class="(!iconOnly)?'mat-drawer-full':'mat-drawer-collaped'">
+                        <app-sidenav [iconOnly]="sideNavOpened"></app-sidenav>
+                    </mat-drawer> -->
+
+            <mat-drawer mode="side" class="sidenav" #sidenav [opened]="sideNavOpened" class="mat-drawer-full">
+                <app-sidenav [iconOnly]="false"></app-sidenav>
+            </mat-drawer>
+
+            <mat-drawer-content style="z-index: unset;overflow: hidden;">
+                <mat-drawer-container fullscreen>
+
+                    <!-- <mat-drawer mode="side" #drawer class="drawer" [opened]="matDrawerOpened" style="overflow: hidden;">
+                        <mat-toolbar color="primary" class="mat-elevation-z0">
+                            <img src="./assets/hmg.png" width="36px">
+                        </mat-toolbar>
+                        <app-sidenav [iconOnly]="true"></app-sidenav>
+                    </mat-drawer> -->
+                    <mat-drawer-content cdk-scrollable cdkScrollable>
+                        <!-- style="overflow: hidden;" -->
+                        <!-- <app-header  (toggleSideBarForMe)="sideBarToggler($event)"></app-header> -->
+                        <app-header (toggleSideBarForMe)="sideBarToggler()"></app-header>
+                        <mat-divider class="mat-divider-white" insert="true"></mat-divider>
+                        <!-- <cdk-toolbar [sidenav]="sidenav" [drawer]="drawer" [sidebar]="sidenav2" [matDrawerShow]="matDrawerShow" style="z-index: 500"></cdk-toolbar> -->
+
+
+                        <perfect-scrollbar psScrollable fxLayout="column"
+                            style="height: calc(100% - 70px); padding:0px ;">
+                            <div fxFlex style="margin: 0 0px;">
+                                <router-outlet></router-outlet>
+                            </div>
+
+                        </perfect-scrollbar>
+                    </mat-drawer-content>
+                </mat-drawer-container>
+            </mat-drawer-content>
+
+
+            
+            <mat-drawer #sidenav2 position="end" mode="over">
+                <app-sidebar></app-sidebar>
+            </mat-drawer>
+        </mat-drawer-container>
+    </mat-drawer-content>
+</mat-drawer-container>
+
+
+
+
+<router-outlet *ngIf="!onlyPage" ></router-outlet>

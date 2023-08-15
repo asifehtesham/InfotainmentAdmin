@@ -1,0 +1,87 @@
+<mat-toolbar *ngIf="insideToolbar else searchFormTemplate" color="warm" fxLayoutGap="10" fxLayoutAlign="stretch center">
+    <ng-container *ngTemplateOutlet="searchFormTemplate;">
+    </ng-container>
+</mat-toolbar>
+<!-- <div *ngIf="!insideToolbar">
+    <ng-container *ngTemplateOutlet="searchFormTemplate;">
+    </ng-container>
+</div> -->
+
+<ng-template #searchFormTemplate>
+    <form [formGroup]="searchForm" fxFlex fxLayoutGap="10" fxLayoutAlign="end center">
+        <!-- <div fxFlex fxLayout=" column" fxFlexFill fxLayoutAlign="end start"> -->
+        <!-- <form fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-form-field>
+            <input type="text" matInput placeholder="Search" required [formControl]="search" #searchInput /> -->
+        <!-- <mat-icon matSuffix>mode_search</mat-icon>
+            <button mat-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="reload()">
+                <mat-icon>close</mat-icon>
+            </button> -->
+        <!-- </mat-form-field>
+    </form> -->
+
+
+        <!-- <form fxLayout="row" fxFlexFill fxLayoutAlign="start center" fxLayoutGap="10"> -->
+
+        <mat-form-field fxFlex *ngIf="isExpanded" [@searchAnimation]>
+            <!-- <mat-icon class="customfab-icon-black" matPrefix>mode_search</mat-icon> -->
+            <mat-icon matPrefix class="customfab-icon-black-sm" fontSet="fa" fontIcon="fa-search"></mat-icon>
+            <mat-label>Search</mat-label>
+            <!-- formControlName="CategoryID"  [formControl]="search"  -->
+            <input matInput formControlName="SearchText" #searchInput placeholder="Placeholder"
+                (keydown.enter)="addHistory($event.target.value)" [matAutocomplete]="auto" />
+            <!--type="text" placeholder="Search" -->
+
+            <!-- [formControl]="search" -->
+            <button mat-button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear"
+                (click)="reload()">
+                <!-- (click)="searchInput.value=''" -->
+                <mat-icon class="customfab-icon-black-sm">close</mat-icon>
+            </button>
+
+            <!-- [matAutocomplete]="auto"> -->
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="searchSubmit()">
+                <mat-option *ngFor="let option of searchHistory" [value]="option">
+                    <div fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-icon class="customfab-icon-black-sm">search</mat-icon>
+                        <div fxFlex>{{option}}</div>
+                        <button mat-button mat-icon-button type="button"
+                            (click)="removeSearchHistory(option);$event.stopPropagation();">
+                            <mat-icon class="customfab-icon-black-sm">delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-option>
+                <!-- <mat-option *ngFor="let option of filteredOptions | async" [value]="option.Title">
+                    <div fxFlex fxFlexFill fxLayout="row" fxLayoutAlign="space-between center">
+                        <mat-icon class="customfab-icon-black-sm" fontSet="fa" fontIcon="fa-book"></mat-icon>
+                        <div fxFlex>{{option.Title}}</div>
+                    </div>
+                </mat-option> -->
+            </mat-autocomplete>
+
+        </mat-form-field>
+
+        <button mat-button mat-stroked-button type="button" (click)="isExpanded = !isExpanded;">
+            <mat-icon class="customfab-icon-black" fontSet="fa" fontIcon="fa-search"></mat-icon>
+        </button>
+        <button mat-button mat-stroked-button type="button" *ngIf="showFilter" (click)="SwitchFilter()">
+            <mat-icon class="customfab-icon-black" fontSet="fa" fontIcon="fa-filter"></mat-icon> Filter
+        </button>
+        <!-- <button mat-button mat-stroked-button type="button" *ngIf="showSort">
+        <mat-icon class="customfab-icon-black" fontSet="fa" fontIcon="fa-arrow-down-short-wide">
+        </mat-icon>
+
+    </button> -->
+
+        <mat-form-field *ngIf="showSort" formControlName="SortBy">
+            <mat-label>Sort by</mat-label>
+            <mat-select (selectionChange)="sortChange($event)">
+                <mat-option *ngFor="let sort of sortOptions" [value]="sort.value">
+                    {{sort.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <!-- </form> -->
+    </form>
+</ng-template>

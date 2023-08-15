@@ -1,0 +1,87 @@
+<div cdkDropList class="example-list mt-20" (cdkDropListDropped)="drop($event)">
+    <div class="add-seo-form" [formGroup]="form">
+        <ng-container formArrayName="seoArray">
+            <ng-container *ngFor="let seoForm of seoArray.controls; let i = index">
+                <div class="lesson-form-row" [formGroup]="seoForm" cdkDrag>
+                    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10">
+
+                        <button mat-icon-button>
+                            <i class="material-icons">reorder</i>
+                        </button>
+                        <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+
+                            <input matInput formControlName="title" placeholder="Key">
+                        </mat-form-field>
+                        <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                            <input matInput formControlName="title" placeholder="value">
+                        </mat-form-field>
+                        <!-- <mat-icon class="delete-btn" (click)="deleteSEO(i)">
+                            delete_forever</mat-icon> -->
+
+                        <button mat-icon-button (click)="deleteSEO(i)">
+                            <i class="material-icons">delete_outline</i>
+                        </button>
+
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
+
+        <button mat-mini-fab (click)="addSEO()">
+            <mat-icon class="add-course-btn">add</mat-icon>
+        </button>
+
+    </div>
+</div>
+
+
+
+<!-- <div fxLayout="column" fxLayoutAlign="start stretch">
+
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+        <mat-label class="label m-2">Title</mat-label>
+        <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+
+            <input type="text" id="Title" class="input" placeholder="Enter Title"
+                formControlName="Title" required matInput #Title>
+            <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button
+                aria-label="Clear" (click)="Title.value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="">
+                Please enter a valid Title
+            </mat-error>
+
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+        <mat-label class="label m-2">slug</mat-label>
+        <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+            <input type="text" id="slug" class="input" placeholder="Enter slug"
+                formControlName="slug" required matInput #slug>
+            <button mat-icon-button *ngIf="slug.value" matSuffix md-icon-button
+                aria-label="Clear" (click)="slug.value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="">
+                Please enter a valid slug
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+        <mat-label class="label m-2">Template</mat-label>
+        <mat-form-field class="full-width" fxFlex appearance="outline">
+            <mat-select formControlName="Template" placeholder="Template">
+                <mat-option *ngFor="let template of pageTemplate" [value]="template.value">
+                    {{template.viewValue}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="pageForm.controls['Template'].hasError('required')">
+                Template is required
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>
+</mat-dialog-content> -->

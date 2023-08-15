@@ -1,0 +1,50 @@
+<mat-card>
+    <mat-card-content>
+        <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+            <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+
+                <div class="page-sub-title">
+                    MENU LIST
+                </div>
+                <mat-form-field id="search" appearance="outline">
+                    <input placeholder="Search" minlength="2" (keyup)="applyFilter($event.target['value'])"
+                        matInput #search>
+                        <a mat-icon-button *ngIf="search.value" matSuffix md-icon-button
+                            aria-label="Clear" (click)="search.value=''">
+                            <mat-icon>close</mat-icon>
+                        </a>
+                </mat-form-field>
+                    
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start stretch">
+                
+                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl"> 
+                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding> 
+                        <button mat-icon-button disabled></button>
+                        <div fxFlex="400">
+                           <span style="cursor:pointer" (click)="MoveToParent(node.id,node.title)"> {{node.title}} </span>
+                        </div>
+                        <div>
+                            <span matBadge="{{node.children.length}}" matBadgeOverlap="false"></span>
+                        </div>
+                    </mat-tree-node> 
+                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                        <button mat-icon-button matTreeNodeToggle
+                                [attr.aria-label]="'Toggle ' + node.title">
+                            <mat-icon class="mat-icon-rtl-mirror">
+                                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                            </mat-icon>
+                        </button>
+                        <div fxFlex="400">
+                            <span style="cursor:pointer" (click)="MoveToParent(node.id,node.title)"> {{node.title}} </span>
+                        </div>
+                        <div>
+                            <span matBadge="{{node.children.length}}" matBadgeOverlap="false"></span>
+                        </div>
+                    </mat-tree-node>
+                    </mat-tree>
+                    
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

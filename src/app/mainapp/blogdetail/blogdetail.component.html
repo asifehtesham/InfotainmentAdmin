@@ -1,0 +1,489 @@
+<form [formGroup]="blogForm">
+  <div class="m-3">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      style="height: 40px"
+    >
+      <div fxFlex>
+        <h5 mat-dialog-title class="title-sub">Blog Detail</h5>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+        <button
+          mat-flat-button
+          [mat-dialog-close]="true"
+          color="primary"
+          type="submit"
+          (click)="save()"
+          [disabled]="!blogForm.valid"
+        >
+          <mat-icon
+            class="customfab-icon-white"
+            fontSet="fa"
+            fontIcon="fa-save"
+          ></mat-icon>
+          Save
+        </button>
+        <button mat-icon-button mat-dialog-close cdkFocusInitial>
+          <mat-icon
+            class="fa fa-large mr-2"
+            fontSet="fa"
+            fontIcon="fa-times"
+          ></mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <!-- <mat-dialog-content> -->
+  <input type="hidden" id="ID" formControlName="ID" />
+  <div fxLayout="column" fxFlexFill>
+    <mat-tab-group>
+      <mat-tab label="Page Info">
+        <ng-template mat-tab-label> Basic Info </ng-template>
+        <ng-template matTabContent>
+          <mat-dialog-content>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+              <app-single-file-upload
+                fxFlex="50"
+                #imageControl
+                (complete)="onFileComplete($event)"
+              >
+              </app-single-file-upload>
+            </div>
+
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Title</mat-label>
+                <mat-form-field
+                  fxLayout="column"
+                  class="full-width"
+                  fxFlex
+                  appearance="outline"
+                >
+                  <input
+                    type="text"
+                    id="title"
+                    class="input"
+                    placeholder="Enter Title"
+                    appSlugTransform
+                    formControlName="title"
+                    required
+                    matInput
+                    #title
+                  />
+                  <a
+                    mat-icon-button
+                    *ngIf="title.value"
+                    matSuffix
+                    md-icon-button
+                    aria-label="Clear"
+                    (click)="title.value = ''"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </a>
+                  <mat-error *ngIf=""> Please enter a valid Title </mat-error>
+                </mat-form-field>
+              </div>
+              <div
+                fxLayout="row"
+                fxLayoutAlign="space-between stretch"
+                fxLayoutGap
+              >
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                  fxLayoutGap="10"
+                  fxFlex
+                >
+                  <mat-label class="label m-2">slug</mat-label>
+                  <mat-form-field
+                    fxLayout="column"
+                    class="full-width"
+                    fxFlex
+                    appearance="outline"
+                  >
+                    <input
+                      type="text"
+                      id="slug"
+                      class="input"
+                      placeholder="Enter Slug"
+                      formControlName="slug"
+                      required
+                      matInput
+                      #slug
+                    />
+                    <a
+                      mat-icon-button
+                      *ngIf="slug.value"
+                      matSuffix
+                      md-icon-button
+                      aria-label="Clear"
+                      (click)="slug.value = ''"
+                    >
+                      <mat-icon>close</mat-icon>
+                    </a>
+                    <mat-error *ngIf=""> Please enter a valid slug </mat-error>
+                  </mat-form-field>
+                </div>
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                  fxFlexOffset="1"
+                  fxFlex>
+                  <mat-label class="label m-2">Category</mat-label>
+                  <mat-form-field class="full-width">
+                    <input
+                      type="text"
+                      placeholder="Category"
+                      aria-label="text"
+                      matInput
+                      formControlName="categoryId"
+                      [formControl]="myControl"
+                      [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete
+                      autoActiveFirstOption
+                      #auto="matAutocomplete"
+                      [displayWith]="displayFn(categories)"
+                    >
+                      <mat-option
+                        *ngFor="let category of filteredCategories | async"
+                        [value]="category.title"
+                      >
+                        {{ category.title }}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <mat-error
+                      *ngIf="
+                        blogForm.controls['categoryId'].hasError('required')
+                      "
+                    >
+                      Category is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Author</mat-label>
+                <mat-form-field
+                  fxLayout="column"
+                  class="full-width"
+                  fxFlex
+                  appearance="outline"
+                >
+                  <input
+                    type="text"
+                    id="authorId"
+                    class="input"
+                    placeholder="Enter Author Name"
+                    formControlName="authorId"
+                    required
+                    matInput
+                    #authorId
+                  />
+                  <a
+                    mat-icon-button
+                    *ngIf="authorId.value"
+                    matSuffix
+                    md-icon-button
+                    aria-label="Clear"
+                    (click)="authorId.value = ''"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </a>
+                  <mat-error *ngIf=""> Please enter a valid Author </mat-error>
+                </mat-form-field>
+              </div>
+              <div
+                fxLayout="row"
+                fxLayoutAlign="space-between stretch"
+                fxLayoutGap
+              >
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                  fxLayoutGap
+                  fxFlex
+                >
+                  <mat-label class="label m-2">Available From</mat-label>
+                  <mat-form-field
+                    class="full-width"
+                    class="full-width"
+                    fxFlex
+                    appearance="outline"
+                  >
+                    <input
+                      matInput
+                      [matDatepicker]="availableStartDate"
+                      formControlName="availableStartDate"
+                      placeholder="Start Date"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="availableStartDate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #availableStartDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                  fxFlexOffset="1"
+                  fxFlex
+                >
+                  <mat-label class="label m-2">Expires on</mat-label>
+                  <mat-form-field
+                    class="full-width"
+                    class="full-width"
+                    fxFlex
+                    appearance="outline"
+                  >
+                    <input
+                      matInput
+                      [matDatepicker]="availableEndDate"
+                      formControlName="availableEndDate"
+                      placeholder="End Date"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="availableEndDate"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #availableEndDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-checkbox
+                  class="full-width"
+                  formControlName="isFeatured"
+                  fxFlex
+                  >Featured</mat-checkbox
+                >
+                <mat-checkbox
+                  class="full-width"
+                  formControlName="canComment"
+                  fxFlex
+                  >Can Comment</mat-checkbox
+                >
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Select Template</mat-label>
+                <mat-form-field
+                  fxLayout="column"
+                  class="full-width"
+                  fxFlex
+                  appearance="outline"
+                >
+                  <mat-select
+                    formControlName="templateSlug"
+                    placeholder="Select Template"
+                  >
+                    <mat-option
+                      *ngFor="let template of templates"
+                      [value]="template.slug"
+                      >{{ template.title }}</mat-option
+                    >
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Content</mat-label>
+                <app-text-component
+                  (contentDataChange)="update($event)"
+                  [contentData]="blog?.content"
+                >
+                </app-text-component>
+              </div>
+            </div>
+          </mat-dialog-content>
+        </ng-template>
+      </mat-tab>
+      <mat-tab *ngIf="id > 0">
+        <ng-template mat-tab-label> Comments </ng-template>
+        <ng-template matTabContent>
+          <mat-card>
+            <mat-card-content>
+              <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+                <div
+                  fxLayout="row"
+                  fxLayoutAlign="space-between center"
+                  style="height: 40px"
+                >
+                  <div class="page-sub-title">Comments</div>
+                  <mat-form-field appearance="outline">
+                    <mat-select
+                      placeholder="Approve / Reject"
+                      (selectionChange)="onApproveComment(0, $event.value)"
+                    >
+                      <mat-option value="approve">Approve All</mat-option>
+                      <mat-option value="reject">Reject All</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field id="search" appearance="outline">
+                    <input
+                      placeholder="Search"
+                      minlength="2"
+                      (keyup)="applyFilter($event.target['value'])"
+                      matInput
+                      #search
+                    />
+                    <a
+                      mat-icon-button
+                      *ngIf="search.value"
+                      matSuffix
+                      md-icon-button
+                      aria-label="Clear"
+                      (click)="search.value = ''"
+                    >
+                      <mat-icon>close</mat-icon>
+                    </a>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start stretch">
+                  <mat-tree
+                    [dataSource]="dataSource"
+                    [treeControl]="treeControl"
+                  >
+                    <mat-tree-node
+                      style="width: 90%"
+                      *matTreeNodeDef="let node"
+                      matTreeNodePadding
+                    >
+                      <button mat-icon-button disabled></button>
+                      <div>
+                        <!-- {{node.user | json}} -->
+                        <img
+                          matTooltip="{{ node.user.firstName }} {{
+                            node.user.lastName
+                          }}"
+                          src="{{ node.user.image || 'assets/594856.png' }}"
+                          height="20px"
+                        />
+
+                        <!-- <img *ngIf="!node.user.image" [src]="{{('594856.png') || defaultImage }}" />                                                 -->
+                        <span> {{ node.comment }} </span>
+                        <div class="approve">
+                          <mat-icon matTooltip="Total Likes">thumb_up</mat-icon
+                          >{{ node.likes }}
+                          <mat-icon matTooltip="Total DisLikes"
+                            >thumb_down</mat-icon
+                          >{{ node.dislikes }}
+                          <mat-icon
+                            matTooltip="Reject"
+                            *ngIf="node.isApproved"
+                            color="warn"
+                            (click)="onApproveComment(node.id, 'reject')"
+                            >close</mat-icon
+                          >
+                          <mat-icon
+                            matTooltip="Approve"
+                            *ngIf="!node.isApproved"
+                            color="primary"
+                            (click)="onApproveComment(node.id, 'approve')"
+                            >check</mat-icon
+                          >
+                        </div>
+                      </div>
+                      <div style="margin-left: 10px">
+                        <span
+                          matBadge="{{ node.children.length }}"
+                          matBadgeOverlap="false"
+                        ></span>
+                      </div>
+                    </mat-tree-node>
+                    <mat-tree-node
+                      style="width: 90%"
+                      *matTreeNodeDef="let node; when: hasChild"
+                      matTreeNodePadding
+                    >
+                      <button
+                        mat-icon-button
+                        matTreeNodeToggle
+                        [attr.aria-label]="'Toggle ' + node.comment"
+                      >
+                        <mat-icon class="mat-icon-rtl-mirror">
+                          {{
+                            treeControl.isExpanded(node)
+                              ? "expand_more"
+                              : "chevron_right"
+                          }}
+                        </mat-icon>
+                      </button>
+                      <div>
+                        <img
+                          matTooltip="{{ node.user.firstName }} {{
+                            node.user.lastName
+                          }}"
+                          src="{{ node.user.image || 'assets/594856.png' }}"
+                          height="20px"
+                        />
+                        <!-- <img *ngIf="!node.user.image" [src]="{{('594856.png') || defaultImage }}" />                                                 -->
+
+                        <span> {{ node.comment }} </span>
+                        <div class="approve">
+                          <mat-icon matTooltip="Total Likes">thumb_up</mat-icon
+                          >{{ node.likes }}
+                          <mat-icon matTooltip="Total DisLikes"
+                            >thumb_down</mat-icon
+                          >{{ node.dislikes }}
+                          <mat-icon
+                            matTooltip="Reject"
+                            *ngIf="node.isApproved"
+                            color="warn"
+                            (click)="onApproveComment(node.id, 'reject')"
+                            >close</mat-icon
+                          >
+                          <mat-icon
+                            matTooltip="Approve"
+                            *ngIf="!node.isApproved"
+                            color="primary"
+                            (click)="onApproveComment(node.id, 'approve')"
+                            >check</mat-icon
+                          >
+                        </div>
+                      </div>
+                      <div style="margin-left: 10px">
+                        <span
+                          matBadge="{{ node.children.length }}"
+                          matBadgeOverlap="false"
+                        ></span>
+                      </div>
+                    </mat-tree-node>
+                  </mat-tree>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </ng-template>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label> SEO </ng-template>
+        <ng-template matTabContent> </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <!-- </mat-dialog-content> -->
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+    <button
+      mat-raised-button
+      [mat-dialog-close]="true"
+      color="primary"
+      type="submit"
+      [disabled]="!blogForm.valid"
+      (click)="save()"
+    >
+      <mat-icon
+        class="customfab-icon-white"
+        fontSet="fa"
+        fontIcon="fa-save"
+      ></mat-icon>
+      Save
+    </button>
+  </mat-dialog-actions>
+</form>

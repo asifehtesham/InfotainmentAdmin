@@ -1,0 +1,34 @@
+<!-- <perfect-scrollbar psScrollable style="height: calc(100%);" class="main-sidebar "> -->
+<div fxFlex fxLayout="column" fxLayoutAlign="space-between center">
+    <div style="" fxLayoutAlign="space-around center">
+
+        <img width="40" [style.padding]="'10px'" src="./assets/logo.png">
+
+    </div>
+
+    <mat-nav-list fxFlex>
+        <mat-list-item *ngFor="let menu of topIcons" (click)="menu.open = !menu.open" class="m-2"
+            [routerLink]="[menu.link]">
+            <mat-icon matListIcon class="fa fa-large" fontSet="fa-regular" fontIcon="fa-{{menu.icon}}"></mat-icon>
+            <mat-chip-option *ngIf="menu?.chip">
+                <mat-chip-option>{{menu?.chip?.value}}</mat-chip-option>
+            </mat-chip-option>
+        </mat-list-item>
+    </mat-nav-list>
+
+    <!-- 
+    <mat-nav-list>
+        <mat-list-item *ngFor="let menu of bottomIcons" (click)="menu.open = !menu.open">
+            <mat-icon matListIcon class="fa fa-large" fontSet="fa-regular" fontIcon="fa-{{menu.icon}}"></mat-icon>
+            <mat-chip-option *ngIf="menu?.chip">
+                <mat-chip-option>{{menu?.chip?.value}}</mat-chip-option>
+            </mat-chip-option>
+        </mat-list-item>
+
+    </mat-nav-list> -->
+    <button mat-icon-button (click)="toggleSideBar()" class="headerButton">
+        <mat-icon>menu</mat-icon>
+    </button>
+</div>
+
+<!-- </perfect-scrollbar> -->

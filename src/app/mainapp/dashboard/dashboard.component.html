@@ -1,0 +1,104 @@
+<div fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all" fxLayoutGap="10px">
+    <div class="banner"></div>
+    <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="20px" class="stats-cards" fxFlex="90">
+        <app-card-icon fxFlex="25" label="Certificates" total="8" icon="trophy" color="#43c751"></app-card-icon>
+        <app-card-icon fxFlex="25" label="Completed" total="12" icon="list-check" color="#fd9833"></app-card-icon>
+        <app-card-icon fxFlex="25" label="In Progress" total="2" icon="bars-progress" color="#746efe"></app-card-icon>
+        <app-card-icon fxFlex="25" label="Enrolled" total="16" icon="circle-play" color="#ff784d">
+        </app-card-icon>
+        <!--  <app-card-icon-vertical label="Certificates" total="12" icon="trophy"></app-card-icon-vertical> -->
+        <!-- <mat-card fxFlex="25">
+        <app-card label="New Users" total="12k" percentage="50" [data]="cards"></app-card>
+    </mat-card> -->
+        <!-- <mat-card fxFlex="25">
+        <app-card label="Users retention" total="10k" percentage="40" [data]="cards"></app-card>
+    </mat-card>
+    <mat-card fxFlex="25">
+        <app-card label="Users engagement" total="8k" percentage="30" [data]="cards"></app-card>
+    </mat-card> 
+    <mat-card fxFlex="25">
+        <app-card label="Referral" total="6k" percentage="20" [data]="cards"></app-card>
+    </mat-card>-->
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px" class="stats-cards">
+        <app-card-student-badge fxFlex="20"></app-card-student-badge>
+        <!-- <app-card-student-overview fxFlex="20"></app-card-student-overview> -->
+        <mat-card appearance="outlined">
+            <mat-card-content>
+                <div fxFlex fxFlexFill fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="20px"
+                    class="stats-cards">
+                    <label class="title-semi">Featured Course</label>
+                    <!-- <app-horizontal-course-card [course]="course | async  " fxFlex fxFlexFill
+                        fxLayoutAlign="space-between stretch">
+
+                    </app-horizontal-course-card> -->
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <app-event-calender fxFlex="35"></app-event-calender>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="20px" class="stats-cards">
+
+        <app-event-calender fxFlex="35"></app-event-calender>
+        <app-card-announcement fxFlex="35"></app-card-announcement>
+    </div>
+    <br>
+
+    <mat-divider></mat-divider>
+
+    <br>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+        <div fxFlex="60">
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="position">
+                        <th mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> Name </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="weight">
+                        <th mat-header-cell *matHeaderCellDef> Weight </th>
+                        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="symbol">
+                        <th mat-header-cell *matHeaderCellDef> Symbol </th>
+                        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+                <mat-paginator [pageSizeOptions]="[10, 50, 100]" showFirstLastButtons></mat-paginator>
+            </div>
+
+        </div>
+        <div fxFlex="40">
+            <app-pie [data]="pieChart"></app-pie>
+        </div>
+    </div>
+
+    <div fxFlex="80">
+        <app-area [data]="bigChart"></app-area>
+    </div>
+
+    <br>
+
+    <mat-divider></mat-divider>
+
+    <br>
+</div>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500">
+  <defs>
+    <radialGradient id="radial-gradient" cx="250" cy="250" fx="250" fy="250" r="355.7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".01" stop-color="#fff" stop-opacity=".98"/>
+      <stop offset=".11" stop-color="#fff" stop-opacity=".75"/>
+      <stop offset=".22" stop-color="#fff" stop-opacity=".55"/>
+      <stop offset=".33" stop-color="#fff" stop-opacity=".38"/>
+      <stop offset=".43" stop-color="#fff" stop-opacity=".24"/>
+      <stop offset=".54" stop-color="#fff" stop-opacity=".14"/>
+      <stop offset=".65" stop-color="#fff" stop-opacity=".06"/>
+      <stop offset=".76" stop-color="#fff" stop-opacity=".01"/>
+      <stop offset=".87" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clippath">
+      <rect width="500" height="500" style="fill: url(#radial-gradient);"/>
+    </clipPath>
+    <radialGradient id="radial-gradient-2" cx="14364.52" cy="-77.58" fx="14364.52" fy="-77.58" r="310.08" gradientTransform="translate(328.14 1039.61) rotate(-90.04) scale(.05 1) skewX(-.74)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-3" cx="11175.53" cy="-328.68" fx="11175.53" fy="-328.68" r="309.97" gradientTransform="translate(578.68 864.8) rotate(-90) scale(.06 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-4" cx="6513" cy="-494.18" fx="6513" fy="-494.18" r="310.08" gradientTransform="translate(743.94 608.01) rotate(-89.96) scale(.05 1) skewX(.74)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-5" cx="1042.72" cy="-547.27" fx="1042.72" fy="-547.27" r="310" gradientTransform="translate(797.27 307.35) rotate(-90) scale(.06 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-6" cx="-4376.89" cy="-482.06" fx="-4376.89" fy="-482.06" r="310.08" gradientTransform="translate(490.59 731.9) rotate(-.04) scale(.05 1) skewX(-.74)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-7" cx="-8934.21" cy="-307.47" fx="-8934.21" fy="-307.47" r="309.97" gradientTransform="translate(741.5 557.46) scale(.06 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-8" cx="-11933.05" cy="-50.52" fx="-11933.05" fy="-50.52" r="310.08" gradientTransform="translate(905.95 300.98) rotate(.04) scale(.05 1) skewX(.74)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-9" cx="-12907.62" fx="-12907.62" r="310" gradientTransform="translate(959.92) scale(.06 1)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-10" cx="14434.67" cy="778.37" fx="14434.67" fy="778.37" r="310.08" gradientTransform="translate(1043.47 794.22) rotate(179.95) scale(.05 .7) skewX(-.62)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-11" cx="15292.32" cy="552.55" fx="15292.32" fy="552.55" r="310.02" gradientTransform="translate(1090.97 637.31) rotate(-179.96) scale(.05 .7) skewX(.42)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-12" cx="15538.52" cy="320.71" fx="15538.52" fy="320.71" r="310" gradientTransform="translate(1104.62 474.5) rotate(-180) scale(.06 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-13" cx="15167.86" cy="90.07" fx="15167.86" fy="90.07" r="310.02" gradientTransform="translate(187.48 1084.15) rotate(-90.04) scale(.05 .7) skewX(-.42)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-14" cx="14206.17" cy="-133.47" fx="14206.17" fy="-133.47" r="310.08" gradientTransform="translate(342.79 1030.92) rotate(-89.95) scale(.05 .7) skewX(.62)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-15" cx="12662.03" cy="-330.92" fx="12662.03" fy="-330.92" r="310.05" gradientTransform="translate(481.95 946.23) rotate(-90.03) scale(.05 .7) skewX(-.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-16" cx="10622.85" cy="-503.23" fx="10622.85" fy="-503.23" r="309.95" gradientTransform="translate(602.05 834.45) rotate(-89.98) scale(.06 .7) skewX(.27)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-17" cx="8197.2" cy="-635.87" fx="8197.2" fy="-635.87" r="310.08" gradientTransform="translate(695.23 700.62) rotate(-90.02) scale(.05 .7) skewX(-.2)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-18" cx="5452.6" cy="-726.77" fx="5452.6" fy="-726.77" r="310.03" gradientTransform="translate(758.74 549.86) rotate(-90.01) scale(.05 .7) skewX(-.08)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-19" cx="2528.18" cy="-772.57" fx="2528.18" fy="-772.57" r="310" gradientTransform="translate(790.7 389.02) rotate(-89.95) scale(.05 .7) skewX(.68)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-20" cx="-438.59" cy="-766.94" fx="-438.59" fy="-766.94" r="310" gradientTransform="translate(274.1 786.86) rotate(-.05) scale(.05 .7) skewX(-.68)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-21" cx="-3338.53" cy="-713.67" fx="-3338.53" fy="-713.67" r="310.03" gradientTransform="translate(433.6 749.56) scale(.05 .7) skewX(.08)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-22" cx="-6030.53" cy="-614.81" fx="-6030.53" fy="-614.81" r="310.08" gradientTransform="translate(581.51 680.45) rotate(.02) scale(.05 .7) skewX(.2)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-23" cx="-8402.9" cy="-474.09" fx="-8402.9" fy="-474.09" r="309.95" gradientTransform="translate(712.31 581.7) rotate(-.02) scale(.06 .7) skewX(-.27)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-24" cx="-10347.71" cy="-296.85" fx="-10347.71" fy="-296.85" r="310.05" gradientTransform="translate(818.98 458.04) rotate(.03) scale(.05 .7) skewX(.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-25" cx="-11788.25" cy="-93.23" fx="-11788.25" fy="-93.23" r="310.08" gradientTransform="translate(898.01 314.73) rotate(-.05) scale(.05 .7) skewX(-.62)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-26" cx="-12648.67" cy="131.16" fx="-12648.67" fy="131.16" r="310.02" gradientTransform="translate(945.61 158.63) rotate(.04) scale(.05 .7) skewX(.42)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-27" cx="-12907.62" cy="363.57" fx="-12907.62" fy="363.57" r="310" gradientTransform="translate(959.92 -4.5) scale(.06 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-28" cx="-8934.21" cy="-433.3" fx="-8934.21" fy="-433.3" r="309.96" gradientTransform="translate(741.5 553.33) scale(.06 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-29" cx="-12296.5" cy="17.61" fx="-12296.5" fy="17.61" r="310.03" gradientTransform="translate(926.23 237.59) scale(.05 .7) skewX(-.08)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-30" cx="-12693.24" cy="537.92" fx="-12693.24" fy="537.92" r="310.06" gradientTransform="translate(626.55 947.83) rotate(90) scale(.05 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-31" cx="-10037.06" cy="1016.74" fx="-10037.06" fy="1016.74" r="310.05" gradientTransform="translate(961.93 801.87) rotate(89.97) scale(.05 .7) skewX(-.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-32" cx="-4900.41" cy="1347.7" fx="-4900.41" fy="1347.7" r="309.97" gradientTransform="translate(1193.54 519.56) rotate(89.97) scale(.06 .7) skewX(-.38)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-33" cx="1588.18" cy="1459.67" fx="1588.18" fy="1459.67" r="310" gradientTransform="translate(1271.77 162.65) rotate(90) scale(.06 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-34" cx="8014.43" cy="1327.51" fx="8014.43" fy="1327.51" r="309.97" gradientTransform="translate(690.86 1179.49) rotate(-179.97) scale(.06 .7) skewX(.38)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-35" cx="12992.72" cy="981.44" fx="12992.72" fy="981.44" r="310.05" gradientTransform="translate(964.39 937.3) rotate(-179.97) scale(.05 .7) skewX(.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-36" cx="15416.65" cy="495.58" fx="15416.65" fy="495.58" r="310.06" gradientTransform="translate(1097.56 596.92) rotate(-180) scale(.05 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-37" cx="14760.82" cy="-23.3" fx="14760.82" fy="-23.3" r="310.03" gradientTransform="translate(266.22 1061.75) rotate(-89.99) scale(.05 .7) skewX(.08)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-38" cx="11175.53" cy="-463.6" fx="11175.53" fy="-463.6" r="309.96" gradientTransform="translate(574.54 864.8) rotate(-90) scale(.06 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-39" cx="5452.6" cy="-726.77" fx="5452.6" fy="-726.77" r="310.03" gradientTransform="translate(758.74 549.86) rotate(-90.01) scale(.05 .7) skewX(-.08)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-40" cx="-1177.28" cy="-758.45" fx="-1177.28" fy="-758.45" r="310.06" gradientTransform="translate(314.73 780.93) scale(.05 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-41" cx="-7269.8" cy="-548.95" fx="-7269.8" fy="-548.95" r="310.05" gradientTransform="translate(649.76 634.06) rotate(-.03) scale(.05 .7) skewX(-.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-42" cx="-11481.63" cy="-146.28" fx="-11481.63" fy="-146.28" r="309.97" gradientTransform="translate(881.6 352.06) rotate(-.03) scale(.06 .7) skewX(-.38)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-43" cx="-12907.62" cy="363.57" fx="-12907.62" fy="363.57" r="310" gradientTransform="translate(959.92 -4.5) scale(.06 .7)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-44" cx="-10394.98" cy="144.14" fx="-10394.98" fy="144.14" r="309.98" gradientTransform="translate(936.17 138.62) rotate(-.03) scale(.07 .77) skewX(-.39)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-45" cx="-9903.95" cy="-28.29" fx="-9903.95" fy="-28.29" r="310.01" gradientTransform="translate(903.57 271.47) rotate(-.03) scale(.07 .77) skewX(-.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-46" cx="-9064.07" cy="-189.2" fx="-9064.07" fy="-189.2" r="309.92" gradientTransform="translate(848.56 395.87) rotate(.02) scale(.07 .77) skewX(.23)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-47" cx="-7902.54" cy="-336.62" fx="-7902.54" fy="-336.62" r="309.96" gradientTransform="translate(771.67 509.55) rotate(.04) scale(.07 .77) skewX(.4)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-48" cx="-6484.87" cy="-464.25" fx="-6484.87" fy="-464.25" r="309.96" gradientTransform="translate(678.14 607.18) rotate(-.04) scale(.07 .77) skewX(-.4)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-49" cx="-4806.74" cy="-568.2" fx="-4806.74" fy="-568.2" r="309.92" gradientTransform="translate(567.41 687.39) rotate(-.02) scale(.07 .77) skewX(-.23)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-50" cx="-2948.09" cy="-647.15" fx="-2948.09" fy="-647.15" r="310.01" gradientTransform="translate(444.53 748.43) rotate(.03) scale(.07 .77) skewX(.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-51" cx="-968.38" cy="-695.9" fx="-968.38" fy="-695.9" r="309.98" gradientTransform="translate(313.93 785.87) rotate(.03) scale(.07 .77) skewX(.39)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-52" cx="1088.18" cy="-714.44" fx="1088.18" fy="-714.44" r="310" gradientTransform="translate(800.12 321.82) rotate(-90) scale(.07 .77)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-53" cx="3149.28" cy="-701.84" fx="3149.28" fy="-701.84" r="309.98" gradientTransform="translate(790.54 457.89) rotate(-90.03) scale(.07 .77) skewX(-.39)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-54" cx="5154.22" cy="-659.8" fx="5154.22" fy="-659.8" r="310.01" gradientTransform="translate(758.24 590.11) rotate(-90.03) scale(.07 .77) skewX(-.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-55" cx="7034.81" cy="-588.13" fx="7034.81" fy="-588.13" r="309.92" gradientTransform="translate(702.69 714.54) rotate(-89.98) scale(.07 .77) skewX(.23)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-56" cx="8763.51" cy="-490.25" fx="8763.51" fy="-490.25" r="309.96" gradientTransform="translate(627.11 828.56) rotate(-89.96) scale(.07 .77) skewX(.4)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-57" cx="10237.24" cy="-365.5" fx="10237.24" fy="-365.5" r="309.96" gradientTransform="translate(531.89 925.8) rotate(-90.04) scale(.07 .77) skewX(-.4)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-58" cx="11458.41" cy="-222.49" fx="11458.41" fy="-222.49" r="309.92" gradientTransform="translate(421.55 1006.68) rotate(-90.02) scale(.07 .77) skewX(-.23)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-59" cx="12381.76" cy="-65.6" fx="12381.76" fy="-65.6" r="310.01" gradientTransform="translate(300.12 1067.08) rotate(-89.97) scale(.07 .77) skewX(.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-60" cx="12944.54" cy="104.93" fx="12944.54" fy="104.93" r="309.98" gradientTransform="translate(168.71 1104.46) rotate(-89.97) scale(.07 .77) skewX(.39)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-61" cx="13168.01" cy="282.01" fx="13168.01" fy="282.01" r="310" gradientTransform="translate(1119.09 467.15) rotate(-180) scale(.07 .77)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-62" cx="13025.61" cy="459.76" fx="13025.61" fy="459.76" r="309.98" gradientTransform="translate(1109.81 603.52) rotate(179.97) scale(.07 .77) skewX(-.39)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-63" cx="12529.94" cy="630.92" fx="12529.94" fy="630.92" r="310.01" gradientTransform="translate(1076.88 735.44) rotate(179.97) scale(.07 .77) skewX(-.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-64" cx="11680.62" cy="792.46" fx="11680.62" fy="792.46" r="309.92" gradientTransform="translate(1021.36 860.42) rotate(-179.98) scale(.07 .77) skewX(.23)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-65" cx="10545.58" cy="938.51" fx="10545.58" fy="938.51" r="309.96" gradientTransform="translate(946.12 973.13) rotate(-179.96) scale(.07 .77) skewX(.4)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-66" cx="9095.39" cy="1068.11" fx="9095.39" fy="1068.11" r="309.96" gradientTransform="translate(850.51 1072.04) rotate(179.96) scale(.07 .77) skewX(-.4)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-67" cx="7433.18" cy="1172.38" fx="7433.18" fy="1172.38" r="309.92" gradientTransform="translate(740.84 1152.54) rotate(179.98) scale(.07 .77) skewX(-.23)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-68" cx="5588.73" cy="1248.38" fx="5588.73" fy="1248.38" r="310.01" gradientTransform="translate(618.77 1211.49) rotate(-179.97) scale(.07 .77) skewX(.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-69" cx="3594.7" cy="1298.12" fx="3594.7" fy="1298.12" r="309.98" gradientTransform="translate(487.3 1249.68) rotate(-179.97) scale(.07 .77) skewX(.39)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-70" cx="1542.72" cy="1317.43" fx="1542.72" fy="1317.43" r="310" gradientTransform="translate(1264.42 148.18) rotate(90) scale(.07 .77)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-71" cx="-518.65" cy="1305.75" fx="-518.65" fy="1305.75" r="309.98" gradientTransform="translate(1255.44 284.25) rotate(89.97) scale(.07 .77) skewX(-.39)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-72" cx="-2528.22" cy="1262.42" fx="-2528.22" fy="1262.42" r="310.01" gradientTransform="translate(1222.21 416.8) rotate(89.97) scale(.07 .77) skewX(-.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-73" cx="-4418.27" cy="1191.39" fx="-4418.27" fy="1191.39" r="309.92" gradientTransform="translate(1167.24 541.74) rotate(90.02) scale(.07 .77) skewX(.23)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-74" cx="-6120.46" cy="1092.14" fx="-6120.46" fy="1092.14" r="309.96" gradientTransform="translate(1090.68 654.12) rotate(90.04) scale(.07 .77) skewX(.4)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-75" cx="-7626.72" cy="969.36" fx="-7626.72" fy="969.36" r="309.96" gradientTransform="translate(996.75 753.42) rotate(89.96) scale(.07 .77) skewX(-.4)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-76" cx="-8831.97" cy="826.68" fx="-8831.97" fy="826.68" r="309.92" gradientTransform="translate(886.7 833.25) rotate(89.98) scale(.07 .77) skewX(-.23)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-77" cx="-9741.12" cy="666.82" fx="-9741.12" fy="666.82" r="310.01" gradientTransform="translate(763.17 892.84) rotate(90.03) scale(.07 .77) skewX(.3)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-78" cx="-10318.22" cy="497.29" fx="-10318.22" fy="497.29" r="309.98" gradientTransform="translate(632.52 931.1) rotate(90.03) scale(.07 .77) skewX(.39)" xlink:href="#radial-gradient"/>
+    <radialGradient id="radial-gradient-79" cx="-10537.11" cy="320.97" fx="-10537.11" fy="320.97" r="310" gradientTransform="translate(945.45 2.85) scale(.07 .77)" xlink:href="#radial-gradient"/>
+  </defs>
+  <g style="isolation: isolate;">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <rect width="500" height="500" style="fill: url(#radial-gradient);"/>
+          <g style="clip-path: url(#clippath);">
+            <g>
+              <ellipse cx="250" cy="250" rx="310" ry="17.05" transform="translate(-76.64 385.3) rotate(-67.5)" style="fill: url(#radial-gradient-2); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="310" ry="17.05" transform="translate(-103.55 250) rotate(-45)" style="fill: url(#radial-gradient-3); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="310" ry="17.05" transform="translate(-76.64 114.7) rotate(-22.5)" style="fill: url(#radial-gradient-4); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="310" ry="17.05" style="fill: url(#radial-gradient-5); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="310" transform="translate(-76.64 385.3) rotate(-67.5)" style="fill: url(#radial-gradient-6); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="310" transform="translate(-103.55 250) rotate(-45)" style="fill: url(#radial-gradient-7); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="310" transform="translate(-76.64 114.7) rotate(-22.5)" style="fill: url(#radial-gradient-8); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="310" style="fill: url(#radial-gradient-9); mix-blend-mode: screen;"/>
+            </g>
+            <g>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-80.07 123.3) rotate(-24)" style="fill: url(#radial-gradient-10); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-46.51 57.44) rotate(-12)" style="fill: url(#radial-gradient-11); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" style="fill: url(#radial-gradient-12); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-46.51 442.56) rotate(-78)" style="fill: url(#radial-gradient-13); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-80.07 376.7) rotate(-66)" style="fill: url(#radial-gradient-14); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-99.2 305.31) rotate(-54)" style="fill: url(#radial-gradient-15); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-103.07 231.5) rotate(-42)" style="fill: url(#radial-gradient-16); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-91.51 158.49) rotate(-30)" style="fill: url(#radial-gradient-17); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-65.02 89.49) rotate(-18)" style="fill: url(#radial-gradient-18); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-24.76 27.5) rotate(-6)" style="fill: url(#radial-gradient-19); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-24.76 472.5) rotate(-84)" style="fill: url(#radial-gradient-20); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-65.02 410.51) rotate(-72)" style="fill: url(#radial-gradient-21); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-91.51 341.51) rotate(-60)" style="fill: url(#radial-gradient-22); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-103.07 268.5) rotate(-48)" style="fill: url(#radial-gradient-23); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-99.2 194.69) rotate(-36)" style="fill: url(#radial-gradient-24); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-80.07 123.3) rotate(-24)" style="fill: url(#radial-gradient-25); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-46.51 57.44) rotate(-12)" style="fill: url(#radial-gradient-26); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" style="fill: url(#radial-gradient-27); mix-blend-mode: screen;"/>
+            </g>
+            <g>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-103.55 250) rotate(-45)" style="fill: url(#radial-gradient-28); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-65.02 89.49) rotate(-18)" style="fill: url(#radial-gradient-29); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-36.03 457.81) rotate(-81)" style="fill: url(#radial-gradient-30); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-99.2 305.31) rotate(-54)" style="fill: url(#radial-gradient-31); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-86.25 140.75) rotate(-27)" style="fill: url(#radial-gradient-32); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" style="fill: url(#radial-gradient-33); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-86.25 359.25) rotate(-63)" style="fill: url(#radial-gradient-34); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-99.2 194.69) rotate(-36)" style="fill: url(#radial-gradient-35); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-36.03 42.19) rotate(-9)" style="fill: url(#radial-gradient-36); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-65.02 410.51) rotate(-72)" style="fill: url(#radial-gradient-37); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-103.55 250) rotate(-45)" style="fill: url(#radial-gradient-38); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="217" ry="17.05" transform="translate(-65.02 89.49) rotate(-18)" style="fill: url(#radial-gradient-39); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-36.03 457.81) rotate(-81)" style="fill: url(#radial-gradient-40); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-99.2 305.31) rotate(-54)" style="fill: url(#radial-gradient-41); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" transform="translate(-86.25 140.75) rotate(-27)" style="fill: url(#radial-gradient-42); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="17.05" ry="217" style="fill: url(#radial-gradient-43); mix-blend-mode: screen;"/>
+            </g>
+            <g>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-39.61 47.21) rotate(-10)" style="fill: url(#radial-gradient-44); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-70.43 100.58) rotate(-20)" style="fill: url(#radial-gradient-45); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-91.51 158.49) rotate(-30)" style="fill: url(#radial-gradient-46); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-102.21 219.19) rotate(-40)" style="fill: url(#radial-gradient-47); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-102.21 280.81) rotate(-50)" style="fill: url(#radial-gradient-48); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-91.51 341.51) rotate(-60)" style="fill: url(#radial-gradient-49); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-70.43 399.42) rotate(-70)" style="fill: url(#radial-gradient-50); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-39.61 452.79) rotate(-80)" style="fill: url(#radial-gradient-51); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" style="fill: url(#radial-gradient-52); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-39.61 47.21) rotate(-10)" style="fill: url(#radial-gradient-53); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-70.43 100.58) rotate(-20)" style="fill: url(#radial-gradient-54); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-91.51 158.49) rotate(-30)" style="fill: url(#radial-gradient-55); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-102.21 219.19) rotate(-40)" style="fill: url(#radial-gradient-56); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-102.21 280.81) rotate(-50)" style="fill: url(#radial-gradient-57); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-91.51 341.51) rotate(-60)" style="fill: url(#radial-gradient-58); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-70.43 399.42) rotate(-70)" style="fill: url(#radial-gradient-59); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-39.61 452.79) rotate(-80)" style="fill: url(#radial-gradient-60); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" style="fill: url(#radial-gradient-61); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-39.61 47.21) rotate(-10)" style="fill: url(#radial-gradient-62); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-70.43 100.58) rotate(-20)" style="fill: url(#radial-gradient-63); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-91.51 158.49) rotate(-30)" style="fill: url(#radial-gradient-64); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-102.21 219.19) rotate(-40)" style="fill: url(#radial-gradient-65); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-102.21 280.81) rotate(-50)" style="fill: url(#radial-gradient-66); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-91.51 341.51) rotate(-60)" style="fill: url(#radial-gradient-67); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-70.43 399.42) rotate(-70)" style="fill: url(#radial-gradient-68); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" transform="translate(-39.61 452.79) rotate(-80)" style="fill: url(#radial-gradient-69); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" style="fill: url(#radial-gradient-70); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-39.61 47.21) rotate(-10)" style="fill: url(#radial-gradient-71); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-70.43 100.58) rotate(-20)" style="fill: url(#radial-gradient-72); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-91.51 158.49) rotate(-30)" style="fill: url(#radial-gradient-73); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-102.21 219.19) rotate(-40)" style="fill: url(#radial-gradient-74); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-102.21 280.81) rotate(-50)" style="fill: url(#radial-gradient-75); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-91.51 341.51) rotate(-60)" style="fill: url(#radial-gradient-76); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-70.43 399.42) rotate(-70)" style="fill: url(#radial-gradient-77); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="238.7" ry="20.46" transform="translate(-39.61 452.79) rotate(-80)" style="fill: url(#radial-gradient-78); mix-blend-mode: screen;"/>
+              <ellipse cx="250" cy="250" rx="20.46" ry="238.7" style="fill: url(#radial-gradient-79); mix-blend-mode: screen;"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

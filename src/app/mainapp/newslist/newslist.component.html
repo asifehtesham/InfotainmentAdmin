@@ -1,0 +1,135 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+
+    <mat-card>
+        <mat-card-content>
+
+            <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+                <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+                    <div class="page-sub-title">
+                        NEWS LIST
+                    </div>
+                    <div>
+                        <a mat-button mat-flat-button color="warn" (click)="onAdd()">
+                            <mat-icon>add</mat-icon> Add
+                        </a>
+                        &nbsp;
+                        <button mat-button mat-flat-button color="warn" (click)="onRemoveAll()">
+                            <mat-icon>delete</mat-icon> Delete
+                        </button>
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <!-- <mat-form-field>
+                        <mat-label>Filter</mat-label>
+                        <input matInput placeholder="" #searchInput [formControl]="search">
+
+                        <!-- <mat-icon matSuffix>mode_search</mat-icon> -- >
+                    <mat-icon matPrefix fontSet="fa" fontIcon="fa-search"></mat-icon>
+                    <button mat-button *ngIf="searchInput.value" matSuffix md-icon-button aria-label="Clear"
+                        (click)="reload()">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                    </mat-form-field> -->
+                    <div>
+                        <ng-container *ngIf="dataSource.filteredData.length > 0 else loading">
+                            <table mat-table [dataSource]="dataSource" matSort>
+                                <!-- Checkbox Column -->
+                                <ng-container matColumnDef="select">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <mat-checkbox (change)="$event ? toggleAllRows() : null" color="primary"
+                                            [checked]="selection.hasValue() && isAllSelected()"
+                                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                            [aria-label]="checkboxLabel()">
+                                        </mat-checkbox>
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-checkbox (click)="$event.stopPropagation()" color="primary"
+                                            (change)="$event ? selection.toggle(row) : null"
+                                            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                        </mat-checkbox>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Position Column -->
+                                <ng-container matColumnDef="slug">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Slug</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.slug}} </td>
+                                </ng-container>
+
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="title">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                                </ng-container>
+                                <!-- Weight Column -->
+                                <ng-container matColumnDef="availableStartDate">
+                                    <th mat-header-cell *matHeaderCellDef>Available From</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.availableStartDate |
+                                        date:'mediumDate'}}
+                                        <mat-chip>{{element.availableStartDate |
+                                            date:'shortTime'}}</mat-chip>
+                                    </td>
+
+                                </ng-container>
+                                <ng-container matColumnDef="availableEndDate">
+                                    <th mat-header-cell *matHeaderCellDef>Expires on</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.availableEndDate |
+                                        date:'mediumDate'}}
+                                        <mat-chip>{{element.availableEndDate |
+                                            date:'shortTime'}}</mat-chip>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="isFeatured">
+                                    <th mat-header-cell *matHeaderCellDef>Featured</th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <mat-icon *ngIf="element.isFeatured" class="customfab-icon-black-sm"
+                                            fontSet="fa" fontIcon="fa-check"></mat-icon>
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="lastEditDate">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Edit</th>
+                                    <td mat-cell *matCellDef="let element"
+                                        [matTooltip]="element.lastEditDate | date:'medium'">
+                                        {{element.lastEditDate | date:'mediumDate'}}
+
+                                    </td>
+                                </ng-container>
+                                <ng-container matColumnDef="isPublish">
+                                    <th mat-header-cell *matHeaderCellDef> Publish </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <mat-slide-toggle [color]="'primary'" [checked]="element.isPublish"
+                                            (change)="chkActive_changed(element, $event)"></mat-slide-toggle>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="id" stickyEnd>
+                                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                                    <td mat-cell *matCellDef="let element">
+
+                                        <a mat-button md-icon-button matSuffix (click)="onEdit(element)">
+                                            <mat-icon>edit</mat-icon>
+                                        </a>
+                                        <button mat-button matSuffix md-icon-button aria-label="Clear"
+                                            (click)="ondelete(element)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[10, 50, 100]" showFirstLastButtons></mat-paginator>
+                        </ng-container>
+                        <ng-template #loading>
+                            <app-loading align="center"></app-loading>
+                        </ng-template>
+
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

@@ -1,0 +1,10 @@
+mat-card {
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+}
+
+.mdc-card__media {
+    border-radius: 5px !important;
+    height: 100%;
+    width: 100%;
+}

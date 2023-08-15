@@ -1,0 +1,20 @@
+<form [formGroup]="contentForm">
+  <angular-editor
+  (keyup)="update()"
+    fxFlex
+    id="editor1"
+    formControlName="content"
+    [config]="editorConfig"
+  >
+    <ng-template #customButtons let-executeCommandFn="advancedEdit">
+      <ae-toolbar-set>
+        <ae-button
+          iconClass="fa fa-arrows-alt"
+          title="Advanced edit"
+          (click)="onAdvanceEdit()"
+        >
+        </ae-button>
+      </ae-toolbar-set>
+    </ng-template>
+  </angular-editor>
+</form>

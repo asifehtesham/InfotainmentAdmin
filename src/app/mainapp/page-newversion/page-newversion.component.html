@@ -1,0 +1,51 @@
+<form [formGroup]="formGroup">
+    <div class="m-3">
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+            <div fxFlex>
+                <h5 mat-dialog-title class="title-sub">Add New Version</h5>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+                <button mat-icon-button mat-dialog-close cdkFocusInitial>
+                    <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <!-- <mat-dialog-content> -->
+    <input type="hidden" id="ID" formControlName="ID">
+    <div fxLayout="column" fxFlexFill>
+
+        <mat-dialog-content>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                    <mat-label class="label m-2">Version</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+
+                        <input type="text" id="Version" class="input" placeholder="Enter Version"
+                            formControlName="Version" required matInput #Version>
+                        <button mat-icon-button *ngIf="Version.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Version.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="formGroup.valid">
+                            Please enter a valid Version
+                        </mat-error>
+                        <mat-error *ngIf="hasError">
+                            Same version already exists, enter unique version no.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-dialog-content>
+    </div>
+    <!-- </mat-dialog-content> -->
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+        <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formGroup.valid" (click)="save()">
+            <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
+        </button>
+    </mat-dialog-actions>
+</form>

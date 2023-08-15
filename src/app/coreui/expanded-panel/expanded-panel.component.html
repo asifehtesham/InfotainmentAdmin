@@ -1,0 +1,13 @@
+<!-- [style]="'max-height:'+ height + 'px ;overflow: hidden;'" 
+    [style]="(!isExpanded)? '-webkit-mask-image:linear-gradient(#fff, #fff, rgba(255,255,255,0))': ''" -->
+<div #outerDiv
+    [ngStyle]="{'-webkit-mask-image': (!isExpanded)?'linear-gradient(#fff, #fff, rgba(255,255,255,0))': '', 'overflow':'hidden','max-height': height + 'px'}">
+    <div #innerDiv>
+        <ng-content></ng-content>
+    </div>
+</div>
+
+<button mat-button *ngIf="showOption" (click)="toggleHeight()">
+    <span *ngIf="isExpanded">Show less</span>
+    <span *ngIf="!isExpanded">Show more</span>
+</button>

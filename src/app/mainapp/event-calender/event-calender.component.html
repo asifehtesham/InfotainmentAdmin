@@ -1,0 +1,87 @@
+<!-- <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+    [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
+    (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
+</mwl-calendar-month-view> 
+
+<mwl-calendar-month-view activeDayIsOpen="false" [viewDate]="viewDate" (dayClicked)="dayClicked($event.day)"
+    [refresh]="refresh">
+</mwl-calendar-month-view>
+-->
+
+
+<div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+
+    <mat-card>
+        <mat-card-content>
+
+            <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+                <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+                    <div class="page-sub-title">
+                        BANNER LIST
+                    </div>
+                    <div>
+                        <a mat-button mat-flat-button color="warn">
+                            <mat-icon>add</mat-icon> Add
+                        </a>
+                        <!-- (click)="onAdd()" -->
+                        <!-- (click)="onRemoveAll()" -->
+                        &nbsp;
+                        <button mat-button mat-flat-button color="warn">
+                            <mat-icon>delete</mat-icon> Delete
+                        </button>
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <div>
+                        <ng-container>
+                            <!-- <mat-calendar fxFlex="60" [(selected)]="selected" [dateClass]="dateClass"
+                                (selectedChange)="dayClicked($event)">
+                            </mat-calendar> -->
+
+                        </ng-container>
+                        <ng-template #loading>
+                            <app-loading align="center"></app-loading>
+                        </ng-template>
+
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>
+<!-- 
+
+<mat-card appearance="outlined" class="demo-inline-calendar-card">
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px" class="stats-cards" fxFlexFill>
+        <label class="title-semi">Calender</label>
+
+        <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" fxFlexFill>
+            <mat-calendar fxFlex="60" [(selected)]="selected" [dateClass]="dateClass"
+                (selectedChange)="dayClicked($event)">
+            </mat-calendar>
+
+            <!-- <div fxFlex="20" class="chart-container" style="position: relative;">
+                <canvas id="myChart" #myChart></canvas>
+            </div> -- >
+            <div fxFlex="40" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+                <div style="position: relative;height: 150px;">
+                    <canvas id="myChart" #myChart></canvas>
+                </div>
+
+
+                <mat-divider inset></mat-divider>
+                <div>
+                    <div mat-line><label class="label-sm">Next Activity</label>&nbsp;<label
+                            class="title-semi">Class</label>
+                    </div>
+                    <div mat-line><label class="label-sm">Start after</label>&nbsp;
+                        <label class="title-semi">34 hours</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</mat-card>
+-->

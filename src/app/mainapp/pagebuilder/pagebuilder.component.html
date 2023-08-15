@@ -1,0 +1,179 @@
+<!-- <div id="custom-html">
+  <div class="app-ace-editor" #editor style="width: 500px; height: 250px"></div>
+  <div><button  (click)="aceTest()" >Save</button></div>
+</div> -->
+
+<!-- ...................////////////// -->
+
+<button
+  [ngStyle]="{ display: 'none' }"
+  id="openCustomCss"
+  (click)="openCustomCss()"
+>
+  customCss
+</button>
+
+<button
+  [ngStyle]="{ display: 'none' }"
+  id="openCustomHtml"
+  (click)="openCustomHtml()"
+>
+  customHtml
+</button>
+
+<button
+  [ngStyle]="{ display: 'none' }"
+  id="openCustomJs"
+  (click)="openCustomJs()"
+>
+  customJs
+</button>
+
+<button
+  [ngStyle]="{ display: 'none' }"
+  id="openCustomCdn"
+  (click)="openCustomCdn()"
+>
+  customJs
+</button>
+
+<!-- ...................////////////// -->
+
+<button
+  [ngStyle]="{ display: 'none' }"
+  id="save_trigger"
+  (click)="saveGjsPage()"
+>
+  click here
+</button>
+
+<button
+  [ngStyle]="{ display: 'none' }"
+  id="publish_trigger"
+  (click)="publishGjsPage()"
+>
+  click here
+</button>
+
+<button
+  [ngStyle]="{ display: 'none' }"
+  id="cc_trigger"
+  (click)="saveCustomComponent()"
+>
+  click here
+</button>
+
+<button [ngStyle]="{ display: 'none' }" id="t_trigger" (click)="saveTemplate()">
+  click here
+</button>
+
+<div
+  (click)="hideAll()"
+  style="
+    position: absolute;
+    background: #262327;
+    height: 20px;
+    width: 80px;
+    top: 0%;
+    right: 50%;
+    z-index: 5;
+    border-radius: 5px;
+    cursor: pointer;
+  "
+>
+  <div style="justify-content: center; display: flex">
+    <span style="position: relative; color: #fff">
+      <i class="fa fa-caret-up" aria-hidden="true"></i>
+    </span>
+  </div>
+</div>
+
+
+<!-- <div
+  (click)="hideAll()"
+  style="
+    position: absolute;
+    right: 50%;
+    z-index: 5;
+    position: pointer;
+    font-size: 50px;
+    cursor: pointer;
+    top: -35px;
+    color: #262327;
+  "
+>
+  <span>
+    <i class="fa fa-caret-down" aria-hidden="true"></i>
+  </span>
+</div> -->
+
+<div
+  id="styleManager"
+  style="
+    max-height: 70%;
+    width: 25%;
+    position: absolute;
+    z-index: 3;
+    top: 20%;
+    right: 15%;
+    background-color: #fff;
+    padding: 5px;
+    overflow-y: scroll;
+    display: none;
+    border-radius: 25px;
+  "
+>
+  <!-- <div style="height: 20px">
+    <span style="float: right" (click)="closeStyleManager()">
+      <i class="fa fa-window-close" aria-hidden="true"></i>
+    </span>
+  </div> -->
+  <div style="position: relative">
+    <div id="styles-container"></div>
+    <div id="style-manager"></div>
+  </div>
+</div>
+<!-- <div style="position: absolute; display: flex;  z-index: 2;">
+
+  <div style="height: 50vh; width: 30%;">
+        <div id="styles-container"></div>
+  </div>
+
+  <div style="flex:0.3; height: 50vh; width: 30%; ">
+        <div id="layers-container"></div>
+  </div>
+
+  <div style=" flex:0.3; height: 50vh; width: 30%; ">
+        <div id="trait-container"></div>
+  </div>
+
+</div>  -->
+<!-- 
+<div style="height: 120px; width: 80px; position: absolute; z-index: 2; top:40%; left:5%">
+  <button><span title="Add Custom CSS" class="gjs-pn-btn fa fa-css3"></span>
+  </button>
+  
+  <button><span title="Add Custom CSS" class="gjs-pn-btn fa fa-css3"></span>
+  </button>
+  
+  <button><span title="Add Custom CSS" class="gjs-pn-btn fa fa-css3"></span>
+  </button>
+  
+  <button><span title="Add Custom CSS" class="gjs-pn-btn fa fa-css3"></span>
+  </button>
+  
+   <button>Layers</button>
+  <button>Assets</button>
+  <button>Setings</button> 
+</div> 
+-->
+
+<div id="gjs"></div>
+
+<!-- <div id="blocks"></div> 
+
+<div id="layers-container"></div>
+
+<div id="trait-container"></div>
+
+ -->

@@ -1,0 +1,35 @@
+<mat-card appearance="outlined" fxFlex>
+    <!-- <mat-card-header><label class="title-semi">Announcements</label></mat-card-header> -->
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+        <label class="title-semi">Announcements</label>
+        <button mat-button mat-icon-button (click)="onRefresh()">
+            <mat-icon class="customfab-icon_blue" fontSet="fa" fontIcon="fa-refresh"></mat-icon>
+        </button>
+    </div>
+
+    <mat-card-content>
+        <!-- <div *ngFor="let announcement of Announcements | async as announcements; index as indexOfelement;"
+            fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="start stretch">
+            <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+                <div fxFlex="10">
+                    <img *ngIf="announcement.AnnouncementBy.Picture && announcement.AnnouncementBy.Picture.Url.length >0"
+                        [src]="announcement.AnnouncementBy.Picture.Url" [style.borderRadius]="'50%'" width="50px"
+                        height="50px" />
+                    <div *ngIf="!(announcement.AnnouncementBy.Picture && announcement.AnnouncementBy.Picture.Url.length >0)"
+                        class="avatar">
+                        {{announcement.AnnouncementBy.Name | initials}}
+                    </div>
+                </div>
+                <div fxFlex fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="space-between start">
+                    <label class="title-semi">{{announcement.Title}}</label>
+                    <label class="label">{{announcement.AnnouncementBy.Name}}</label>
+                </div>
+                <mat-icon class="customfab-icon_blue" fontSet="fa" fontIcon="fa-arrow-right"></mat-icon>
+            </div>
+            <div *ngIf="indexOfelement < announcements.length -1" style="min-height: 20px;">
+
+                <mat-divider inset></mat-divider>
+            </div>
+        </div> -->
+    </mat-card-content>
+</mat-card>

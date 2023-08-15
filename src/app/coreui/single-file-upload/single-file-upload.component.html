@@ -1,0 +1,23 @@
+<!-- <button mat-button color="warn" (click)="onClick()">
+    <mat-icon>file_upload</mat-icon>
+    {{text}}
+</button> -->
+
+
+
+<!-- <div fxFlex fxLayout="column" fxFlexAlign="space-between start" class="uploadfilecontainer flexbox-parent"
+    (click)="onClick()" appDragDrop (onFileDropped)="uploadFile1($event)">
+
+    <mat-icon fxFlex fxFlexFill *ngIf="!imgURL" fontSet="fa" fontIcon="fa-image" [inline]="true"></mat-icon>
+
+    <img fxFlex [src]="imgURL" *ngIf="imgURL" layout="row" layout-align="center center">
+    <div *ngIf="file">{{file.name}}</div>
+</div> -->
+
+<div fxFlex class="uploadfilecontainer flexbox-parent" (click)="onClick()" appDragDrop
+    (onFileDropped)="uploadFile1($event)">
+
+    <img [src]="imgURL" *ngIf="imgURL">
+    <div *ngIf="file">{{file.name}}</div>
+</div>
+<input type="file" id="fileUpload" name="fileUpload" accept="{{accept}}" style="display:none;" />

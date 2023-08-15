@@ -1,0 +1,17 @@
+{
+    "/api/*": {
+        "target": "https://localhost:7268",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/attachments/*": {
+        "target": "https://localhost:5001",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/scorm/*": {
+        "target": "https://localhost:9092",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

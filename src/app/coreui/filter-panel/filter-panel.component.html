@@ -1,0 +1,73 @@
+<!-- <perfect-scrollbar style="height: calc(100%);"> -->
+<perfect-scrollbar psScrollable>
+    <mat-accordion multi>
+        <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h3>Ratings</h3>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-list #rating role="list">
+                <mat-list-item *ngFor="let option of ratingOptions">
+                    <bar-rating [(rate)]="option.value" [max]="5" readOnly="true">
+                    </bar-rating>
+                    &nbsp; {{option.viewValue}}
+                </mat-list-item>
+            </mat-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h3>Language</h3>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-selection-list #languages>
+                <mat-list-option checkboxPosition="before" *ngFor="let option of languageOptions">
+                    {{option.viewValue}}
+                </mat-list-option>
+            </mat-selection-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel expanded="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <h3>Level</h3>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-selection-list #levels>
+                <mat-list-option checkboxPosition="before" *ngFor="let option of levelOptions">
+                    {{option.viewValue}}
+                </mat-list-option>
+            </mat-selection-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <mat-divider></mat-divider>
+    <!-- 
+    <label class="heading">Ratings</label>
+    <mat-list #rating role="list">
+        <mat-list-item *ngFor="let option of ratingOptions">
+            <bar-rating [(rate)]="option.value" [max]="5" readOnly="true">
+            </bar-rating>
+            &nbsp; {{option.viewValue}}
+        </mat-list-item>
+    </mat-list>
+
+    <mat-divider></mat-divider>
+    <label class="heading">Language</label>
+    <mat-selection-list #languages>
+        <mat-list-option checkboxPosition="before" *ngFor="let option of languageOptions">
+            {{option.viewValue}}
+        </mat-list-option>
+    </mat-selection-list>
+
+    <mat-divider></mat-divider>
+
+    <label class="heading">Level</label>
+    <mat-selection-list #levels>
+        <mat-list-option checkboxPosition="before" *ngFor="let option of levelOptions">
+            {{option.viewValue}}
+        </mat-list-option>
+    </mat-selection-list> -->
+
+</perfect-scrollbar>

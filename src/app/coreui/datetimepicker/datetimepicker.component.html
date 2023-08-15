@@ -1,0 +1,19 @@
+<div fxFlexFill fxLayout="row" fxLayoutAlign="stretch center" fxLayoutGap="10" fxFlexOffset="10px">
+    <!-- <mat-label class="label">{{label}}</mat-label> -->
+    <mat-form-field class="full-width" fxFlex>
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="DatePicker" [value]="date" placeholder="Start Date"
+            (dateChange)="dateChange($event)">
+        <mat-datepicker-toggle matSuffix [for]="DatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #DatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field fxFlex="30">
+        <mat-label>Time</mat-label>
+        <input [ngxTimepicker]="TimePicker" matInput [value]="sTime">
+        <!-- [(ngModel)]="time" -->
+        <mat-icon matSuffix class="customfab-icon-black-sm-center" fontSet="fa" fontIcon="fa-clock">
+        </mat-icon>
+        <ngx-material-timepicker #TimePicker value="sTime" [defaultTime]="sTime" (timeSet)="timeChanged($event)">
+        </ngx-material-timepicker>
+    </mat-form-field>
+</div>

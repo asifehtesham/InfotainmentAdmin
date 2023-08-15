@@ -1,0 +1,10 @@
+<mat-card appearance="outlined" *ngIf="showCard">
+    <mat-card-content>
+        <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" style="width: 100%; display: block;">
+        </highcharts-chart>
+    </mat-card-content>
+</mat-card>
+
+<highcharts-chart *ngIf="!showCard" [Highcharts]="Highcharts" [options]="chartOptions"
+    style="width: 100%; display: block;">
+</highcharts-chart>

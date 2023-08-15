@@ -1,0 +1,34 @@
+<!-- [formbuilder]="config.builder"  *ngIf="formReady" -->
+
+
+<div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+
+    <mat-card>
+        <mat-card-content>
+
+            <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+                <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+                    <div class="page-sub-title">
+                        Form Designer
+                    </div>
+                    <div>
+                        <button mat-button mat-flat-button color="warn" (click)="onSave()">
+                            <mat-icon>save</mat-icon> Save
+                        </button>
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <div>
+                        <ng-container>
+                            <formio-alerts [alerts]="alerts"></formio-alerts>
+                            <form-builder [form]="form" #builder></form-builder>
+                        </ng-container>
+                        <ng-template #loading>
+                            <app-loading align="center"></app-loading>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

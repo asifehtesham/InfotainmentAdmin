@@ -1,0 +1,89 @@
+<form [formGroup]="formForm">
+    <div class="m-3">
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+            <div fxFlex>
+                <h5 mat-dialog-title class="title-sub">Form Detail</h5>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+
+                <button mat-flat-button [mat-dialog-close]="true" color="primary" type="submit" (click)="save()"
+                    [disabled]="!formForm.valid">
+                    <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
+                </button>
+                <button mat-icon-button mat-dialog-close cdkFocusInitial>
+                    <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <!-- <mat-dialog-content> -->
+    <input type="hidden" id="ID" formControlName="ID">
+    <div fxLayout="column" fxFlexFill>
+
+        <mat-tab-group>
+            <mat-tab label="Page Info">
+                <ng-template mat-tab-label>
+                    Basic Info
+                </ng-template>
+                <ng-template matTabContent>
+                    <mat-dialog-content>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Title</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+
+                                    <input type="text" id="Title" class="input" placeholder="Enter Title"
+                                        formControlName="Title" required matInput #Title>
+                                    <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="Title.value=''">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="">
+                                        Please enter a valid Title
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap>
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10" fxFlex>
+                                    <mat-label class="label m-2">Slug</mat-label>
+                                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                        <input type="text" id="Slug" class="input" placeholder="Enter Slug"
+                                            formControlName="Slug" required matInput #Slug>
+                                        <button mat-icon-button *ngIf="Slug.value" matSuffix md-icon-button
+                                            aria-label="Clear" (click)="Slug.value=''">
+                                            <mat-icon>close</mat-icon>
+                                        </button>
+                                        <mat-error *ngIf="">
+                                            Please enter a valid Slug
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                        </div>
+                    </mat-dialog-content>
+                </ng-template>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    SEO
+                </ng-template>
+                <ng-template matTabContent>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <!-- </mat-dialog-content> -->
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+        <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+        <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" [disabled]="!formForm.valid"
+            (click)="save()">
+            <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
+        </button>
+    </mat-dialog-actions>
+</form>

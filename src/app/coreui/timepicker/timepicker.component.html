@@ -1,0 +1,19 @@
+<div fxLayout="row">
+    <mat-form-field class="full-width">
+
+        <input flex type="text" id="duration" class="input" placeholder="Duration" formControlName="Duration" required
+            matInput #duration>
+        <button mat-button *ngIf="duration.value" matSuffix mat-icon-button aria-label="Clear"
+            (click)="duration.value=''">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <mat-error *ngIf="">
+            Please enter a valid Duration
+        </mat-error>
+    </mat-form-field>
+    <mat-select placeholder="Type" #durationType formControlName="selectedDurationType">
+        <mat-option *ngFor="let dt of DurationType" [value]="dt.value">
+            {{dt.viewValue}}</mat-option>
+    </mat-select>
+</div>
