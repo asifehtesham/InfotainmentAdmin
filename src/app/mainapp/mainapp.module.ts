@@ -58,7 +58,7 @@ import { UserdetailComponent } from "./userdetail/userdetail.component";
 import { UserlistComponent } from "./userlist/userlist.component";
 import { MenulistComponent } from "./menulist/menulist.component";
 import { RolesSelectionComponent } from "./roles-selection/roles-selection.component";
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+
 import { Index as customComponentList } from "./custom-component/list/Index.component";
 import { Index as customComponentBuilder } from "./custom-component/builder/Index.component";
 import { CategorylistComponent } from "./categorylist/categorylist.component";
@@ -76,11 +76,8 @@ import { FormViewerComponent } from "./Forms/form-viewer/form-viewer.component";
 import { FormDetailComponent } from "./Forms/form-detail/form-detail.component";
 import { FormNewversionComponent } from "./Forms/form-newversion/form-newversion.component";
 import { PageNewversionComponent } from "./page-newversion/page-newversion.component";
-import { AttendeesComponent } from "./attendees/attendees.component";
 import { codeEditor } from "./codeEditor/codeEditor.component";
 import { GalleryMediaComponent } from './gallery-media/gallery-media.component';
-
-
 import { CountrylistComponent } from './countrylist/countrylist.component';
 import { CountrydetailComponent } from './countrydetail/countrydetail.component';
 import { FeedbackTypeListComponent } from './feedback-type-list/feedback-type-list.component';
@@ -100,6 +97,14 @@ import { SocialMediaListComponent } from './social-media-list/social-media-list.
 import { SocialMediaTypeListComponent } from './social-media-type-list/social-media-type-list.component';
 import { SocialMediaTypeDetailComponent } from './social-media-type-detail/social-media-type-detail.component';
 
+import { BranchDetailComponent } from './branch-detail/branch-detail.component';
+import { BranchListComponent } from './branch-list/branch-list.component';
+import { AttendeesComponent } from "./attendees/attendees.component";
+
+import { FloorDetailComponent } from './floor-detail/floor-detail.component';
+import { FloorListComponent } from './floor-list/floor-list.component';
+
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
@@ -109,10 +114,6 @@ const routes: Routes = [
     path: "",
     component: MainappComponent,
     children: [
-
-      ///// start infot
-
-
       {
         path: "country",
         component: CountrylistComponent,
@@ -280,6 +281,56 @@ const routes: Routes = [
         component: FormDesignerComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: "country",
+        component: CountrylistComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "feedbackType",
+        component: FeedbackTypeListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "games",
+        component: GamesListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "floor",
+        component: FloorListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "branch",
+        component: BranchListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "iptv",
+        component: IPTVListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "magazine",
+        component: MagazineListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "newspaper",
+        component: NewspaperListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "socialmediatype",
+        component: SocialMediaTypeListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "socialmedia",
+        component: SocialMediaListComponent,
+        canActivate: [AuthGuard],
+      },
 
       {
         path: "admin",
@@ -337,8 +388,6 @@ const routes: Routes = [
     PageNewversionComponent,
     codeEditor,
     GalleryMediaComponent,
-    //// start infot
-
     CountrylistComponent,
     CountrydetailComponent,
     FeedbackTypeListComponent,
@@ -347,6 +396,8 @@ const routes: Routes = [
     GamesListComponent,
     RoomsListComponent,
     RoomsDetailComponent,
+    FloorDetailComponent,
+    FloorListComponent,
     IPTVListComponent,
     IPTVDetailComponent,
     MagazineDetailComponent,
@@ -357,7 +408,8 @@ const routes: Routes = [
     SocialMediaListComponent,
     SocialMediaTypeListComponent,
     SocialMediaTypeDetailComponent,
-    //// end infot
+    BranchDetailComponent,
+    BranchListComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -366,7 +418,6 @@ const routes: Routes = [
       useFactory: adapterFactory,
     }),
     MatTooltipModule,
-    NgxMaterialTimepickerModule,
     CommonModule,
     BarRatingModule,
     RouterModule,

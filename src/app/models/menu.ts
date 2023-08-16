@@ -60,6 +60,21 @@ export const menus = [
         'open': false,
     },
     //////////////////////////// infot start
+
+    {
+        'name': 'Branch',
+        'icon': 'rss',
+        'link': '/mainapp/branch',
+        'open': false,
+    },
+    
+    {
+        'name': 'Floor',
+        'icon': 'rss',
+        'link': '/mainapp/floor',
+        'open': false,
+    },
+
     {
         'name': 'Rooms',
         'icon': 'building',
