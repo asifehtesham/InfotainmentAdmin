@@ -89,6 +89,8 @@ import { GamesDetailComponent } from './games-detail/games-detail.component';
 import { GamesListComponent } from './games-list/games-list.component';
 import { IPTVListComponent } from './iptv-list/iptv-list.component';
 import { IPTVDetailComponent } from './iptv-detail/iptv-detail.component';
+import { RoomsListComponent } from './roomslist/roomslist.component';
+import { RoomsDetailComponent } from './roomsdetail/roomsdetail.component';
 import { MagazineDetailComponent } from './magazine-detail/magazine-detail.component';
 import { MagazineListComponent } from './magazine-list/magazine-list.component';
 import { NewspaperListComponent } from './newspaper-list/newspaper-list.component';
@@ -130,6 +132,11 @@ const routes: Routes = [
         path: "iptv",
         component: IPTVListComponent,
         canActivate: [AuthGuard],
+      },
+      {
+        path:"rooms",
+        component:RoomsListComponent,
+        canActivate:[AuthGuard]
       },
       {
         path: "magazine",
@@ -338,6 +345,8 @@ const routes: Routes = [
     FeedbackTypeDetailComponent,
     GamesDetailComponent,
     GamesListComponent,
+    RoomsListComponent,
+    RoomsDetailComponent,
     IPTVListComponent,
     IPTVDetailComponent,
     MagazineDetailComponent,

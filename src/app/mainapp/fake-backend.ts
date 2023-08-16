@@ -24,6 +24,7 @@ import { CountryData } from '../data/CountryData';
 import { FeedbackTypeData } from '../data/FeedbackTypeData';
 import { GamesData } from '../data/GamesData';
 import { IptvData } from '../data/IptvData';
+import { RoomsData } from '../data/RoomsData';
 import { MagazineData } from '../data/MagazineData';
 import { SocialmediaData } from '../data/SocialmediaData';
 import { SocialmediatypeData } from '../data/SocialmediatypeData';
@@ -75,6 +76,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 console.log("Fake interceptor page/");
                 console.log(request.url);
                 return ok({data:IptvData});
+            }
+            if (request.url.startsWith(`${environment.apiUrl}rooms?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:RoomsData});
             }
 
             if (request.url.startsWith(`${environment.apiUrl}magazine?index=1&limit=10`) && request.method === 'GET') {

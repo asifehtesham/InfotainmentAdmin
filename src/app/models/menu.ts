@@ -61,6 +61,12 @@ export const menus = [
     },
     //////////////////////////// infot start
     {
+        'name': 'Rooms',
+        'icon': 'building',
+        'link': '/mainapp/rooms',
+        'open': false,
+    },
+    {
         'name': 'IPTV',
         'icon': 'rss',
         'link': '/mainapp/iptv',
