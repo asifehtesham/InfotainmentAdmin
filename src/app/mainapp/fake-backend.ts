@@ -27,6 +27,8 @@ import { IptvData } from '../data/IptvData';
 import { MagazineData } from '../data/MagazineData';
 import { SocialmediaData } from '../data/SocialmediaData';
 import { SocialmediatypeData } from '../data/SocialmediatypeData';
+import { BranchData } from '../data/BranchData';
+import { FloorData } from '../data/FloorData';
 
 
 @Injectable()
@@ -113,6 +115,18 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return ok({data:SocialmediaData});
             }
 
+            
+            if (request.url.startsWith(`${environment.apiUrl}branch?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:BranchData});
+            }
+
+            if (request.url.startsWith(`${environment.apiUrl}floor?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:FloorData});
+            }
 
 
 
