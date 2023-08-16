@@ -1,0 +1,266 @@
+<mat-card
+  fxFlexFill
+  [style]="'height: ' + height + 'px'"
+  class="mat-card-nopadding"
+>
+  <!-- 
+<button mat-icon-button  matSuffix md-icon-button
+aria-label="Clear" >
+<mat-icon>close</mat-icon>
+</button> -->
+
+  <mat-card-content fxFlexFill>
+    <mat-tab-group dynamicHeight="true" fxFlexFill>
+      <mat-tab label="Chat" fxFlexFill>
+        <div fxFlex fxFlexFill>
+          <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+            <perfect-scrollbar psScrollable>
+              <div class="chat" fxFlex>
+                <div class="chat-history">
+                  <ul>
+                    <li
+                      *ngFor="let message of messages"
+                      [ngClass]="{ '': !message.own, clearfix: message.own }"
+                    >
+                      <div
+                        class="message-data"
+                        [ngClass]="{
+                          'align-left': !message.own,
+                          'align-right': message.own
+                        }"
+                      >
+                        <span class="message-data-name"
+                          ><i class="fa fa-circle online"></i> Vincent</span
+                        >
+                        <span class="message-data-time">{{
+                          message.time | date : "shortTime"
+                        }}</span>
+                      </div>
+                      <div
+                        class="message"
+                        [ngClass]="{
+                          'my-message ': !message.own,
+                          'other-message float-right': message.own
+                        }"
+                      >
+                        {{ message.message }}
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </perfect-scrollbar>
+            <div fxLayout="row" fxFlexAlign="space-between end">
+              <mat-form-field appearance="outline" fxFlex>
+                <input
+                  (keydown.enter)="sendMessage(first,true)"
+                  type="text"
+                  matInput
+                  #first
+                />
+                <button
+                  *ngIf="isApiResponse"
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="sendMessage(first, true)"
+                >
+                  <mat-icon fontSet="fa" fontIcon="fa-location-arrow">
+                  </mat-icon>
+                </button>
+
+                <button
+                  *ngIf="!isApiResponse"
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="sendMessage(first, true)"
+                >
+                  <img
+                    src="https://www.wpfaster.org/wp-content/uploads/2013/06/loading-gif.gif"
+                    alt=""
+                  />
+                </button>
+              </mat-form-field>
+            </div>
+
+            
+            <section  *ngIf="isText"  >
+              <div class="example-button-row">
+                <button (click)="rephraseText()" mat-button color="primary">
+                  Rephrase
+                </button>
+                <button (click)="correctText()" mat-button color="primary">
+                  Correct Spellings
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Settings" fxFlexFill>
+        <perfect-scrollbar psScrollable>
+          <section class="main-options">
+            <!-- Selected Value: {{ value }} -->
+
+            <mat-radio-group
+              (change)="UpdateresponseFormat()"
+              [(ngModel)]="responseFormat"
+            >
+              <div fxFlex fxFlexFill>
+                <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <label style="margin: 10px">
+                    <b> Temperature </b>
+                    <ngx-slider
+                      [(value)]="temperature"
+                      [options]="temperatureRange"
+                    ></ngx-slider>
+                  </label>
+                </div>
+
+                <div *ngIf="false" fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <label style="margin: 10px">
+                    <b> Token </b>
+                    <ngx-slider
+                      [(value)]="token"
+                      [options]="tokenRange"
+                    ></ngx-slider>
+                  </label>
+                </div>
+
+                <div *ngIf="isHTML || isComponent"   > 
+                  <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                    <label style="margin: 10px">
+                      <b
+                        >Please specify a response format from below options.
+                      </b></label
+                    >
+                  </div>
+                  <div fxLayout="column" *ngIf="!isComponent" fxFlexFill fxFlexAlign="end stretch">
+                    <mat-radio-button class="example-margin" value="HTML"
+                      >HTML</mat-radio-button
+                    >
+                  </div>
+
+                  <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                    <mat-radio-button class="example-margin" value="Text"
+                      >Text</mat-radio-button
+                    >
+                  </div>
+
+                  <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                    <mat-radio-button class="example-margin" value="Image"
+                      >Image</mat-radio-button
+                    >
+                  </div>
+                </div>
+              </div>
+            </mat-radio-group>
+          </section>
+
+          <section *ngIf="isText" class="sub-options">
+            <div fxFlex fxFlexFill>
+              <!-- <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                <p>Text Options</p>
+              </div>
+ -->
+
+              <!--               
+              <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                <mat-checkbox class="example-margin" [(ngModel)]="spelling"
+                  >Correct spelling mistakes ?</mat-checkbox
+                >
+              </div>
+
+              <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                <mat-checkbox class="example-margin" [(ngModel)]="rephrase"
+                  >Rephrase the paragraph ?</mat-checkbox
+                >
+              </div> -->
+            </div>
+          </section>
+
+          <!-- <section *ngIf="isHTML" class="sub-options">
+            <mat-radio-group [(ngModel)]="responsePlace">
+              <div fxFlex fxFlexFill>
+                <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <label style="margin: 10px">
+                    <b>Where would you like to append your content?</b></label
+                  >
+                </div>
+                <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <mat-radio-button class="example-margin" value="Whole Page"
+                    >In Whole Page</mat-radio-button
+                  >
+                </div>
+
+                <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <mat-radio-button
+                    class="example-margin"
+                    value="Selected Component"
+                    >In Selected Component</mat-radio-button
+                  >
+                </div>
+              </div>
+            </mat-radio-group>
+          </section> -->
+
+          <section *ngIf="isImage" class="sub-options">
+            <mat-radio-group [(ngModel)]="imageSize">
+              <div fxFlex fxFlexFill>
+                <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <label style="margin: 10px">
+                    <b>Please select a size for an Image.</b></label
+                  >
+                </div>
+                <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <mat-radio-button class="example-margin" value="256x256"
+                    >256x256</mat-radio-button
+                  >
+                </div>
+
+                <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <mat-radio-button class="example-margin" value="512x512">
+                    512x512</mat-radio-button
+                  >
+                </div>
+
+                <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+                  <mat-radio-button class="example-margin" value="1024x1024">
+                    1024x1024</mat-radio-button
+                  >
+                </div>
+              </div>
+            </mat-radio-group>
+          </section>
+
+          <!-- .............. -->
+          <!-- <div fxFlex fxFlexFill>
+          <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+            <mat-checkbox>Need HTML in response?</mat-checkbox>
+          </div>
+        </div>
+
+        <div fxFlex fxFlexFill>
+          <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+            <mat-checkbox>Need Image in response?</mat-checkbox>
+          </div>
+        </div>
+
+        <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+          <mat-checkbox>Need Content in response?</mat-checkbox>
+        </div>
+
+        <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+          <mat-checkbox>Append Response in Page?</mat-checkbox>
+        </div>
+
+        <div fxLayout="column" fxFlexFill fxFlexAlign="end stretch">
+          <mat-checkbox>Append Response in Selected Component</mat-checkbox>
+        </div> -->
+        </perfect-scrollbar>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

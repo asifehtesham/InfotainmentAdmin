@@ -16,15 +16,15 @@
                             </a>
                     </mat-form-field>
                     <div>
-                        <a mat-button mat-flat-button color="warn" (click)="revert()">
+                        <!-- <a mat-button mat-flat-button color="warn" (click)="revert()">
                             <mat-icon>add</mat-icon> Add
-                        </a>
+                        </a> -->
                         
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="start stretch">
                    
-                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl"> 
+                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl"  style="width:95%"> 
                         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding> 
                             <button mat-icon-button disabled></button>
                             <div fxFlex="400">
@@ -209,6 +209,9 @@
                         (click)="save()">
                         <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
                     </button>
+                    <a mat-button mat-flat-button color="warn" style="margin-top:13px;margin-left:10px;" (click)="revert()">
+                            <mat-icon>refresh</mat-icon> Reset
+                        </a>
                     <button style="margin-top:13px;margin-left:10px;" *ngIf="selectedId>0" mat-raised-button color="warn" 
                     
                         (click)="delete()">

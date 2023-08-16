@@ -8,3 +8,24 @@ click here
 </button>
 <div id="page_builder"></div>
 <div id="gjs"></div> 
+
+<div
+  (click)="hideAll()"
+  style="
+    position: absolute;
+    background: #262327;
+    height: 20px;
+    width: 80px;
+    top: 0%;
+    right: 50%;
+    z-index: 5;
+    border-radius: 5px;
+    cursor: pointer;
+  "
+>
+  <div style="justify-content: center; display: flex">
+    <span style="position: relative; color: #fff">
+      <i class="fa fa-caret-up" aria-hidden="true"></i>
+    </span>
+  </div>
+</div>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "InfotainmentAdmin": {
+    "CMSClient": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/InfotainmentAdmin",
+            "outputPath": "dist/CMSClient",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -90,19 +90,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "InfotainmentAdmin:build",
+            "browserTarget": "CMSClient:build",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "InfotainmentAdmin:build:development"
+              "browserTarget": "CMSClient:build:development"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "InfotainmentAdmin:build"
+            "browserTarget": "CMSClient:build"
           }
         },
         "test": {
@@ -140,18 +140,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "InfotainmentAdmin:serve"
+            "devServerTarget": "CMSClient:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "InfotainmentAdmin:serve:development"
+              "devServerTarget": "CMSClient:serve:development"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "InfotainmentAdmin",
+  "defaultProject": "CMSClient",
   "cli": {
     "analytics": false
   }

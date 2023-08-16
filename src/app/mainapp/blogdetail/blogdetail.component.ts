@@ -78,6 +78,26 @@ export class BlogdetailComponent {
   url: string = '';
   done: any;
   isBlogSaved: boolean = true;
+  components = [
+    {
+    label:'placeholder 1',
+     type : 'placeholder-var',
+     value : '{{ SOME_VAR_EXAMPLE_2 }}',
+     place_holder : "I'm a placeholder var, check the code"
+    },
+    {
+      label:'placeholder 2',
+      type : 'placeholder-var1',
+      value : '{{ SOME_VAR_EXAMPLE_21 }}',
+      place_holder : "I'm a placeholder var, check the code1"
+     },
+     {
+      label:'placeholder 3',
+      type : 'placeholder-var2',
+      value : '{{ SOME_VAR_EXAMPLE_2 }}',
+      place_holder : "I'm a placeholder var, check the code2"
+     }        
+  ];
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;

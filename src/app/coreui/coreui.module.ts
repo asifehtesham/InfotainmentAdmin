@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CardComponent } from './card/card.component';
 import { AreaComponent } from './area/area.component';
 import { PieComponent } from './pie/pie.component';
+import { BarComponent } from './bar/bar.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { MaterialFileUploadComponentComponent } from './material-file-upload-component/material-file-upload-component.component';
 import { SingleFileUploadComponent } from './single-file-upload/single-file-upload.component';
@@ -52,7 +53,14 @@ import { FormioAlerts } from './formio/components/alerts/formio.alerts';
 import { CustomTagsService } from './formio/custom-component/custom-tags.service';
 import { ContentbuilderComponent } from "../mainapp/content-builder/content-builder.component";
 import { TextComponent } from "../mainapp/text-component/text-component.component";
+import { aiComponent } from "../mainapp/aiComponent/aiComponent.component";
+import { ChatComponent } from "../mainapp/chat/chat.component";
+
+
+
 import { AngularEditorModule } from "@kolkov/angular-editor";
+
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 
 @NgModule({
@@ -63,6 +71,7 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
     CardComponent,
     AreaComponent,
     PieComponent,
+    BarComponent,
     ChartComponent,
     MaterialFileUploadComponentComponent,
     SingleFileUploadComponent,
@@ -93,11 +102,15 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
     FormioAlertsComponent,
     ParseHtmlContentPipe,
     ContentbuilderComponent,
-    TextComponent
+    TextComponent,
+    aiComponent,
+    ChatComponent
   ],
   exports: [
     ContentbuilderComponent,
     TextComponent,
+    aiComponent,
+    ChatComponent,
     FilterPanelComponent,
     ExpandedPanelComponent,
     SearchPanelComponent,
@@ -110,6 +123,7 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
     CardAnnouncementComponent,
     AreaComponent,
     PieComponent,
+    BarComponent,
     ChartComponent,
     MaterialFileUploadComponentComponent,
     SingleFileUploadComponent,
@@ -143,6 +157,7 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
     ColorPickerModule,
     NgxMaterialTimepickerModule,
     AngularEditorModule,
+    NgxSliderModule
   ],
   providers: [
     FormioAlerts,

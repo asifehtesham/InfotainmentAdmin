@@ -3,7 +3,10 @@ import { MatDialog } from "@angular/material/dialog";
 
 import grapesjs from "grapesjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { ConnectedPosition, ScrollStrategy } from "@angular/cdk/overlay";
+import { ConnectedPosition, ScrollStrategy, ScrollStrategyOptions } from "@angular/cdk/overlay";
+
+import { Portal, ComponentPortal } from "@angular/cdk/portal";
+
 import gjsPreset from "grapesjs-preset-webpage";
 import gjsBasicBlocks from "grapesjs-blocks-basic";
 import gjsTabs from "grapesjs-tabs";
@@ -19,6 +22,10 @@ import { PagesService } from "src/app/services/pages.service";
 import { ComponentService } from "src/app/services/components.service";
 
 import { TemplatesService } from "src/app/services/templates.service";
+
+import { OpenAIService } from "src/app/services/openai.service";
+
+
 
 import { ActivatedRoute } from "@angular/router";
 
@@ -40,19 +47,22 @@ import gjsRuler from 'grapesjs-rulers';
 
 import pluginCKE from "./ckeditor-plugin";
 import pluginImageEditor from "./tui-image-editor";
+import { V } from "@angular/cdk/keycodes";
+import { ChatComponent } from "../chat/chat.component";
+
 @Component({
   selector: "app-pagebuilder",
   templateUrl: "./pagebuilder.component.html",
   styleUrls: ["./pagebuilder.component.scss"],
 })
 export class PagebuilderComponent implements OnInit {
+
+
   $: any;
   @ViewChild("gjs", { static: false }) editor: grapesjs.Editor;
 
   sideNavMode: string = "side";
   menus;
-  isChatOpen: boolean = true;
-  scrollStrategy: ScrollStrategy;
 
   html: string = "";
   css: string = "";
@@ -70,36 +80,25 @@ export class PagebuilderComponent implements OnInit {
   pageComponents: any;
   isMenuOpen = true;
   isHideAll = false;
-  // customComponnets = [
-  //   { name: "component-1", content: "<h2>Component 1 </h2>" },
-  //   { name: "component-2", content: "Component 2 " },
-  // ];
+  isChatOpen = false;
+  gptType = '';
+  gptTypeValue = null;
 
-  positions: ConnectedPosition[] = [
-    {
-      originX: "end",
-      originY: "top",
-      overlayX: "end",
-      overlayY: "top",
-      offsetX: -58,
-      offsetY: 0,
-    },
-  ];
-
+  currentSelectedTag = null;
   constructor(
     private dialog: MatDialog,
     private componentService: ComponentService,
     private templatesService: TemplatesService,
     private pageService: PagesService,
     private route: ActivatedRoute,
-    private snakbar: MatSnackBar
+    private snakbar: MatSnackBar,
+    private openAIService: OpenAIService,
   ) { }
 
   async ngOnInit() {
     const slug = this.route.snapshot.params.slug;
     const type = this.route.snapshot.params.type;
     var pageContent;
-
     await this.pageService
       .getPageComponents(1000)
       .subscribe(async (results) => {
@@ -131,17 +130,16 @@ export class PagebuilderComponent implements OnInit {
     // let filtered = this.editor.Blocks.getAll().filter(block=>  true);
     // const newBlocksEl = this.editor.Blocks.render(filtered,{ external: true });
     // document.getElementById('side_nav').append(newBlocksEl);
+
+
   }
 
 
 
   ngAfterViewInit() {
 
-
     window.setTimeout(function () {
       document.querySelectorAll('.gjs-pn-panel.gjs-pn-views.gjs-one-bg.gjs-two-color')[0].addEventListener("click", function () {
-
-
         let clickedbutton = document.querySelectorAll('.gjs-pn-views.gjs-pn-panel .gjs-pn-active')
 
         if (clickedbutton[0]) {
@@ -150,23 +148,6 @@ export class PagebuilderComponent implements OnInit {
           document.querySelectorAll('.gjs-pn-panel.gjs-pn-views-container')[0]['style'].display = 'none';
         }
       })
-
-
-
-
-
-
-
-
-
-
-
-
-      /////////////////////////
-
-
-
-
 
       function moveNav(navValue) {
 
@@ -213,35 +194,11 @@ export class PagebuilderComponent implements OnInit {
           }
         }
       }
-
-      //let nav1 ='.gjs-pn-options';
-
       moveNav('.gjs-pn-options');
       moveNav('.gjs-pn-devices-c');
       moveNav('.gjs-pn-views');
       moveNav('.gjs-pn-customButtonsPanel');
       moveNav('div#styleManager');
-
-
-
-
-
-      //moveNav('.gjs-pn-views-container');
-
-
-
-
-
-
-
-
-
-
-      // document.querySelectorAll('#gjs')[0]
-
-
-
-      ///////////////////////////
 
     }, 5000);
 
@@ -287,44 +244,14 @@ export class PagebuilderComponent implements OnInit {
         pluginImageEditor,
         gjsRuler
       ],
-      // pluginsOpts: {
-      //   gjsCodeEditor: {
-      //     closedState: { pn: "15%", cv: "85%" },
-      //     openState: { pn: "15%", cv: "85%" },
-      //   },
-      // },
-      // pluginsOpts: {
-      //   "grapesjs-tui-image-editor": {
-      //     config: {
-      //       includeUI: {
-      //         initMenu: "filter",
-      //       },
-      //     },
-      //   },
-      // },
-
       styleManager: {
         appendTo: "#style-manager",
       },
-      // layerManager: {
-      //   appendTo: "#layer-manager",
-      // },
-
       selectorManager: {
         appendTo: '#styles-container',
       },
-      // layerManager: {
-      //   appendTo: '#layers-container',
-      // },
-      // traitManager: {
-      //   appendTo: '#trait-container',
-      // },
-
-
       assetManager: {
         assets: [
-          //'https://cloudsolutions.com.sa/images/logo/cloudsolutions-logo-trans.png',
-          // Pass an object with your properties
           {
             type: "image",
             src: "https://cloudsolutions.com.sa/images/logo/cloudsolutions-logo-trans.png",
@@ -354,8 +281,8 @@ export class PagebuilderComponent implements OnInit {
       mediaCondition: "min-width", // default is `max-width`
     });
 
-    /////////////////////////////////////////////////////////////
-    console.log("comp", comp);
+    //////////////////////////////////////////////////
+
     if (comp) {
       for (let index = 0; index < comp.length; index++) {
         this.editor.DomComponents.addType(`${comp[index].title}-comp`, {
@@ -364,10 +291,10 @@ export class PagebuilderComponent implements OnInit {
               tagName: "div",
               name: `${comp[index].title}-comp`,
               content:
-                ` <component slug="${comp[index].slug}"> 
+                ` <component slug="${comp[index].slug}">
                           ${comp[index].cdnLinks}` +
-                `<style>${comp[index].customCSS}</style> ${comp[index].html} 
-                  </component> 
+                `<style>${comp[index].customCSS}</style> ${comp[index].html}
+                  </component>
                 `,
               //style: comp[index].customCSS,
               script: comp[index].customJS,
@@ -392,6 +319,16 @@ export class PagebuilderComponent implements OnInit {
     this.editor.on("component:selected", (Component) => {
 
 
+
+      this.test();
+      //currentSelectedTagValue               
+
+
+      if (Component.attributes.tagName) {
+        this.currentSelectedTag = Component.attributes.tagName;
+        this.gptTypeValue = this.editor.getSelected().getInnerHTML();
+      }
+
       document.getElementById('styleManager').style.display = 'none';
 
       const newComponent = {
@@ -412,12 +349,22 @@ export class PagebuilderComponent implements OnInit {
         id: "style-manager",
       };
 
+      const chtGpt = {
+        icon: "fa fa-bolt",
+        title: "ChatGPT",
+        id: "chatGpt-img",
+      };
+
       const defaultToolbar = Component.get("toolbar");
+
       let checkNewComp = true;
       let checkCustomHtml = true;
       let checkStyleManager = true;
+      let checkchtGpt = true;
 
       defaultToolbar.filter((toolbar) => {
+
+
         if (toolbar.attributes != undefined) {
           if (toolbar.attributes.title === newComponent.title) {
             checkNewComp = false;
@@ -429,6 +376,10 @@ export class PagebuilderComponent implements OnInit {
 
           if (toolbar.attributes.title === styleManager.title) {
             checkStyleManager = false;
+          }
+
+          if (toolbar.attributes.title === chtGpt.title) {
+            checkchtGpt = false;
           }
 
         }
@@ -470,6 +421,12 @@ export class PagebuilderComponent implements OnInit {
               .getElementById("save_trigger")
               .setAttribute("customComponent", editor.getSelected().toHTML());
 
+
+            document
+              .getElementById("save_trigger")
+              .setAttribute("isComponent", '1');
+
+
             const btnEdit = document.createElement("button");
             btnEdit.innerHTML = "Save";
             btnEdit.className = "gjs-btn-prim";
@@ -489,6 +446,28 @@ export class PagebuilderComponent implements OnInit {
         });
         Component.set("toolbar", defaultToolbar);
       }
+
+
+
+
+      if (checkchtGpt) {
+
+        defaultToolbar.unshift({
+          id: chtGpt.id,
+          attributes: { class: chtGpt.icon, title: chtGpt.title },
+          command(editor) {
+            document.getElementById("trigger_chtgpt_selected").click();
+          },
+        });
+        Component.set("toolbar", defaultToolbar);
+      }
+
+
+
+
+
+
+
     });
 
     const pageData = data;
@@ -551,7 +530,28 @@ export class PagebuilderComponent implements OnInit {
       id: 'customButtonsPanel',
       visible: true,
       buttons: [
+        {
+          id: "back",
+          className: "fa fa-bolt",
+          attributes: { title: "ChatGPT" },
+          command(editor) {
 
+
+            console.log(" before await call");
+            document.getElementById("trigger_chtgpt").click();
+            console.log(" after await call");
+
+
+          },
+        },
+        {
+          id: "back",
+          className: "fa fa-arrow-left",
+          attributes: { title: "Go to Dashboard" },
+          command(editor) {
+            window.history.back();
+          },
+        },
         {
           id: "save-page",
           className: "fa fa-floppy-o",
@@ -607,37 +607,29 @@ export class PagebuilderComponent implements OnInit {
           },
         },
         {
-          id: "save-css",
+          id: "custom-code",
           className: "fa fa-css3",
-          attributes: { title: "Add Custom CSS" },
+          attributes: { title: "Custom Code" },
           command(editor) {
-            document.getElementById("openCustomCss").click();
-          },
-        },
-        {
-          id: "save-js",
-          className: "fa fa-jsfiddle",
-          attributes: { title: "Add Custom Js" },
-          command(editor) {
-            document.getElementById("openCustomJs").click();
-          },
-        },
-        {
-          id: "save-cdn",
-          className: "fa fa-window-restore",
-          attributes: { title: "Add CDNs" },
-          command(editor) {
-            document.getElementById("openCustomCdn").click();
 
+            document
+              .getElementById("save_trigger")
+              .setAttribute("customComponent", editor.getHtml());
+
+            document
+              .getElementById("save_trigger")
+              .setAttribute("isComponent", '0');
+
+
+            document.getElementById("openCustomHtml").click();
           },
         },
-
         {
 
           attributes: {
             title: 'Toggle Rulers'
           },
-          context: 'toggle-rulers', //prevents rulers from being toggled when another views-panel button is clicked 
+          context: 'toggle-rulers', //prevents rulers from being toggled when another views-panel button is clicked
           label: `<svg width="18" viewBox="0 0 16 16"><path d="M0 8a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H.5A.5.5 0 0 1 0 8z"/><path d="M4 3h8a1 1 0 0 1 1 1v2.5h1V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v2.5h1V4a1 1 0 0 1 1-1zM3 9.5H2V12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9.5h-1V12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5z"/></svg>`,
           command: 'ruler-visibility',
           id: 'ruler-visibility'
@@ -648,23 +640,17 @@ export class PagebuilderComponent implements OnInit {
 
 
 
-    document.querySelectorAll('.gjs-pn-buttons .gjs-pn-btn')[19]['style'].display = 'none';
-
     let filtered = this.editor.BlockManager.getAll().filter(block =>
       block.get('category').id == 'Category');
     var newBlocksEl = this.editor.BlockManager.render(filtered, { external: true });
 
-
-
     setTimeout(function () {
-
       var customCompDiv = document.createElement("div");
       customCompDiv.id = 'custom-component-tab';
       customCompDiv.appendChild(newBlocksEl);
       let settingsConatiner = document.querySelector('.gjs-pn-panel.gjs-pn-views-container.gjs-one-bg.gjs-two-color');
       settingsConatiner.appendChild(customCompDiv);
     }, 2000);
-
 
     let viewPanel = this.editor.Panels.getPanel("views");
     viewPanel.toJSON().buttons.add([
@@ -687,46 +673,49 @@ export class PagebuilderComponent implements OnInit {
 
       }])
 
+    const removedButton = this.editor.Panels.removeButton('views', 'open-sm');
+
+
+
+
+
+    let cat_comp_button = document.querySelectorAll('span.gjs-pn-btn.fa.fa-file-code-o')[0];
+
+    console.log("cat_comp_button", cat_comp_button);
+
+
+
+
   }
 
   saveGjsPage() {
 
     this.pageContentModel.html =
       document.getElementById("save_trigger").attributes["html"].value;
-
     this.pageContentModel.css =
       document.getElementById("save_trigger").attributes["css"].value;
-
     this.pageContentModel.pageData =
       document.getElementById("save_trigger").attributes["Gjscomponents"].value;
-
     if (document.getElementById("save_trigger").attributes["customCSS"]) {
       this.pageContentModel.customCSS =
         document.getElementById("save_trigger").attributes["customCSS"].value;
     }
-
     if (document.getElementById("save_trigger").attributes["customJS"]) {
       this.pageContentModel.customJS =
         document.getElementById("save_trigger").attributes["customJS"].value;
     }
-
     if (document.getElementById("save_trigger").attributes["cdnLinks"]) {
       console.log(
         `document.getElementById("save_trigger").attributes["cdnLinks"].value`,
         document.getElementById("save_trigger").attributes["cdnLinks"].value
       );
-
       this.pageContentModel.cdnLinks =
         document.getElementById("save_trigger").attributes["cdnLinks"].value;
     }
-
     this.pageContentModel.id = this.route.snapshot.params.slug;
-
     if (this.route.snapshot.params.type == "component") {
       this.pageService.updateCustomComponent(this.pageContentModel).subscribe(
         (results) => {
-          console.log("results", results);
-
           this.snakbar.open(
             "Congractulations! Your component has been saved successfully.",
             "Ok",
@@ -742,8 +731,6 @@ export class PagebuilderComponent implements OnInit {
     } else if (this.route.snapshot.params.type == "template") {
       this.templatesService.updateTemplate(this.pageContentModel).subscribe(
         (results) => {
-          console.log("results", results);
-
           this.snakbar.open(
             "Congractulations! Your template has been saved successfully.",
             "Ok",
@@ -809,9 +796,6 @@ export class PagebuilderComponent implements OnInit {
 
   saveTemplate() {
 
-
-    console.log("...........", document.getElementById("save_trigger").attributes["html"].value);
-
     this.templateComponent = {
       title: document.getElementsByTagName("textarea")[0].value,
       slug: document.getElementsByTagName("textarea")[0].value,
@@ -841,26 +825,6 @@ export class PagebuilderComponent implements OnInit {
     );
   }
 
-  publishGjsPage() {
-    const data = {
-      html: document.getElementById("save_trigger").attributes["gjsHtml"],
-      css: document.getElementById("save_trigger").attributes["gjsCss"],
-      customCss:
-        document.getElementById("save_trigger").attributes["customCss"],
-      customJs: document.getElementById("save_trigger").attributes["customJs"],
-      customCdn: document.getElementById("save_trigger").attributes["cdnLinks"],
-    };
-
-    this.pageService.publishPage(this.pageData).subscribe(
-      (results) => {
-        console.log("results", results);
-      },
-      (error) => {
-        console.log("error", error);
-      }
-    );
-  }
-
   openModal() {
     const dialogRef = this.dialog.open(codeEditor, {
       width: "650px",
@@ -871,7 +835,6 @@ export class PagebuilderComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      //console.log("result.content", result.content);
     });
   }
 
@@ -904,7 +867,12 @@ export class PagebuilderComponent implements OnInit {
       }
     });
   }
-  openCustomHtml() {
+
+
+  async openCustomHtml() {
+
+
+
     const dialogRef = this.dialog.open(codeEditor, {
       width: "650px",
       data: {
@@ -912,96 +880,72 @@ export class PagebuilderComponent implements OnInit {
         content:
           document.getElementById("save_trigger").attributes["customComponent"]
             .value,
+        customCss:
+          document
+            .getElementById("save_trigger")
+            .attributes["customCss"].value
+        ,
+        customJs:
+          document
+            .getElementById("save_trigger")
+            .attributes["customJs"].value,
+        cdnLinks:
+          document
+            .getElementById("save_trigger")
+            .attributes["cdnLinks"].value,
         type: "customHtml",
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
-      if (result?.content) {
-        this.editor.getSelected().replaceWith(result.content);
 
-        //this.editor.getSelected
-        // document
-        //   .getElementById("save_trigger")
-        //   .setAttribute("customHtml", result.content);
-        // var iframe = document.getElementsByTagName("iframe");
-        // if (document.getElementById("custom-js")) {
-        //   document.getElementById("custom-js").remove();
-        // }
-        // const customJs = document.createElement("script");
-        // customJs.innerHTML = result.content;
-        // const customJsDiv = document.createElement("div");
-        // customJsDiv.id = "custom-js";
-        // customJsDiv.append(customJs);
-        // iframe[0].contentDocument.head.append(customJsDiv);
-      }
-    });
-  }
 
-  openCustomJs() {
-    const dialogRef = this.dialog.open(codeEditor, {
-      width: "650px",
-      data: {
-        title: "Custom Js",
-        content:
-          document.getElementById("save_trigger").attributes["customJs"].value,
-        type: "customJs",
-      },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
       if (result?.content) {
+
+        let c = result.content.toString();
+
+
         document
           .getElementById("save_trigger")
-          .setAttribute("customJs", result.content);
-        var iframe = document.getElementsByTagName("iframe");
-        if (document.getElementById("custom-js")) {
-          document.getElementById("custom-js").remove();
+          .setAttribute("isComponent", '1');
+
+
+        console.log(`document.getElementById("save_trigger").attributes["isComponent"].value`, document.getElementById("save_trigger").attributes["isComponent"].value);
+
+        if (document.getElementById("save_trigger").attributes["isComponent"].value == 1) {
+          this.editor.getSelected().replaceWith(c);
+        } else {
+          this.editor.setComponents(c, {
+            avoidStore: false,
+          });
         }
-        const customJs = document.createElement("script");
-        customJs.innerHTML = result.content;
-        const customJsDiv = document.createElement("div");
-        customJsDiv.id = "custom-js";
-        customJsDiv.append(customJs);
-        iframe[0].contentDocument.head.append(customJsDiv);
+
+
       }
-    });
-  }
-  openCustomCdn() {
-    const dialogRef = this.dialog.open(codeEditor, {
-      width: "650px",
-      data: {
-        title: "Custom CDN",
-        content:
-          document.getElementById("save_trigger").attributes["cdnLinks"].value,
-        type: "customCdn",
-      },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result?.content) {
+
+      if (result?.customCss) {
         document
           .getElementById("save_trigger")
-          .setAttribute("cdnLinks", result.content);
-
-        var iframe = document.getElementsByTagName("iframe");
-        if (document.getElementById("custom-cdn")) {
-          document.getElementById("custom-cdn").remove();
-        }
-
-        const customCdnDiv = document.createElement("div");
-        customCdnDiv.innerHTML = result.content;
-        customCdnDiv.id = "custom-cdn";
-        var iframe = document.getElementsByTagName("iframe");
-        iframe[0].contentDocument.head.append(customCdnDiv);
+          .setAttribute("customCss", result.customCss);
       }
+      if (result?.customJs) {
+        document
+          .getElementById("save_trigger")
+          .setAttribute("customJs", result.customJs);
+      }
+      if (result?.cdnLinks) {
+        document
+          .getElementById("save_trigger")
+          .setAttribute("cdnLinks", result.cdnLinks);
+      }
+
     });
   }
-
 
   closeStyleManager() {
     document.getElementById('styleManager').style.display = 'none';
   }
 
   hideAll() {
-
     if (this.isHideAll) {
       document.querySelectorAll('.gjs-pn-options')[0]['style'].display = 'block';
       document.querySelectorAll('.gjs-pn-views')[0]['style'].display = 'block';
@@ -1016,7 +960,6 @@ export class PagebuilderComponent implements OnInit {
       document.querySelectorAll('.gjs-pn-views-container')[0]['style'].display = 'none';
       document.querySelectorAll('.gjs-pn-devices-c')[0]['style'].display = 'none';
       document.querySelectorAll('.gjs-pn-customButtonsPanel')[0]['style'].display = 'none';
-
       this.isHideAll = true;
     }
 
@@ -1024,6 +967,109 @@ export class PagebuilderComponent implements OnInit {
 
 
 
+  // hi() {
 
-  // ...................
+  //   alert("hi");
+  // }
+  chatGpt_selected_comp() {
+
+    let st = this.currentSelectedTag;
+    if (st == 'p' || st == 'h1' || st == 'h2' || st == 'h3' || st == 'h4' || st == 'h5' || st == 'h6' || st == 'blockquote' || st == 'label' || st == 'label' || st == 'span') {
+      this.gptType = "text";
+
+    } else if (st == 'img') {
+      this.gptType = "image";
+
+    } else if (st == 'div') {
+      this.gptType = "component";
+    } else {
+
+      return false;
+    }
+
+
+    console.log("st", st);
+    console.log("this.gptType", this.gptType);
+
+    if (!this.isChatOpen) {
+      this.isChatOpen = true;
+    }
+    //return false;
+  }
+
+  async chatGpt_exe() {
+
+    this.gptType = "page";
+    if (this.isChatOpen) {
+      this.isChatOpen = false;
+    } else {
+      this.isChatOpen = true;
+    }
+    return false;
+  }
+
+
+
+  getResp(e) {
+
+    console.log("e.format", e.format);
+    console.log("this.editor.getSelected()", this.editor.getSelected());
+
+
+    let st = this.currentSelectedTag;
+
+    if (e.format == "Image") {
+      this.editor.getSelected().replaceWith(`<div><img src="${e.content}"> </div>`);
+      return false;
+    } else if (e.format == "HTML") {
+
+      // if (this.editor.getSelected()) {
+
+      //   this.editor.getSelected().replaceWith(e.content);
+
+      // } else {
+        this.editor.setComponents(e.content, {
+          avoidStore: false,
+        });
+      // }
+
+    } else {
+
+      console.log("st", st);
+
+      if (st == 'p' || st == 'h1' || st == 'h2' || st == 'h3' || st == 'h4' || st == 'h5' || st == 'h6' || st == 'blockquote' || st == 'label' || st == 'label' || st == 'span') {
+
+        this.editor.getSelected().replaceWith(` <${st}>${e.content}</${st}>`);
+
+        //this.editor.getSelected().replaceWith(` <${st}>${e.content}</${st}>`);
+
+      } else {
+        this.editor.getSelected().replaceWith(`<${st}>${e.content}</${st}>`);
+      }
+
+
+      return false;
+    }
+
+
+    // alert("page builder");
+    // console.log("page builder component");
+    // console.log("e", e);
+
+  }
+
+
+
+  test() {
+
+    console.log("this.isChatOpen", this.isChatOpen);
+    if (this.isChatOpen) {
+      this.isChatOpen = false;
+    }
+    console.log("this.isChatOpen", this.isChatOpen);
+
+  }
+
+
+
 }

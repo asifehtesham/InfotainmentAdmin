@@ -1,0 +1,21 @@
+.calender-content{
+    width:70%
+}
+.calender-card{
+    display:-webkit-box
+}
+.event-content{
+    width:30%;
+    padding-top:16px
+}
+.eventscroll{
+    // overflow-y:scroll;
+    height:230px !important
+}
+.cell-totals {
+    margin: 5px;
+    text-align: center;
+  }
+  .badge {
+    margin-right: 5px;
+  }

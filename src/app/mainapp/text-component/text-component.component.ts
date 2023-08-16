@@ -47,6 +47,7 @@ export class TextComponent implements OnInit {
 
 
   @Input() contentData: any;
+  @Input() components: any;
   @Output() contentDataChange: EventEmitter<any> = new EventEmitter<any>();
 
 
@@ -64,11 +65,13 @@ export class TextComponent implements OnInit {
       width: '100%',
       height: '100%',
       data: {
-        content: this.contentForm.controls.content.value
+        content: this.contentForm.controls.content.value,
+        custom_components:this.components
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        
         //this.blog.content = result.content;
         //this.f.content.setValue(result.content);
         this.contentData = 'new updated content'; //result.content;

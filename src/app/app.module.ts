@@ -46,8 +46,7 @@ export function initialiseGlobalDependencies(): () => Promise<any> {
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    }),
-
+    })
   ],
   providers: [
     {

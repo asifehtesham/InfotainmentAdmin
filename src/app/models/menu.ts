@@ -59,18 +59,7 @@ export const menus = [
         'link': '/mainapp/dashboard',
         'open': false,
     },
-    {
-        'name': 'Categories',
-        'icon': 'list',
-        'link': '/mainapp/categories',
-        'open': false,
-    },
-    {
-        'name': 'Menu',
-        'icon': 'list',
-        'link': '/mainapp/menu',
-        'open': false,
-    },
+    //////////////////////////// infot start
     {
         'name': 'IPTV',
         'icon': 'rss',
@@ -78,7 +67,7 @@ export const menus = [
         'open': false,
     },
     {
-        'name': 'News',
+        'name': 'Newspaper',
         'icon': 'newspaper',
         'link': '/mainapp/newspaper',
         'open': false,
@@ -119,6 +108,103 @@ export const menus = [
         'link': '/mainapp/socialmedia',
         'open': false,
     },
+    //////////////////////////// infot end 
+    {
+        'name': 'CMS',
+        'icon': 'rocket',
+        'link': 'cms',
+        //'link': '/mainapp/categories',
+        'open': false,
+        'sub': [
+            {
+                'name': 'Pages',
+                //'icon': 'calendar',
+                'link': '/mainapp/pagelist',
+                'open': false,
+            },
+
+            {
+                'name': 'Components',
+                //'icon': 'calendar',
+                'link': '/mainapp/componentlist',
+                'open': false,
+            },
+            
+            {
+                'name': 'Templates',
+                //'icon': 'calendar',
+                'link': '/mainapp/templatelist',
+                'open': false,
+            },
+
+            {
+                'name': 'Banners',
+                //'icon': 'dashboard',
+                'link': '/mainapp/banners',
+                'open': false,
+            },
+            {
+                'name': 'Menu',
+                //'icon': 'dashboard',
+                'link': '/mainapp/menu',
+                'open': false,
+            },
+        ]
+    },
+    {
+        'name': 'Categories',
+        'icon': 'list',
+        'link': '/mainapp/categories',
+        'open': false,
+    },
+    {
+        'name': 'Blogs',
+        'icon': 'rss',
+        'link': '/mainapp/blogs',
+        'open': false,
+    },
+    {
+        'name': 'News',
+        'icon': 'newspaper',
+        'link': '/mainapp/news',
+        'open': false,
+    },
+    {
+        'name': 'Services',
+        'icon': 'briefcase',
+        'link': '/mainapp/services',
+        'open': false,
+    },
+    {
+        'name': 'Forms',
+        'icon': 'edit',
+        'link': '/mainapp/forms',
+        'open': false,
+    },
+    // {
+    //     'name': 'Events',
+    //     'icon': 'calendar-alt',
+    //     'link': '/mainapp/event_calender',
+    //     'open': false,
+    // },
+    {
+        'name': 'Poll',
+        'icon': 'poll',
+        'link': '/mainapp/polls',
+        'open': false,
+    },
+    {
+        'name': 'Gallery',
+        'icon': 'photo-video',
+        'link': '/mainapp/gallery',
+        'open': false,
+    },
+    // {
+    //     'name': 'File Manager',
+    //     'icon': 'cloud-upload-alt',
+    //     'link': '/mainapp/files',
+    //     'open': false,
+    // },
     {
         'name': 'Users',
         'icon': 'users',

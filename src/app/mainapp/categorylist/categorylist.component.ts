@@ -7,6 +7,7 @@ import { MatDialog,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {FlatTreeControl} from '@angular/cdk/tree';
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule} from '@angular/material/tree';
 import Swal from "sweetalert2"; 
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CategorydetailComponent } from '../categorydetail/categorydetail.component'
 
 interface CategoryNode {
@@ -48,7 +49,7 @@ export class CategorylistComponent {
   cateId:number;
   category:Category;
 
-  constructor(private categoryService: CategoryService,private fb: FormBuilder,private dialog: MatDialog) {}
+  constructor(private snakbar: MatSnackBar,private categoryService: CategoryService,private fb: FormBuilder,private dialog: MatDialog) {}
  
   mapCategory(data: Category){
     var node: CategoryNode = {
@@ -201,11 +202,13 @@ export class CategorylistComponent {
 
         this.loadTreeData()
         this.revert()
-        Swal.fire(
-          'Successfully!',
-          'Your Category has been Created Successfully.',
-          'success'
-        )
+        
+        this.snakbar.open('Category added successfully.', 'Dismise', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
+         
       }
       console.log("Response from server:");
     });
@@ -217,10 +220,14 @@ export class CategorylistComponent {
     this.selectedId = id;
     this.id=id
     this.categoryService.loadByID(id).subscribe(results => {
+      console.log(results)
       this.category = results;
       this.f.title.setValue(this.category.title);
       this.cateId=this.category.parentId
+      
+
       if(this.category.parentId)
+
       this.f.parentId.setValue(this.category.parent.title);
       
     });

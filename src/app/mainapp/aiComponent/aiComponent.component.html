@@ -1,0 +1,28 @@
+<ng-template
+  [cdkConnectedOverlayOrigin]="chatOverlay"
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOpen]="isDisplay"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+>
+
+
+  <mat-icon
+    style="
+      cursor: pointer;
+      position: absolute;
+      top: 0px;
+      z-index: 1;
+      right: 5px;
+    "
+    matTooltip="Close"
+    
+    color="warn"
+    (click)="close()"
+    >close</mat-icon
+  >
+
+  <app-chat type (sendRes)="getRes($event)" [type]="type" [typeValue]="typeValue"  #chat></app-chat>
+</ng-template>
+
+<div cdkOverlayOrigin #chatOverlay="cdkOverlayOrigin"></div>

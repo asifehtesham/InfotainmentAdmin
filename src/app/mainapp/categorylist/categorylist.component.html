@@ -1,12 +1,9 @@
-<div fxFlex="60" fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+<div fxFlex="60" class="content-container-all">
     <mat-card>
         <mat-card-content>
             <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
                 <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
-
-                    <div class="page-sub-title">
-                        CATEGORIES LIST
-                    </div>
+                    <div class="page-sub-title ml-3"><b>CATEGORIES LIST</b></div>
                     <mat-form-field id="search" appearance="outline">
                         <input placeholder="Search" minlength="2" (keyup)="applyFilter($event.target['value'])"
                             matInput #search>
@@ -16,46 +13,46 @@
                             </a>
                     </mat-form-field>
                     <div>
-                        <a mat-button mat-flat-button color="warn" (click)="revert()">
+                        <!-- <a mat-button mat-flat-button color="warn" (click)="revert()">
                             <mat-icon>add</mat-icon> Add
-                        </a>
+                        </a> -->
                         
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="start stretch">
-                   
-                    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl"> 
-                        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding> 
-                            <button mat-icon-button disabled></button>
-                            <div fxFlex="400">
-                                {{node.title}}
+                    <ng-container *ngIf="dataSource.data.length > 0 else loading">
+                        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="width:95%"> 
+                            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding> 
+                                <button mat-icon-button disabled></button>
+                                <div fxFlex="400" style="margin-top:15px">
+                                    {{node.title}}
                                 
-                                <mat-icon style="font-size:18px;margin-left:3px;cursor:pointer" (click)="onEdit(node.id)">edit</mat-icon>
-                                <mat-icon style="font-size:18px;font-weight:bold;cursor:pointer" (click)="onAdd(node.id)">add</mat-icon>
-                            </div>
-                            <div>
-                                <span matBadge="{{node.children.length}}" matBadgeOverlap="false"></span>
-                            </div>
-                        </mat-tree-node> 
-                        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-                            <button mat-icon-button matTreeNodeToggle
-                                    [attr.aria-label]="'Toggle ' + node.title">
-                            <mat-icon class="mat-icon-rtl-mirror">
-                                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-                            </mat-icon>
-                            </button>
-                            <div fxFlex="400">
-                                {{node.title}}
-                                 
-                                <mat-icon style="font-size:18px;margin-left:3px;cursor:pointer" (click)="onEdit(node.id)">edit</mat-icon>
-                                <mat-icon style="font-size:18px;font-weight:bold;cursor:pointer" (click)="onAdd(node.id)">add</mat-icon>
-                            </div>
-                            <div>
-                                <span matBadge="{{node.children.length}}" matBadgeOverlap="false"></span>
-                            </div>
-                        </mat-tree-node>
-                    </mat-tree>
-                    
+                                    <mat-icon style="font-size:18px;margin-left:3px;cursor:pointer" (click)="onEdit(node.id)">edit</mat-icon>
+                                    <mat-icon style="font-size:18px;font-weight:bold;cursor:pointer" (click)="onAdd(node.id)">add</mat-icon>
+                                </div>
+                                <div>
+                                    <span matBadge="{{node.children.length}}" matBadgeOverlap="false"></span>
+                                </div>
+                            </mat-tree-node> 
+                            <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                                <button mat-icon-button matTreeNodeToggle
+                                        [attr.aria-label]="'Toggle ' + node.title">
+                                <mat-icon class="mat-icon-rtl-mirror">
+                                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                                </mat-icon>
+                                </button>
+                                <div fxFlex="400" style="margin-top:15px">
+                                    {{node.title}}
+                                    
+                                    <mat-icon style="font-size:18px;margin-left:3px;cursor:pointer" (click)="onEdit(node.id)">edit</mat-icon>
+                                    <mat-icon style="font-size:18px;font-weight:bold;cursor:pointer" (click)="onAdd(node.id)">add</mat-icon>
+                                </div>
+                                <div>
+                                    <span matBadge="{{node.children.length}}" matBadgeOverlap="false"></span>
+                                </div>
+                            </mat-tree-node>
+                        </mat-tree>
+                    </ng-container>
                     <ng-template #loading>
                         <app-loading align="center"></app-loading>
                     </ng-template>
@@ -65,7 +62,7 @@
     </mat-card>
 </div>
 
-<div fxFlex="40" fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+<div fxFlex="40" class="content-container-all">
     <mat-card>
         <mat-card-content>
             <form [formGroup]="categoryForm">
@@ -119,6 +116,9 @@
                         (click)="save()">
                         <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
                     </button>
+                    <a mat-button mat-flat-button color="warn" style="margin-left:10px;margin-top:13px" (click)="revert()">
+                            <mat-icon>refresh</mat-icon> Reset
+                        </a>
                     <button style="margin-top:13px;margin-left:10px;" *ngIf="selectedId>0" mat-raised-button color="warn" 
                     
                         (click)="delete()">
@@ -129,7 +129,3 @@
         </mat-card-content>
     </mat-card>
 </div>
-    
-
-      
-      

@@ -1,4 +1,4 @@
-<form [formGroup]="eventsForm">
+<form [formGroup]="eventsForm" (keydown.enter)="$event.preventDefault()">
     <div class="m-3">
         <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
             <div fxFlex>
@@ -6,7 +6,7 @@
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
 
-                <button mat-flat-button [mat-dialog-close]="true" color="primary" type="submit" (click)="save()"
+                <button mat-flat-button [mat-dialog-close]="true" color="primary" type="submit" (click)="saveData()"
                     [disabled]="!eventsForm.valid">
                     <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
                 </button>
@@ -28,74 +28,182 @@
                     Basic Info
                 </ng-template>
                 <ng-template matTabContent>
-                    <mat-dialog-content>
-                        <!-- <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <app-single-file-upload fxFlex="50" #imageControl (complete)="onFileComplete($event)">
-                            </app-single-file-upload>
-                        </div> -->
+                    <mat-dialog-content>                       
                         <div fxLayout="column" fxLayoutAlign="start stretch">
-
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Title</mat-label>
+                                <mat-label class="label m-2">Event Name</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
 
                                     <input type="text" id="Title" class="input" placeholder="Enter Title"
-                                        formControlName="Title" required matInput #Title>
-                                    <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button
+                                        formControlName="title" required matInput #Title>
+                                    <a mat-icon-button *ngIf="Title.value" matSuffix md-icon-button
                                         aria-label="Clear" (click)="Title.value=''">
                                         <mat-icon>close</mat-icon>
-                                    </button>
+                                    </a>
                                     <mat-error *ngIf="">
                                         Please enter a valid Title
                                     </mat-error>
 
                                 </mat-form-field>
                             </div>
-
                             <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap>
                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10" fxFlex>
-                                    <mat-label class="label m-2">Color</mat-label>
+                                    <mat-label class="label m-2">Event Organizer</mat-label>
                                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                        <input type="text" id="Color" class="input" placeholder="Enter Color"
-                                            formControlName="Color" required matInput #Color>
-                                        <button mat-icon-button *ngIf="Color.value" matSuffix md-icon-button
-                                            aria-label="Clear" (click)="Color.value=''">
+                                        <mat-icon>account_circle</mat-icon>
+                                        <input type="text" id="Organizer" class="input ml-3" placeholder="Enter Organizer"
+                                            formControlName="organizer" required matInput #Organizer>
+                                        <a mat-icon-button *ngIf="Organizer.value" matSuffix md-icon-button
+                                            aria-label="Clear" (click)="Organizer.value=''">
                                             <mat-icon>close</mat-icon>
-                                        </button>
-                                        <mat-error *ngIf="">
-                                            Please enter a valid Color
-                                        </mat-error>
+                                        </a>
+                                         
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap>                            
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap fxFlex>
+                                    <mat-label class="label m-2">Categorize</mat-label> 
+                                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                        <mat-select formControlName="color" placeholder="Event Color">
+                                            <mat-option *ngFor="let color of eventColors" [value]="color">{{color}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayout="column" class="ml-2" fxLayoutAlign="start stretch" fxLayoutGap fxFlex>
+                                    <mat-label class="label m-2">Status</mat-label> 
+                                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                        <mat-select formControlName="status" placeholder="Event Status">
+                                            <mat-option *ngFor="let status of eventStatus" [value]="status.key">{{status.value}}</mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap>
                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap fxFlex>
-                                    <mat-label class="label m-2">From</mat-label>
+                                    <mat-label class="label m-2">Event Start Date</mat-label>
                                     <mat-form-field class="full-width" class="full-width" fxFlex appearance="outline">
-                                        <input matInput [matDatepicker]="StartDate" formControlName="StartDate"
+                                        <input matInput [matDatepicker]="StartDate" formControlName="startDate"
                                             placeholder="Start Date">
                                         <mat-datepicker-toggle matSuffix [for]="StartDate"></mat-datepicker-toggle>
                                         <mat-datepicker #StartDate></mat-datepicker>
                                     </mat-form-field>
                                 </div>
+                                <div fxLayout="column" *ngIf="showHideTime" fxLayoutAlign="start stretch" fxFlexOffset="1" fxFlex>
+                                    <mat-label class="label m-2">Event Start Time</mat-label>
+                                    <mat-form-field class="full-width" class="ml-2" appearance="outline">
+                                        <input matInput [ngxTimepicker]="startTime" readonly [disableClick]="true" formControlName="startTime" placeholder="Start Time">
+                                        <ngx-material-timepicker-toggle [for]="startTime"></ngx-material-timepicker-toggle>
+                                        <ngx-material-timepicker #startTime></ngx-material-timepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap>
                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxFlexOffset="1" fxFlex>
-                                    <mat-label class="label m-2">Till</mat-label>
+                                    <mat-label class="label m-2">Event End Date</mat-label>
                                     <mat-form-field class="full-width" class="full-width" fxFlex appearance="outline">
-                                        <input matInput [matDatepicker]="EndDate" formControlName="EndDate"
-                                            placeholder="Start Date">
+                                        <input matInput [matDatepicker]="EndDate" formControlName="endDate"
+                                            placeholder="End Date">
                                         <mat-datepicker-toggle matSuffix [for]="EndDate"></mat-datepicker-toggle>
                                         <mat-datepicker #EndDate></mat-datepicker>
                                     </mat-form-field>
                                 </div>
+                                <div fxLayout="column" *ngIf="showHideTime" fxLayoutAlign="start stretch" fxFlexOffset="1" fxFlex>
+                                    <mat-label class="label m-2">Event End Time</mat-label>
+                                    <mat-form-field class="full-width" class="ml-2" fxFlex appearance="outline">
+                                        <input matInput [ngxTimepicker]="endTime" readonly [disableClick]="true" formControlName="endTime" placeholder="End Time">
+                                        <ngx-material-timepicker-toggle [for]="endTime"></ngx-material-timepicker-toggle>
+                                        <ngx-material-timepicker #endTime></ngx-material-timepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-checkbox class="full-width" fxFlex (change)="isPublic($event.checked?1:0)" formControlName="isPublic">{{isPublicEvent}}</mat-checkbox>
+                                <mat-checkbox class="full-width" (change)="allDay($event.checked?1:0)" formControlName="allDay" fxFlex>All Day</mat-checkbox>
+                                <mat-checkbox class="full-width" fxFlex (change)="isVirtual($event)">Is Virtual</mat-checkbox>
+                                
+                            </div>
+                            
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">{{locationOrUrl}}</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <mat-icon  matTooltip="{{locationOrUrl}}" matTooltipPosition="below">{{linkOrLocationIcon}}</mat-icon>
+                                    <input type="{{inputURLType}}" id="locationUrl" class="input ml-3" placeholder="{{locationOrUrl}}" 
+                                        formControlName="location_URL" required matInput #locationUrl>
+                                    <a mat-icon-button *ngIf="locationUrl.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="locationUrl.value=''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                </mat-form-field>
                             </div>
                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <!-- <mat-checkbox class="full-width" formControlName="isFeatured"
-                                    fxFlex>Featured</mat-checkbox> -->
-                                <mat-checkbox class="full-width" formControlName="AllDay" fxFlex>All Day</mat-checkbox>
+
+                                <mat-checkbox class="full-width" *ngIf="id==null" (change)="checkRepeat($event.checked?1:0)" fxFlex>Repeat</mat-checkbox>
                             </div>
+                            
+                            <div *ngIf="isRepeat==1" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Repeat</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <mat-select (selectionChange)='onRepeatChange($event.value)' formControlName="pattern">
+                                        <mat-option *ngFor="let pattern of repeatPattern" [value]="pattern">{{pattern}}</mat-option>
+                                        
+                                    </mat-select>
+                                </mat-form-field>
+                                
+                                <mat-label class="label m-2">Repeat Every ({{repeatType}})</mat-label>
+                                <mat-form-field appearance="outline" style="width:185px">
+                                    <input type="number" class="input" value="1" formControlName="repeatEvery" matInput min="1" max="10" id="scroll">
+                                </mat-form-field>
+                                <div *ngIf="repeatType=='Monthly' || repeatType=='Yearly' || repeatType=='Weekly'">
+                                    <mat-label class="label m-2">Repeat On</mat-label><br>
+                                    <mat-button-toggle-group *ngIf="repeatType=='Weekly'" (change)="changedWeek($event.value)" formControlName="repeatOnWeekDays" multiple>
+                                        <mat-button-toggle value="0">SUN</mat-button-toggle>
+                                        <mat-button-toggle value="1">MON</mat-button-toggle>
+                                        <mat-button-toggle value="2">TUE</mat-button-toggle>
+                                        <mat-button-toggle value="3">WED</mat-button-toggle>
+                                        <mat-button-toggle value="4">THU</mat-button-toggle>
+                                        <mat-button-toggle value="5">FRI</mat-button-toggle>
+                                        <mat-button-toggle value="6">SAT</mat-button-toggle>
+                                    </mat-button-toggle-group>
+
+                                    <mat-form-field *ngIf="repeatType=='Yearly'" class="full-width" appearance="outline">
+                                        <mat-select (selectionChange)='onMonthChange($event.value)' formControlName="repeatOnMonth">
+                                            <mat-option *ngFor="let month of monthOfYears;" [value]="month.key">{{month.name}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                        
+                                    <mat-form-field *ngIf="repeatType=='Monthly' || repeatType=='Yearly'" appearance="outline" style="width:185px;margin-left:5px">
+                                        <input type="number" class="input" matInput value="1" min="1" max="31" id="scroll" formControlName="repeatOn">
+                                    </mat-form-field> 
+                                </div>
+                                
+                                <label class="label">End Repeat</label>
+                                <div class="d-flex">
+                                    <mat-radio-group class="example-radio-group">
+                                        <mat-radio-button class="example-radio-button" (change)="radioChange($event.value)" value="On">On
+                                        </mat-radio-button>
+                                        <mat-radio-button class="example-radio-button" (change)="radioChange($event.value)" checked value="After">After
+                                    </mat-radio-button>
+                                    </mat-radio-group>
+                                    <div class="example-radio-group">
+                                        <mat-form-field appearance="outline">
+                                            <input matInput [matDatepicker]="repeatEndDate" formControlName="endBy" disabled="{{isDisabledEndDate}}">
+                                            <mat-datepicker-toggle matSuffix [for]="repeatEndDate" disabled="{{isDisabledEndDate}}"></mat-datepicker-toggle>
+                                            <mat-datepicker #repeatEndDate disabled="{{isDisabledEndDate}}"></mat-datepicker>
+                                        </mat-form-field>
+                                        <mat-form-field style="width:248px"  appearance="outline">
+                                            <input matInput value="1" min="0" max="10" type="number"  readonly="{{isDisabledOccurence}}" formControlName="endAfter">  
+                                            occurrence(s)
+                                        </mat-form-field>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Description</mat-label>
-                                <angular-editor fxFlex id="editor1" formControlName="Description"
+                                <angular-editor fxFlex id="editor1" formControlName="description"
                                     [config]="editorConfig">
                                 </angular-editor>
                             </div>
@@ -110,6 +218,15 @@
                 <ng-template matTabContent>
                 </ng-template>
             </mat-tab>
+            <mat-tab *ngIf="id">
+                <ng-template mat-tab-label>
+                    Participants
+                </ng-template>
+                <ng-template matTabContent>
+                   <app-attendees></app-attendees> 
+                   
+                </ng-template>
+            </mat-tab>
         </mat-tab-group>
     </div>
     <!-- </mat-dialog-content> -->
@@ -117,7 +234,7 @@
         <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
         <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
         <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" [disabled]="!eventsForm.valid"
-            (click)="save()">
+            (click)="saveData()">
             <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
         </button>
     </mat-dialog-actions>

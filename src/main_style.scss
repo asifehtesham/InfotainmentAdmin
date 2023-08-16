@@ -180,3 +180,15 @@ span.gjs-pn-btn.fa {
   font-size: 18px !important;
   padding-top: 7px;
 }
+.timepicker-overlay{
+  z-index: 1000 !important
+}
+.mat-mdc-form-field-infix {
+  display: flex !important
+}
+.mat-button-toggle-checked{
+  background-color: #6f8bdd
+}
+.mat-mdc-paginator-range-label{
+  margin:0 !important
+}

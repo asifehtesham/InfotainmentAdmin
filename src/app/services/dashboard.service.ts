@@ -124,58 +124,95 @@ export class DashboardService {
   }
 
   bigChart() {
+
     return [{
-      name: 'Asia',
-      data: [502, 635, 809, 947, 1402, 3634, 5268]
-    }, {
-      name: 'Africa',
-      data: [106, 107, 111, 133, 221, 767, 1766]
-    }, {
-      name: 'Europe',
-      data: [163, 203, 276, 408, 547, 729, 628]
-    }, {
-      name: 'America',
-      data: [18, 31, 54, 156, 339, 818, 1201]
-    }, {
-      name: 'Oceania',
-      data: [2, 2, 2, 6, 13, 30, 46]
+      name: 'January',
+      data: [32, 435, 509, 647, 702, 834, 968],
+      }, {
+      name: 'February',
+      data: [2, 135, 209, 347, 402, 534, 668],
+      }, {
+      name: 'March',
+      data: [132, 235, 409, 547, 602, 734, 868],
+      }, {
+      name: 'April',
+      data: [7, 235, 309, 547, 602, 934, 968],
+      }, {
+      name: 'May',
+      data: [5, 15, 39, 47, 102, 234, 568],
+      }, {
+      name: 'June',
+      data: [12, 35, 109, 247, 302, 434, 668]
+      }, {
+      name: 'July',
+      data: [15, 232, 345, 464, 575, 688, 797],
+      }, {
+      name: 'August',
+      data: [22, 234, 323, 563, 676, 834, 928],
+      }, {
+      name: 'September',
+      data: [9, 35, 109, 247, 302, 434, 618], 
+      }, {
+      name: 'October',
+      data: [45,55, 65,75, 85, 95, 105],
+      }, {
+      name: 'November',
+      data: [13, 25, 36, 66, 77, 122, 168],
+      }, {
+      name: 'December',
+      data: [2, 35, 49, 57, 62, 74, 88],
     }];
   }
 
   cards() {
     return [71, 78, 39, 66];
-  }
-
+  } 
   pieChart() {
     return [{
-      name: 'Chrome',
-      y: 61.41,
+      name: 'January',
+      y: 21.41,
       sliced: true,
       selected: true
-    }, {
-      name: 'Internet Explorer',
+      }, {
+      name: 'February',
       y: 11.84
-    }, {
-      name: 'Firefox',
+      }, {
+      name: 'March',
       y: 10.85
-    }, {
-      name: 'Edge',
+      }, {
+      name: 'April',
       y: 4.67
-    }, {
-      name: 'Safari',
+      }, {
+      name: 'May',
       y: 4.18
-    }, {
-      name: 'Sogou Explorer',
+      }, {
+      name: 'June',
       y: 1.64
-    }, {
-      name: 'Opera',
+      }, {
+      name: 'July',
       y: 1.6
-    }, {
-      name: 'QQ',
+      }, {
+      name: 'August',
       y: 1.2
-    }, {
-      name: 'Other',
+      }, {
+      name: 'September',
+      y: 2.61
+      }, {
+      name: 'October',
+      y: 2.61
+      }, {
+      name: 'November',
+      y: 2.61
+      }, {
+      name: 'December',
       y: 2.61
     }];
   }
+
+  barChart() {
+    return [ 15.41, 11.84,10.85 ,4.67, 4.18,  3.64,  5.6,8.2,9.6, 12.61
+    ];
+  }
+
+  
 }

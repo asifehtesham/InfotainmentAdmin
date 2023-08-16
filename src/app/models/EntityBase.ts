@@ -8,6 +8,7 @@ export interface EntityBase {
     CreatedBy?: number;
     LastEditBy?: number;
 
+    
     sortOrder?: number;
     active?: boolean;
     IsActive?: boolean;

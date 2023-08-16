@@ -49,6 +49,9 @@ export class NewsPaperService {
     return this.http.get<any>(`${environment.apiUrl}newsPaper?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
+
+          console.log("data",data);
+
           var newsPaper: Array<NewsPaper> = [];
           data.data.forEach(item => {
             newsPaper.push(<NewsPaper>item);

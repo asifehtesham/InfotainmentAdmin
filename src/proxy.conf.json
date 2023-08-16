@@ -1,11 +1,11 @@
 {
     "/api/*": {
-        "target": "https://localhost:7268",
+        "target": "http://10.201.204.180:9203",
         "secure": false,
         "logLevel": "debug"
     },
     "/attachments/*": {
-        "target": "https://localhost:5001",
+        "target": "http://10.201.204.180:9203/",
         "secure": false,
         "logLevel": "debug"
     },

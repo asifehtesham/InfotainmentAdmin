@@ -50,20 +50,5 @@ export class CardIconComponent implements OnInit {
         hoverOffset: 4
       }]
     };
-    //ctx = document.getElementById('myChart');
-    this.myDonutChart = new Chart(this.myChart.nativeElement, {
-      type: 'doughnut',
-      data: data,
-      options: {
-        cutout: '90%',
-        responsive: true,
-        //radius: 100,
-        plugins: {
-          legend: {
-            display: false
-          }
-        }
-      }
-    });
   }
 }

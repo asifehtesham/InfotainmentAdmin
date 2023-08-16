@@ -19,6 +19,16 @@ import { UserData } from '../data/UserData';
 import { RoleData } from '../data/RoleData';
 import { SEOData } from '../data/SEOData';
 
+import { NewspaperData } from '../data/NewspaperData';
+import { CountryData } from '../data/CountryData';
+import { FeedbackTypeData } from '../data/FeedbackTypeData';
+import { GamesData } from '../data/GamesData';
+import { IptvData } from '../data/IptvData';
+import { MagazineData } from '../data/MagazineData';
+import { SocialmediaData } from '../data/SocialmediaData';
+import { SocialmediatypeData } from '../data/SocialmediatypeData';
+
+
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -42,6 +52,73 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 console.log(request.url);
                 return ok(PageData[0]);
             }
+
+
+
+            if (request.url.startsWith(`${environment.apiUrl}page_contents/get_by_page/1`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({'success':true});
+            }
+
+
+            ///////////////// start infot
+            
+            if (request.url.startsWith(`${environment.apiUrl}newsPaper?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:NewspaperData});
+            }
+
+
+            if (request.url.startsWith(`${environment.apiUrl}iptv?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:IptvData});
+            }
+
+            if (request.url.startsWith(`${environment.apiUrl}magazine?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:MagazineData});
+            }
+
+            if (request.url.startsWith(`${environment.apiUrl}games?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:GamesData});
+            }
+
+            if (request.url.startsWith(`${environment.apiUrl}feedbackType?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:FeedbackTypeData});
+            }
+
+            if (request.url.startsWith(`${environment.apiUrl}country?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:CountryData});
+            }
+
+            if (request.url.startsWith(`${environment.apiUrl}socialMediaType?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:SocialmediatypeData});
+            }
+
+            if (request.url.startsWith(`${environment.apiUrl}socialMedia?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:SocialmediaData});
+            }
+
+
+
+
+
+            
+            ///////////////// end infot
 
             // if (request.url.startsWith(`${environment.apiUrl}page`) && request.method === 'GET') {
             //     console.log("Fake interceptor page/");
@@ -161,6 +238,21 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 console.log(request.url);
                 return ok(RoleData);
             }
+
+            ///////////////////////////////////////
+
+            if (request.url.startsWith(`${environment.apiUrl}role`) && request.method === 'GET') {
+                console.log("Fake interceptor role/");
+                console.log(request.url);
+                return ok(RoleData);
+            }
+
+
+
+
+
+
+            ///////////////////////////////////////////
 
             return next.handle(request);
         }))

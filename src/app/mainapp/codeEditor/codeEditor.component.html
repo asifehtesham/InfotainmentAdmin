@@ -3,23 +3,18 @@
   <div><button  (click)="aceTest()" >Save</button></div>
 </div>  -->
 
-<form >
-  <div class="m-3">
+<form>
+  <!-- <div class="m-3">
     <div
       fxLayout="row"
       fxLayoutAlign="space-between center"
       style="height: 40px"
     >
       <div fxFlex>
-        <h5 mat-dialog-title class="title-sub">{{title}}</h5>
+        <h5 mat-dialog-title class="title-sub">{{ title }}</h5>
       </div>
       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
-        <button
-          mat-flat-button
-          color="primary"
-          type="submit"
-          (click)="save()"
-        >
+        <button mat-flat-button color="primary" type="submit" (click)="save()">
           <mat-icon
             class="customfab-icon-white"
             fontSet="fa"
@@ -37,9 +32,124 @@
       </div>
     </div>
   </div>
-  <mat-divider></mat-divider>
-  <!-- <mat-dialog-content> -->
-  <!-- <input type="hidden" id="PageID" formControlName="PageID"> -->
+
+
+  <mat-divider></mat-divider> -->
+
+  <p>
+    <mat-toolbar>
+      <button
+        (click)="triggerHtml()"
+        style="
+          margin: 10px;
+          background-color: #673ab7;
+          border-radius: 5px;
+          color: #fff;
+          border: none;
+          padding: 10px 10px 5px 10px;
+        "
+      >
+        HTML
+      </button>
+
+      <button
+        (click)="triggerCss()"
+        style="
+          margin: 10px;
+          background-color: #673ab7;
+          border-radius: 5px;
+          color: #fff;
+          border: none;
+          padding: 10px 10px 5px 10px;
+        "
+      >
+        CSS
+      </button>
+
+      <button
+        (click)="triggerJs()"
+        style="
+          margin: 10px;
+          background-color: #673ab7;
+          border-radius: 5px;
+          color: #fff;
+          border: none;
+          padding: 10px 10px 5px 10px;
+        "
+      >
+        JavaScript
+      </button>
+
+      <button
+        (click)="triggercdnLinks()"
+        style="
+          margin: 10px;
+          background-color: #673ab7;
+          border-radius: 5px;
+          color: #fff;
+          border: none;
+          padding: 10px 10px 5px 10px;
+        "
+      >
+        CDN Links
+      </button>
+
+      <span class="example-spacer"></span>
+
+      <button
+        (click)="copyText()"
+        style="
+          background-color: #25282c;
+          color: #ffff;
+          border: none;
+          border-radius: 6px;
+          margin: 10px;
+        "
+      >
+        <i class="fa fa-files-o" aria-hidden="true"></i>
+      </button>
+
+      <button
+        (click)="copyText()"
+        style="
+          background-color: #25282c;
+          color: #ffff;
+          border: none;
+          border-radius: 6px;
+          margin: 10px;
+        "
+      >
+        <i class="fa fa-clipboard" aria-hidden="true"></i>
+      </button>
+
+      <button
+        (click)="copyText()"
+        style="
+          background-color: #25282c;
+          color: #ffff;
+          border: none;
+          border-radius: 6px;
+          margin: 10px;
+        "
+      >
+        <i class="fa fa-times" aria-hidden="true"></i>
+      </button>
+
+      <button
+        (click)="copyText()"
+        style="
+          background-color: #25282c;
+          color: #ffff;
+          border: none;
+          border-radius: 6px;
+          margin: 10px;
+        "
+      >
+        <i class="fa fa-scissors" aria-hidden="true"></i>
+      </button>
+    </mat-toolbar>
+  </p>
+
   <div fxLayout="column" fxFlexFill>
     <div
       class="app-ace-editor"
@@ -51,12 +161,7 @@
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
     <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
-    <button
-      mat-raised-button
-      color="primary"
-      type="submit"
-      (click)="save()"
-    >
+    <button mat-raised-button color="primary" type="submit" (click)="save()">
       <mat-icon
         class="customfab-icon-white"
         fontSet="fa"

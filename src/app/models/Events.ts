@@ -1,16 +1,20 @@
 import { DateTime } from 'luxon';
-import { EntityBase } from './EntityBase';
-import { Attachment } from './Attachment';
+import { EntityBase } from './EntityBase'; 
+import { User } from '../models/Users';
 
 export interface Events extends EntityBase {
-    Image?: Attachment;
+    galleyId:number;
     title: string;
     description: string;
     color: string;
+    organizer:string;
     allDay: boolean;
-
-    startDate: DateTime;
-    endDate: DateTime;
-
-    isPublish: boolean;
+    location_URL:string;
+    startDate: any;
+    status:string;
+    endDate: any;
+    parentEventId: number;
+    invitedUsers: User;
+    isRecursive: boolean;
+    isPublic:boolean
 }

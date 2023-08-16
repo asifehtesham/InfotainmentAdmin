@@ -13,7 +13,18 @@ export const UserData = [
         "isActive": true
     },
     {
-        "id": 1,
+        "id": 2,
+        "username": "usman",
+        "password": "",
+        "email": "usman@cs.com",
+        "mobile": "05222333",
+        "title": "Mr.",
+        "firstName": "Muhammed",
+        "lastName": "Usman",
+        "isActive": true
+    },
+    {
+        "id": 3,
         "username": "hassan",
         "password": "",
         "email": "hassan@cs.com",
@@ -22,6 +33,5 @@ export const UserData = [
         "firstName": "Muhammed",
         "lastName": "Hassan",
         "isActive": true
-
     }
 ]

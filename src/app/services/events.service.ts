@@ -5,6 +5,8 @@ import { User } from "../models/Users";
 import { environment } from "src/environments/environment";
 import { map, catchError } from 'rxjs/operators';
 import { Events } from '../models/Events';
+import { RecurrenceEvent } from '../models/RecurrenceEvent';
+import Swal from "sweetalert2";
 import { AuthService } from './auth-service.service';
 import { JsonPipe } from '@angular/common';
 import { DateTime } from 'luxon';
@@ -19,18 +21,23 @@ export class EventsService {
 
 
   map(data: any) {
-    console.log("mapping:");
-    console.log(DateTime.fromISO(data.startDate));
+   
     var event: Events = {
-      id: data.id,
-      Image: data.Image,
+      id: data.id, 
       title: data.title,
       description: data.description,
       color: data.color,
+      galleyId:data.galleyId,
+      status:data.status,
+      location_URL:data.location_URL,
+      organizer:data.organizer,
       allDay: data.allDay,
+      isPublic:data.isPublic,
       startDate: DateTime.fromISO(data.startDate),
       endDate: DateTime.fromISO(data.endDate),
-      isPublish: data.isPublish,
+      parentEventId: data.parentEventId,
+      invitedUsers: data.invitedUsers,
+      isRecursive: data.isRecursive,
       CreateDate: data.CreateDate,
       LastEditDate: data.LastEditDate,
       CreatedBy: data.CreatedBy,
@@ -41,10 +48,8 @@ export class EventsService {
   }
 
   add(events: Events) {
-    console.log("addEventss: ");
-    console.log(events);
-
-    //var action = (events.ID <= 0) ? "events/add" : "events/edit"
+    console.log("addEventss:",events);
+ 
     return this.http.post<any>(environment.apiUrl + "event", events)
       .pipe(map((data: Events) => {
         return data;
@@ -61,7 +66,21 @@ export class EventsService {
         return data;
       }));
   }
-
+  recurrenceAddEvents(recurrenceEvent:RecurrenceEvent){
+    console.log("recurrenceEvent",recurrenceEvent);
+    
+    return this.http.post<any>(environment.apiUrl + "event/recurrence", recurrenceEvent)
+    .pipe(map((data: RecurrenceEvent) => {
+      return data;
+    }));
+  }
+  recurrenceEditEvents(recurrenceEvent:RecurrenceEvent){
+    console.log(recurrenceEvent);
+    return this.http.put<any>(environment.apiUrl + "event", recurrenceEvent)
+      .pipe(map((data: RecurrenceEvent) => {
+        return data;
+      }));
+  }
   loadByID(id: number): Observable<Events> {
     console.log('loadByID' + id);
     return this.http.get<any>(`${environment.apiUrl}event/${id}`)
@@ -75,21 +94,13 @@ export class EventsService {
       );
   }
 
-  loadData(index: number = 1, limit: number = 10): Observable<Events[]> {
-
-    return this.http.get<any>(`${environment.apiUrl}event?index=${index}&limit=${limit}`)
+  loadData(start,end): Observable<Events[]> {
+   
+    return this.http.get<any>(`${environment.apiUrl}event/bydate/?start=${start}&end=${end}`)
+    // return this.http.get<any>(`${environment.apiUrl}event`)
       .pipe(
         map(data => {
-          console.log('loadData successful' + data);
-          console.log(data.data);
-
           var events: Array<Events> = data.data.map(x => this.map(x));
-          // var events: Array<Events> = [];
-          // data.data.forEach(item => {
-          //   events.push(<Events>item);
-          // });
-
-          console.log(events);
           return events;
         }),
       );
@@ -99,16 +110,14 @@ export class EventsService {
     return this.http.get<any>(`${environment.apiUrl}event/search/${key}`)
       .pipe(
         map(data => {
-          console.log('loadData successful' + data);
-
+          
           var events: Array<Events> = data.data.map(x => this.map(x));
           //var events = [];
           // data.forEach(item => {
           //   //var cat = this.mapToEventss(item);
           //   events.push(<Events>item);
           // });
-
-          console.log(events);
+ 
           return events;
         }),
       );
@@ -136,27 +145,26 @@ export class EventsService {
     var action = "event/" + id;
     return this.http.delete<any>(environment.apiUrl + action)
       .pipe(map(data => {
+        Swal.fire(
+          'Deleted!',
+          'Your event has been deleted.',
+          'success'
+        )
         return data;
       }));
   }
+  deleteRecurrence(id:number){
+    console.log("delete: " + id);
 
-  // handleError(operation: String) {
-  //   return (err: any) => {
-  //     let errMsg = `error in ${operation}() retrieving ${environment.apiUrl}`;
-  //     console.log(`${errMsg}:`, err)
-  //     if (err instanceof HttpErrorResponse) {
-  //       // you could extract more info about the error if you want, e.g.:
-  //       console.log(`status: ${err.status}, ${err.statusText}`);
-
-  //       var refreshToken = this.authenticationService.getRefreshToken();
-
-  //       var jwtToken = this.authenticationService.currentUserValue.auth_token;
-  //       var refreshResponse = this.authenticationService.refresh(jwtToken).then(x => {
-
-  //       });
-  //       console.log("refreshResponse");
-  //       console.log(refreshResponse);
-  //     }
-  //   }
-  // }
+    var action = "event/recurrence/" + id;
+    return this.http.delete<any>(environment.apiUrl + action)
+      .pipe(map(data => {
+        Swal.fire(
+          'Deleted!',
+          'Event with all recurrence has been deleted.',
+          'success'
+        )
+        return data;
+      }));
+  }
 }

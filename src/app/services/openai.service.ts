@@ -18,6 +18,7 @@ export class OpenAIService {
     openai = new OpenAIApi(this.configuration);
 
 
+
     chat(query: string): Observable<ChatCompletionResponseMessage> {
 
         this.openai.createFineTune
@@ -44,5 +45,99 @@ export class OpenAIService {
         //return chatCompletion;
         return null;
     }
+
+
+
+    getTextContent(query: string,temperature: number, token: number) {
+
+        return new Promise((resolve, reject) => {
+            this.openai.createChatCompletion({
+                model: "gpt-3.5-turbo",
+                temperature: temperature/100,
+                max_tokens: token,
+                messages: [
+                    {
+                        "role": "system",
+                        "content": "You are a text provider."
+                    },
+                    {
+                        "role": "user",
+                        "content": `${query}`
+                    }
+                ],
+            }).then
+                (chatCompletion => {
+                    resolve(chatCompletion.data.choices[0]);
+                }).catch(err => {
+                    reject(err);
+                });
+        })
+
+    }
+
+
+
+
+
+    getWebPage(query: string,temperature: number, token: number) {
+ 
+        return new Promise((resolve, reject) => {
+            this.openai.createChatCompletion({
+                model: "gpt-3.5-turbo",
+                temperature: temperature/100,
+                max_tokens: token,
+                messages: [
+                    {
+                        "role": "system",
+                        "content": "You are a website page builder."
+                    },
+                    {
+                        "role": "system",
+                        "content": "You are a website page builder."
+                    },
+                    {
+                        "role": "system",
+                        "content": "page without external css or javascript."
+                    },
+                    {
+                        "role": "user",
+                        "content": `give me a responsive modern stunning website page for ${query} in one page`
+                    },
+                    {
+                        "role": "user",
+                        "content": `${query}`
+                    }
+                ],
+            }).then
+                (chatCompletion => {
+                    resolve(chatCompletion.data.choices[0]);
+                }).catch(err => {
+                    reject(err);
+                });
+        })
+
+    }
+
+
+    getImage(query: string, size,temperature: Number, token: Number) {
+
+        return new Promise((res, rej) => {
+            this.openai.createFineTune
+            var chatCompletion =
+                this.openai.createImage({
+                    "prompt": query,
+                    "n": 1,
+                    "size": size
+                }).then
+                    (chatCompletion => {
+                        res(chatCompletion);
+                    }).catch(err => {
+                        rej(err);
+                    });
+        });
+    }
+
+
+
 
 }

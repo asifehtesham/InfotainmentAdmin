@@ -104,7 +104,7 @@ export class CategorydetailComponent {
       return Object.assign({}, o);
     }
 
-    if (filterText) { 
+    if (filterText) {
       filterText = filterText.toLowerCase(); 
       filteredData = array.map(copy).filter(function x(y) {
         if (y[property].toLowerCase().includes(filterText)) {

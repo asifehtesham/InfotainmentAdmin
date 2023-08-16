@@ -1,9 +1,53 @@
-<!-- <div id="custom-html">
-  <div class="app-ace-editor" #editor style="width: 500px; height: 250px"></div>
-  <div><button  (click)="aceTest()" >Save</button></div>
-</div> -->
+<!-- DRAWYER CHAT  START-->
+<!--
+<button>CHAT OPEN</button>
+<button>CHAT clI</button> -->
 
-<!-- ...................////////////// -->
+
+<!--  -->
+<!-- <ng-template
+  [cdkConnectedOverlayOrigin]="chatOverlay"
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOpen]="isChatOpen"
+  [cdkConnectedOverlayPositions]="positions"
+  [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+>
+  <app-chat #chat></app-chat>
+</ng-template> -->
+
+<!-- <mat-drawer-container
+  class="container"
+  cdkOverlayOrigin
+  #chatOverlay="cdkOverlayOrigin"
+>
+  <mat-drawer-content
+    style="z-index: unset; overflow: hidden"
+    class="drawer-container"
+  >
+
+  </mat-drawer-content>
+</mat-drawer-container> -->
+
+<!-- DRAWYER CHAT  END-->
+
+<!-- .................................................... -->
+
+<div
+  id="chatgpt-hover-img"
+  style="
+    display: none;
+    position: absolute;
+    z-index: 99;
+    top: 25%;
+    right: 20%;
+    display: none;
+  "
+>
+  <img
+    src="https://1.bp.blogspot.com/-NlychyKd4DY/YL7p6Odr48I/AAAAAAAABdA/qCqIVqfM0UQyOEzG_fqJF3gGlSppWgqSQCLcBGAsYHQ/s800/please-wait.gif"
+    alt=""
+  />
+</div>
 
 <button
   [ngStyle]="{ display: 'none' }"
@@ -23,34 +67,40 @@
 
 <button
   [ngStyle]="{ display: 'none' }"
+  id="trigger_chtgpt"
+  (click)="chatGpt_exe()"
+>
+  customHtml
+</button>
+
+<button
+  [ngStyle]="{ display: 'none' }"
+  id="trigger_chtgpt_selected"
+  (click)="chatGpt_selected_comp()"
+>
+  customHtml
+</button>
+
+<!-- <button
+  [ngStyle]="{ display: 'none' }"
   id="openCustomJs"
   (click)="openCustomJs()"
 >
   customJs
-</button>
+</button> -->
 
-<button
+<!-- <button
   [ngStyle]="{ display: 'none' }"
   id="openCustomCdn"
   (click)="openCustomCdn()"
 >
   customJs
-</button>
-
-<!-- ...................////////////// -->
+</button> -->
 
 <button
   [ngStyle]="{ display: 'none' }"
   id="save_trigger"
   (click)="saveGjsPage()"
->
-  click here
-</button>
-
-<button
-  [ngStyle]="{ display: 'none' }"
-  id="publish_trigger"
-  (click)="publishGjsPage()"
 >
   click here
 </button>
@@ -88,25 +138,6 @@
   </div>
 </div>
 
-
-<!-- <div
-  (click)="hideAll()"
-  style="
-    position: absolute;
-    right: 50%;
-    z-index: 5;
-    position: pointer;
-    font-size: 50px;
-    cursor: pointer;
-    top: -35px;
-    color: #262327;
-  "
->
-  <span>
-    <i class="fa fa-caret-down" aria-hidden="true"></i>
-  </span>
-</div> -->
-
 <div
   id="styleManager"
   style="
@@ -123,57 +154,24 @@
     border-radius: 25px;
   "
 >
-  <!-- <div style="height: 20px">
-    <span style="float: right" (click)="closeStyleManager()">
-      <i class="fa fa-window-close" aria-hidden="true"></i>
-    </span>
-  </div> -->
   <div style="position: relative">
     <div id="styles-container"></div>
     <div id="style-manager"></div>
   </div>
 </div>
-<!-- <div style="position: absolute; display: flex;  z-index: 2;">
 
-  <div style="height: 50vh; width: 30%;">
-        <div id="styles-container"></div>
-  </div>
 
-  <div style="flex:0.3; height: 50vh; width: 30%; ">
-        <div id="layers-container"></div>
-  </div>
 
-  <div style=" flex:0.3; height: 50vh; width: 30%; ">
-        <div id="trait-container"></div>
-  </div>
 
-</div>  -->
-<!-- 
-<div style="height: 120px; width: 80px; position: absolute; z-index: 2; top:40%; left:5%">
-  <button><span title="Add Custom CSS" class="gjs-pn-btn fa fa-css3"></span>
-  </button>
-  
-  <button><span title="Add Custom CSS" class="gjs-pn-btn fa fa-css3"></span>
-  </button>
-  
-  <button><span title="Add Custom CSS" class="gjs-pn-btn fa fa-css3"></span>
-  </button>
-  
-  <button><span title="Add Custom CSS" class="gjs-pn-btn fa fa-css3"></span>
-  </button>
-  
-   <button>Layers</button>
-  <button>Assets</button>
-  <button>Setings</button> 
-</div> 
--->
 
-<div id="gjs"></div>
 
-<!-- <div id="blocks"></div> 
 
-<div id="layers-container"></div>
 
-<div id="trait-container"></div>
+<app-ai-component  
+(sendResp)="getResp($event)"
+[isDisplay]="isChatOpen"
+[type]="gptType"
+[typeValue]="gptTypeValue"></app-ai-component>
 
- -->
+  <div id="gjs"></div>
+

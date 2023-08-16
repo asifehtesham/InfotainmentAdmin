@@ -17,14 +17,23 @@ import { Page } from "src/app/models/Page";
 import { PageContent } from "src/app/models/PageContent";
 
 import { EditorConfig } from "src/environments/environment";
-import { ActivatedRoute } from "@angular/router";
-import { Router } from "@angular/router";
-
-import { PagesService } from "src/app/services/pages.service";
-
-import { TemplatesService } from "src/app/services/templates.service";
 
 import * as ace from "ace-builds";
+import * as beautify from "ace-builds/src-noconflict/ext-beautify";
+
+
+
+var beautify_js = require('js-beautify'); // also available under "js" export
+
+var beautify_css = require('js-beautify').css;
+
+var beautify_html = require('js-beautify').html;
+
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
+
 
 @Component({
   selector: "app-pagedetail",
@@ -64,25 +73,24 @@ export class codeEditor {
   todo: any = [];
   data: Page;
   temp = true;
+  customJs: string;
+  customCss: string;
+  cdnLinks: string;
+  html: string;
+
+  isContent: Boolean = false;
+  iscustomCss: Boolean = false;
+  iscustomJs: Boolean = false;
+  iscdnLinks: Boolean = false;
+
 
   @ViewChild("tagInput", { static: false })
   tagInput: ElementRef<HTMLInputElement>;
   @ViewChild("auto", { static: false }) matAutocomplete: MatAutocomplete;
 
-  //#endregion Tag chip
-
-
-
 
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private pageService: PagesService,
-    private templatesService: TemplatesService,
-    private snakbar: MatSnackBar,
-    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any,
     private dialogRef: MatDialogRef<codeEditor>
   ) {
@@ -91,6 +99,21 @@ export class codeEditor {
     if (request?.content) {
       this.content = request.content;
     }
+
+
+    if (request?.customJs) {
+      this.customJs = request.customJs;
+    }
+
+    if (request?.customCss) {
+      this.customCss = request.customCss;
+    }
+
+    if (request?.cdnLinks) {
+      this.cdnLinks = request.cdnLinks;
+    }
+
+
     if (request?.title) {
       this.title = request.title;
     }
@@ -100,35 +123,173 @@ export class codeEditor {
   }
 
   ngAfterViewInit(): void {
+    ace.config.set("wrap", true);
     ace.config.set("fontSize", "14px");
     ace.config.set(
       "basePath",
       "https://unpkg.com/ace-builds@1.4.12/src-noconflict"
     );
     const aceEditor = ace.edit(this.aceEditor.nativeElement);
-    if (this.content) {
-      aceEditor.session.setValue(this.content);
-    }
 
-    if (this.type == "customCss") {
-      aceEditor.session.setMode("ace/mode/css");
-    } else if (this.type == "customJs") {
-      aceEditor.session.setMode("ace/mode/javascript");
-    } else if (this.type == "customCdn") {
-      aceEditor.session.setMode("ace/mode/html");
-    } else {
-      aceEditor.session.setMode("ace/mode/html");
+
+
+
+
+    aceEditor.commands.addCommand({
+      name: 'myCommand',
+      bindKey: {win: 'Ctrl-M',  mac: 'Command-M'},
+      exec: function(editor) {
+          alert(2);
+      },
+      readOnly: true, // false if this command should not apply in readOnly mode
+      // multiSelectAction: "forEach", optional way to control behavior with multiple cursors
+      // scrollIntoView: "cursor", control how cursor is scolled into view after the command
+  });
+
+    // aceEditor.setOptions({
+    //   autoScrollEditorIntoView: true,
+    //   copyWithEmptySelection: true,
+    // });
+
+
+    aceEditor.on("change", () => {
+
+      let val = aceEditor.getValue();
+
+      if (this.iscustomCss == true) {
+        this.customCss = val;
+      } else if (this.iscustomJs == true) {
+        this.customJs = val;
+      } else if (this.iscdnLinks == true) {
+        this.cdnLinks = val;
+      } else {
+        this.content = val;
+      }
+
+
+    });
+
+    if (this.content) {
+      var html_beautyfy = beautify_html(this.content);
+      aceEditor.session.setValue(html_beautyfy);
     }
     aceEditor.setTheme("ace/theme/tomorrow_night");
+    // aceEditor.on("change", () => {
+
+    //   if (this.isContent) {
+    //     this.content = aceEditor.getValue();
+    //   } else if (this.iscustomCss) {
+    //     this.customCss = aceEditor.getValue();
+    //   } else if (this.iscustomJs) {
+    //     this.customJs = aceEditor.getValue();
+    //   } else if (this.iscdnLinks) {
+    //     this.cdnLinks = aceEditor.getValue();
+    //   }
+    // });
   }
 
-  //customCss
-  //customJs
-  //customCdn
   ngOnInit() { }
 
   save() {
     const aceEditor = ace.edit(this.aceEditor.nativeElement);
-    this.dialogRef.close({ content: aceEditor.session.getValue() })
+    this.dialogRef.close({
+      content: this.content,
+      customCss: this.customCss,
+      customJs: this.customJs,
+      cdnLinks: this.cdnLinks
+    })
   }
+
+  triggerHtml() {
+    this.isContent = true;
+    this.iscustomCss = false;
+    this.iscustomJs = false;
+    this.iscdnLinks = false;
+
+    const aceEditor = ace.edit(this.aceEditor.nativeElement);
+    var html_beautyfy = '';
+    if (this.content) {
+      html_beautyfy = beautify_html(this.content);
+    }
+    aceEditor.session.setValue(html_beautyfy);
+    aceEditor.session.setMode("ace/mode/html");
+    aceEditor.setTheme("ace/theme/tomorrow_night");
+  }
+
+  triggerCss() {
+    this.isContent = false;
+    this.iscustomJs = false;
+    this.iscdnLinks = false;
+    this.iscustomCss = true;
+
+    const aceEditor = ace.edit(this.aceEditor.nativeElement);
+    var html_beautyfy = '';
+    if (this.customCss) {
+      html_beautyfy = beautify_html(this.customCss);
+    }
+    aceEditor.session.setValue(html_beautyfy);
+    aceEditor.session.setMode("ace/mode/css");
+    aceEditor.setTheme("ace/theme/tomorrow_night");
+
+  }
+
+  triggerJs() {
+    this.isContent = false;
+    this.iscustomCss = false;
+    this.iscdnLinks = false;
+    this.iscustomJs = true;
+
+    const aceEditor = ace.edit(this.aceEditor.nativeElement);
+    var html_beautyfy = '';
+    if (this.customJs) {
+      html_beautyfy = beautify_html(this.customJs);
+    }
+    aceEditor.session.setValue(html_beautyfy);
+    aceEditor.session.setMode("ace/mode/javascript");
+    aceEditor.setTheme("ace/theme/tomorrow_night");
+  }
+
+
+  triggercdnLinks() {
+
+    this.isContent = false;
+    this.iscustomCss = false;
+    this.iscustomJs = false;
+    this.iscdnLinks = true;
+
+
+    const aceEditor = ace.edit(this.aceEditor.nativeElement);
+    var html_beautyfy = '';
+    if (this.cdnLinks) {
+      html_beautyfy = beautify_html(this.cdnLinks);
+    }
+    aceEditor.session.setValue(html_beautyfy);
+    aceEditor.session.setMode("ace/mode/javascript");
+    aceEditor.setTheme("ace/theme/tomorrow_night");
+  }
+
+  copyText() {
+   let copyText = document.execCommand('copy');
+
+       console.log("copyText...",copyText);
+
+  }
+
+
+
+
+  pasteText() {
+    var pasteTarget = document.createElement("div");
+    var actElem = document.activeElement.appendChild(pasteTarget).parentNode;
+    pasteTarget.focus();
+    document.execCommand("Paste", null, null);
+    var paste = pasteTarget.innerText;
+    actElem.removeChild(pasteTarget);
+
+    console.log("paste...", pasteTarget.innerText);
+    return paste;
+  };
+
+
+
 }

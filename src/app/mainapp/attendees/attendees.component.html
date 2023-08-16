@@ -1,0 +1,161 @@
+<mat-dialog-content>
+  <mat-label class="label m-2">Invitations</mat-label>
+  <mat-checkbox class="full-width float-right" [checked]="applyOnAllSeries" (change)="applyOnRecursive($event)">Apply On all Recursive Events</mat-checkbox>
+  <a mat-raised-button *ngIf="sendInvitation" class="raised-button" style="margin-left:30%" color="primary" >Send Invite</a>
+  <hr>
+
+  <div>
+    <div style="float:left">
+      <mat-form-field style="width:350px">
+        <mat-label>Attendees Filter</mat-label>
+        <input matInput #searchInput (keyup.enter)="filterFromAttendees($event)">
+        <mat-icon matPrefix fontSet="fa" fontIcon="fa-search"></mat-icon>
+        <a mat-button *ngIf="searchInput.value" matSuffix md-icon-button aria-label="Clear"><mat-icon>close</mat-icon></a>
+      </mat-form-field>
+      <mat-form-field class="ml-1" style="width:150px;height:52px" appearance="outline">
+          <!-- <mat-select> -->
+          <mat-select (selectionChange)='sortAttendee($event.value)' value="0">
+             
+              <mat-option value="0">Position</mat-option>
+              <mat-option value="3">User Name</mat-option>
+              <mat-option value="1">Name</mat-option>
+              <mat-option value="5">Email</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <i *ngIf="sortDesc" matTooltip="Descending" matTooltipPosition="below" (click)="sortDescAttendee(sortBy)" class="fa fa-arrow-up ml-2"></i>
+      <i *ngIf="sortAsc"matTooltip="Ascending" matTooltipPosition="below" (click)="sortAscAttendee(sortBy)" class="fa fa-arrow-down ml-2"></i>
+    </div>
+    <div style="float:right">
+      <mat-form-field style="margin-right:4px;width:240px">
+        <mat-label>User Filter</mat-label>
+        <input matInput #searchInputUser (keyup.enter)="filterFromNonAttendees($event)">
+        <mat-icon matPrefix fontSet="fa" fontIcon="fa-search"></mat-icon>
+        <a mat-button *ngIf="searchInputUser.value" matSuffix md-icon-button aria-label="Clear"><mat-icon>close</mat-icon>
+        </a>
+      </mat-form-field>
+      <mat-form-field style="width:120px;height:52px" appearance="outline">
+          <mat-select (selectionChange)='sortUser($event.value)' value="0">
+              
+              <mat-option value="0">Position</mat-option>
+              <mat-option value="1">Name</mat-option>
+              <mat-option value="3">User Name</mat-option>
+              <mat-option value="5">Email</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <i *ngIf="sortDescNonAttendee" matTooltip="Descending" matTooltipPosition="below"  (click)="sortDescNonAttendees(sortByNonAttendee)" class="fa fa-arrow-up ml-2"></i>
+      <i *ngIf="sortAscNonAttendee"  matTooltip="Ascending" matTooltipPosition="below" (click)="sortAscNonAttendees(sortByNonAttendee)" class="fa fa-arrow-down ml-2"></i>
+    </div>
+  </div>
+  <table>
+     
+    <tr>
+      <td>
+        <div class="mat-elevation-z8">
+          <mat-table #table [dataSource]="dataSource" style="width:500px" cdkDropList #list1="cdkDropList"
+            [cdkDropListData]="dataSource.data" [cdkDropListConnectedTo]="[list2]"
+            (cdkDropListDropped)="dropAttendee($event)" cdkDropListSortingDisabled id="table">
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef style="padding:initial">
+                <mat-checkbox (change)="$event ? masterToggle() : null" 
+                  [checked]="selection.hasValue() && isAllSelected()" 
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let row" style="padding:initial">
+                <mat-checkbox (click)="$event.stopPropagation()" 
+                              (change)="$event ? selection.toggle(row) : null" 
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <mat-header-cell *matHeaderCellDef> Attendees </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="invitationSent">
+              <mat-header-cell *matHeaderCellDef> invitationSent </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.invitationSent}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="invitationLink">
+              <mat-header-cell *matHeaderCellDef> invitationLink </mat-header-cell>
+              <mat-cell *matCellDef="let element"> <span  matTooltip="{{element.invitationLink}}" matTooltipPosition="below" [cdkCopyToClipboard]="element.invitationLink" style="cursor:pointer" class="material-icons">content_copy</span> </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="isAttented">
+              <mat-header-cell *matHeaderCellDef> isAttented </mat-header-cell>
+              <mat-cell *matCellDef="let element"> 
+                
+                <span (click)="checkAttended(element,false)" *ngIf="element.isAttented" matTooltip="{{element.isAttented}}" matTooltipPosition="below" style="cursor:pointer" class="material-icons">check</span>
+                <span (click)="checkAttended(element,true)" *ngIf="!element.isAttented" matTooltip="{{element.isAttented}}" matTooltipPosition="below" style="cursor:pointer" class="material-icons">clear</span> 
+              </mat-cell>
+            </ng-container>
+    
+            <mat-header-row *matHeaderRowDef="displayedColumnsAttendee"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsAttendee;"  cdkDrag [cdkDragData]="row" >
+              </mat-row>
+            </mat-table>
+
+          <mat-paginator #paginator [pageSize]="3" [pageSizeOptions]="[3, 10, 20]"></mat-paginator>
+        </div>
+      </td>
+      <td class="left_right" style="width:95px">
+        <a class="raised-button" mat-raised-button color="primary" (click)="moveToSecondTable()">
+          <span class="material-icons">chevron_right</span>
+        </a>
+        <a class="raised-button mt-2" mat-raised-button color="primary" (click)="moveToFirstTable()">
+          <span class="material-icons">chevron_left</span>
+        </a>
+
+      </td>
+      <td>   
+        <div class="mat-elevation-z8">
+          <mat-table #table [dataSource]="nonAttendeeDataSource"  cdkDropList #list2="cdkDropList" [cdkDropListData]="nonAttendeeDataSource.data"
+            [cdkDropListConnectedTo]="[list1]" cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)" id="table">
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef style="padding:initial">
+                <mat-checkbox (change)="$event ? masterCheckedToggle() : null" 
+                  [checked]="checkedSelection.hasValue() && isAllCheckedSelected()" 
+                  [indeterminate]="checkedSelection.hasValue() && !isAllCheckedSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let row" style="padding:initial">
+                <mat-checkbox (click)="$event.stopPropagation()" 
+                  (change)="$event ? checkedSelection.toggle(row) : null" 
+                  [checked]="checkedSelection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="username">
+              <mat-header-cell *matHeaderCellDef> Non Attendees </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+              </ng-container>
+               <ng-container matColumnDef="">
+                <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+                <mat-cell *matCellDef=""> </mat-cell>
+              </ng-container>
+             <!-- <ng-container matColumnDef="isAttented">
+                <mat-header-cell *matHeaderCellDef> isAttented </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.isAttented}} </mat-cell>
+              </ng-container> -->
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsUser"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsUser;" cdkDropListSortingDisabled cdkDrag (click)="checkedSelection.toggle(row)">
+            </mat-row>
+          </mat-table>
+          <mat-paginator #checkedpaginator [pageSize]="3" [pageSizeOptions]=" [3, 10, 20]"></mat-paginator>
+        </div>
+      </td>
+    </tr>
+  </table>
+</mat-dialog-content>

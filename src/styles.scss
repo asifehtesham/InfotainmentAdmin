@@ -942,7 +942,7 @@ mat-list-item.mat-mdc-list-item {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
   cursor: move;
   transform: rotate(-90deg);
-  width: 18%;
+  width: 19%;
 }
 
 .gjs-cv-canvas {
@@ -1028,3 +1028,38 @@ mat-list-item.mat-mdc-list-item {
   justify-content: center;
   text-align: center;
 }
+// ///////////////////
+
+.gjs-pn-customButtonsPanel {
+  width: 21% !important;
+}
+
+.gjs-pn-devices-c {
+  width: 11% !important;
+  right: 40% !important;
+}
+
+.gjs-pn-options {
+  width: 32% !important;
+}
+
+app-chat .mat-mdc-card-content {
+  width: 320px !important;
+}
+app-chat .mat-mdc-tab-body-wrapper {
+  height: 450px;
+}
+// @media(min-width: 1024) {
+//   .gjs-pn-customButtonsPanel {
+//     width: 21% !important;
+//   }
+
+//   .gjs-pn-devices-c {
+//     width: 11% !important;
+//     right: 40% !important;
+//   }
+
+//   .gjs-pn-options {
+//     width: 32% !important;
+//   }
+// }

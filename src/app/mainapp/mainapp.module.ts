@@ -58,7 +58,7 @@ import { UserdetailComponent } from "./userdetail/userdetail.component";
 import { UserlistComponent } from "./userlist/userlist.component";
 import { MenulistComponent } from "./menulist/menulist.component";
 import { RolesSelectionComponent } from "./roles-selection/roles-selection.component";
-
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { Index as customComponentList } from "./custom-component/list/Index.component";
 import { Index as customComponentBuilder } from "./custom-component/builder/Index.component";
 import { CategorylistComponent } from "./categorylist/categorylist.component";
@@ -76,8 +76,11 @@ import { FormViewerComponent } from "./Forms/form-viewer/form-viewer.component";
 import { FormDetailComponent } from "./Forms/form-detail/form-detail.component";
 import { FormNewversionComponent } from "./Forms/form-newversion/form-newversion.component";
 import { PageNewversionComponent } from "./page-newversion/page-newversion.component";
+import { AttendeesComponent } from "./attendees/attendees.component";
 import { codeEditor } from "./codeEditor/codeEditor.component";
 import { GalleryMediaComponent } from './gallery-media/gallery-media.component';
+
+
 import { CountrylistComponent } from './countrylist/countrylist.component';
 import { CountrydetailComponent } from './countrydetail/countrydetail.component';
 import { FeedbackTypeListComponent } from './feedback-type-list/feedback-type-list.component';
@@ -104,8 +107,59 @@ const routes: Routes = [
     path: "",
     component: MainappComponent,
     children: [
+
+      ///// start infot
+
+
       {
-        path: "main",
+        path: "country",
+        component: CountrylistComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "feedbackType",
+        component: FeedbackTypeListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "games",
+        component: GamesListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "iptv",
+        component: IPTVListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "magazine",
+        component: MagazineListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "newspaper",
+        component: NewspaperListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "socialmediatype",
+        component: SocialMediaTypeListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: "socialmedia",
+        component: SocialMediaListComponent,
+        canActivate: [AuthGuard],
+      },
+
+
+
+
+
+      ////  end infot
+
+      {
+        path: "dashboard",
         component: DashboardComponent,
         canActivate: [AuthGuard],
       },
@@ -219,46 +273,6 @@ const routes: Routes = [
         component: FormDesignerComponent,
         canActivate: [AuthGuard],
       },
-      {
-        path: "country",
-        component: CountrylistComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "feedbackType",
-        component: FeedbackTypeListComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "games",
-        component: GamesListComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "iptv",
-        component: IPTVListComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "magazine",
-        component: MagazineListComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "newspaper",
-        component: NewspaperListComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "socialmediatype",
-        component: SocialMediaTypeListComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "socialmedia",
-        component: SocialMediaListComponent,
-        canActivate: [AuthGuard],
-      },
 
       {
         path: "admin",
@@ -278,6 +292,7 @@ const routes: Routes = [
     CalenderComponent,
     PagebuilderComponent,
     PagesComponent,
+    AttendeesComponent,
     AdDirective,
     PagelistComponent,
     PagedetailComponent,
@@ -315,6 +330,8 @@ const routes: Routes = [
     PageNewversionComponent,
     codeEditor,
     GalleryMediaComponent,
+    //// start infot
+
     CountrylistComponent,
     CountrydetailComponent,
     FeedbackTypeListComponent,
@@ -331,6 +348,7 @@ const routes: Routes = [
     SocialMediaListComponent,
     SocialMediaTypeListComponent,
     SocialMediaTypeDetailComponent,
+    //// end infot
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -339,6 +357,7 @@ const routes: Routes = [
       useFactory: adapterFactory,
     }),
     MatTooltipModule,
+    NgxMaterialTimepickerModule,
     CommonModule,
     BarRatingModule,
     RouterModule,

@@ -1,34 +1,12 @@
 <mat-card appearance="outlined" fxFlex [style.background-color]="background">
-    <!--[ngSwitch]="layout" 
-        <mat-card-content *ngSwitchCase="'vertical'">
-
-    </mat-card-content> *ngSwitchDefault-->
     <mat-card-content>
-        <div [fxLayout]="(layout === 'vertical')?'column':'row'" fxLayoutGap="20px" fxLayoutAlign="start center">
-            <div *ngIf="layout === 'horizontal'" fxFlex="20" class="chart-container" style="position: relative;">
-                <canvas id="myChart" #myChart></canvas>
-            </div>
-            <div fxFlex fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="space-between start">
+        <div [fxLayout]="(layout === 'vertical')?'column':'row'" fxLayoutAlign="start center">
+            <div fxFlex fxLayout="column" fxLayoutAlign="space-between start">
                 <mat-icon class="customfab-icon-black" fontSet="fa" [fontIcon]="icon" [style.color]="color"></mat-icon>
-
                 <label class="label">{{label}}</label>
             </div>
-            <label fxFlex="20" class="title">{{total}}</label>
+            <label class="title">{{total}}</label>
         </div>
     </mat-card-content>
 </mat-card>
-<!-- 
-<div style="background-color: white;border: solid 1px black;max-height: 50px;">
-    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
-
-        <div class="chart-container" style="position: relative; height:40px; width:40px">
-            <canvas id="myChart" #myChart height="50px"></canvas>
-        </div>
-        <div fxFlex fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="space-between start">
-            <mat-icon class="customfab-icon-black" fontSet="fa" [fontIcon]="icon" [style.color]="color"></mat-icon>
-
-            <label class="label">{{label}}</label>
-        </div>
-        <label fxFlex="20" class="title">{{total}}</label>
-    </div>
-</div> -->
+ 

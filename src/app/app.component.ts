@@ -29,7 +29,7 @@ export class AppComponent {
       this.domSanitizer.bypassSecurityTrustResourceUrl("../assets/icons/twitter.svg")
     );
   }
-  title = 'InfotainmentAdmin';
+  title = 'CMSClient';
   getRouteAnimation(outlet) {
 
     return outlet.activatedRouteData.animation
