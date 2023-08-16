@@ -67,7 +67,7 @@ export class CalenderComponent implements OnInit {
     {
       label: '<i class="fa fa-fw fa-times ml-2"></i>',
       a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
+      onClick: ({ event }: { event }): void => {
         this.ondelete(event.id,event.parentEventId);
 
         //this.events = this.events.filter(iEvent => iEvent !== event);
@@ -122,7 +122,7 @@ export class CalenderComponent implements OnInit {
       break;
     }
     
-    var calender_event: CalendarEvent =
+    var calender_event =
     {
       id: event.id,
       start: event.startDate.toJSDate(), // subDays(startOfDay(new Date()), 1),
