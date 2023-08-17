@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
-import { EntityBase } from './EntityBase';
-import { Attachment } from './Attachment';
+import { EntityBase } from './EntityBase'; 
 
 export interface Rooms extends EntityBase {
     roomId: number;
@@ -8,6 +7,5 @@ export interface Rooms extends EntityBase {
     floor: string;
     branch: string;
     IP: string;
-    status: boolean;
-    image?: Attachment;
+    status: boolean; 
 }

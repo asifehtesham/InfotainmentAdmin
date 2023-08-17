@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './public/login/login.component';
+import { ForgotComponent } from './public/forgot/forgot.component';
 import { AuthGuard } from './services/Authguard';
 
 const routes: Routes = [
@@ -17,7 +18,9 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
-  },
+  },  
+  {path:'forgot-password',component:ForgotComponent },
+
   { path: '**', redirectTo: 'mainapp/main' },
 ];
 

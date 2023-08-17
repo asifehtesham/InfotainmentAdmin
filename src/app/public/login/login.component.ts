@@ -120,6 +120,9 @@ export class LoginComponent implements OnInit {
     // }
   }
   login() {
+    this.router.navigate(["/mainapp/dashboard"]);
+
+
     console.log("login click");
     console.log(this.f.username.value);
 
@@ -140,14 +143,16 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          
           console.log("service called successfully");
           console.log(this.returnUrl);
           if (this.returnUrl == null || this.returnUrl == undefined)
-            this.router.navigate(["/"]);
+            this.router.navigate(["/mainapp/dashboard"]);
           else
             this.router.navigate([this.returnUrl]);
         },
         error => {
+          
           //console.log(error.error)
           this.snakbar.open('Invalid Username or Password', null, {
             duration: 2000,

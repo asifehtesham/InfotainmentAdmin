@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
+import { ForgotComponent } from './forgot/forgot.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
@@ -17,12 +18,12 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
-  { path: '', component: LoginComponent }
+  { path: '', component: LoginComponent},
 ]
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent,ForgotComponent],
   imports: [
     MatInputModule,
     MatFormFieldModule,

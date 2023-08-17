@@ -15,7 +15,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { RoomsDetailComponent } from '../roomsdetail/roomsdetail.component'
-
+import { PatientRecordComponent } from '../patientrecord/patientrecord.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 
@@ -28,21 +28,20 @@ export class RoomsListComponent {
 
   subscription: Subscription;
   displayedColumns: string[] = ['select',
-    'roomID',
+    'roomId',
     'roomType',
     'floor',
     'branch',
     'IP',
     'status',
     'id'];
-  room = [];
+  rooms = [];
   search = new FormControl();
   index: number = 1;
   limit: number = 10;
   pageTotal: number = 20;
   roomOptions=['Active',"Don't Disturb",'Discharge','Admit Patient']
-  public loadEmptyMsg: boolean = false;
-  public dataSource = new MatTableDataSource<Rooms>();
+  public loadEmptyMsg: boolean = false; 
   selection = new SelectionModel<Rooms>(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -52,37 +51,13 @@ export class RoomsListComponent {
 
   ngOnInit() {
     this.loadData();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sortable;
-    this.loadData();
-
-
-    this.search.valueChanges.subscribe(
-      value => {
-        if (value.length == 0) {
-          this.roomsService.loadData().pipe(map((results => {
-            //return results;
-            this.dataSource.data = results;
-          })));
-
-          return;
-        }
-
-        this.roomsService.search(value).subscribe(results => {
-          //this.loadEmptyMsg = true;
-          console.log('come to the subscriber');
-          this.dataSource.data = results;
-          return results;
-        });
-      });
-
   }
 
   loadData() {
     this.roomsService.loadData(this.index, this.limit).subscribe(results => {
-      this.loadEmptyMsg = true;
-      console.log('come to the subscriber');
-      this.dataSource.data = results;
+      results.forEach(element => {
+        this.rooms.push(element)
+      });
     });
   }
 
@@ -138,65 +113,19 @@ export class RoomsListComponent {
       }
     })
   }
-
-  onRemoveAll() {
-    if (this.selection.selected.length <= 0) {
-      this.snakbar.open('Select one or more record to perform this action.', 'Ok', {
-        duration: 2000,
-      });
-      return;
-    }
-    Swal.fire({
-      title: "Confirmation!",
-      text: "Are you sure you want to delete record(s)?",
-      icon: "warning",
-      showConfirmButton: true,
-      showCancelButton: true
-    })
-      .then((willDelete) => {
-        if (willDelete.isConfirmed) {
-
-          var ids = this.selection.selected.map(x => x.id).join(",");
-          this.roomsService.deleteAll(ids).subscribe(result => {
-            if (result) {
-              this.snakbar.open('Your record(s) has been deleted successfully.', 'Ok', {
-                duration: 2000,
-              });
-
-              this.loadData();
-              this.selection.clear();
-            }
-
-          });
-        } else {
-          this.snakbar.open('Delete action dismissed.', 'Ok', {
-            duration: 2000,
-          });
-        }
-      });
+ 
+searchRoom(searchText):any{
+console.log(searchText)
+let filteredData
+  if (searchText) {
+    this.rooms= this.rooms.filter(room => room.roomId.toLowerCase().includes(searchText.toLowerCase()));
+    console.log(filteredData)
+  } else {
+    return this.rooms;
   }
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
+}
 
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
-
-    this.selection.select(...this.dataSource.data);
-  }
-  checkboxLabel(row?: Rooms): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
-  }
-
-
+ 
   onAdd() {
 
     console.log("onAdd() ........... trigger");
@@ -209,7 +138,7 @@ export class RoomsListComponent {
       this.loadData();
     });
   }
-
+  
   onEdit(data: any) {
     const dialogRef = this.dialog.open(RoomsDetailComponent, {
       width: '650px',
@@ -219,5 +148,16 @@ export class RoomsListComponent {
       this.loadData();
     });
   }
-  reload() { }
+  checkPatientRecord(room:Rooms) {
+    console.log(room)
+
+
+    const dialogRef = this.dialog.open(PatientRecordComponent, {
+      width: '750px',
+      data: { room: room }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  
 }

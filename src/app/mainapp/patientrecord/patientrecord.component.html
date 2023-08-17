@@ -1,0 +1,99 @@
+<div class="m-3">
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px">
+        <div fxFlex>
+            <h5 mat-dialog-title class="title-sub">Patient Detail</h5>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+                
+            <button mat-icon-button mat-dialog-close cdkFocusInitial>
+                <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>  
+<div fxLayout="column" fxFlexFill>
+    <mat-tab-group>
+        <mat-tab label="Current Patient">
+            <ng-template mat-tab-label> Current Patient</ng-template>
+            <ng-template matTabContent>
+                <mat-dialog-content>
+                     
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Patient Profile</h3>
+                        </div>
+                        <div class="panel-body" *ngIf="room.status">
+                            <div class="row">
+                                <div  class=" col-md-9 col-lg-9 mt-3"> 
+                                    <table class="table table-user-information">
+                                        <tbody>
+                                            <tr>
+                                                <td>Patient Name:</td>
+                                                <td> XYZ</td>
+                                            </tr>
+                                            <tr>
+                                                <td>File No:</td>
+                                                <td> XY223</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Age:</td>
+                                                <td>20</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td>Gender:</td>
+                                                <td> M</td>
+                                            </tr>
+                                                <tr>
+                                                <td>Address:</td>
+                                                <td>ABC</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Mobile:</td>
+                                                <td>555555</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Marital Status:</td>
+                                                <td> S </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div class=" col-md-3 col-lg-3"> 
+                                    <img src="../assets/avatar.png"  alt="Avatar" style="width:150px; border-radius: 50%;">
+
+                            </div>                            
+
+                        </div>
+                        </div>
+                            
+                        
+                    </div>
+                        
+                </mat-dialog-content>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="History">
+                <ng-template mat-tab-label> Admission History </ng-template>
+                <ng-template matTabContent>
+                    <mat-dialog-content>
+                            
+                        
+                    </mat-dialog-content>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="History">
+                    <ng-template mat-tab-label> Activity </ng-template>
+                    <ng-template matTabContent>
+                        <mat-dialog-content>
+                                
+                            
+                        </mat-dialog-content>
+                    </ng-template>
+                </mat-tab>
+    </mat-tab-group>
+</div>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+</mat-dialog-actions>

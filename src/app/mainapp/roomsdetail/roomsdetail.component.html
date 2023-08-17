@@ -25,10 +25,7 @@
                 <ng-template mat-tab-label> Basic Info </ng-template>
                 <ng-template matTabContent>
                     <mat-dialog-content>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <app-single-file-upload fxFlex="50" #imageControl (complete)="onFileComplete($event)">
-                            </app-single-file-upload>
-                        </div>
+                         
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Room ID</mat-label>
@@ -56,8 +53,7 @@
                                 <mat-label class="label m-2">Floor</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
                                     <mat-select formControlName="floor">
-                                        <mat-option value="type">Floor 1</mat-option>
-                                        <mat-option value="type2">Floor 2</mat-option>
+                                            <mat-option *ngFor="let floor of floors" [value]="floor.id">{{floor.title}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -65,8 +61,8 @@
                                 <mat-label class="label m-2">Branch</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
                                     <mat-select formControlName="branch">
-                                        <mat-option value="type">Branch 1</mat-option>
-                                        <mat-option value="type2">Branch 2</mat-option>
+                                        <mat-option *ngFor="let branch of branches" [value]="branch.id">{{branch.title}}</mat-option>
+                                    
                                     </mat-select>
                                 </mat-form-field>
                             </div>

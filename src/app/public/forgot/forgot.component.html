@@ -11,56 +11,28 @@ background-size: cover; ">
 
                     <mat-card-title fxLayout="row" fxLayoutAlign="start center">
                         <img mat-card-sm-img class="w-25" src="../assets/logo.png" />&nbsp;&nbsp;
-                        <h2 class="heading">{{'sign in' | uppercase}}</h2>
+                        <h2 class="heading">{{'Forgot Password' | uppercase}}</h2>
                     </mat-card-title>
                 </mat-card-title-group>
                 <br>
                 <mat-card-content fxLayout="column" fxLayoutAlign="start stretch">
-                    <form fxLayout="column" fxLayoutAlign="space-evenly stretch" [formGroup]="userForm"
-                        (ngSubmit)="login()">
+                    <form fxLayout="column" fxLayoutAlign="space-evenly stretch" [formGroup]="forgotForm"
+                        (ngSubmit)="forgot()">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label style="margin-left:10px">User name</mat-label>
-                            <input type="username" id="username" class="input" placeholder="User name"
-                                formControlName="username" required matInput>
+                            <mat-label style="margin-left:10px">Email</mat-label>
+                            <input type="email" id="email" class="input" placeholder="Email"
+                                formControlName="email" required matInput>
                             <mat-icon matPrefix class="customfab-icon" fontSet="fa" fontIcon="fa-unlock"></mat-icon>
-                            <mat-error *ngIf="userForm.hasError('incorrect')">
-                                Please enter a valid email address
-                            </mat-error>
+                             
                         </mat-form-field>
-                        <div *ngIf="formErrors.username" class="help is-danger">
-                            {{ formErrors.username }}
-                        </div>
-
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label style="margin-left:10px">Password</mat-label>
-                            <input type="password" id="password" class="input" placeholder="Password"
-                                formControlName="password" required matInput>
-                            <mat-icon matPrefix class="customfab-icon" fontSet="fa" fontIcon="fa-user"></mat-icon>
-                        </mat-form-field>
-                        <div *ngIf="formErrors.password" class="help is-danger">
-                            {{ formErrors.password }}
-                        </div>
-                        {{error}}
-
-                        <div fxLayout="row" fxLayoutAlign="space-between center">
-                            <mat-checkbox class="">Remember me</mat-checkbox>
-                            <a class="redirect" [routerLink]="['/forgot-password']">Forgot Password</a>
-                        </div>
-
-                        <button mat-raised-button color="primary" type="submit" style="margin: 20px 0;">Log in</button>
+                         
+ 
+                        <button mat-raised-button color="primary" type="submit" style="margin: 20px 0;">Submit</button>
                     </form>
-                    <!-- <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-top: 20px;">
-                        <button mat-icon-button aria-label="LIKE" (click)="toggle()">
-                            <mat-icon class="custom-big-icon" svgIcon="google">google</mat-icon>
-                        </button>
-                        <button mat-icon-button aria-label="LIKE" (click)="toggle()">
-                            <mat-icon class="custom-big-icon" svgIcon="facebook"></mat-icon>
-                        </button>
-                        <button mat-icon-button aria-label="LIKE" (click)="toggle()">
-                            <mat-icon class="custom-big-icon" svgIcon="twitter">twitter</mat-icon>
-                        </button>
 
-                    </div> -->
+                    <a class="redirect" [routerLink]="['/']">Back to Login</a>
+
+                     
                     <!-- <br />
                     Login with Google
 

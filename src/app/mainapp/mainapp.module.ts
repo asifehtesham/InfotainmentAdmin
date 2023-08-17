@@ -88,6 +88,7 @@ import { IPTVListComponent } from './iptv-list/iptv-list.component';
 import { IPTVDetailComponent } from './iptv-detail/iptv-detail.component';
 import { RoomsListComponent } from './roomslist/roomslist.component';
 import { RoomsDetailComponent } from './roomsdetail/roomsdetail.component';
+import { PatientRecordComponent } from './patientrecord/patientrecord.component';
 import { MagazineDetailComponent } from './magazine-detail/magazine-detail.component';
 import { MagazineListComponent } from './magazine-list/magazine-list.component';
 import { NewspaperListComponent } from './newspaper-list/newspaper-list.component';
@@ -396,6 +397,7 @@ const routes: Routes = [
     GamesListComponent,
     RoomsListComponent,
     RoomsDetailComponent,
+    PatientRecordComponent,
     FloorDetailComponent,
     FloorListComponent,
     IPTVListComponent,

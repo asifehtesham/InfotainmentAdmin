@@ -19,6 +19,10 @@ import { ActivatedRoute } from '@angular/router';
 import { RoomsService } from 'src/app/services/rooms.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
+import { BranchService } from 'src/app/services/branch.service';
+import { FloorService } from 'src/app/services/floor.service';
+import { Branch } from 'src/app/models/Branch';
+import { Floor } from 'src/app/models/Floor';
 
 
 @Component({
@@ -32,18 +36,17 @@ export class RoomsDetailComponent {
   templates: Templates[] = [];
   id: number;
   room: Rooms;
+  branches: any =[];
+  floors: any=[];
   roomForm: FormGroup;
 
   url: string = '';
   done: any;
   isIPTVSaved: boolean = true;
-
-  @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
-  @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
-
+ 
   editorConfig: any = EditorConfig;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private roomsService: RoomsService, private snakbar: MatSnackBar, private dialog: MatDialog,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private branchService:BranchService,private floorService: FloorService, private roomsService: RoomsService, private snakbar: MatSnackBar, private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
     console.log(request);
@@ -69,12 +72,24 @@ export class RoomsDetailComponent {
         });
       }
     });
-  }
 
-  ngAfterViewInit(): void {
-    if (this.room && this.room.image)
-      this.imageControl.setImage(this.room.image.data);
+
+
+    this.branchService.loadData().subscribe(results => {
+      results.forEach(element => {
+        this.branches.push(element);
+        
+      }); 
+    });
+
+    this.floorService.loadData().subscribe(results => {
+       results.forEach(element => {
+         this.floors.push(element)
+       });
+    });
+
   }
+ 
 
   setForm() {
     this.f.roomId.setValue(this.room.roomId);
@@ -108,9 +123,7 @@ export class RoomsDetailComponent {
   save() {
     this.saveData();
   }
-
-  ImageTitle: string = "";
-  ImagePath: string = "";
+ 
   saveData() {
 
     var room: Rooms = {
@@ -131,9 +144,7 @@ export class RoomsDetailComponent {
       observer = this.roomsService.update(room);
     observer.subscribe(result => {
       this.id = result.id;
-      if (this.imageControl.file)
-        this.imageControl.startUpload(result.id, "ID", "ROOM", false, false);
-
+      
       if (result.id)
         this.snakbar.open('Room saved successfully.', 'Dismise', {
           duration: 3000,
@@ -147,35 +158,6 @@ export class RoomsDetailComponent {
   revert() {
     this.roomForm.reset();
   }
-
-  onFileComplete(data: any) {
-
-    this.snakbar.open('Image uploaded successfully.', null, {
-      duration: 2000,
-    });
-    console.log("FileComplete");
-    console.log(data); // We just print out data bubbled up from event emitter.
-
-    this.ImageTitle = data.ImageTitle;
-    this.ImagePath = data.ImagePath;
-    //this.saveData();
-  }
-
-  requiredFileType(type: string) {
-    return function (control: FormControl) {
-      const file = control.value;
-      if (file) {
-        const extension = file.title.split('.')[1].toLowerCase();
-        if (type.toLowerCase() !== extension.toLowerCase()) {
-          return {
-            requiredFileType: true
-          };
-        }
-
-        return null;
-      }
-      return null;
-    };
-  }
+ 
 }
 
