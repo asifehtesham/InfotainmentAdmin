@@ -2,12 +2,9 @@ import { DateTime } from 'luxon';
 import { EntityBase } from './EntityBase';
 import { Attachment } from './Attachment';
 
-export interface Branch extends EntityBase {
+export interface IptvCategory extends EntityBase {
     title: string;
     titleAr: string;
     imageURL: string;
-    shortName: string;
-    branchId: number;
-    floorId: number;
     image?: Attachment;
 }

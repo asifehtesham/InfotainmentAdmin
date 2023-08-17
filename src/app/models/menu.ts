@@ -87,6 +87,14 @@ export const menus = [
         'link': '/mainapp/iptv',
         'open': false,
     },
+
+    {
+        'name': 'IPTV Category',
+        'icon': 'rss',
+        'link': '/mainapp/iptv-category',
+        'open': false,
+    },
+
     {
         'name': 'Newspaper',
         'icon': 'newspaper',

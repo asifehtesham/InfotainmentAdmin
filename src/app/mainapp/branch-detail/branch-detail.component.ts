@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BranchService } from 'src/app/services/branch.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
+import { FloorService } from 'src/app/services/floor.service';
 
 @Component({
   selector: 'app-branch-detail',
@@ -32,6 +33,8 @@ export class BranchDetailComponent {
   url: string = '';
   done: any;
   isBranchSaved: boolean = true;
+  
+  floors: SelectModel[];
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
@@ -39,6 +42,7 @@ export class BranchDetailComponent {
   editorConfig: any = EditorConfig;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private branchService: BranchService, private snakbar: MatSnackBar, private dialog: MatDialog,
+    private floorService: FloorService,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
     console.log(request);
@@ -50,6 +54,26 @@ export class BranchDetailComponent {
   }
 
   ngOnInit() {
+
+
+
+
+
+
+    var temp = [];
+    this.floorService.loadData().subscribe((results) => {
+      temp.push({ id: 0, title: "Empty Floor" });
+      results.forEach((element) => {
+        temp.push({ id: element.id, title: element.title });
+      });
+    });
+    this.floors = temp;
+
+
+
+
+
+
     this.route.params.subscribe(params => {
       console.log("branchID para:" + this.id);
 
@@ -75,8 +99,9 @@ export class BranchDetailComponent {
 
     this.f.title.setValue(this.branch.title);
     this.f.titleAr.setValue(this.branch.titleAr);
-    
+
     this.f.branchId.setValue(this.branch.branchId);
+    this.f.floorId.setValue(this.branch.floorId);
     this.f.imageURL.setValue(this.branch.imageURL);
     this.f.shortName.setValue(this.branch.shortName);
     this.f.sortOrder.setValue(this.branch.sortOrder);
@@ -97,6 +122,8 @@ export class BranchDetailComponent {
         Validators.maxLength(500),
       ]],
       'branchId': ['', []],
+      'floorId': ['', []],
+
       'imageURL': ['', []],
       'shortName': ['', []],
       'sortOrder': ['', []],
@@ -120,6 +147,7 @@ export class BranchDetailComponent {
       title: this.f.title.value,
       titleAr: this.f.titleAr.value,
       branchId: this.f.branchId.value,
+      floorId: this.f.floorId.value,
       imageURL: this.f.imageURL.value,
       shortName: this.f.shortName.value,
       sortOrder: this.f.sortOrder.value,

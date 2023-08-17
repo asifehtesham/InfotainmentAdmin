@@ -33,7 +33,7 @@
                 <mat-label class="label m-2">Branch:</mat-label>
                 <mat-form-field class="ml-2 mt-3 mb-5 w-50" style="height:20px" appearance="outline">
                     <mat-select (selectionChange)='blogsChart($event.value)'>
-                        <mat-option *ngFor="let blog of blogs" [value]="blog.id">{{blog.title}}</mat-option>    
+                        <mat-option *ngFor="let branch of branches" [value]="branch.id">{{branch.title}}</mat-option>    
                     </mat-select>
                 </mat-form-field>
                 <div fxLayoutAlign="stretch" class="stats-cards">
