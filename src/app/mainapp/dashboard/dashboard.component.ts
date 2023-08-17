@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/auth-service.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { BlogService } from 'src/app/services/blog.service';
 import { PagesService } from 'src/app/services/pages.service';
-
+import { BranchService } from 'src/app/services/branch.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
   pieChart = [];
   barChart = [];
   blogs:any=[] 
+  branches:any=[] 
+  
   pages:any=[] 
   
   ngOnInit() {
@@ -31,11 +33,12 @@ export class DashboardComponent implements OnInit {
     // this.authenticationService.oauthcall().subscribe(x => {
     //   console.log(x)
     // });
-    this.blogService.loadData().subscribe(results => {
+    this.branchService.loadData().subscribe(results => {
       results.forEach(element => {
-        this.blogs.push(element);
+        this.branches.push(element);
       });
     });
+
     this.pageService.loadData().subscribe(results => {
       results.forEach(element => {
         this.pages.push(element);
@@ -44,7 +47,7 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  constructor(private authenticationService: AuthService, private dashboardService: DashboardService,private blogService: BlogService,private pageService: PagesService) { } 
+  constructor(private authenticationService: AuthService, private dashboardService: DashboardService,private blogService: BlogService, private branchService: BranchService,private pageService: PagesService) { } 
   
   blogsChart(blogId){
 
