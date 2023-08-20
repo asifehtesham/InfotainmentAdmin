@@ -16,6 +16,9 @@ import { ActivatedRoute } from '@angular/router';
 import { MagazineService } from 'src/app/services/magazine.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
+import { CountryService } from 'src/app/services/country.service';
+
+
 
 @Component({
   selector: 'app-magazine-detail',
@@ -32,13 +35,18 @@ export class MagazineDetailComponent {
   url: string = '';
   done: any;
   isMagazineSaved: boolean = true;
+  
+  countries: SelectModel[];
+
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
 
   editorConfig: any = EditorConfig;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private magazineService: MagazineService, private snakbar: MatSnackBar, private dialog: MatDialog,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private magazineService: MagazineService, 
+    private countryService: CountryService,
+    private snakbar: MatSnackBar, private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
     console.log(request);
@@ -50,6 +58,20 @@ export class MagazineDetailComponent {
   }
 
   ngOnInit() {
+
+
+    var temp = [];
+    this.countryService.loadData().subscribe((results) => {
+      temp.push({ id: 0, name: "No Country" });
+      results.forEach((element) => {
+        temp.push({ id: element.id, name: element.name });
+      });
+    });
+    this.countries = temp;
+
+
+
+    
     this.route.params.subscribe(params => {
       console.log("magazineID para:" + this.id);
 

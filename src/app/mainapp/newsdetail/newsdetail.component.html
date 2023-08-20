@@ -84,18 +84,15 @@
 
 
               <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                <mat-label class="label m-2">Select Country</mat-label>
+                <mat-label class="label m-2">Select Template</mat-label>
                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                  <mat-select formControlName="country_id" placeholder="Select Country">
-                    <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name
+                  <mat-select formControlName="templateSlug" placeholder="Select Template">
+                    <mat-option *ngFor="let template of templates" [value]="template.slug">{{ template.title
                       }}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
 
-
-
-              
 
 
               <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>

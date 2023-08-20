@@ -17,6 +17,10 @@ import { NewsPaperService } from 'src/app/services/newsPaper.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
 
+
+import { CountryService } from 'src/app/services/country.service';
+
+
 @Component({
   selector: 'app-newspaper-detail',
   templateUrl: './newspaper-detail.component.html',
@@ -33,12 +37,17 @@ export class NewspaperDetailComponent {
   done: any;
   isNewsPaperSaved: boolean = true;
 
+  
+  countries: SelectModel[];
+
+
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
 
   editorConfig: any = EditorConfig;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private newsPaperService: NewsPaperService, private snakbar: MatSnackBar, private dialog: MatDialog,
+    private countryService: CountryService,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
     console.log(request);
@@ -50,6 +59,20 @@ export class NewspaperDetailComponent {
   }
 
   ngOnInit() {
+
+
+
+
+    
+    var temp = [];
+    this.countryService.loadData().subscribe((results) => {
+      temp.push({ id: 0, name: "No Country" });
+      results.forEach((element) => {
+        temp.push({ id: element.id, name: element.name });
+      });
+    });
+    this.countries = temp;
+
     this.route.params.subscribe(params => {
       console.log("newsPaperID para:" + this.id);
 

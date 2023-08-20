@@ -30,6 +30,30 @@
                             </app-single-file-upload>
                         </div>
                         <div fxLayout="column" fxLayoutAlign="start stretch">
+                            
+
+
+
+
+
+
+
+                            
+
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Select Country</mat-label>
+                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                  <mat-select formControlName="countryID" placeholder="Select Country">
+                    <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name
+                      }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+
+
+
+<!--                             
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Country</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
@@ -41,7 +65,9 @@
                                     </a>
                                     <mat-error *ngIf=""> Please enter a valid country </mat-error>
                                 </mat-form-field>
-                            </div>
+                            </div> -->
+
+
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Title</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">

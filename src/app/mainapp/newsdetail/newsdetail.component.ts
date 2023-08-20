@@ -17,10 +17,6 @@ import { NewsService } from 'src/app/services/news.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
 
-
-import { CountryService } from 'src/app/services/country.service';
-
-
 @Component({
   selector: 'app-newsdetail',
   templateUrl: './newsdetail.component.html',
@@ -59,20 +55,12 @@ export class NewsdetailComponent {
   allTags: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   todo: any = [];
 
-
-
-  countries: SelectModel[];
-
-
-
   @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   //#endregion Tag chip
 
-  constructor(private route: ActivatedRoute,
-    private countryService: CountryService,
-    private fb: FormBuilder, private newsService: NewsService, private snakbar: MatSnackBar, private dialog: MatDialog, private templatesService: TemplatesService,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private newsService: NewsService, private snakbar: MatSnackBar, private dialog: MatDialog, private templatesService: TemplatesService,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
     console.log(request);
@@ -92,17 +80,6 @@ export class NewsdetailComponent {
     //   console.log('come to the subscriber');
     //   this.availableQuestions = results;
     // });
-
-
-    var temp = [];
-    this.countryService.loadData().subscribe((results) => {
-      temp.push({ id: 0, title: "No Country" });
-      results.forEach((element) => {
-        temp.push({ id: element.id, title: element.name });
-      });
-    });
-    this.countries = temp;
-
 
     this.templatesService.loadData().subscribe(results => {
       results.forEach(element => {
