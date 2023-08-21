@@ -1,12 +1,10 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
-
     <mat-card>
         <mat-card-content>
-
             <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
                 <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
                     <div class="page-sub-title" fxLayoutAlign="space-between center" >
-                        Rooms LIST
+                        Rooms List
                         <mat-form-field fxLayout="column" class="full-width ml-5 mr-2 " fxFlex appearance="outline">
                             <input type="text" id="roomIdSearch" class="input" placeholder="Search by Room ID"
                                 matInput #roomIdSearch (keyup)="searchRoom($event.target['value'])"/>
@@ -15,11 +13,17 @@
                                 <mat-icon>close</mat-icon>
                             </a>
                         </mat-form-field>
-                        <mat-label class="label ml-3 ">Room Options:</mat-label>
+                        <mat-label class="label ml-3 ">Room Options</mat-label>
                         <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
                             <mat-select (selectionChange)='onRoomOptionChange($event.value)' [(value)]="roomOptions[0]">
-                                <mat-option *ngFor="let option of roomOptions" [value]="option">{{option}}</mat-option>
-                                
+                                <mat-option *ngFor="let option of roomOptions" [value]="option">{{option}}</mat-option>      
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-label class="label ml-3 ">Room Type</mat-label>
+                        <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
+                            <mat-select (selectionChange)='onRoomTypeChange($event.value)'>
+                                <mat-option value="">All</mat-option>                                      
+                                <mat-option *ngFor="let type of roomType" [value]="type">{{type}}</mat-option>      
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -31,12 +35,7 @@
                         
                     </div>
                 </div>
-                <div fxLayout="column" fxLayoutAlign="start stretch" >
-                    
-                    <ng-template #loading>
-                        <app-loading align="center"></app-loading>
-                    </ng-template> 
-                </div>
+                 
             </div>
 
         </mat-card-content>
@@ -46,7 +45,7 @@
         <mat-grid-tile  *ngFor="let room of rooms">
             
             
-            <mat-card class="mat-elevation-z8" style="width:95%">
+            <mat-card class="mat-elevation-z8" style="width:95%;padding:10px">
                 <div class="activeIcon">
                     <a (click)="onEdit(room)"><mat-icon style="font-size:large;cursor:pointer;margin-right:10px">edit</mat-icon></a>
                     <span *ngIf="room.status" class="statusActive"  matTooltip="Reserved" matTooltipPosition="below"></span>
@@ -79,4 +78,14 @@
 
     </mat-grid-list>
 
+    <mat-paginator [length]="paginatedRooms.length"
+        [pageSize]="size"
+        [pageIndex]="page"
+        [pageSizeOptions]="[10, 20, 50, 100]"
+        (page)="getData($event)">
+    </mat-paginator>
+
+    <ng-template #loading>
+        <app-loading align="center"></app-loading>
+    </ng-template> 
 </div>

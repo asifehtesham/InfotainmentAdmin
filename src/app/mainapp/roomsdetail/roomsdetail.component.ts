@@ -1,12 +1,8 @@
-
-
-
 import { Component, OnInit, ViewChild, ElementRef, Input, Inject } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SingleFileUploadComponent } from 'src/app/coreui/single-file-upload/single-file-upload.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -24,7 +20,6 @@ import { FloorService } from 'src/app/services/floor.service';
 import { Branch } from 'src/app/models/Branch';
 import { Floor } from 'src/app/models/Floor';
 
-
 @Component({
   selector: 'app-roomsdetail',
   templateUrl: './roomsdetail.component.html',
@@ -32,14 +27,13 @@ import { Floor } from 'src/app/models/Floor';
 })
 export class RoomsDetailComponent {
 
-
   templates: Templates[] = [];
   id: number;
   room: Rooms;
   branches: any =[];
   floors: any=[];
   roomForm: FormGroup;
-
+  roomType=['Patient','Admin','ICU','Surgery','Waiting']
   url: string = '';
   done: any;
   isIPTVSaved: boolean = true;

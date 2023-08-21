@@ -34,50 +34,43 @@ export class RoomsListComponent {
     'branch',
     'IP',
     'status',
-    'id'];
+    'id'
+  ];
+
   rooms = [];
-  search = new FormControl();
+  paginatedRooms:any = [];
   index: number = 1;
   limit: number = 10;
-  pageTotal: number = 20;
   roomOptions=['Active',"Don't Disturb",'Discharge','Admit Patient']
-  public loadEmptyMsg: boolean = false; 
-  selection = new SelectionModel<Rooms>(true, []);
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sortable: MatSort;
+  roomType=['Patient','Admin','ICU','Surgery','Waiting']
+  page = 0;
+  size = 10;
 
   constructor(private http: HttpClient, private roomsService: RoomsService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
-    this.loadData();
+    this.loadData(); 
   }
-
-  loadData() {
+  
+  loadData(){
     this.roomsService.loadData(this.index, this.limit).subscribe(results => {
-      results.forEach(element => {
-        this.rooms.push(element)
-      });
+      this.paginatedRooms=results
+      this.getData({pageIndex: this.page, pageSize: this.size});
+      // results.forEach(element => {
+      //   this.paginatedRooms.push(element)
+      // });
     });
   }
 
-  onRoomOptionChange(value){
+  getData(obj) {
+    let index=0,
+    startingIndex=obj.pageIndex * obj.pageSize,
+    endingIndex=startingIndex + obj.pageSize;
 
-  } 
- page(event) {
-    this.index = event.pageIndex + 1;
-    this.limit = event.pageSize;
-
-    this.loadData();
-  }
-  chkActive_changed(ambulance: any, $event: MatSlideToggleChange) {
-
-    console.log("chkActive_changed: " + ambulance.id);
-    console.log($event.checked);
-
-    ambulance.IsActive = $event.checked;
-    this.roomsService.editactive(ambulance).subscribe();
-
+    this.rooms = this.paginatedRooms.filter(() => {
+      index++;
+      return (index > startingIndex && index <= endingIndex) ? true : false;
+    });
   }
 
   ondelete(room: any) {
@@ -95,7 +88,7 @@ export class RoomsListComponent {
 
         this.roomsService.delete(room.id).subscribe(params => {
 
-          this.snakbar.open('Record has been deleted successfully.', 'Dismise', {
+          this.snakbar.open('Room has been deleted successfully.', 'Dismise', {
             duration: 3000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
@@ -113,19 +106,24 @@ export class RoomsListComponent {
       }
     })
   }
- 
-searchRoom(searchText):any{
-console.log(searchText)
-let filteredData
-  if (searchText) {
-    this.rooms= this.rooms.filter(room => room.roomId.toLowerCase().includes(searchText.toLowerCase()));
-    console.log(filteredData)
-  } else {
-    return this.rooms;
-  }
-}
+  onRoomOptionChange(value){
 
- 
+  } 
+  searchRoom(searchText):any{ 
+    if (searchText) {
+      this.rooms = this.paginatedRooms.filter(room => room.roomId.toLowerCase().includes(searchText.toLowerCase()));
+    } else {
+      this.rooms= this.paginatedRooms;
+    }
+  }
+
+  onRoomTypeChange(value){
+    if (value) {
+      this.rooms = this.paginatedRooms.filter(room => room.roomType.toLowerCase().includes(value.toLowerCase()));
+    } else {
+      this.rooms = this.paginatedRooms;
+    }
+  }
   onAdd() {
 
     console.log("onAdd() ........... trigger");

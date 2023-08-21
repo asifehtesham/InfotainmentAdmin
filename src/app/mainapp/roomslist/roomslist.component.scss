@@ -1,13 +1,10 @@
  .activeIcon{
     display:flex;
     justify-content:flex-end;
-    padding-top:5%;
-    padding-right:5%
- }
+}
  .statusActive{
     background: rgb(255, 69, 96); color: rgb(255, 69, 96); height: 15px; width: 15px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 10px;
  }
  .statusNotActive{
     background: rgb(0, 227, 150); color: rgb(0, 227, 150); height: 15px; width: 15px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 10px;
  }
- 
