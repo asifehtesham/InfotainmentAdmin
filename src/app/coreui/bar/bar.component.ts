@@ -49,7 +49,7 @@ export class BarComponent implements OnInit {
   },
   tooltip: {
     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-    pointFormat: '<tr><td style="color:blue;padding:0">Hits:  </td>'  + 
+    pointFormat: '<tr><td style="color:blue;padding:0">{series.name}:  </td>'  + 
         ' <td style="padding:0"><b> {point.y:.1f} </b></td></tr>',
     footerFormat: '</table>',
     shared: true,
@@ -67,11 +67,7 @@ export class BarComponent implements OnInit {
       credits: {
         enabled: false
       },
-      series: [{
-        name: 'Blogs',
-        colorByPoint: true,
-        data: this.data
-      }]
+      series: this.data
     };
 
     HC_exporting(Highcharts);

@@ -129,7 +129,7 @@ export class RoomsListComponent {
     console.log("onAdd() ........... trigger");
 
     const dialogRef = this.dialog.open(RoomsDetailComponent, {
-      width: '650px',
+      width: '1050px',
       data: { id: 0 }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -139,7 +139,7 @@ export class RoomsListComponent {
   
   onEdit(data: any) {
     const dialogRef = this.dialog.open(RoomsDetailComponent, {
-      width: '650px',
+      width: '1050px',
       data: { id: data.id, room: data }
     });
     dialogRef.afterClosed().subscribe(result => {
