@@ -21,7 +21,7 @@
                         </mat-form-field>
                         <mat-label class="label ml-3 ">Room Type</mat-label>
                         <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
-                            <mat-select (selectionChange)='onRoomTypeChange($event.value)'>
+                            <mat-select (selectionChange)='onRoomTypeChange($event.value)' value="">
                                 <mat-option value="">All</mat-option>                                      
                                 <mat-option *ngFor="let type of roomType" [value]="type">{{type}}</mat-option>      
                             </mat-select>
@@ -29,9 +29,9 @@
                     </div>
                     <div>
                     
-                        <a mat-button mat-flat-button color="warn" (click)="onAdd()">
+                        <button mat-button mat-flat-button color="warn" (click)="onAdd()">
                             <mat-icon>add</mat-icon> Add
-                        </a>
+                        </button>
                         
                     </div>
                 </div>

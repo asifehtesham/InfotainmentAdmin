@@ -14,8 +14,6 @@ export class DashboardService {
 
   constructor(private http: HttpClient, private authenticationService: AuthService) { }
 
-
-
   profileViews() {
     return [{
       name: 'Views',
@@ -208,11 +206,32 @@ export class DashboardService {
       y: 2.61
     }];
   }
-
   barChart() {
-    return [ 15.41, 11.84,10.85 ,4.67, 4.18,  3.64,  5.6,8.2,9.6, 12.61,23,12
+    return [
+      {
+        name: 'Blogs',
+        colorByPoint: true,      
+        data:[15.41, 11.84,10.85 ,4.67, 4.18,  3.64,  5.6,8.2,9.6, 12.61,23,12]
+      }
     ];
   }
-
-  
+  barChannelsChart(){
+    return [
+        {
+        name: 'News',
+        colorByPoint: true,
+        data: [21, 56, 4, 31, 45, 15, 57, 61, 9, 17, 24, 59] 
+      },
+      { 
+        name: "Channels",
+        colorByPoint: true,        
+        data: [37, 19, 68, 24, 57, 21, 14,41, 19, 57, 34, 69]
+      },
+      { 
+        name: "Devices",
+        colorByPoint: true,        
+        data: [47, 9, 28, 54, 77, 51, 24,61, 9, 17, 14, 79]
+      }
+    ]
+  }
 }

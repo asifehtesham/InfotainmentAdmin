@@ -44,9 +44,6 @@
         </mat-card>
     </div> 
 
-    
-
-
     <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="stats-cards">
         <mat-card appearance="outlined">
             <mat-card-content>
@@ -183,6 +180,34 @@
         </mat-card>
     </div>  
  
+
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="stats-cards">
+            <mat-card appearance="outlined">
+               <mat-card-content>
+                   <label class="title-semi">Channels  (2) Hits</label>
+                   <!-- <span class="float-right">Current Rooms</span> -->
+                   <br>
+                   <!-- <div fxLayoutAlign="space-between">
+                       <span class=" mt-1" style="background: rgb(255, 69, 96); color: rgb(255, 69, 96); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
+                       <span>Active Room (9)</span>
+                       <span class="mt-1" style="background: rgb(0, 143, 251); color: rgb(0, 143, 251); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
+                       <span>Do not Distrub (6)</span>
+                       <span class="mt-1" style="background: rgb(0, 227, 150); color: rgb(0, 227, 150); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
+                       <span>Discharge (2)</span>
+                   </div>  -->
+                   <mat-label class="label m-2">Channels:</mat-label>
+                   <mat-form-field class="ml-2 mt-3 mb-5 w-50" style="height:20px" appearance="outline">
+                       <mat-select >
+                           <mat-option *ngFor="let branch of branches" [value]="branch.id">{{branch.title}}</mat-option>    
+                       </mat-select>
+                   </mat-form-field>
+                   <div fxLayoutAlign="stretch" class="stats-cards">
+                           <app-bar [data]="barChannelsChart"></app-bar>
+                       
+                   </div>
+               </mat-card-content>
+           </mat-card>
+       </div> 
     <mat-divider></mat-divider>
 
     <br>
