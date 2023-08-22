@@ -24,7 +24,6 @@
                 <ng-template mat-tab-label> Basic Info </ng-template>
                 <ng-template matTabContent>
                     <mat-dialog-content>
-                         
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Room ID</mat-label>
@@ -71,6 +70,13 @@
                     </mat-dialog-content>
                 </ng-template>
             </mat-tab>
+            <mat-tab label="Devices">
+                    <ng-template mat-tab-label> Devices </ng-template>
+                    <ng-template matTabContent>
+                            <app-devices></app-devices> 
+
+                    </ng-template>
+                </mat-tab>
         </mat-tab-group>
     </div>
     <mat-dialog-actions align="end">

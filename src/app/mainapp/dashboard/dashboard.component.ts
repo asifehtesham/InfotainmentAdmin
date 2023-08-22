@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   barChart = [];
   blogs:any=[] 
   branches:any=[] 
-  
+  barChannelsChart=[]
   pages:any=[] 
   
   ngOnInit() {
@@ -29,7 +29,8 @@ export class DashboardComponent implements OnInit {
     this.cards = this.dashboardService.cards();
     this.pieChart = this.dashboardService.pieChart();
     this.barChart = this.dashboardService.barChart();
-
+    this.barChannelsChart=this.dashboardService.barChannelsChart();
+    
     // this.authenticationService.oauthcall().subscribe(x => {
     //   console.log(x)
     // });
