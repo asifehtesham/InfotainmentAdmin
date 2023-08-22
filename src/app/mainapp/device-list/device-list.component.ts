@@ -5,8 +5,8 @@ import { BehaviorSubject, Observable, timer, interval, Subscription } from 'rxjs
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 
-import { SocialMedia } from 'src/app/models/SocialMedia';
-import { SocialMediaService } from 'src/app/services/socialMedia.service';
+import { Device } from 'src/app/models/Device';
+import { DeviceService } from 'src/app/services/device.service';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -14,48 +14,42 @@ import { MatSort } from '@angular/material/sort';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
-import { SocialMediaDetailComponent } from '../social-media-detail/social-media-detail.component'
+import { DeviceDetailComponent } from '../device-detail/device-detail.component'
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-social-media-list',
-  templateUrl: './social-media-list.component.html',
-  styleUrls: ['./social-media-list.component.scss']
+  selector: 'app-device-list',
+  templateUrl: './device-list.component.html',
+  styleUrls: ['./device-list.component.scss']
 })
-export class SocialMediaListComponent {
+export class DeviceListComponent {
+
   subscription: Subscription;
   displayedColumns: string[] = ['select',
-    'typeID',
     'title',
-    'titleAr',
-    'serviceURL',
+    'titleAr',    
+    'deviceType',
     'sortOrder',
-
     'active',
     'id'];
-  socialMedia = [];
+  device = [];
   search = new FormControl();
   index: number = 1;
   limit: number = 10;
   pageTotal: number = 20;
 
- 
-
   public loadEmptyMsg: boolean = false;
-  public dataSource = new MatTableDataSource<SocialMedia>();
-  selection = new SelectionModel<SocialMedia>(true, []);
+  public dataSource = new MatTableDataSource<Device>();
+  selection = new SelectionModel<Device>(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sortable: MatSort;
 
-  constructor(private http: HttpClient, private socialMediaService: SocialMediaService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
+  constructor(private http: HttpClient, private deviceService: DeviceService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
-
-
-
     this.loadData();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sortable;
@@ -65,7 +59,7 @@ export class SocialMediaListComponent {
     this.search.valueChanges.subscribe(
       value => {
         if (value.length == 0) {
-          this.socialMediaService.loadData().pipe(map((results => {
+          this.deviceService.loadData().pipe(map((results => {
             //return results;
             this.dataSource.data = results;
           })));
@@ -73,7 +67,7 @@ export class SocialMediaListComponent {
           return;
         }
 
-        this.socialMediaService.search(value).subscribe(results => {
+        this.deviceService.search(value).subscribe(results => {
           //this.loadEmptyMsg = true;
           console.log('come to the subscriber');
           this.dataSource.data = results;
@@ -84,7 +78,7 @@ export class SocialMediaListComponent {
   }
 
   loadData() {
-    this.socialMediaService.loadData(this.index, this.limit).subscribe(results => {
+    this.deviceService.loadData(this.index, this.limit).subscribe(results => {
       this.loadEmptyMsg = true;
       console.log('come to the subscriber');
       this.dataSource.data = results;
@@ -103,11 +97,11 @@ export class SocialMediaListComponent {
     console.log($event.checked);
 
     ambulance.IsActive = $event.checked;
-    this.socialMediaService.editactive(ambulance).subscribe();
+    this.deviceService.editactive(ambulance).subscribe();
 
   }
 
-  ondelete(socialMedia: any) {
+  ondelete(device: any) {
 
     Swal.fire({
       title: 'Are you sure?',
@@ -120,7 +114,7 @@ export class SocialMediaListComponent {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.socialMediaService.delete(socialMedia.id).subscribe(params => {
+        this.deviceService.delete(device.id).subscribe(params => {
 
           this.snakbar.open('Record has been deleted successfully.', 'Dismise', {
             duration: 3000,
@@ -134,7 +128,7 @@ export class SocialMediaListComponent {
       else {
         Swal.fire(
           'Cancelled',
-          'Your SocialMedia is safe :)',
+          'Your Device is safe :)',
           'error'
         )
       }
@@ -159,7 +153,7 @@ export class SocialMediaListComponent {
         if (willDelete.isConfirmed) {
 
           var ids = this.selection.selected.map(x => x.id).join(",");
-          this.socialMediaService.deleteAll(ids).subscribe(result => {
+          this.deviceService.deleteAll(ids).subscribe(result => {
             if (result) {
               this.snakbar.open('Your record(s) has been deleted successfully.', 'Ok', {
                 duration: 2000,
@@ -191,7 +185,7 @@ export class SocialMediaListComponent {
 
     this.selection.select(...this.dataSource.data);
   }
-  checkboxLabel(row?: SocialMedia): string {
+  checkboxLabel(row?: Device): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -203,7 +197,7 @@ export class SocialMediaListComponent {
 
     console.log("onAdd() ........... trigger");
 
-    const dialogRef = this.dialog.open(SocialMediaDetailComponent, {
+    const dialogRef = this.dialog.open(DeviceDetailComponent, {
       width: '650px',
       data: { id: 0 }
     });
@@ -213,9 +207,9 @@ export class SocialMediaListComponent {
   }
 
   onEdit(data: any) {
-    const dialogRef = this.dialog.open(SocialMediaDetailComponent, {
+    const dialogRef = this.dialog.open(DeviceDetailComponent, {
       width: '650px',
-      data: { id: data.id, socialMedia: data }
+      data: { id: data.id, device: data }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.loadData();

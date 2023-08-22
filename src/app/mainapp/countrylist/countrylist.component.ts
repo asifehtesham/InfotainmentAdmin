@@ -19,6 +19,7 @@ import { CountrydetailComponent } from '../countrydetail/countrydetail.component
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
+import { element } from 'protractor';
 
 
 
@@ -55,6 +56,24 @@ export class CountrylistComponent {
   constructor(private http: HttpClient, private countryService: CountryService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
+
+
+
+
+
+
+
+
+
+    this.countryService.loadData(this.index, this.limit).subscribe(results => {
+      this.loadEmptyMsg = true;
+      console.log('come to the subscriber');
+      this.dataSource.data = results;
+    });
+
+
+
+
     this.loadData();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sortable;

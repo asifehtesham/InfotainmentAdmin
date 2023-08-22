@@ -73,8 +73,8 @@ export class IptvCategoryDetailComponent {
 
   setForm() {
 
-    this.f.title.setValue(this.iptvCategory.title);
-    this.f.titleAr.setValue(this.iptvCategory.titleAr);
+    this.f.name.setValue(this.iptvCategory.name);
+    this.f.nameAr.setValue(this.iptvCategory.nameAr);
     this.f.imageURL.setValue(this.iptvCategory.imageURL);
     this.f.sortOrder.setValue(this.iptvCategory.sortOrder);
     this.f.active.setValue(this.iptvCategory.active);
@@ -85,12 +85,12 @@ export class IptvCategoryDetailComponent {
       'ID': [this.id, [
         //Validators.required
       ]],
-      'title': ['', [
+      'name': ['', [
         Validators.required,
         Validators.maxLength(500),
         Validators.minLength(1)
       ]],
-      'titleAr': ['', [
+      'nameAr': ['', [
         Validators.maxLength(500),
       ]],
       'imageURL': ['', []],
@@ -112,8 +112,8 @@ export class IptvCategoryDetailComponent {
 
     var iptvCategory: IptvCategory = {
       id: this.id,
-      title: this.f.title.value,
-      titleAr: this.f.titleAr.value,
+      name: this.f.name.value,
+      nameAr: this.f.nameAr.value,
       imageURL: this.f.imageURL.value,
       sortOrder: this.f.sortOrder.value,
       active: (this.f.active.value == true) ? true : false

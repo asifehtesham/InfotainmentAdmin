@@ -17,7 +17,7 @@ export class MagazineService {
 
   add(magazine: Magazine) {
     var action = 'magazine';
-    return this.http.post<any>(environment.apiUrl + action, magazine)
+    return this.http.post<any>(environment.infotApiUrl + action, magazine)
       .pipe(map(data => {
         return data;
       }));
@@ -26,7 +26,7 @@ export class MagazineService {
 
   update(magazine: Magazine) {
     var action = 'magazine';
-    return this.http.put<any>(environment.apiUrl + action, magazine)
+    return this.http.put<any>(environment.infotApiUrl + action, magazine)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -36,7 +36,7 @@ export class MagazineService {
 
 
   loadByID(id: number): Observable<Magazine> {
-    return this.http.get<any>(`${environment.apiUrl}magazine/${id}`)
+    return this.http.get<any>(`${environment.infotApiUrl}magazine/${id}`)
       .pipe(
         map(data => {
           return <Magazine>data;
@@ -46,7 +46,7 @@ export class MagazineService {
 
   loadData(index: number = 1, limit: number = 10): Observable<Magazine[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}magazine?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}magazine?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
           var magazine: Array<Magazine> = [];
@@ -60,7 +60,7 @@ export class MagazineService {
   }
 
   search(key: string): Observable<Magazine[]> {
-    return this.http.get<any>(`${environment.apiUrl}magazine/search/${key}`)
+    return this.http.get<any>(`${environment.infotApiUrl}magazine/search/${key}`)
       .pipe(
         map(data => {
           var magazine = [];
@@ -79,7 +79,7 @@ export class MagazineService {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.apiUrl + action, magazine)
+    return this.http.post<any>(environment.infotApiUrl + action, magazine)
       .pipe(map(data => {
         var magazines = [];
         data.forEach(item => {
@@ -95,7 +95,7 @@ export class MagazineService {
     console.log("delete: " + id);
 
     var action = "magazine/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -105,7 +105,7 @@ export class MagazineService {
     console.log("delete: " + ids);
 
     var action = "magazine?ids=" + ids;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -113,7 +113,7 @@ export class MagazineService {
 
   handleError(operation: String) {
     return (err: any) => {
-      let errMsg = `error in ${operation}() retrieving ${environment.apiUrl}`;
+      let errMsg = `error in ${operation}() retrieving ${environment.infotApiUrl}`;
       console.log(`${errMsg}:`, err)
       if (err instanceof HttpErrorResponse) {
         // you could extract more info about the error if you want, e.g.:

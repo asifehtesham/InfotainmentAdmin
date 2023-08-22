@@ -69,11 +69,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
             ///////////////// start infot
             
-            if (request.url.startsWith(`${environment.apiUrl}newsPaper?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:NewspaperData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}newsPaper?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:NewspaperData});
+            // }
 
 
             if (request.url.startsWith(`${environment.apiUrl}iptv?index=1&limit=10`) && request.method === 'GET') {
@@ -87,17 +87,17 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return ok({data:RoomsData});
             }
 
-            if (request.url.startsWith(`${environment.apiUrl}magazine?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:MagazineData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}magazine?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:MagazineData});
+            // }
 
-            if (request.url.startsWith(`${environment.apiUrl}games?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:GamesData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}games?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:GamesData});
+            // }
 
             if (request.url.startsWith(`${environment.apiUrl}feedbackType?index=1&limit=10`) && request.method === 'GET') {
                 console.log("Fake interceptor page/");
@@ -105,43 +105,43 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 return ok({data:FeedbackTypeData});
             }
 
-            if (request.url.startsWith(`${environment.apiUrl}country?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:CountryData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}country?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:CountryData});
+            // }
 
-            if (request.url.startsWith(`${environment.apiUrl}socialMediaType?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:SocialmediatypeData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}socialMediaType?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:SocialmediatypeData});
+            // }
 
-            if (request.url.startsWith(`${environment.apiUrl}socialMedia?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:SocialmediaData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}socialMedia?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:SocialmediaData});
+            // }
 
             
-            if (request.url.startsWith(`${environment.apiUrl}branch?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:BranchData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}branch?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:BranchData});
+            // }
 
-            if (request.url.startsWith(`${environment.apiUrl}floor?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:FloorData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}floor?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:FloorData});
+            // }
 
 
-            if (request.url.startsWith(`${environment.apiUrl}iptvCategory?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:IptvCategoryData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}iptvCategory?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:IptvCategoryData});
+            // }
 
 
             

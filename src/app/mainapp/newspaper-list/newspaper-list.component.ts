@@ -42,6 +42,7 @@ export class NewspaperListComponent {
   limit: number = 10;
   pageTotal: number = 20;
 
+
   public loadEmptyMsg: boolean = false;
   public dataSource = new MatTableDataSource<NewsPaper>();
   selection = new SelectionModel<NewsPaper>(true, []);
@@ -52,6 +53,7 @@ export class NewspaperListComponent {
   constructor(private http: HttpClient, private newsPaperService: NewsPaperService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
+
     this.loadData();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sortable;

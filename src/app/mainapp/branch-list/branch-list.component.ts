@@ -30,7 +30,7 @@ export class BranchListComponent {
   displayedColumns: string[] = ['select',
     'title',
     'titleAr',
-    'branchId',    
+    'projectId',    
     'shortName',
     'sortOrder',
     'active',

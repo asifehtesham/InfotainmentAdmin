@@ -17,7 +17,7 @@ export class SocialMediaService {
 
   add(socialMedia: SocialMedia) {
     var action = 'socialMedia';
-    return this.http.post<any>(environment.apiUrl + action, socialMedia)
+    return this.http.post<any>(environment.infotApiUrl + action, socialMedia)
       .pipe(map(data => {
         return data;
       }));
@@ -26,7 +26,7 @@ export class SocialMediaService {
 
   update(socialMedia: SocialMedia) {
     var action = 'socialMedia';
-    return this.http.put<any>(environment.apiUrl + action, socialMedia)
+    return this.http.put<any>(environment.infotApiUrl + action, socialMedia)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -36,7 +36,7 @@ export class SocialMediaService {
 
 
   loadByID(id: number): Observable<SocialMedia> {
-    return this.http.get<any>(`${environment.apiUrl}socialMedia/${id}`)
+    return this.http.get<any>(`${environment.infotApiUrl}socialMedia/${id}`)
       .pipe(
         map(data => {
           return <SocialMedia>data;
@@ -46,7 +46,7 @@ export class SocialMediaService {
 
   loadData(index: number = 1, limit: number = 10): Observable<SocialMedia[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}socialMedia?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}socialMedia?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
           var socialMedia: Array<SocialMedia> = [];
@@ -60,7 +60,7 @@ export class SocialMediaService {
   }
 
   search(key: string): Observable<SocialMedia[]> {
-    return this.http.get<any>(`${environment.apiUrl}socialMedia/search/${key}`)
+    return this.http.get<any>(`${environment.infotApiUrl}socialMedia/search/${key}`)
       .pipe(
         map(data => {
           var socialMedia = [];
@@ -79,7 +79,7 @@ export class SocialMediaService {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.apiUrl + action, socialMedia)
+    return this.http.post<any>(environment.infotApiUrl + action, socialMedia)
       .pipe(map(data => {
         var socialMedias = [];
         data.forEach(item => {
@@ -95,7 +95,7 @@ export class SocialMediaService {
     console.log("delete: " + id);
 
     var action = "socialMedia/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -105,7 +105,7 @@ export class SocialMediaService {
     console.log("delete: " + ids);
 
     var action = "socialMedia?ids=" + ids;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -113,7 +113,7 @@ export class SocialMediaService {
 
   handleError(operation: String) {
     return (err: any) => {
-      let errMsg = `error in ${operation}() retrieving ${environment.apiUrl}`;
+      let errMsg = `error in ${operation}() retrieving ${environment.infotApiUrl}`;
       console.log(`${errMsg}:`, err)
       if (err instanceof HttpErrorResponse) {
         // you could extract more info about the error if you want, e.g.:

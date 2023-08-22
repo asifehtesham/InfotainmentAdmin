@@ -3,8 +3,8 @@ import { EntityBase } from './EntityBase';
 import { Attachment } from './Attachment';
 
 export interface IptvCategory extends EntityBase {
-    title: string;
-    titleAr: string;
+    name: string;
+    nameAr: string;
     imageURL: string;
     image?: Attachment;
 }

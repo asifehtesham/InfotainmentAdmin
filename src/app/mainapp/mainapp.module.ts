@@ -107,6 +107,9 @@ import { FloorListComponent } from './floor-list/floor-list.component';
 
 import { IptvCategoryDetailComponent } from './iptv-category-detail/iptv-category-detail.component';
 import { IptvCategoryListComponent } from './iptv-category-list/iptv-category-list.component';
+import { DeviceDetailComponent } from './device-detail/device-detail.component';
+import { DeviceListComponent } from './device-list/device-list.component';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -138,9 +141,9 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path:"rooms",
-        component:RoomsListComponent,
-        canActivate:[AuthGuard]
+        path: "rooms",
+        component: RoomsListComponent,
+        canActivate: [AuthGuard]
       },
       {
         path: "magazine",
@@ -314,6 +317,13 @@ const routes: Routes = [
         component: BranchListComponent,
         canActivate: [AuthGuard],
       },
+
+      {
+        path: "device",
+        component: DeviceListComponent,
+        canActivate: [AuthGuard],
+      },
+
       {
         path: "iptv",
         component: IPTVListComponent,
@@ -407,6 +417,10 @@ const routes: Routes = [
     PatientRecordComponent,
     FloorDetailComponent,
     FloorListComponent,
+    DeviceDetailComponent,
+    DeviceListComponent,
+    BranchDetailComponent,
+    BranchListComponent,
     IptvCategoryDetailComponent,
     IptvCategoryListComponent,
     IPTVListComponent,

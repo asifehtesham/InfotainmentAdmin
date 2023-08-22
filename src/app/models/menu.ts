@@ -81,6 +81,15 @@ export const menus = [
         'link': '/mainapp/rooms',
         'open': false,
     },
+
+    
+    {
+        'name': 'Devices',
+        'icon': 'building',
+        'link': '/mainapp/device',
+        'open': false,
+    },
+
     {
         'name': 'IPTV',
         'icon': 'rss',

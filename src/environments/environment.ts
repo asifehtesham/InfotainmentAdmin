@@ -5,6 +5,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 export const environment = {
   apiUrl: "/api/",
+  infotApiUrl: "/info/api/",
   siteUrl: "http://10.201.204.180:9203",
   //CHAT_URL: "ws://echo.websocket.org/",
   CHAT_URL: "ws://localhost:5000/ws",

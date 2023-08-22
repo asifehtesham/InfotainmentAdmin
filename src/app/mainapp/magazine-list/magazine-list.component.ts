@@ -49,9 +49,14 @@ export class MagazineListComponent {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sortable: MatSort;
 
+
+
+
+  
   constructor(private http: HttpClient, private magazineService: MagazineService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
+
     this.loadData();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sortable;

@@ -1,4 +1,4 @@
-<form [formGroup]="branchForm">
+<form [formGroup]="deviceForm">
   <div class="m-3">
     <div
       fxLayout="row"
@@ -6,7 +6,7 @@
       style="height: 40px"
     >
       <div fxFlex>
-        <h5 mat-dialog-title class="title-sub">Branch Detail</h5>
+        <h5 mat-dialog-title class="title-sub">Device Detail</h5>
       </div>
       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
         <button
@@ -15,7 +15,7 @@
           color="primary"
           type="submit"
           (click)="save()"
-          [disabled]="!branchForm.valid"
+          [disabled]="!deviceForm.valid"
         >
           <mat-icon
             class="customfab-icon-white"
@@ -119,8 +119,8 @@
                 </mat-form-field>
               </div>
 
-              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                <mat-label class="label m-2">Branch Id</mat-label>
+              <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Device Id</mat-label>
                 <mat-form-field
                   fxLayout="column"
                   class="full-width"
@@ -149,10 +149,10 @@
                     <mat-icon>close</mat-icon>
                   </a>
                   <mat-error *ngIf="">
-                    Please enter a valid Branch Id
+                    Please enter a valid Device Id
                   </mat-error>
                 </mat-form-field>
-              </div>
+              </div> -->
 
               <!--                             
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
@@ -173,24 +173,25 @@
                 fxLayoutAlign="start stretch"
                 fxLayoutGap
               >
-                <mat-label class="label m-2">Floor</mat-label>
+                <mat-label class="label m-2">Device Type</mat-label>
                 <mat-form-field class="full-width" fxFlex appearance="outline">
-                  <mat-select formControlName="floors" placeholder="Floor">
+                  <mat-select formControlName="deviceType" placeholder="Device Type">
                     <mat-option
-                      *ngFor="let floor of floors"
-                      [value]="floor.id"
+                      *ngFor="let type of deviceType"
+                      [value]="type.id"
                     >
-                      {{ floor.title }}
+                      {{ type.title }}
                     </mat-option>
                   </mat-select>
                   <mat-error *ngIf="">
-                    Floor is required
+                    Device type is required
                   </mat-error>
 
                 </mat-form-field>
               </div>
 
-              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+              
+              <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                 <mat-label class="label m-2">Service URL</mat-label>
                 <mat-form-field
                   fxLayout="column"
@@ -224,6 +225,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
+               -->
               <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                 <mat-label class="label m-2">Sort Order</mat-label>
                 <mat-form-field
@@ -279,7 +281,7 @@
       [mat-dialog-close]="true"
       color="primary"
       type="submit"
-      [disabled]="!branchForm.valid"
+      [disabled]="!deviceForm.valid"
       (click)="save()"
     >
       <mat-icon

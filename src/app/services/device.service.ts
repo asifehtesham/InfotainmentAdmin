@@ -3,30 +3,30 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from "src/environments/environment";
 import { map, catchError } from 'rxjs/operators';
-import { Games } from '../models/Games';
+import { Device } from '../models/Device';
 import { AuthService } from './auth-service.service';
 import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GamesService {
+export class DeviceService {
 
   constructor(private http: HttpClient, private authenticationService: AuthService
   ) { }
 
-  add(games: Games) {
-    var action = 'games';
-    return this.http.post<any>(environment.infotApiUrl + action, games)
+  add(device: Device) {
+    var action = 'devices';
+    return this.http.post<any>(environment.infotApiUrl + action, device)
       .pipe(map(data => {
         return data;
       }));
   }
 
 
-  update(games: Games) {
-    var action = 'games';
-    return this.http.put<any>(environment.infotApiUrl + action, games)
+  update(device: Device) {
+    var action = 'devices';
+    return this.http.put<any>(environment.infotApiUrl + action, device)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -35,66 +35,66 @@ export class GamesService {
   }
 
 
-  loadByID(id: number): Observable<Games> {
-    return this.http.get<any>(`${environment.infotApiUrl}games/${id}`)
+  loadByID(id: number): Observable<Device> {
+    return this.http.get<any>(`${environment.infotApiUrl}devices/${id}`)
       .pipe(
         map(data => {
-          return <Games>data;
+          return <Device>data;
         }),
       );
   }
 
-  loadData(index: number = 1, limit: number = 10): Observable<Games[]> {
+  loadData(index: number = 1, limit: number = 10): Observable<Device[]> {
 
-    return this.http.get<any>(`${environment.infotApiUrl}games?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}devices?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
-          var games: Array<Games> = [];
+          var device: Array<Device> = [];
           data.data.forEach(item => {
-            games.push(<Games>item);
+            device.push(<Device>item);
           });
 
-          return games;
+          return device;
         }),
       );
   }
 
-  search(key: string): Observable<Games[]> {
-    return this.http.get<any>(`${environment.infotApiUrl}games/search/${key}`)
+  search(key: string): Observable<Device[]> {
+    return this.http.get<any>(`${environment.infotApiUrl}devices/search/${key}`)
       .pipe(
         map(data => {
-          var games = [];
+          var device = [];
           data.forEach(item => {
-            //var cat = this.mapToGamess(item);
-            games.push(<Games>item);
+            //var cat = this.mapTodevices(item);
+            device.push(<Device>item);
           });
 
-          console.log(games);
-          return games;
+          console.log(device);
+          return device;
         }),
       );
   }
 
-  editactive(games: Games) {
+  editactive(device: Device) {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.infotApiUrl + action, games)
+    return this.http.post<any>(environment.infotApiUrl + action, device)
       .pipe(map(data => {
-        var gamess = [];
+        var devices = [];
         data.forEach(item => {
-          //var games = this.mapToGamess(item);
-          gamess.push(<Games>games);
+          //var device = this.mapTodevices(item);
+          devices.push(<Device>device);
         });
 
-        return gamess;
+        return devices;
       }));
   }
 
   delete(id: number) {
     console.log("delete: " + id);
 
-    var action = "games/" + id;
+    var action = "device/" + id;
     return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
@@ -104,7 +104,7 @@ export class GamesService {
   deleteAll(ids: string) {
     console.log("delete: " + ids);
 
-    var action = "games?ids=" + ids;
+    var action = "device?ids=" + ids;
     return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;

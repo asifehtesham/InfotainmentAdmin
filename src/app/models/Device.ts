@@ -2,12 +2,10 @@ import { DateTime } from 'luxon';
 import { EntityBase } from './EntityBase';
 import { Attachment } from './Attachment';
 
-export interface Branch extends EntityBase {
+export interface Device extends EntityBase {
     title: string;
     titleAr: string;
     imageURL: string;
-    shortName: string;
-    projectId: number;
-    floorId: number;
+    deviceType: string;
     image?: Attachment;
 }

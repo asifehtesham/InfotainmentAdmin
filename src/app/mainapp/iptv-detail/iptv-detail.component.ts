@@ -84,7 +84,7 @@ export class IPTVDetailComponent {
     this.iptvCategoryService.loadData().subscribe((results) => {
       temp.push({ id: 0, title: "No Categories" });
       results.forEach((element) => {
-        temp.push({ id: element.id, title: element.title });
+        temp.push({ id: element.id, title: element.name });
       });
     });
 

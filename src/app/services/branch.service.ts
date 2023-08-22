@@ -17,7 +17,7 @@ export class BranchService {
 
   add(branch: Branch) {
     var action = 'branch';
-    return this.http.post<any>(environment.apiUrl + action, branch)
+    return this.http.post<any>(environment.infotApiUrl + action, branch)
       .pipe(map(data => {
         return data;
       }));
@@ -26,7 +26,7 @@ export class BranchService {
 
   update(branch: Branch) {
     var action = 'branch';
-    return this.http.put<any>(environment.apiUrl + action, branch)
+    return this.http.put<any>(environment.infotApiUrl + action, branch)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -36,7 +36,7 @@ export class BranchService {
 
 
   loadByID(id: number): Observable<Branch> {
-    return this.http.get<any>(`${environment.apiUrl}branch/${id}`)
+    return this.http.get<any>(`${environment.infotApiUrl}branch/${id}`)
       .pipe(
         map(data => {
           return <Branch>data;
@@ -46,7 +46,7 @@ export class BranchService {
 
   loadData(index: number = 1, limit: number = 10): Observable<Branch[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}branch?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}branch?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
           var branch: Array<Branch> = [];
@@ -60,7 +60,7 @@ export class BranchService {
   }
 
   search(key: string): Observable<Branch[]> {
-    return this.http.get<any>(`${environment.apiUrl}branch/search/${key}`)
+    return this.http.get<any>(`${environment.infotApiUrl}branch/search/${key}`)
       .pipe(
         map(data => {
           var branch = [];
@@ -79,7 +79,7 @@ export class BranchService {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.apiUrl + action, branch)
+    return this.http.post<any>(environment.infotApiUrl + action, branch)
       .pipe(map(data => {
         var branchs = [];
         data.forEach(item => {
@@ -95,7 +95,7 @@ export class BranchService {
     console.log("delete: " + id);
 
     var action = "branch/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -105,7 +105,7 @@ export class BranchService {
     console.log("delete: " + ids);
 
     var action = "branch?ids=" + ids;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -113,7 +113,7 @@ export class BranchService {
 
   handleError(operation: String) {
     return (err: any) => {
-      let errMsg = `error in ${operation}() retrieving ${environment.apiUrl}`;
+      let errMsg = `error in ${operation}() retrieving ${environment.infotApiUrl}`;
       console.log(`${errMsg}:`, err)
       if (err instanceof HttpErrorResponse) {
         // you could extract more info about the error if you want, e.g.:

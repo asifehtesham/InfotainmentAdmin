@@ -28,8 +28,8 @@ export class IptvCategoryListComponent {
 
   subscription: Subscription;
   displayedColumns: string[] = ['select',
-    'title',
-    'titleAr',
+    'name',
+    'nameAr',
     'sortOrder',
     'active',
     'id'];
@@ -48,7 +48,13 @@ export class IptvCategoryListComponent {
 
   constructor(private http: HttpClient, private iptvCategoryService: IptvCategoryService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
+
+
+
   ngOnInit() {
+
+
+
     this.loadData();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sortable;
@@ -59,10 +65,10 @@ export class IptvCategoryListComponent {
       value => {
         if (value.length == 0) {
           this.iptvCategoryService.loadData().pipe(map((results => {
-            
-            console.log("results",results);
 
-            
+            console.log("results", results);
+
+
 
             //return results;
             this.dataSource.data = results;
@@ -84,7 +90,7 @@ export class IptvCategoryListComponent {
   loadData() {
 
     console.log("Hiiiii");
-    
+
     this.iptvCategoryService.loadData(this.index, this.limit).subscribe(results => {
       this.loadEmptyMsg = true;
       console.log('come to the subscriber');

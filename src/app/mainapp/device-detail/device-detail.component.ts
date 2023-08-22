@@ -10,38 +10,38 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Branch } from 'src/app/models/Branch';
+import { Device } from 'src/app/models/Device';
 import { EditorConfig } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import { BranchService } from 'src/app/services/branch.service';
+import { DeviceService } from 'src/app/services/device.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
 import { FloorService } from 'src/app/services/floor.service';
 
 @Component({
-  selector: 'app-branch-detail',
-  templateUrl: './branch-detail.component.html',
-  styleUrls: ['./branch-detail.component.scss']
+  selector: 'app-device-detail',
+  templateUrl: './device-detail.component.html',
+  styleUrls: ['./device-detail.component.scss']
 })
-export class BranchDetailComponent {
+export class DeviceDetailComponent {
 
   templates: Templates[] = [];
   id: number;
-  branch: Branch;
-  branchForm: FormGroup;
+  device: Device;
+  deviceForm: FormGroup;
 
   url: string = '';
   done: any;
-  isBranchSaved: boolean = true;
-  
-  floors: SelectModel[];
+  isDeviceSaved: boolean = true;
+
+  deviceType = [{ id: 'light', title: 'Light' }, { id: 'fan', title: 'Fan' }];
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
 
   editorConfig: any = EditorConfig;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private branchService: BranchService, private snakbar: MatSnackBar, private dialog: MatDialog,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private deviceService: DeviceService, private snakbar: MatSnackBar, private dialog: MatDialog,
     private floorService: FloorService,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
@@ -49,7 +49,7 @@ export class BranchDetailComponent {
     //this.id = request.id;
     if (request) {
       this.id = request.id;
-      this.branch = request.branch;
+      this.device = request.device;
     }
   }
 
@@ -60,30 +60,19 @@ export class BranchDetailComponent {
 
 
 
-    var temp = [];
-    this.floorService.loadData().subscribe((results) => {
-      temp.push({ id: 0, title: "Empty Floor" });
-      results.forEach((element) => {
-        temp.push({ id: element.id, title: element.title });
-      });
-    });
-    this.floors = temp;
-
-
-
 
 
 
     this.route.params.subscribe(params => {
-      console.log("branchID para:" + this.id);
+      console.log("deviceID para:" + this.id);
 
       this.buildForm();
 
-      if (this.branch != null)
+      if (this.device != null)
         this.setForm();
-      if (this.branch == null && this.id > 0) {
-        this.branchService.loadByID(this.id).subscribe(results => {
-          this.branch = results;
+      if (this.device == null && this.id > 0) {
+        this.deviceService.loadByID(this.id).subscribe(results => {
+          this.device = results;
           this.setForm();
         });
       }
@@ -91,25 +80,22 @@ export class BranchDetailComponent {
   }
 
   ngAfterViewInit(): void {
-    if (this.branch.image != null)
-      this.imageControl.setImage(this.branch.image.data);
+    if (this.device.image != null)
+      this.imageControl.setImage(this.device.image.data);
   }
 
   setForm() {
 
-    this.f.title.setValue(this.branch.title);
-    this.f.titleAr.setValue(this.branch.titleAr);
-
-    this.f.projectId.setValue(this.branch.projectId);
-    this.f.floorId.setValue(this.branch.floorId);
-    this.f.imageURL.setValue(this.branch.imageURL);
-    this.f.shortName.setValue(this.branch.shortName);
-    this.f.sortOrder.setValue(this.branch.sortOrder);
-    this.f.active.setValue(this.branch.active);
+    this.f.title.setValue(this.device.title);
+    this.f.titleAr.setValue(this.device.titleAr);
+    this.f.imageURL.setValue(this.device.imageURL);
+    this.f.deviceType.setValue(this.device.deviceType);
+    this.f.sortOrder.setValue(this.device.sortOrder);
+    this.f.active.setValue(this.device.active);
   }
 
   buildForm() {
-    this.branchForm = this.fb.group({
+    this.deviceForm = this.fb.group({
       'ID': [this.id, [
         //Validators.required
       ]],
@@ -121,18 +107,15 @@ export class BranchDetailComponent {
       'titleAr': ['', [
         Validators.maxLength(500),
       ]],
-      'projectId': ['', []],
-      'floorId': ['', []],
-
       'imageURL': ['', []],
-      'shortName': ['', []],
+      'deviceType': ['', []],
       'sortOrder': ['', []],
       'active': ['', []]
     });
 
   }
 
-  get f() { return this.branchForm.controls; }
+  get f() { return this.deviceForm.controls; }
 
   save() {
     this.saveData();
@@ -142,31 +125,29 @@ export class BranchDetailComponent {
   ImagePath: string = "";
   saveData() {
 
-    var branch: Branch = {
+    var device: Device = {
       id: this.id,
       title: this.f.title.value,
       titleAr: this.f.titleAr.value,
-      projectId: this.f.projectId.value,
-      floorId: this.f.floorId.value,
       imageURL: this.f.imageURL.value,
-      shortName: this.f.shortName.value,
+      deviceType: this.f.deviceType.value,
       sortOrder: this.f.sortOrder.value,
       active: (this.f.active.value == true) ? true : false
     }
 
     // ///////////////////////////////////////////////////
     var observer: Observable<any>;
-    if (branch.id == null || branch.id <= 0)
-      observer = this.branchService.add(branch);
+    if (device.id == null || device.id <= 0)
+      observer = this.deviceService.add(device);
     else
-      observer = this.branchService.update(branch);
+      observer = this.deviceService.update(device);
     observer.subscribe(result => {
       this.id = result.id;
       if (this.imageControl.file)
-        this.imageControl.startUpload(result.id, "ID", "Branch", false, false);
+        this.imageControl.startUpload(result.id, "ID", "Device", false, false);
 
       if (result.id)
-        this.snakbar.open('Branch saved successfully.', 'Dismise', {
+        this.snakbar.open('Device saved successfully.', 'Dismise', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -176,7 +157,7 @@ export class BranchDetailComponent {
   }
 
   revert() {
-    this.branchForm.reset();
+    this.deviceForm.reset();
   }
 
   onFileComplete(data: any) {

@@ -17,7 +17,7 @@ export class FloorService {
 
   add(floor: Floor) {
     var action = 'floor';
-    return this.http.post<any>(environment.apiUrl + action, floor)
+    return this.http.post<any>(environment.infotApiUrl + action, floor)
       .pipe(map(data => {
         return data;
       }));
@@ -26,7 +26,7 @@ export class FloorService {
 
   update(floor: Floor) {
     var action = 'floor';
-    return this.http.put<any>(environment.apiUrl + action, floor)
+    return this.http.put<any>(environment.infotApiUrl + action, floor)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -36,7 +36,7 @@ export class FloorService {
 
 
   loadByID(id: number): Observable<Floor> {
-    return this.http.get<any>(`${environment.apiUrl}floor/${id}`)
+    return this.http.get<any>(`${environment.infotApiUrl}floor/${id}`)
       .pipe(
         map(data => {
           return <Floor>data;
@@ -46,7 +46,7 @@ export class FloorService {
 
   loadData(index: number = 1, limit: number = 10): Observable<Floor[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}floor?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}floor?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
           var floor: Array<Floor> = [];
@@ -60,7 +60,7 @@ export class FloorService {
   }
 
   search(key: string): Observable<Floor[]> {
-    return this.http.get<any>(`${environment.apiUrl}floor/search/${key}`)
+    return this.http.get<any>(`${environment.infotApiUrl}floor/search/${key}`)
       .pipe(
         map(data => {
           var floor = [];
@@ -79,7 +79,7 @@ export class FloorService {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.apiUrl + action, floor)
+    return this.http.post<any>(environment.infotApiUrl + action, floor)
       .pipe(map(data => {
         var floors = [];
         data.forEach(item => {
@@ -95,7 +95,7 @@ export class FloorService {
     console.log("delete: " + id);
 
     var action = "floor/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -105,7 +105,7 @@ export class FloorService {
     console.log("delete: " + ids);
 
     var action = "floor?ids=" + ids;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -113,7 +113,7 @@ export class FloorService {
 
   handleError(operation: String) {
     return (err: any) => {
-      let errMsg = `error in ${operation}() retrieving ${environment.apiUrl}`;
+      let errMsg = `error in ${operation}() retrieving ${environment.infotApiUrl}`;
       console.log(`${errMsg}:`, err)
       if (err instanceof HttpErrorResponse) {
         // you could extract more info about the error if you want, e.g.:
