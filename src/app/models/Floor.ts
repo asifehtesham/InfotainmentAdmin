@@ -6,5 +6,6 @@ export interface Floor extends EntityBase {
     title: string;
     titleAr: string;
     imageURL: string;
+    branchId?:number;
     image?: Attachment;
 }

@@ -34,7 +34,14 @@ export class DeviceDetailComponent {
   done: any;
   isDeviceSaved: boolean = true;
 
-  deviceType = [{ id: 'light', title: 'Light' }, { id: 'fan', title: 'Fan' }];
+  deviceType = [
+    { id: 'light', title: 'Light' }, 
+    { id: 'elight', title: 'Emergency light' },
+    { id: 'ac', title: 'Ac' },
+    { id: 'curtains', title: 'Curtains' },
+    { id: 'tv', title: 'Tv' }
+  
+  ];
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;

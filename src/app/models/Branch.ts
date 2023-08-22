@@ -8,6 +8,5 @@ export interface Branch extends EntityBase {
     imageURL: string;
     shortName: string;
     projectId: number;
-    floorId: number;
     image?: Attachment;
 }

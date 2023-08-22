@@ -16,7 +16,6 @@ import { ActivatedRoute } from '@angular/router';
 import { BranchService } from 'src/app/services/branch.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
-import { FloorService } from 'src/app/services/floor.service';
 
 @Component({
   selector: 'app-branch-detail',
@@ -34,7 +33,6 @@ export class BranchDetailComponent {
   done: any;
   isBranchSaved: boolean = true;
   
-  floors: SelectModel[];
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
@@ -42,7 +40,6 @@ export class BranchDetailComponent {
   editorConfig: any = EditorConfig;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private branchService: BranchService, private snakbar: MatSnackBar, private dialog: MatDialog,
-    private floorService: FloorService,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
     console.log(request);
@@ -59,15 +56,6 @@ export class BranchDetailComponent {
 
 
 
-
-    var temp = [];
-    this.floorService.loadData().subscribe((results) => {
-      temp.push({ id: 0, title: "Empty Floor" });
-      results.forEach((element) => {
-        temp.push({ id: element.id, title: element.title });
-      });
-    });
-    this.floors = temp;
 
 
 
@@ -101,7 +89,6 @@ export class BranchDetailComponent {
     this.f.titleAr.setValue(this.branch.titleAr);
 
     this.f.projectId.setValue(this.branch.projectId);
-    this.f.floorId.setValue(this.branch.floorId);
     this.f.imageURL.setValue(this.branch.imageURL);
     this.f.shortName.setValue(this.branch.shortName);
     this.f.sortOrder.setValue(this.branch.sortOrder);
@@ -122,7 +109,6 @@ export class BranchDetailComponent {
         Validators.maxLength(500),
       ]],
       'projectId': ['', []],
-      'floorId': ['', []],
 
       'imageURL': ['', []],
       'shortName': ['', []],
@@ -147,7 +133,6 @@ export class BranchDetailComponent {
       title: this.f.title.value,
       titleAr: this.f.titleAr.value,
       projectId: this.f.projectId.value,
-      floorId: this.f.floorId.value,
       imageURL: this.f.imageURL.value,
       shortName: this.f.shortName.value,
       sortOrder: this.f.sortOrder.value,

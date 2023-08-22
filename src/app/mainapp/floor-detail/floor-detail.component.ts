@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FloorService } from 'src/app/services/floor.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
+import { BranchService } from 'src/app/services/branch.service';
 
 @Component({
   selector: 'app-floor-detail',
@@ -32,13 +33,18 @@ export class FloorDetailComponent {
   url: string = '';
   done: any;
   isFloorSaved: boolean = true;
+  
+  branches: SelectModel[];
+
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
 
   editorConfig: any = EditorConfig;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private floorService: FloorService, private snakbar: MatSnackBar, private dialog: MatDialog,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private floorService: FloorService, private snakbar: MatSnackBar, 
+    private branchService: BranchService,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
     console.log(request);
@@ -50,6 +56,22 @@ export class FloorDetailComponent {
   }
 
   ngOnInit() {
+
+
+    
+    var temp = [];
+    this.branchService.loadData().subscribe((results) => {
+
+      console.log("results ............ ",results)
+
+      temp.push({ id: 0, title: "No Branch" });
+      results.forEach((element) => {
+        temp.push({ id: element.id, title: element.title });
+      });
+    });
+    this.branches = temp;
+
+
     this.route.params.subscribe(params => {
       console.log("floorID para:" + this.id);
 
@@ -76,6 +98,7 @@ export class FloorDetailComponent {
     this.f.title.setValue(this.floor.title);
     this.f.titleAr.setValue(this.floor.titleAr);
     this.f.imageURL.setValue(this.floor.imageURL);
+    this.f.branchId.setValue(this.floor.branchId);
     this.f.sortOrder.setValue(this.floor.sortOrder);
     this.f.active.setValue(this.floor.active);
   }
@@ -93,6 +116,7 @@ export class FloorDetailComponent {
       'titleAr': ['', [
         Validators.maxLength(500),
       ]],
+      'branchId': ['', []],
       'imageURL': ['', []],
       'sortOrder': ['', []],
       'active': ['', []]

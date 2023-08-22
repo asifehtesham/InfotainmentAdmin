@@ -56,6 +56,17 @@
                             </div>
 
 
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Select Branch</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                <mat-select formControlName="branchId" placeholder="Select Country">
+                                    <mat-option *ngFor="let branch of branches" [value]="branch.id">{{ branch.title
+                                    }}</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
 
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Sort Order</mat-label>
