@@ -28,6 +28,7 @@ export class FloorListComponent {
 
   subscription: Subscription;
   displayedColumns: string[] = ['select',
+    'branchId',
     'title',
     'titleAr',
     'sortOrder',
@@ -49,6 +50,18 @@ export class FloorListComponent {
   constructor(private http: HttpClient, private floorService: FloorService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
+
+
+
+
+    // this.NewspaperData.forEach(element => {
+    //   console.log("element", element);
+    //   this.newsPaperService.add(element).subscribe(res => {
+    //   })
+    // });
+
+
+
     this.loadData();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sortable;
