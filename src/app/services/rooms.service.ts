@@ -16,27 +16,26 @@ export class RoomsService {
   ) { }
 
   add(room: Rooms) {
+    console.log(room)
     var action = 'rooms';
-    return this.http.post<any>(environment.apiUrl + action, room)
+    return this.http.post<any>(environment.infotApiUrl + action, room)
       .pipe(map(data => {
         return data;
       }));
   }
 
 
-  update(rooms: Rooms) {
+  update(room: Rooms) {
     var action = 'rooms';
-    return this.http.put<any>(environment.apiUrl + action, rooms)
+    return this.http.put<any>(environment.infotApiUrl + action, room)
       .pipe(map(data => {
-
-        console.log("data ......................+++", data)
         return data;
       }));
   }
 
 
   loadByID(id: number): Observable<Rooms> {
-    return this.http.get<any>(`${environment.apiUrl}rooms/${id}`)
+    return this.http.get<any>(`${environment.infotApiUrl}rooms/${id}`)
       .pipe(
         map(data => {
           return <Rooms>data;
@@ -46,9 +45,10 @@ export class RoomsService {
 
   loadData(index: number = 1, limit: number = 10): Observable<Rooms[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}rooms?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}rooms?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
+          // console.log(data)
           var room: Array<Rooms> = [];
           data.data.forEach(item => {
             room.push(<Rooms>item);
@@ -60,7 +60,7 @@ export class RoomsService {
   }
 
   search(key: string): Observable<Rooms[]> {
-    return this.http.get<any>(`${environment.apiUrl}room/search/${key}`)
+    return this.http.get<any>(`${environment.infotApiUrl}room/search/${key}`)
       .pipe(
         map(data => {
           var room = [];
@@ -79,7 +79,7 @@ export class RoomsService {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.apiUrl + action, room)
+    return this.http.post<any>(environment.infotApiUrl + action, room)
       .pipe(map(data => {
         var rooms = [];
         data.forEach(item => {
@@ -94,8 +94,8 @@ export class RoomsService {
   delete(id: number) {
     console.log("delete: " + id);
 
-    var action = "room/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    var action = "rooms/" + id;
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -105,7 +105,7 @@ export class RoomsService {
     console.log("delete: " + ids);
 
     var action = "room?ids=" + ids;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));

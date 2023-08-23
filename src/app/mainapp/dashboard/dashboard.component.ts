@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/auth-service.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import { BlogService } from 'src/app/services/blog.service';
 import { PagesService } from 'src/app/services/pages.service';
-import { BranchService } from 'src/app/services/branch.service';
+import { MenuService } from 'src/app/services/menu.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,27 +18,27 @@ export class DashboardComponent implements OnInit {
   bigChart = [];
   cards = [];
   pieChart = [];
-  barChart = [];
-  blogs:any=[] 
-  branches:any=[] 
-  barChannelsChart=[]
-  pages:any=[] 
+  barChart = [];  
+  menues:any = [] 
+  menuTitle:any = []
+  barChannelsChart = []
+  pages:any = [] 
   
   ngOnInit() {
+   this.menuService.loadData().subscribe(results => {
+      results.forEach(element => {
+        this.menues.push(element);
+        this.menuTitle.push(element.title);
+      });
+
+      this.barChart = this.dashboardService.barChart();
+    });
     this.bigChart = this.dashboardService.bigChart();
     this.cards = this.dashboardService.cards();
     this.pieChart = this.dashboardService.pieChart();
-    this.barChart = this.dashboardService.barChart();
     this.barChannelsChart=this.dashboardService.barChannelsChart();
+    this.barChart = this.dashboardService.barChart();
     
-    // this.authenticationService.oauthcall().subscribe(x => {
-    //   console.log(x)
-    // });
-    this.branchService.loadData().subscribe(results => {
-      results.forEach(element => {
-        this.branches.push(element);
-      });
-    });
 
     this.pageService.loadData().subscribe(results => {
       results.forEach(element => {
@@ -48,7 +48,7 @@ export class DashboardComponent implements OnInit {
     
   }
 
-  constructor(private authenticationService: AuthService, private dashboardService: DashboardService,private blogService: BlogService, private branchService: BranchService,private pageService: PagesService) { } 
+  constructor(private authenticationService: AuthService, private dashboardService: DashboardService,private blogService: BlogService, private menuService: MenuService,private pageService: PagesService) { } 
   
   blogsChart(blogId){
 

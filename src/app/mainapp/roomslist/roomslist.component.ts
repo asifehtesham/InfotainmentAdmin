@@ -26,17 +26,6 @@ import Swal from "sweetalert2";
 })
 export class RoomsListComponent {
 
-  subscription: Subscription;
-  displayedColumns: string[] = ['select',
-    'roomId',
-    'roomType',
-    'floor',
-    'branch',
-    'IP',
-    'status',
-    'id'
-  ];
-
   rooms = [];
   paginatedRooms:any = [];
   index: number = 1;
@@ -54,11 +43,8 @@ export class RoomsListComponent {
   
   loadData(){
     this.roomsService.loadData(this.index, this.limit).subscribe(results => {
-      this.paginatedRooms=results
+      this.paginatedRooms = results
       this.getData({pageIndex: this.page, pageSize: this.size});
-      // results.forEach(element => {
-      //   this.paginatedRooms.push(element)
-      // });
     });
   }
 
@@ -73,7 +59,7 @@ export class RoomsListComponent {
     });
   }
 
-  ondelete(room: any) {
+  onDelete(room: Rooms) {
 
     Swal.fire({
       title: 'Are you sure?',
@@ -95,6 +81,8 @@ export class RoomsListComponent {
           });
 
           this.loadData();
+          this.getData({pageIndex: this.page, pageSize: this.size});
+          
         });
       }
       else {
@@ -111,7 +99,7 @@ export class RoomsListComponent {
   } 
   searchRoom(searchText):any{ 
     if (searchText) {
-      this.rooms = this.paginatedRooms.filter(room => room.roomId.toLowerCase().includes(searchText.toLowerCase()));
+      this.rooms = this.paginatedRooms.filter(room => room.roomNo.toLowerCase().includes(searchText.toLowerCase()));
     } else {
       this.rooms= this.paginatedRooms;
     }
@@ -129,11 +117,14 @@ export class RoomsListComponent {
     console.log("onAdd() ........... trigger");
 
     const dialogRef = this.dialog.open(RoomsDetailComponent, {
-      width: '1050px',
+      width: '750px',
       data: { id: 0 }
     });
     dialogRef.afterClosed().subscribe(result => {
+      if(result)
       this.loadData();
+      this.getData({pageIndex: this.page, pageSize: this.size});
+      
     });
   }
   
@@ -143,13 +134,13 @@ export class RoomsListComponent {
       data: { id: data.id, room: data }
     });
     dialogRef.afterClosed().subscribe(result => {
+      if(result)      
       this.loadData();
+      this.getData({pageIndex: this.page, pageSize: this.size});      
     });
   }
   checkPatientRecord(room:Rooms) {
     console.log(room)
-
-
     const dialogRef = this.dialog.open(PatientRecordComponent, {
       width: '750px',
       data: { room: room }

@@ -31,15 +31,12 @@ import { Floor } from 'src/app/models/Floor';
   styleUrls: ['./patientrecord.component.scss']
 })
 export class PatientRecordComponent {
-
- 
   id: number;
   room: Rooms;
    
   constructor(private route: ActivatedRoute, private branchService:BranchService,private floorService: FloorService, private roomsService: RoomsService, private snakbar: MatSnackBar, private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("patient record request");
-    console.log(request); 
     if (request) {
       this.id = request.id;
       this.room = request.room;
@@ -48,8 +45,7 @@ export class PatientRecordComponent {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log("roomId para:" + this.id);
- 
+
       if (this.room != null) 
       if (this.room == null && this.id > 0) {
         this.roomsService.loadByID(this.id).subscribe(results => {

@@ -6,16 +6,17 @@
                     <div class="page-sub-title" fxLayoutAlign="space-between center" >
                         Rooms List
                         <mat-form-field fxLayout="column" class="full-width ml-5 mr-2 " fxFlex appearance="outline">
-                            <input type="text" id="roomIdSearch" class="input" placeholder="Search by Room ID"
-                                matInput #roomIdSearch (keyup)="searchRoom($event.target['value'])"/>
-                            <a mat-icon-button *ngIf="roomIdSearch.value" matSuffix md-icon-button
-                                aria-label="Clear" (click)="roomIdSearch.value = ''">
+                            <input type="text" id="roomNoSearch" class="input" placeholder="Search by Room ID"
+                                matInput #roomNoSearch (keyup)="searchRoom($event.target['value'])"/>
+                            <a mat-icon-button *ngIf="roomNoSearch.value" matSuffix md-icon-button
+                                aria-label="Clear" (click)="roomNoSearch.value = ''">
                                 <mat-icon>close</mat-icon>
                             </a>
                         </mat-form-field>
                         <mat-label class="label ml-3 ">Room Options</mat-label>
                         <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
-                            <mat-select (selectionChange)='onRoomOptionChange($event.value)' [(value)]="roomOptions[0]">
+                            <mat-select (selectionChange)='onRoomOptionChange($event.value)' value="">
+                                    <mat-option value="">All</mat-option>                                                                      
                                 <mat-option *ngFor="let option of roomOptions" [value]="option">{{option}}</mat-option>      
                             </mat-select>
                         </mat-form-field>
@@ -48,13 +49,14 @@
             <mat-card class="mat-elevation-z8" style="width:95%;padding:10px">
                 <div class="activeIcon">
                     <a (click)="onEdit(room)"><mat-icon style="font-size:large;cursor:pointer;margin-right:10px">edit</mat-icon></a>
+                    <a (click)="onDelete(room)"><mat-icon style="font-size:large;cursor:pointer;margin-right:10px;">delete</mat-icon></a>
                     <span *ngIf="room.status" class="statusActive"  matTooltip="Reserved" matTooltipPosition="below"></span>
                     <span *ngIf="!room.status" class="statusNotActive"  matTooltip="Empty" matTooltipPosition="below"></span>
                 </div>
                 <div style="cursor:pointer; margin-left:5%" (click)="checkPatientRecord(room)">
-                    <mat-card-title class="page-sub-title">{{room.roomId}}</mat-card-title>
+                    <mat-card-title class="page-sub-title">{{room.roomNo}}</mat-card-title>
                     <mat-card-subtitle>{{room.roomType}}</mat-card-subtitle>
-                    <mat-card-subtitle>{{room.branch}}</mat-card-subtitle> 
+                    <mat-card-subtitle>{{room.branch.title}}</mat-card-subtitle> 
                 </div>
                 <mat-card-content>
                 </mat-card-content>
@@ -81,7 +83,7 @@
     <mat-paginator [length]="paginatedRooms.length"
         [pageSize]="size"
         [pageIndex]="page"
-        [pageSizeOptions]="[10, 20, 50, 100]"
+        [pageSizeOptions]="[5, 10, 50, 100]"
         (page)="getData($event)">
     </mat-paginator>
 

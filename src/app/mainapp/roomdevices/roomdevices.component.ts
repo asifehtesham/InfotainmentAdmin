@@ -1,8 +1,7 @@
 import { Component, OnInit,AfterViewInit, ViewChild,Inject, TemplateRef, Input } from '@angular/core';
 import { CdkDragDrop,CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DateTime } from 'luxon';
-import { eventParticipantService } from 'src/app/services/eventParticipant.service';
-import { EventParticipants } from 'src/app/models/EventParticipants';
+import { roomDevicesService } from 'src/app/services/roomDevices.service';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,45 +11,35 @@ import { MatPaginator } from '@angular/material/paginator';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 
 @Component({
-  selector: 'app-devices',
-  templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.scss']
+  selector: 'app-roomdevices',
+  templateUrl: './roomdevices.component.html',
+  styleUrls: ['./roomdevices.component.scss']
 })
-export class DevicesComponent implements OnInit {
+export class RoomDevicesComponent implements OnInit {
   
   @ViewChild('paginator') paginator: MatPaginator;
   @ViewChild('checkedpaginator') checkedpaginator: MatPaginator;
 
-  eventId:number
+  roomId:number
   devicesData:any=[];
-  allUsersData:any=[];
+  notInstalledDevicesData:any=[];
   sortAsc:boolean=false
   sortDesc:boolean=false
   sortAscNonDevices:boolean=false
   sortDescNonDevices:boolean=false
   
-  displayedColumnsDevices = ['select', 'username','invitationSent'];
-  displayedColumnsUser = ['select', 'username','email'];
-  // sortOrder=[
-  //   {value:'Position',key:0,},
-  //   {value:'NameAsc',key:1},
-  //   {value:'NameDsc',key:2},
-  //   {value:'UserNameAsc',key:3},
-  //   {value:'UserNameDsc',key:4},
-  //   {value:'EmailAsc',key:5},
-  //   {value:'EmailDsc',key:6}
-  //   ]
+  displayedColumnsDevices = ['select', 'installedDevices'];
+  displayedColumnsNonDevices = ['select', 'notInstalledDevices'];
   sendInvitation:boolean=false
   sortBy:string=''
   sortByNonDevices:string=''
-  applyOnAllSeries:boolean=true
   
-  constructor(private eventParticipantService:eventParticipantService, private snakbar: MatSnackBar,
+  constructor(private roomDevicesService:roomDevicesService, private snakbar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public request: any) {
       console.log("devices request");
       console.log(request);
       if (request) {
-        this.eventId = request.id;
+        this.roomId = request.id;
       }
     }
   ngOnInit() {
@@ -64,9 +53,9 @@ export class DevicesComponent implements OnInit {
   }
 
   loadDevices(sort,search) {
-    if(this.eventId) {
-      this.eventParticipantService.loadParticipants(this.eventId,sort,search).subscribe(results => {
-        console.log("load Devices",results,this.eventId)
+    if(this.roomId) {
+      this.roomDevicesService.loadInstalledDevices(this.roomId,sort,search).subscribe(results => {
+        console.log("load Devices",results,this.roomId)
 
         this.data.splice(0,this.data.length)
         
@@ -81,14 +70,14 @@ export class DevicesComponent implements OnInit {
   }
 
   loadNonDevices(sort,search) {
-    if(this.eventId) {
-      this.eventParticipantService.loadNonParticipants(this.eventId,sort,search).subscribe(results => {
-        console.log("load non Devices",results,this.eventId)
+    if(this.roomId) {
+      this.roomDevicesService.loadNotInstalledDevices(this.roomId,sort,search).subscribe(results => {
+        console.log("load non Devices",results,this.roomId)
         
         this.checkedData.splice(0,this.checkedData.length)
 
         results.forEach(element => {
-          this.allUsersData.push(element)
+          this.notInstalledDevicesData.push(element)
         });
     
         this.nonDevicesDataSource = new MatTableDataSource(this.checkedData);
@@ -99,7 +88,7 @@ export class DevicesComponent implements OnInit {
   }
   
   data = Object.assign(this.devicesData);
-  checkedData = Object.assign(this.allUsersData);
+  checkedData = Object.assign(this.notInstalledDevicesData);
 
   dataSource = new MatTableDataSource(this.data);
   nonDevicesDataSource = new MatTableDataSource(this.checkedData); 
@@ -130,15 +119,16 @@ export class DevicesComponent implements OnInit {
   }
 
   removeParticipant(prevData){
+    console.log("remove pre",prevData)
     var observer: Observable<any>;
-    if (prevData.eventId != null || prevData.eventId > 0){
-      observer = this.eventParticipantService.removeParticipants(prevData,this.applyOnAllSeries);
+    if (this.roomId != null || this.roomId > 0){
+      observer = this.roomDevicesService.removeDevics(this.roomId,prevData);
     }
     observer.subscribe(result => {
       console.log("response of remove participant",result); 
       if(result){
 
-        this.nonDevicesDataSource.data.push(prevData.user);
+        this.nonDevicesDataSource.data.push(prevData);
         this.nonDevicesDataSource.data = [...this.nonDevicesDataSource.data];
 
         var index= this.dataSource.data.indexOf(prevData)
@@ -173,7 +163,7 @@ export class DevicesComponent implements OnInit {
     }
 
 
-    this.postParticipant(prevData)
+    this.postDevice(prevData)
   
     this.dataSource.paginator = this.paginator;
     this.nonDevicesDataSource.paginator = this.checkedpaginator;
@@ -184,20 +174,16 @@ export class DevicesComponent implements OnInit {
     
   }
 
-  postParticipant(prevData){
-    var eventParticipant: EventParticipants = {
-      eventId: this.eventId,
-      userId: prevData.id,
-      username: prevData.username,
-      invitationSent: 0,
-      invitationLink:'',
-      invitedDate:DateTime.utc().toISO(),
-      isAttented:false,
+  postDevice(prevData){
+    console.log("pre",prevData)
+    var roomDevice = {
+      roomId: this.roomId,
+      deviceId: prevData.id,
     }
     var observer: Observable<any>;
-    if (eventParticipant.eventId != null || eventParticipant.eventId > 0){
-      console.log(this.applyOnAllSeries)
-      observer = this.eventParticipantService.addParticipants(eventParticipant,this.applyOnAllSeries);
+    if (roomDevice.roomId != null || roomDevice.roomId > 0){
+      
+      observer = this.roomDevicesService.addDevice(roomDevice);
     }
     observer.subscribe(result => {
       console.log("response of add participant",result); 
@@ -212,7 +198,7 @@ export class DevicesComponent implements OnInit {
 
         this.checkedSelection = new SelectionModel(true, []);
         
-        this.snakbar.open('Participant added successfully.', 'Dismise', {
+        this.snakbar.open('Device added successfully.', 'Dismise', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -225,7 +211,7 @@ export class DevicesComponent implements OnInit {
     
     const numSelected = this.selection.selected.length;
   
-    numSelected?this.sendInvitation=true:this.sendInvitation=false
+    // numSelected?this.sendInvitation=true:this.sendInvitation=false
     // const numRows = this.dataSource.data.length;
     const page = this.dataSource.paginator.pageSize;
     return numSelected === page;
@@ -242,7 +228,7 @@ export class DevicesComponent implements OnInit {
     this.selectRows();
       console.log(this.selection.selected[0])
       
-      this.selection.selected.length==0 ? this.sendInvitation=false : this.sendInvitation=true
+      // this.selection.selected.length==0 ? this.sendInvitation=false : this.sendInvitation=true
     console.log("checked Devices",this.selection.selected);
   }
     
@@ -272,7 +258,7 @@ export class DevicesComponent implements OnInit {
   }  
   moveToFirstTable() {
       this.checkedSelection.selected.forEach(item => {
-        this.postParticipant(item)   
+        this.postDevice(item)   
     });
     
   }
@@ -412,44 +398,6 @@ export class DevicesComponent implements OnInit {
     this.loadNonDevices(sortOrder,'')
     
   }
-  applyOnRecursive(event) {
-    this.applyOnAllSeries = event.checked
-  }
-  checkAttended(element,isAttented){ 
-    this.updateDevices(element,isAttented)  
-  }
-  updateDevices(element,isAttented){
-    var eventParticipant: EventParticipants = element
-    eventParticipant.isAttented=isAttented
-      console.log(eventParticipant)
-    var observer: Observable<any>;
-    if (eventParticipant.eventId != null || eventParticipant.eventId > 0){
-      observer = this.eventParticipantService.updateParticipants(eventParticipant);
-    }
-    observer.subscribe(result => {
-      console.log("response of update participant",result); 
-      if(result){
-        // this.dataSource.data.push(result);
-        // this.dataSource.data = [...this.dataSource.data];
-
-        // var index= this.nonDevicesDataSource.data.indexOf(prevData)
-        
-        // this.nonDevicesDataSource.data.splice(index,1)
-        // this.nonDevicesDataSource.data = [...this.nonDevicesDataSource.data];
-
-        // this.checkedSelection = new SelectionModel(true, []);
-        
-        this.snakbar.open('Participant Updated successfully.', 'Dismise', {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        });
-      }
-    });
-  }
-
-  copyLink(link){
-    console.log(link)
-    // Document.execCommand("copy")
-  }
+  
+ 
 }

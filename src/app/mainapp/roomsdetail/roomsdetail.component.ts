@@ -33,7 +33,7 @@ export class RoomsDetailComponent {
   branches: any =[];
   floors: any=[];
   roomForm: FormGroup;
-  roomType=['Patient','Admin','ICU','Surgery','Waiting']
+  roomTypes=['Patient','Admin','ICU','Surgery','Waiting']
   url: string = '';
   done: any;
   isIPTVSaved: boolean = true;
@@ -53,7 +53,7 @@ export class RoomsDetailComponent {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      console.log("roomId para:" + this.id);
+      console.log("roomNo para:" + this.id);
 
       this.buildForm();
 
@@ -67,12 +67,9 @@ export class RoomsDetailComponent {
       }
     });
 
-
-
     this.branchService.loadData().subscribe(results => {
       results.forEach(element => {
         this.branches.push(element);
-        
       }); 
     });
 
@@ -81,16 +78,14 @@ export class RoomsDetailComponent {
          this.floors.push(element)
        });
     });
-
   }
- 
 
   setForm() {
-    this.f.roomId.setValue(this.room.roomId);
+    this.f.roomNo.setValue(this.room.roomNo);
     this.f.roomType.setValue(this.room.roomType);
-    this.f.floor.setValue(this.room.floor);
-    this.f.branch.setValue(this.room.branch);
-    this.f.IP.setValue(this.room.IP);
+    this.f.floorId.setValue(this.room.floorId);
+    this.f.branchId.setValue(this.room.branchId);
+    this.f.ip.setValue(this.room.ip);
     this.f.status.setValue(this.room.status);
   }
 
@@ -99,14 +94,14 @@ export class RoomsDetailComponent {
       'ID': [this.id, [
         //Validators.required
       ]],
-      'roomId': ['', [
+      'roomNo': ['', [
         Validators.required,
         Validators.maxLength(500),
         Validators.minLength(1)]],
-      'roomType': ['', []],
-      'floor': ['', []],
-      'branch': ['', []],
-      'IP': ['', []],
+      'roomType': [],
+      'floorId': ['', []],
+      'branchId': ['', []],
+      'ip': ['', []],
       'status': ['', []]
     });
 
@@ -122,15 +117,15 @@ export class RoomsDetailComponent {
 
     var room: Rooms = {
       id: this.id,
-      roomId: this.f.roomId.value,
+      roomNo: this.f.roomNo.value,
       roomType: this.f.roomType.value,
-      floor: this.f.floor.value,
-      branch: this.f.branch.value,
-      IP: this.f.IP.value,
+      floorId: this.f.floorId.value,
+      branchId: this.f.branchId.value,
+      ip: this.f.ip.value,
+      sortOrder:0,
       status: (this.f.status.value == true) ? true : false
     }
-
-    // ///////////////////////////////////////////////////
+ 
     var observer: Observable<any>;
     if (room.id == null || room.id <= 0)
       observer = this.roomsService.add(room);

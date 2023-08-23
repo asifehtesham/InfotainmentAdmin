@@ -17,6 +17,7 @@ export class BarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("data",this.data)
     this.chartOptions = {
       chart: {
         type: 'column'
