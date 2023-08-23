@@ -2,10 +2,11 @@ import { DateTime } from 'luxon';
 import { EntityBase } from './EntityBase'; 
 
 export interface Rooms extends EntityBase {
-    roomId: number;
+    roomNo: number;
     roomType: string;
-    floor: string;
-    branch: string;
-    IP: string;
+    floorId: number;
+    branchId: number;
+    ip: string;
     status: boolean; 
+    sortOrder:number;
 }
