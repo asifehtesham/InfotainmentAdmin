@@ -103,7 +103,7 @@ import { SocialMediaTypeDetailComponent } from './social-media-type-detail/socia
 import { BranchDetailComponent } from './branch-detail/branch-detail.component';
 import { BranchListComponent } from './branch-list/branch-list.component';
 import { AttendeesComponent } from "./attendees/attendees.component";
-import { DevicesComponent } from "./devices/devices.component";
+import { RoomDevicesComponent } from "./roomdevices/roomdevices.component";
 
 import { FloorDetailComponent } from './floor-detail/floor-detail.component';
 import { FloorListComponent } from './floor-list/floor-list.component';
@@ -392,7 +392,7 @@ const routes: Routes = [
     PagebuilderComponent,
     PagesComponent,
     AttendeesComponent,
-    DevicesComponent,
+    RoomDevicesComponent,
     AdDirective,
     PagelistComponent,
     PagedetailComponent,
