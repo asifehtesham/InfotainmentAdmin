@@ -27,7 +27,7 @@
                     <mat-dialog-content>
                  
                         <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                            <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Title</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                     <input type="text" id="title" class="input" placeholder="Enter Title"
@@ -38,7 +38,7 @@
                                     </a>
                                     <mat-error *ngIf=""> Please enter a valid Title </mat-error>
                                 </mat-form-field>
-                            </div>
+                            </div> -->
 
 
 
@@ -66,17 +66,19 @@
                                 <mat-label class="label m-2">Select Service</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                 <mat-select formControlName="serviceId" placeholder="Select Service">
-                                    <mat-option *ngFor="let branch of branches" [value]="branch.id">{{ branch.title
+                                    <mat-option *ngFor="let service of services" [value]="service.id">{{ service.title
                                     }}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
                             </div>
 
+
+                            
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Select Room</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                 <mat-select formControlName="roomNo" placeholder="Select Room">
-                                    <mat-option *ngFor="let branch of branches" [value]="branch.id">{{ branch.title
+                                    <mat-option *ngFor="let room of rooms" [value]="room.id">{{ room.id
                                     }}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
@@ -87,7 +89,7 @@
                                 <mat-label class="label m-2">Select Service Request Status</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                 <mat-select formControlName="serviceRequestStatus" placeholder="Select serviceRequestStatus">
-                                    <mat-option *ngFor="let branch of branches" [value]="branch.id">{{ branch.title
+                                    <mat-option *ngFor="let req of requestStatus" [value]="req.id">{{ req.title
                                     }}</mat-option>
                                 </mat-select>
                                 </mat-form-field>

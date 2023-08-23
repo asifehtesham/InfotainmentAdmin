@@ -48,7 +48,7 @@ export class ServicerequestDetailComponent {
 
 
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private servicerequestService: ServicerequestService, private snakbar: MatSnackBar,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private servicerequestService: ServicerequestService, private roomServiceService: RoomServiceService, private snakbar: MatSnackBar,
     private roomsService: RoomsService,
 
     private dialog: MatDialog,
@@ -68,12 +68,16 @@ export class ServicerequestDetailComponent {
 
 
     var temp = [];
-    this.servicerequestService.loadData().subscribe((results) => {
+    this.roomServiceService.loadData().subscribe((results) => {
       temp.push({ id: 0, title: "No Service" });
       results.forEach((element) => {
         temp.push({ id: element.id, title: element.title });
       });
     });
+    
+    console.log("temp",temp);
+
+    
     this.services = temp;
 
 
@@ -81,7 +85,7 @@ export class ServicerequestDetailComponent {
     this.roomsService.loadData().subscribe((results) => {
       temp.push({ id: 0, title: "No Rooms" });
       results.forEach((element) => {
-        temp.push({ id: element.id, title: element.title });
+        temp.push({ id: element.id, title: element.id });
       });
     });
     this.rooms = temp;
@@ -129,15 +133,20 @@ export class ServicerequestDetailComponent {
       'ID': [this.id, [
         //Validators.required
       ]],
-      'title': ['', [
-        Validators.required,
-        Validators.maxLength(500),
-        Validators.minLength(1)
-      ]],
-      'titleAr': ['', [
-        Validators.maxLength(500),
-      ]],
-      'branchId': ['', []],
+      // 'title': ['', [
+      //   Validators.required,
+      //   Validators.maxLength(500),
+      //   Validators.minLength(1)
+      // ]],
+      // 'titleAr': ['', [
+      //   Validators.maxLength(500),
+      // ]],
+      'patientId': ['', []],
+      'serviceId': ['', []],
+      'roomNo': ['', []],
+      'request': ['', []],
+      'serviceRequestStatus': ['', []],
+      'assignedTo': ['', []],
       'sortOrder': ['', []],
       'active': ['', []]
     });

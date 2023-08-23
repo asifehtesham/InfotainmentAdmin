@@ -18,7 +18,7 @@ export class RoomServiceService {
 
   add(service: RoomService) {
     var action = 'service';
-    return this.http.post<any>(environment.apiUrl + action, service)
+    return this.http.post<any>(environment.infotApiUrl + action, service)
       .pipe(map(data => {
         return data;
       }));
@@ -27,7 +27,7 @@ export class RoomServiceService {
 
   update(service: RoomService) {
     var action = 'service';
-    return this.http.put<any>(environment.apiUrl + action, service)
+    return this.http.put<any>(environment.infotApiUrl + action, service)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -37,7 +37,7 @@ export class RoomServiceService {
 
 
   loadByID(id: number): Observable<RoomService> {
-    return this.http.get<any>(`${environment.apiUrl}service/${id}`)
+    return this.http.get<any>(`${environment.infotApiUrl}service/${id}`)
       .pipe(
         map(data => {
           return <RoomService>data;
@@ -47,7 +47,7 @@ export class RoomServiceService {
 
   loadData(index: number = 1, limit: number = 10): Observable<RoomService[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}service?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}service?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
           var service: Array<RoomService> = [];
@@ -61,7 +61,7 @@ export class RoomServiceService {
   }
 
   search(key: string): Observable<RoomService[]> {
-    return this.http.get<any>(`${environment.apiUrl}service/search/${key}`)
+    return this.http.get<any>(`${environment.infotApiUrl}service/search/${key}`)
       .pipe(
         map(data => {
           var service = [];
@@ -80,7 +80,7 @@ export class RoomServiceService {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.apiUrl + action, service)
+    return this.http.post<any>(environment.infotApiUrl + action, service)
       .pipe(map(data => {
         var services = [];
         data.forEach(item => {
@@ -96,7 +96,7 @@ export class RoomServiceService {
     console.log("delete: " + id);
 
     var action = "service/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -106,7 +106,7 @@ export class RoomServiceService {
     console.log("delete: " + ids);
 
     var action = "service?ids=" + ids;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -114,7 +114,7 @@ export class RoomServiceService {
 
   handleError(operation: String) {
     return (err: any) => {
-      let errMsg = `error in ${operation}() retrieving ${environment.apiUrl}`;
+      let errMsg = `error in ${operation}() retrieving ${environment.infotApiUrl}`;
       console.log(`${errMsg}:`, err)
       if (err instanceof HttpErrorResponse) {
         // you could extract more info about the error if you want, e.g.:
