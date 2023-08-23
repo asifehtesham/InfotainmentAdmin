@@ -44,14 +44,6 @@
         <ng-template matTabContent>
           <mat-dialog-content>
             <div fxLayout="column" fxLayoutAlign="start stretch">
-              <app-single-file-upload
-                fxFlex="50"
-                #imageControl
-                (complete)="onFileComplete($event)"
-              >
-              </app-single-file-upload>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="start stretch">
               <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                 <mat-label class="label m-2">Title</mat-label>
                 <mat-form-field
@@ -167,7 +159,7 @@
                                     <mat-error *ngIf=""> Please enter a valid floor Id </mat-error>
                                 </mat-form-field>
                             </div> -->
-                            
+
               <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                 <mat-label class="label m-2">Service URL</mat-label>
                 <mat-form-field

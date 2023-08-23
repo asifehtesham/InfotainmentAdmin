@@ -11,7 +11,7 @@ import { ComponentsData } from '../data/ComponentsData';
 
 import { BlogData } from '../data/BlogData';
 import { NewsData } from '../data/NewsData';
-import { ServicesData } from '../data/ServicesData';
+import { RoomServicesData } from '../data/RoomServiceData';
 import { PollData } from '../data/PollData';
 import { GalleryData } from '../data/GalleryData';
 import { BannerData } from '../data/BannerData';
@@ -30,8 +30,12 @@ import { SocialmediaData } from '../data/SocialmediaData';
 import { SocialmediatypeData } from '../data/SocialmediatypeData';
 import { BranchData } from '../data/BranchData';
 import { FloorData } from '../data/FloorData';
-import { IptvCategoryData } from '../data/IptvCategoryData';
+import { ServicerequestData } from '../data/ServicerequestData';
 
+
+
+
+import { IptvCategoryData } from '../data/IptvCategoryData';
 
 
 @Injectable()
@@ -170,6 +174,20 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 console.log("Fake interceptor page/");
                 console.log(request.url);
                 return ok(ComponentsData);
+            }
+
+
+            if (request.url.startsWith(`${environment.apiUrl}service?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:RoomServicesData});
+            }
+
+            
+            if (request.url.startsWith(`${environment.infotApiUrl}servicerequest?index=1&limit=10`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok({data:ServicerequestData});
             }
 
 

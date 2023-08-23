@@ -33,10 +33,6 @@ export class BranchDetailComponent {
   done: any;
   isBranchSaved: boolean = true;
   
-
-  @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
-  @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
-
   editorConfig: any = EditorConfig;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private branchService: BranchService, private snakbar: MatSnackBar, private dialog: MatDialog,
@@ -79,17 +75,13 @@ export class BranchDetailComponent {
   }
 
   ngAfterViewInit(): void {
-    if (this.branch.image != null)
-      this.imageControl.setImage(this.branch.image.data);
   }
 
   setForm() {
 
     this.f.title.setValue(this.branch.title);
     this.f.titleAr.setValue(this.branch.titleAr);
-
     this.f.projectId.setValue(this.branch.projectId);
-    this.f.imageURL.setValue(this.branch.imageURL);
     this.f.shortName.setValue(this.branch.shortName);
     this.f.sortOrder.setValue(this.branch.sortOrder);
     this.f.active.setValue(this.branch.active);
@@ -110,7 +102,6 @@ export class BranchDetailComponent {
       ]],
       'projectId': ['', []],
 
-      'imageURL': ['', []],
       'shortName': ['', []],
       'sortOrder': ['', []],
       'active': ['', []]
@@ -133,7 +124,6 @@ export class BranchDetailComponent {
       title: this.f.title.value,
       titleAr: this.f.titleAr.value,
       projectId: this.f.projectId.value,
-      imageURL: this.f.imageURL.value,
       shortName: this.f.shortName.value,
       sortOrder: this.f.sortOrder.value,
       active: (this.f.active.value == true) ? true : false
@@ -147,8 +137,6 @@ export class BranchDetailComponent {
       observer = this.branchService.update(branch);
     observer.subscribe(result => {
       this.id = result.id;
-      if (this.imageControl.file)
-        this.imageControl.startUpload(result.id, "ID", "Branch", false, false);
 
       if (result.id)
         this.snakbar.open('Branch saved successfully.', 'Dismise', {

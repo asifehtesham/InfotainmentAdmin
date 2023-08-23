@@ -45,6 +45,8 @@ import { CategorydetailComponent } from "./categorydetail/categorydetail.compone
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { NewsdetailComponent } from "./newsdetail/newsdetail.component";
 import { NewslistComponent } from "./newslist/newslist.component";
+import { RoomServicedetailComponent } from "./roomServiceDetail/roomServicedetail.component";
+import { RoomServicelistComponent } from "./roomServiceList/roomServicelist.component";
 import { ServicelistComponent } from "./servicelist/servicelist.component";
 import { ServicedetailComponent } from "./servicedetail/servicedetail.component";
 import { PolllistComponent } from "./polllist/polllist.component";
@@ -105,6 +107,11 @@ import { DevicesComponent } from "./devices/devices.component";
 
 import { FloorDetailComponent } from './floor-detail/floor-detail.component';
 import { FloorListComponent } from './floor-list/floor-list.component';
+
+
+import { ServicerequestDetailComponent } from './servicerequest-detail/servicerequest-detail.component';
+import { ServicerequestListComponent } from './servicerequest-list/servicerequest-list.component';
+
 
 import { IptvCategoryDetailComponent } from './iptv-category-detail/iptv-category-detail.component';
 import { IptvCategoryListComponent } from './iptv-category-list/iptv-category-list.component';
@@ -308,6 +315,13 @@ const routes: Routes = [
         component: FloorListComponent,
         canActivate: [AuthGuard],
       },
+      
+      {
+        path: "service-request",
+        component: ServicerequestListComponent,
+        canActivate: [AuthGuard],
+      },
+
       {
         path: "iptv-category",
         component: IptvCategoryListComponent,
@@ -335,6 +349,14 @@ const routes: Routes = [
         component: MagazineListComponent,
         canActivate: [AuthGuard],
       },
+
+
+      {
+        path: "room-service",
+        component: RoomServicelistComponent,
+        canActivate: [AuthGuard],
+      },
+
       {
         path: "newspaper",
         component: NewspaperListComponent,
@@ -381,6 +403,8 @@ const routes: Routes = [
     CategorydetailComponent,
     NewsdetailComponent,
     NewslistComponent,
+    RoomServicedetailComponent,
+    RoomServicelistComponent,
     ServicelistComponent,
     ServicedetailComponent,
     PolllistComponent,
@@ -419,6 +443,8 @@ const routes: Routes = [
     PatientRecordComponent,
     FloorDetailComponent,
     FloorListComponent,
+    ServicerequestDetailComponent,
+    ServicerequestListComponent,
     DeviceDetailComponent,
     DeviceListComponent,
     BranchDetailComponent,

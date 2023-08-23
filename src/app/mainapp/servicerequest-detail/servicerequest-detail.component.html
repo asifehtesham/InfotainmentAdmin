@@ -1,12 +1,12 @@
-<form [formGroup]="floorForm">
+<form [formGroup]="servicerequestForm">
     <div class="m-3">
         <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px">
             <div fxFlex>
-                <h5 mat-dialog-title class="title-sub">Floor Detail</h5>
+                <h5 mat-dialog-title class="title-sub">Service Request Detail</h5>
             </div>
             <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
                 <button mat-flat-button [mat-dialog-close]="true" color="primary" type="submit" (click)="save()"
-                    [disabled]="!floorForm.valid">
+                    [disabled]="!servicerequestForm.valid">
                     <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>
                     Save
                 </button>
@@ -39,13 +39,76 @@
                                     <mat-error *ngIf=""> Please enter a valid Title </mat-error>
                                 </mat-form-field>
                             </div>
+
+
+
+
+              
+<!-- ......................START -->
+
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Title Ar</mat-label>
+                                <mat-label class="label m-2">Patient Id</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="titleAr" class="input" placeholder="Enter Title"
-                                        formControlName="titleAr" required matInput #titleAr appSlugTransform />
-                                    <a mat-icon-button *ngIf="titleAr.value" matSuffix md-icon-button aria-label="Clear"
-                                        (click)="titleAr.value = ''">
+                                    <input type="text" id="patientId" class="input" placeholder="Enter Title"
+                                        formControlName="patientId" required matInput #patientId appSlugTransform />
+                                    <a mat-icon-button *ngIf="patientId.value" matSuffix md-icon-button aria-label="Clear"
+                                        (click)="patientId.value = ''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error *ngIf=""> Please enter a valid Title Ar </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+               
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Select Service</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                <mat-select formControlName="serviceId" placeholder="Select Service">
+                                    <mat-option *ngFor="let branch of branches" [value]="branch.id">{{ branch.title
+                                    }}</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Select Room</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                <mat-select formControlName="roomNo" placeholder="Select Room">
+                                    <mat-option *ngFor="let branch of branches" [value]="branch.id">{{ branch.title
+                                    }}</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Select Service Request Status</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                <mat-select formControlName="serviceRequestStatus" placeholder="Select serviceRequestStatus">
+                                    <mat-option *ngFor="let branch of branches" [value]="branch.id">{{ branch.title
+                                    }}</mat-option>
+                                </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+                            <!-- ..................... END -->
+
+                            
+                            
+                                                       
+
+
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Request</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="request" class="input" placeholder="Enter Title"
+                                        formControlName="request" required matInput #request appSlugTransform />
+                                    <a mat-icon-button *ngIf="request.value" matSuffix md-icon-button aria-label="Clear"
+                                        (click)="request.value = ''">
                                         <mat-icon>close</mat-icon>
                                     </a>
                                     <mat-error *ngIf=""> Please enter a valid Title Ar </mat-error>
@@ -54,29 +117,19 @@
 
 
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Select Branch</mat-label>
+                                <mat-label class="label m-2">AssignedTo </mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                <mat-select formControlName="branchId" placeholder="Select Country">
-                                    <mat-option *ngFor="let branch of branches" [value]="branch.id">{{ branch.title
-                                    }}</mat-option>
-                                </mat-select>
-                                </mat-form-field>
-                            </div>
-
-
-
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Sort Order</mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="sortOrder" class="input" placeholder="Enter Sort Order"
-                                        formControlName="sortOrder" required matInput #sortOrder appSlugTransform />
-                                    <a mat-icon-button *ngIf="sortOrder.value" matSuffix md-icon-button
-                                        aria-label="Clear" (click)="sortOrder.value = ''">
+                                    <input type="text" id="assignedTo" class="input" placeholder="Enter Title"
+                                        formControlName="assignedTo" required matInput #assignedTo appSlugTransform />
+                                    <a mat-icon-button *ngIf="assignedTo.value" matSuffix md-icon-button aria-label="Clear"
+                                        (click)="assignedTo.value = ''">
                                         <mat-icon>close</mat-icon>
                                     </a>
-                                    <mat-error *ngIf=""> Please enter a valid sort Order </mat-error>
+                                    <mat-error *ngIf=""> Please enter a valid Assigned To </mat-error>
                                 </mat-form-field>
                             </div>
+
+
 
                             <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-checkbox class="full-width" formControlName="active" fxFlex>Active</mat-checkbox>
@@ -91,7 +144,7 @@
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
         <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
-        <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" [disabled]="!floorForm.valid"
+        <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" [disabled]="!servicerequestForm.valid"
             (click)="save()">
             <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>
             Save

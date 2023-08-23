@@ -10,40 +10,47 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Floor } from 'src/app/models/Floor';
+import { Servicerequest } from 'src/app/models/Servicerequest';
 import { EditorConfig } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import { FloorService } from 'src/app/services/floor.service';
+import { ServicerequestService } from 'src/app/services/servicerequest.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
 import { BranchService } from 'src/app/services/branch.service';
+import { RoomServiceService } from 'src/app/services/roomService.service';
+import { RoomsService } from 'src/app/services/rooms.service';
 
 @Component({
-  selector: 'app-floor-detail',
-  templateUrl: './floor-detail.component.html',
-  styleUrls: ['./floor-detail.component.scss']
+  selector: 'app-servicerequest-detail',
+  templateUrl: './servicerequest-detail.component.html',
+  styleUrls: ['./servicerequest-detail.component.scss']
 })
-export class FloorDetailComponent {
+export class ServicerequestDetailComponent {
 
   templates: Templates[] = [];
   id: number;
-  floor: Floor;
-  floorForm: FormGroup;
+  servicerequest: Servicerequest;
+  servicerequestForm: FormGroup;
 
   url: string = '';
   done: any;
-  isFloorSaved: boolean = true;
-  
-  branches: SelectModel[];
+  isServicerequestSaved: boolean = true;
 
+  services: SelectModel[];
+  rooms: SelectModel[];
+  requestStatus: [{ id: 0, title: 'Pending ' }]
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
 
   editorConfig: any = EditorConfig;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private floorService: FloorService, private snakbar: MatSnackBar, 
-    private branchService: BranchService,
+
+
+
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private servicerequestService: ServicerequestService, private snakbar: MatSnackBar,
+    private roomsService: RoomsService,
+
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
@@ -51,37 +58,53 @@ export class FloorDetailComponent {
     //this.id = request.id;
     if (request) {
       this.id = request.id;
-      this.floor = request.floor;
+      this.servicerequest = request.servicerequest;
     }
   }
 
   ngOnInit() {
 
 
-    
+
+
     var temp = [];
-    this.branchService.loadData().subscribe((results) => {
-
-      console.log("results ............ ",results)
-
-      temp.push({ id: 0, title: "No Branch" });
+    this.servicerequestService.loadData().subscribe((results) => {
+      temp.push({ id: 0, title: "No Service" });
       results.forEach((element) => {
         temp.push({ id: element.id, title: element.title });
       });
     });
-    this.branches = temp;
+    this.services = temp;
+
+
+    var temp = [];
+    this.roomsService.loadData().subscribe((results) => {
+      temp.push({ id: 0, title: "No Rooms" });
+      results.forEach((element) => {
+        temp.push({ id: element.id, title: element.title });
+      });
+    });
+    this.rooms = temp;
+
+
+
+
+
+    
+  
+
 
 
     this.route.params.subscribe(params => {
-      console.log("floorID para:" + this.id);
+      console.log("servicerequestID para:" + this.id);
 
       this.buildForm();
 
-      if (this.floor != null)
+      if (this.servicerequest != null)
         this.setForm();
-      if (this.floor == null && this.id > 0) {
-        this.floorService.loadByID(this.id).subscribe(results => {
-          this.floor = results;
+      if (this.servicerequest == null && this.id > 0) {
+        this.servicerequestService.loadByID(this.id).subscribe(results => {
+          this.servicerequest = results;
           this.setForm();
         });
       }
@@ -91,15 +114,18 @@ export class FloorDetailComponent {
 
   setForm() {
 
-    this.f.title.setValue(this.floor.title);
-    this.f.titleAr.setValue(this.floor.titleAr);
-    this.f.branchId.setValue(this.floor.branchId);
-    this.f.sortOrder.setValue(this.floor.sortOrder);
-    this.f.active.setValue(this.floor.active);
+    this.f.patientId.setValue(this.servicerequest.patientId);
+    this.f.serviceId.setValue(this.servicerequest.serviceId);
+    this.f.roomNo.setValue(this.servicerequest.roomNo);
+    this.f.request.setValue(this.servicerequest.request);
+    this.f.serviceRequestStatus.setValue(this.servicerequest.serviceRequestStatus);
+    this.f.assignedTo.setValue(this.servicerequest.assignedTo);
+  
+  
   }
 
   buildForm() {
-    this.floorForm = this.fb.group({
+    this.servicerequestForm = this.fb.group({
       'ID': [this.id, [
         //Validators.required
       ]],
@@ -118,7 +144,7 @@ export class FloorDetailComponent {
 
   }
 
-  get f() { return this.floorForm.controls; }
+  get f() { return this.servicerequestForm.controls; }
 
   save() {
     this.saveData();
@@ -128,27 +154,30 @@ export class FloorDetailComponent {
   ImagePath: string = "";
   saveData() {
 
-    var floor: Floor = {
-      id: this.id,
-      title: this.f.title.value,
-      titleAr: this.f.titleAr.value,
-      sortOrder: this.f.sortOrder.value,
+    var servicerequest: Servicerequest = {
+
+      patientId: this.f.patientId.value,
+      serviceId: this.f.serviceId.value,
+      roomNo: this.f.roomNo.value,
+      request: this.f.request.value,
+      serviceRequestStatus: this.f.serviceRequestStatus.value,
+      assignedTo: this.f.assignedTo.value,
       active: (this.f.active.value == true) ? true : false
     }
 
     // ///////////////////////////////////////////////////
     var observer: Observable<any>;
-    if (floor.id == null || floor.id <= 0)
-      observer = this.floorService.add(floor);
+    if (servicerequest.id == null || servicerequest.id <= 0)
+      observer = this.servicerequestService.add(servicerequest);
     else
-      observer = this.floorService.update(floor);
+      observer = this.servicerequestService.update(servicerequest);
     observer.subscribe(result => {
       this.id = result.id;
       if (this.imageControl.file)
-        this.imageControl.startUpload(result.id, "ID", "Floor", false, false);
+        this.imageControl.startUpload(result.id, "ID", "Servicerequest", false, false);
 
       if (result.id)
-        this.snakbar.open('Floor saved successfully.', 'Dismise', {
+        this.snakbar.open('Servicerequest saved successfully.', 'Dismise', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -158,7 +187,7 @@ export class FloorDetailComponent {
   }
 
   revert() {
-    this.floorForm.reset();
+    this.servicerequestForm.reset();
   }
 
   onFileComplete(data: any) {

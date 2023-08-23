@@ -1,0 +1,105 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+
+    <mat-card>
+        <mat-card-content>
+
+            <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+                <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+                    <div class="page-sub-title">
+                        Service Request LIST
+                    </div>
+                    <div>
+                        <a mat-button mat-flat-button color="warn" (click)="onAdd()">
+                            <mat-icon>add</mat-icon> Add
+                        </a>
+                        &nbsp;
+                        <button mat-button mat-flat-button color="warn" (click)="onRemoveAll()">
+                            <mat-icon>delete</mat-icon> Delete
+                        </button>
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <div>
+                        <ng-container *ngIf="dataSource.filteredData.length > 0 else loading">
+                            <table mat-table [dataSource]="dataSource" matSort>
+                                <!-- Checkbox Column -->
+                                <ng-container matColumnDef="select">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <mat-checkbox (change)="$event ? toggleAllRows() : null" color="primary"
+                                            [checked]="selection.hasValue() && isAllSelected()"
+                                            [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                            [aria-label]="checkboxLabel()">
+                                        </mat-checkbox>
+                                    </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-checkbox (click)="$event.stopPropagation()" color="primary"
+                                            (change)="$event ? selection.toggle(row) : null"
+                                            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+                                        </mat-checkbox>
+                                    </td>
+                                </ng-container>
+
+          
+
+                                <ng-container matColumnDef="patientId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>patientId</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.patientId}} </td>
+                                </ng-container>
+
+                                
+                                <ng-container matColumnDef="serviceId">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>serviceId</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.serviceId}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="roomNo">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>roomNo</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.roomNo}} </td>
+                                </ng-container>
+
+
+                                <ng-container matColumnDef="serviceRequestStatus">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>serviceRequestStatus</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.serviceRequestStatus}} </td>
+                                </ng-container>
+
+
+
+
+                                <ng-container matColumnDef="assignedTo">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>assignedTo</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.assignedTo}} </td>
+                                </ng-container>
+
+                                
+                                <ng-container matColumnDef="id" stickyEnd>
+                                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                                    <td mat-cell *matCellDef="let element">
+
+                                        <a mat-button md-icon-button matSuffix (click)="onEdit(element)">
+                                            <mat-icon>edit</mat-icon>
+                                        </a>
+                                        <button mat-button matSuffix md-icon-button aria-label="Clear"
+                                            (click)="ondelete(element)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[10, 50, 100]" showFirstLastButtons></mat-paginator>
+                        </ng-container>
+                        <ng-template #loading>
+                            <app-loading align="center"></app-loading>
+                        </ng-template>
+
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

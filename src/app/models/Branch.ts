@@ -5,7 +5,6 @@ import { Attachment } from './Attachment';
 export interface Branch extends EntityBase {
     title: string;
     titleAr: string;
-    imageURL: string;
     shortName: string;
     projectId: number;
     image?: Attachment;
