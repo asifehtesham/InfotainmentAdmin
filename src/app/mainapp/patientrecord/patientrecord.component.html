@@ -22,52 +22,46 @@
                         <div class="panel-heading">
                             <h3 class="panel-title">Patient Profile</h3>
                         </div>
-                        <div class="panel-body" *ngIf="room.status">
+                        <div class="panel-body" >
                             <div class="row">
                                 <div  class=" col-md-9 col-lg-9 mt-3"> 
                                     <table class="table table-user-information">
                                         <tbody>
                                             <tr>
                                                 <td>Patient Name:</td>
-                                                <td> XYZ</td>
+                                                <td> {{admittedPatient.patientName}}</td>
                                             </tr>
                                             <tr>
                                                 <td>File No:</td>
-                                                <td> XY223</td>
+                                                <td> {{admittedPatient.fileNo}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Admission No:</td>
-                                                <td>admit-123</td>
+                                                <td>{{admittedPatient.admissionNo}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Admit Date:</td>
-                                                <td> 12/04/2023 </td>
+                                                <td> {{ admittedPatient.admitDate }} </td>
                                             </tr>
                                             <tr>
                                                 <td>Assigned Doctor:</td>
-                                                <td> Dr. ABC</td>
+                                                <td> {{admittedPatient.assignedDoctor}}</td>
                                             </tr>
                                             <tr>
                                                 <td>Age:</td>
-                                                <td>20 Yrs</td>
+                                                <td>{{admittedPatient.age}} Yrs old</td>
                                             </tr>
                                             
                                             <tr>
                                                 <td>Gender:</td>
-                                                <td> Male</td>
+                                                <td> {{admittedPatient.gender ==0?"Male":"Female"}}</td>
                                             </tr>
-                                                <tr>
-                                                <td>Address:</td>
-                                                <td>ABC</td>
-                                            </tr>
+                                                
                                             <tr>
                                                 <td>Mobile:</td>
-                                                <td>555555</td>
+                                                <td>{{admittedPatient.mobile}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>Marital Status:</td>
-                                                <td> Single </td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -85,6 +79,12 @@
                 <ng-template matTabContent>
                     <mat-dialog-content>
                             
+                            <mat-card *ngFor="let his of admissionHistory">
+                                    <mat-card-content>
+                                       {{his.admissionNo}}
+                            
+                                    </mat-card-content>
+                                </mat-card>
                         
                     </mat-dialog-content>
                 </ng-template>

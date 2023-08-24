@@ -6,6 +6,7 @@ import { RoomsService } from 'src/app/services/rooms.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RoomsDetailComponent } from '../roomsdetail/roomsdetail.component'
 import { PatientRecordComponent } from '../patientrecord/patientrecord.component'
+import { AdmitPatientComponent } from '../admitpatient/admitpatient.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 import { ServicerequestDetailComponent } from '../servicerequest-detail/servicerequest-detail.component';
@@ -177,4 +178,13 @@ export class RoomsListComponent {
   }
 
 
+  onAdmitPatient(room:Rooms) {
+    console.log(room)
+    const dialogRef = this.dialog.open(AdmitPatientComponent, {
+      width: '750px',
+      data: { room: room }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 }

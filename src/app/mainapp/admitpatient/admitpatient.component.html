@@ -1,0 +1,149 @@
+<form [formGroup]="admitPatientForm" (keydown.enter)="$event.preventDefault()">
+        <div class="m-3">
+            <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px">
+                <div fxFlex>
+                    <h5 mat-dialog-title class="title-sub">Admit Patient</h5>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+                    <button mat-flat-button [mat-dialog-close]="true" color="primary" type="submit" (click)="save()"
+                        [disabled]="!admitPatientForm.valid">
+                        <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>
+                        Save
+                    </button>
+                    <button mat-icon-button mat-dialog-close cdkFocusInitial>
+                        <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider> 
+        <input type="hidden" id="ID" formControlName="ID" />
+        <div fxLayout="column" fxFlexFill>
+            <mat-tab-group>
+                <mat-tab label="Page Info">
+                    <ng-template mat-tab-label> Basic Info </ng-template>
+                    <ng-template matTabContent>
+                        <mat-dialog-content>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                    <mat-label class="label m-2">Admission Number</mat-label>
+                                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                        <input type="text" id="admissionNo" class="input" placeholder="Enter Admission Number"
+                                            formControlName="admissionNo" required matInput #admissionNo />
+                                        <a mat-icon-button *ngIf="admissionNo.value" matSuffix md-icon-button
+                                            aria-label="Clear" (click)="admissionNo.value = ''">
+                                            <mat-icon>close</mat-icon>
+                                        </a> 
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                        <mat-label class="label m-2">File Number</mat-label>
+                                        <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                            <input type="text" id="fileNo" class="input" placeholder="Enter File Number"
+                                                formControlName="fileNo" required matInput #fileNo />
+                                            <a mat-icon-button *ngIf="fileNo.value" matSuffix md-icon-button
+                                                aria-label="Clear" (click)="fileNo.value = ''">
+                                                <mat-icon>close</mat-icon>
+                                            </a> 
+                                        </mat-form-field>
+                                    </div>
+                               
+                                
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                    <mat-label class="label m-2">Branch</mat-label>
+                                    <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
+                                        <mat-select formControlName="branchId">
+                                            <mat-option *ngFor="let branch of branches" [value]="branch.id">{{branch.title}}</mat-option>
+                                        
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                        <mat-label class="label m-2">Room Number</mat-label>
+                                        <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                            <input type="text" class="input" readonly
+                                                formControlName="roomNo" matInput />
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                            <mat-label class="label m-2">Admission Date</mat-label>
+                                            <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                                <input matInput [matDatepicker]="admitDate" formControlName="admitDate"
+                                                    placeholder="Start Date">
+                                                <mat-datepicker-toggle matSuffix [for]="admitDate"></mat-datepicker-toggle>
+                                                <mat-datepicker #admitDate></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                            <mat-label class="label m-2">Mobile Number</mat-label>
+                                            <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                                <input type="string" id="mobile" class="input" placeholder="Enter Mobile Number"
+                                                    formControlName="mobile" required matInput #mobile />
+                                                <a mat-icon-button *ngIf="mobile.value" matSuffix md-icon-button
+                                                    aria-label="Clear" (click)="mobile.value = ''">
+                                                    <mat-icon>close</mat-icon>
+                                                </a> 
+                                            </mat-form-field>
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                            <mat-label class="label m-2">Patient Name</mat-label>
+                                            <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                                <input type="text" id="patientName" class="input" placeholder="Enter Patient Name"
+                                                formControlName="patientName" required matInput #patientName />
+                                                <a mat-icon-button *ngIf="patientName.value" matSuffix md-icon-button
+                                                aria-label="Clear" (click)="patientName.value = ''">
+                                                <mat-icon>close</mat-icon>
+                                            </a> 
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                            <mat-label class="label m-2">Assigned Doctor</mat-label>
+                                                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                                        <input type="text" id="assignedDoctor" class="input" placeholder="Enter Doctor Name"
+                                                            formControlName="assignedDoctor" required matInput #assignedDoctor />
+                                                        <a mat-icon-button *ngIf="assignedDoctor.value" matSuffix md-icon-button
+                                                            aria-label="Clear" (click)="assignedDoctor.value = ''">
+                                                            <mat-icon>close</mat-icon>
+                                                        </a> 
+                                                    </mat-form-field>
+                                                </div>
+                                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                        <mat-label class="label m-2">Age</mat-label>
+                                        <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                            <input type="text" id="age" class="input" placeholder=""
+                                                formControlName="age" required matInput #age />
+                                            <a mat-icon-button *ngIf="age.value" matSuffix md-icon-button
+                                                aria-label="Clear" (click)="age.value = ''">
+                                                <mat-icon>close</mat-icon>
+                                            </a> 
+                                        </mat-form-field>
+                                        
+                                    </div>
+                                            
+                                    <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                            <mat-label class="label m-2">Gender</mat-label>
+                                            <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
+                                                <mat-select formControlName="gender">
+                                                    <mat-option *ngFor="let gen of gender" [value]="gen.id">{{gen.value}}</mat-option>
+                                                
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+        
+                            </div>
+                        </mat-dialog-content>
+                    </ng-template>
+                </mat-tab>
+                
+            </mat-tab-group>
+        </div>
+        <mat-dialog-actions align="end">
+            <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+            <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" [disabled]="!admitPatientForm.valid"
+                (click)="save()">
+                <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>
+                Save
+            </button>
+        </mat-dialog-actions>
+    </form>
