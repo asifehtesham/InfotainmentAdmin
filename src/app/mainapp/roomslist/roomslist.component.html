@@ -48,12 +48,12 @@
             
             <mat-card class="mat-elevation-z8" style="width:95%;padding:10px">
                 <div class="activeIcon">
-                    <a (click)="onEdit(room)"><mat-icon style="font-size:large;cursor:pointer;margin-right:10px">edit</mat-icon></a>
-                    <a (click)="onDelete(room)"><mat-icon style="font-size:large;cursor:pointer;margin-right:10px;">delete</mat-icon></a>
-                    <span *ngIf="room.status" class="statusActive"  matTooltip="Reserved" matTooltipPosition="below"></span>
-                    <span *ngIf="!room.status" class="statusNotActive"  matTooltip="Empty" matTooltipPosition="below"></span>
+                    <a (click)="onEdit(room)"><mat-icon matTooltip="Edit" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px">edit</mat-icon></a>
+                    <a (click)="onDelete(room)"><mat-icon matTooltip="Delete" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px;">delete</mat-icon></a>
+                    <span *ngIf="room.currentAdmission" class="statusActive"  matTooltip="Reserved" matTooltipPosition="below"></span>
+                    <span *ngIf="!room.currentAdmission" class="statusNotActive"  matTooltip="Empty" matTooltipPosition="below"></span>
                 </div>
-                <div style="cursor:pointer; margin-left:5%" (click)="checkPatientRecord(room)">
+                <div style="cursor:pointer; margin-left:5%">
                     <mat-card-title class="page-sub-title">{{room.roomNo}}</mat-card-title>
                     <mat-card-subtitle>{{room.roomType}}</mat-card-subtitle>
                     <mat-card-subtitle>{{room.branch.title}}</mat-card-subtitle> 
@@ -61,16 +61,20 @@
                 <mat-card-content>
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button *ngIf="room.status"  matTooltip="Don't Disturb" matTooltipPosition="below">
+                    <button *ngIf="room.currentAdmission" mat-button (click)="checkPatientRecord(room)"  matTooltip="View Patient" matTooltipPosition="below">
+                        <mat-icon>local_hotel</mat-icon>
+                    </button>
+                    <button mat-button *ngIf="room.currentAdmission"  matTooltip="Don't Disturb" matTooltipPosition="below">
                         <mat-icon>do_not_disturb_on_total_silence</mat-icon>
                     </button>
-                    <button mat-button *ngIf="room.status" matTooltip="Discharge" matTooltipPosition="below">
+                    <button mat-button *ngIf="room.currentAdmission" matTooltip="Discharge" matTooltipPosition="below">
                         <mat-icon>space-shuttle</mat-icon>
                     </button>
-                    <button *ngIf="!room.status" mat-button matTooltip="Admit Patient" matTooltipPosition="below">
+                    
+                    <button (click)="onAdmitPatient(room)" *ngIf="!room.currentAdmission" mat-button matTooltip="Admit Patient" matTooltipPosition="below">
                         <mat-icon>spatial_audio_off</mat-icon>
                     </button>
-                    <button *ngIf="!room.status" mat-button matTooltip="Call" matTooltipPosition="below">
+                    <button *ngIf="!room.currentAdmission" mat-button matTooltip="Call" matTooltipPosition="below">
                         <mat-icon>phone</mat-icon>
                     </button>
                 </mat-card-actions>

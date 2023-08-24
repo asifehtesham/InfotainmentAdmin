@@ -23,6 +23,7 @@ import { BranchService } from 'src/app/services/branch.service';
 import { FloorService } from 'src/app/services/floor.service';
 import { Branch } from 'src/app/models/Branch';
 import { Floor } from 'src/app/models/Floor';
+import { PatientAdmission } from 'src/app/models/PatientAdmission';
 
 
 @Component({
@@ -32,27 +33,22 @@ import { Floor } from 'src/app/models/Floor';
 })
 export class PatientRecordComponent {
   id: number;
-  room: Rooms;
-   
+  admittedPatient: PatientAdmission;
+  admissionHistory = []
+
   constructor(private route: ActivatedRoute, private branchService:BranchService,private floorService: FloorService, private roomsService: RoomsService, private snakbar: MatSnackBar, private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("patient record request");
     if (request) {
+      console.log("req",request.room.currentAdmission)
       this.id = request.id;
-      this.room = request.room;
+      this.admittedPatient = request.room.currentAdmission;
+      this.admissionHistory = request.room.admissionHistory;
     }
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-
-      if (this.room != null) 
-      if (this.room == null && this.id > 0) {
-        this.roomsService.loadByID(this.id).subscribe(results => {
-          this.room = results; 
-        });
-      }
-    });
+  
  
   }
 

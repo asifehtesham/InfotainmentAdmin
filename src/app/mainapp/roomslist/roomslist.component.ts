@@ -16,6 +16,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { RoomsDetailComponent } from '../roomsdetail/roomsdetail.component'
 import { PatientRecordComponent } from '../patientrecord/patientrecord.component'
+import { AdmitPatientComponent } from '../admitpatient/admitpatient.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 
@@ -148,5 +149,13 @@ export class RoomsListComponent {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
-  
+  onAdmitPatient(room:Rooms) {
+    console.log(room)
+    const dialogRef = this.dialog.open(AdmitPatientComponent, {
+      width: '750px',
+      data: { room: room }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 }
