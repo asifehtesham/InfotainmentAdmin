@@ -17,7 +17,7 @@ export class IPTVService {
 
   add(iptv: IPTV) {
     var action = 'iptv';
-    return this.http.post<any>(environment.apiUrl + action, iptv)
+    return this.http.post<any>(environment.infotApiUrl + action, iptv)
       .pipe(map(data => {
         return data;
       }));
@@ -26,7 +26,7 @@ export class IPTVService {
 
   update(iptv: IPTV) {
     var action = 'iptv';
-    return this.http.put<any>(environment.apiUrl + action, iptv)
+    return this.http.put<any>(environment.infotApiUrl + action, iptv)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -36,7 +36,7 @@ export class IPTVService {
 
 
   loadByID(id: number): Observable<IPTV> {
-    return this.http.get<any>(`${environment.apiUrl}iptv/${id}`)
+    return this.http.get<any>(`${environment.infotApiUrl}iptv/${id}`)
       .pipe(
         map(data => {
           return <IPTV>data;
@@ -46,7 +46,7 @@ export class IPTVService {
 
   loadData(index: number = 1, limit: number = 10): Observable<IPTV[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}iptv?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}iptv?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
           var iptv: Array<IPTV> = [];
@@ -60,7 +60,7 @@ export class IPTVService {
   }
 
   search(key: string): Observable<IPTV[]> {
-    return this.http.get<any>(`${environment.apiUrl}iptv/search/${key}`)
+    return this.http.get<any>(`${environment.infotApiUrl}iptv/search/${key}`)
       .pipe(
         map(data => {
           var iptv = [];
@@ -79,7 +79,7 @@ export class IPTVService {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.apiUrl + action, iptv)
+    return this.http.post<any>(environment.infotApiUrl + action, iptv)
       .pipe(map(data => {
         var iptvs = [];
         data.forEach(item => {
@@ -95,7 +95,7 @@ export class IPTVService {
     console.log("delete: " + id);
 
     var action = "iptv/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -105,7 +105,7 @@ export class IPTVService {
     console.log("delete: " + ids);
 
     var action = "iptv?ids=" + ids;
-    return this.http.delete<any>(environment.apiUrl + action)
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -113,7 +113,7 @@ export class IPTVService {
 
   handleError(operation: String) {
     return (err: any) => {
-      let errMsg = `error in ${operation}() retrieving ${environment.apiUrl}`;
+      let errMsg = `error in ${operation}() retrieving ${environment.infotApiUrl}`;
       console.log(`${errMsg}:`, err)
       if (err instanceof HttpErrorResponse) {
         // you could extract more info about the error if you want, e.g.:

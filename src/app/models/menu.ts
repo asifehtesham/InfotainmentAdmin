@@ -61,91 +61,177 @@ export const menus = [
     },
     //////////////////////////// infot start
 
-    {
-        'name': 'Branch',
-        'icon': 'rss',
-        'link': '/mainapp/branch',
-        'open': false,
-    },
-    
-    {
-        'name': 'Floor',
-        'icon': 'rss',
-        'link': '/mainapp/floor',
-        'open': false,
-    },
+
+
 
     {
         'name': 'Rooms',
         'icon': 'building',
-        'link': '/mainapp/rooms',
+        'link': 'cms',
+        //'link': '/mainapp/categories',
         'open': false,
+        'sub': [
+            {
+                'name': 'Manage Rooms',
+                // 'icon': 'building',
+                'link': '/mainapp/rooms',
+                'open': false,
+            },
+
+            {
+                'name': 'Manage Services',
+                //'icon': 'building',
+                'link': '/mainapp/room-service',
+                'open': false,
+            },
+            {
+                'name': 'Manage Requests',
+                //'icon': 'building',
+                'link': '/mainapp/service-request',
+                'open': false,
+            },
+
+
+
+            {
+                'name': 'Manage Devices',
+                //'icon': 'building',
+                'link': '/mainapp/device',
+                'open': false,
+            },
+
+
+
+        ]
     },
+
+
+
+
+
+
+    
+
+    {
+        'name': 'Branches',
+        'icon': 'rss',
+        'link': '/mainapp/branch',
+        'open': false,
+        'sub': [
+            {
+                'name': 'Manage Branches',
+                '//icon': 'rss',
+                'link': '/mainapp/branch',
+                'open': false,
+            },
+        
+            {
+                'name': 'Manage Floor',
+                //'icon': 'rss',
+                'link': '/mainapp/floor',
+                'open': false,
+            },
+        
+
+        ]
+    },
+
+ 
+
+    {
+        'name': 'Entertainment',
+        'icon': 'rss',
+        'link': '/mainapp/branch',
+        'open': false,
+        'sub': [
+            
+            {
+                'name': 'Menu',
+                //'icon': 'newspaper',
+                'link': '/mainapp/imenu',
+                'open': false,
+            },
+        
+            {
+                'name': 'Newspaper',
+                //'icon': 'newspaper',
+                'link': '/mainapp/newspaper',
+                'open': false,
+            },
+            {
+                'name': 'Magazine',
+                //'icon': 'newspaper',
+                'link': '/mainapp/magazine',
+                'open': false,
+            },
+            {
+                'name': 'Games',
+                //'icon': 'rocket',
+                'link': '/mainapp/games',
+                'open': false,
+            },
+            {
+                'name': 'Feedback Type',
+                //'icon': 'poll',
+                'link': '/mainapp/feedbackType',
+                'open': false,
+            },
+          {
+                'name': 'Social Media Type',
+                //'icon': 'photo-video',
+                'link': '/mainapp/socialmediatype',
+                'open': false,
+            },
+            {
+                'name': 'Social Media',
+                //'icon': 'users',
+                'link': '/mainapp/socialmedia',
+                'open': false,
+            },
+        
+
+        ]
+    },
+
+
+
 
     
     {
-        'name': 'Devices',
-        'icon': 'building',
-        'link': '/mainapp/device',
-        'open': false,
-    },
-
-    {
-        'name': 'IPTV',
+        'name': 'TV Channels',
         'icon': 'rss',
-        'link': '/mainapp/iptv',
+        'link': '/mainapp/branch',
         'open': false,
+        'sub': [
+            
+            {
+                'name': 'Manage Channels',
+                //'icon': 'rss',
+                'link': '/mainapp/iptv',
+                'open': false,
+            },
+        
+            {
+                'name': 'Manage Categories',
+                //'icon': 'rss',
+                'link': '/mainapp/iptv-category',
+                'open': false,
+            },
+           
+        ]
     },
 
-    {
-        'name': 'IPTV Category',
-        'icon': 'rss',
-        'link': '/mainapp/iptv-category',
-        'open': false,
-    },
 
-    {
-        'name': 'Newspaper',
-        'icon': 'newspaper',
-        'link': '/mainapp/newspaper',
-        'open': false,
-    },
-    {
-        'name': 'Magazine',
-        'icon': 'newspaper',
-        'link': '/mainapp/magazine',
-        'open': false,
-    },
-    {
-        'name': 'Games',
-        'icon': 'rocket',
-        'link': '/mainapp/games',
-        'open': false,
-    },
-    {
-        'name': 'Feedback Type',
-        'icon': 'poll',
-        'link': '/mainapp/feedbackType',
-        'open': false,
-    },
+
+
+
     {
         'name': 'Country',
         'icon': 'flag',
         'link': '/mainapp/country',
         'open': false,
     },
-    {
-        'name': 'Social Media Type',
-        'icon': 'photo-video',
-        'link': '/mainapp/socialmediatype',
-        'open': false,
-    },
-    {
-        'name': 'Social Media',
-        'icon': 'users',
-        'link': '/mainapp/socialmedia',
-        'open': false,
-    },
+  
     //////////////////////////// infot end 
     {
         'name': 'CMS',
@@ -167,7 +253,7 @@ export const menus = [
                 'link': '/mainapp/componentlist',
                 'open': false,
             },
-            
+
             {
                 'name': 'Templates',
                 //'icon': 'calendar',

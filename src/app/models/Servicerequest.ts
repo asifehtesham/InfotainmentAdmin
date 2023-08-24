@@ -8,6 +8,16 @@ export interface Servicerequest extends EntityBase {
     roomNo: number;
     request: string;
     requestOn?: DateTime;
-    serviceRequestStatus: string;
-    assignedTo: string
+    status: ServiceStatus;
+    assignedTo: number,
+    admissionNo: string, 
+    patientName: string, 
+}
+
+export enum ServiceStatus {
+"Pending"=1,
+"InProgress"=2,
+"Closed"=3,
+"Rejected"=4,
+"CancelledByPatient"=5
 }

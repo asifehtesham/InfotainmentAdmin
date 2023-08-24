@@ -1,4 +1,4 @@
-<form [formGroup]="deviceForm">
+<form [formGroup]="imenuForm">
   <div class="m-3">
     <div
       fxLayout="row"
@@ -6,7 +6,7 @@
       style="height: 40px"
     >
       <div fxFlex>
-        <h5 mat-dialog-title class="title-sub">Device Detail</h5>
+        <h5 mat-dialog-title class="title-sub">Menu Detail</h5>
       </div>
       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
         <button
@@ -15,7 +15,7 @@
           color="primary"
           type="submit"
           (click)="save()"
-          [disabled]="!deviceForm.valid"
+          [disabled]="!imenuForm.valid"
         >
           <mat-icon
             class="customfab-icon-white"
@@ -44,6 +44,15 @@
         <ng-template matTabContent>
           <mat-dialog-content>
             <div fxLayout="column" fxLayoutAlign="start stretch">
+              <app-single-file-upload
+                fxFlex="50"
+                #imageControl
+                (complete)="onFileComplete($event)"
+              >
+              </app-single-file-upload>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+              
               <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                 <mat-label class="label m-2">Title</mat-label>
                 <mat-form-field
@@ -111,79 +120,32 @@
                 </mat-form-field>
               </div>
 
+
+
+
               <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                <mat-label class="label m-2">Device Id</mat-label>
+                <mat-label class="label m-2">Select Country</mat-label>
                 <mat-form-field
                   fxLayout="column"
                   class="full-width"
                   fxFlex
                   appearance="outline"
                 >
-                  <input
-                    type="text"
-                    id="projectId"
-                    class="input"
-                    placeholder="Enter Title"
-                    formControlName="projectId"
-                    required
-                    matInput
-                    #projectId
-                    appSlugTransform
-                  />
-                  <a
-                    mat-icon-button
-                    *ngIf="projectId.value"
-                    matSuffix
-                    md-icon-button
-                    aria-label="Clear"
-                    (click)="projectId.value = ''"
+                  <mat-select
+                    formControlName="countryID"
+                    placeholder="Select Country"
                   >
-                    <mat-icon>close</mat-icon>
-                  </a>
-                  <mat-error *ngIf="">
-                    Please enter a valid Device Id
-                  </mat-error>
+                    <mat-option
+                      *ngFor="let country of countries"
+                      [value]="country.id"
+                      >{{ country.name }}</mat-option
+                    >
+                  </mat-select>
                 </mat-form-field>
               </div> -->
 
-              <!--                             
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Floor</mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="floorId" class="input" placeholder="Enter Title"
-                                        formControlName="floorId" required matInput #floorId appSlugTransform />
-                                    <a mat-icon-button *ngIf="floorId.value" matSuffix md-icon-button aria-label="Clear"
-                                        (click)="floorId.value = ''">
-                                        <mat-icon>close</mat-icon>
-                                    </a>
-                                    <mat-error *ngIf=""> Please enter a valid floor Id </mat-error>
-                                </mat-form-field>
-                            </div> -->
 
-              <div
-                fxLayout="column"
-                fxLayoutAlign="start stretch"
-                fxLayoutGap
-              >
-                <mat-label class="label m-2">Device Type</mat-label>
-                <mat-form-field class="full-width" fxFlex appearance="outline">
-                  <mat-select formControlName="deviceType" placeholder="Device Type">
-                    <mat-option
-                      *ngFor="let type of deviceType"
-                      [value]="type.title"
-                    >
-                      {{ type.title }}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="">
-                    Device type is required
-                  </mat-error>
-
-                </mat-form-field>
-              </div>
-
-              
-              <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                 <mat-label class="label m-2">Service URL</mat-label>
                 <mat-form-field
                   fxLayout="column"
@@ -193,22 +155,22 @@
                 >
                   <input
                     type="text"
-                    id="shortName"
+                    id="serviceURL"
                     class="input"
                     placeholder="Enter Title"
-                    formControlName="shortName"
+                    formControlName="serviceURL"
                     required
                     matInput
-                    #shortName
+                    #serviceURL
                     appSlugTransform
                   />
                   <a
                     mat-icon-button
-                    *ngIf="shortName.value"
+                    *ngIf="serviceURL.value"
                     matSuffix
                     md-icon-button
                     aria-label="Clear"
-                    (click)="shortName.value = ''"
+                    (click)="serviceURL.value = ''"
                   >
                     <mat-icon>close</mat-icon>
                   </a>
@@ -217,7 +179,6 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-               -->
               <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                 <mat-label class="label m-2">Sort Order</mat-label>
                 <mat-form-field
@@ -273,7 +234,7 @@
       [mat-dialog-close]="true"
       color="primary"
       type="submit"
-      [disabled]="!deviceForm.valid"
+      [disabled]="!imenuForm.valid"
       (click)="save()"
     >
       <mat-icon

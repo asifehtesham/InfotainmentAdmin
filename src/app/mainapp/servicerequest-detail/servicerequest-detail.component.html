@@ -49,13 +49,13 @@
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Patient Id</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="patientId" class="input" placeholder="Enter Title"
+                                    <input type="text" id="patientId" class="input" placeholder="Enter Patient Id"
                                         formControlName="patientId" required matInput #patientId appSlugTransform />
                                     <a mat-icon-button *ngIf="patientId.value" matSuffix md-icon-button aria-label="Clear"
                                         (click)="patientId.value = ''">
                                         <mat-icon>close</mat-icon>
                                     </a>
-                                    <mat-error *ngIf=""> Please enter a valid Title Ar </mat-error>
+                                    <mat-error *ngIf=""> Please enter a valid Patient Id </mat-error>
                                 </mat-form-field>
                             </div>
 
@@ -73,12 +73,23 @@
                             </div>
 
 
-                            
+
+                            <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Select Room</mat-label>
+                              
+
+                            <mat-autocomplete formControlName="roomNo" #auto="matAutocomplete">
+                                <mat-option *ngFor="let room of rooms" [value]="room.id">
+                                  {{room.roomNo}}
+                                </mat-option>
+                              </mat-autocomplete>
+                            </div> -->
+
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Select Room</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                 <mat-select formControlName="roomNo" placeholder="Select Room">
-                                    <mat-option *ngFor="let room of rooms" [value]="room.id">{{ room.id
+                                    <mat-option *ngFor="let room of rooms" [value]="room.id">{{ room.title
                                     }}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
@@ -86,9 +97,9 @@
 
 
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Select Service Request Status</mat-label>
+                                <mat-label class="label m-2">Request Status</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                <mat-select formControlName="serviceRequestStatus" placeholder="Select serviceRequestStatus">
+                                <mat-select formControlName="status" placeholder="Select status">
                                     <mat-option *ngFor="let req of requestStatus" [value]="req.id">{{ req.title
                                     }}</mat-option>
                                 </mat-select>
@@ -118,7 +129,7 @@
                             </div>
 
 
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                            <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">AssignedTo </mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                     <input type="text" id="assignedTo" class="input" placeholder="Enter Title"
@@ -129,13 +140,47 @@
                                     </a>
                                     <mat-error *ngIf=""> Please enter a valid Assigned To </mat-error>
                                 </mat-form-field>
+                            </div> -->
+
+
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">admissionNo </mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="admissionNo" class="input" placeholder="Enter Title"
+                                        formControlName="admissionNo" required matInput #admissionNo appSlugTransform />
+                                    <a mat-icon-button *ngIf="admissionNo.value" matSuffix md-icon-button aria-label="Clear"
+                                        (click)="admissionNo.value = ''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error *ngIf=""> Please enter a valid admissionNo </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">patientName </mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="patientName" class="input" placeholder="Enter Title"
+                                        formControlName="patientName" required matInput #patientName appSlugTransform />
+                                    <a mat-icon-button *ngIf="patientName.value" matSuffix md-icon-button aria-label="Clear"
+                                        (click)="patientName.value = ''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error *ngIf=""> Please enter a valid patientName </mat-error>
+                                </mat-form-field>
                             </div>
 
 
 
-                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
+
+                            
+
+
+
+                            <!-- <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-checkbox class="full-width" formControlName="active" fxFlex>Active</mat-checkbox>
-                            </div>
+                            </div> -->
                         </div>
                     </mat-dialog-content>
                 </ng-template>

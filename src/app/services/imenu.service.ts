@@ -3,30 +3,30 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from "src/environments/environment";
 import { map, catchError } from 'rxjs/operators';
-import { Servicerequest } from '../models/Servicerequest';
+import { Imenu } from '../models/Imenu';
 import { AuthService } from './auth-service.service';
 import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ServicerequestService {
+export class ImenuService {
 
   constructor(private http: HttpClient, private authenticationService: AuthService
   ) { }
 
-  add(servicerequest: Servicerequest) {
-    var action = 'serviceRequest_request';
-    return this.http.post<any>(environment.infotApiUrl + action, servicerequest)
+  add(imenu: Imenu) {
+    var action = 'menu';
+    return this.http.post<any>(environment.infotApiUrl + action, imenu)
       .pipe(map(data => {
         return data;
       }));
   }
 
 
-  update(servicerequest: Servicerequest) {
-    var action = 'serviceRequest_request';
-    return this.http.put<any>(environment.infotApiUrl + action, servicerequest)
+  update(imenu: Imenu) {
+    var action = 'menu';
+    return this.http.put<any>(environment.infotApiUrl + action, imenu)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -35,66 +35,66 @@ export class ServicerequestService {
   }
 
 
-  loadByID(id: number): Observable<Servicerequest> {
-    return this.http.get<any>(`${environment.infotApiUrl}serviceRequest_request/${id}`)
+  loadByID(id: number): Observable<Imenu> {
+    return this.http.get<any>(`${environment.infotApiUrl}menu/${id}`)
       .pipe(
         map(data => {
-          return <Servicerequest>data;
+          return <Imenu>data;
         }),
       );
   }
 
-  loadData(index: number = 1, limit: number = 10): Observable<Servicerequest[]> {
+  loadData(index: number = 1, limit: number = 10): Observable<Imenu[]> {
 
-    return this.http.get<any>(`${environment.infotApiUrl}serviceRequest_request?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}menu?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
-          var servicerequest: Array<Servicerequest> = [];
+          var imenu: Array<Imenu> = [];
           data.data.forEach(item => {
-            servicerequest.push(<Servicerequest>item);
+            imenu.push(<Imenu>item);
           });
 
-          return servicerequest;
+          return imenu;
         }),
       );
   }
 
-  search(key: string): Observable<Servicerequest[]> {
-    return this.http.get<any>(`${environment.infotApiUrl}serviceRequest_request/search/${key}`)
+  search(key: string): Observable<Imenu[]> {
+    return this.http.get<any>(`${environment.infotApiUrl}menu/search/${key}`)
       .pipe(
         map(data => {
-          var servicerequest = [];
+          var imenu = [];
           data.forEach(item => {
-            //var cat = this.mapToservicerequests(item);
-            servicerequest.push(<Servicerequest>item);
+            //var cat = this.mapToImenus(item);
+            imenu.push(<Imenu>item);
           });
 
-          console.log(servicerequest);
-          return servicerequest;
+          console.log(imenu);
+          return imenu;
         }),
       );
   }
 
-  editactive(servicerequest: Servicerequest) {
+  editactive(imenu: Imenu) {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.infotApiUrl + action, servicerequest)
+    return this.http.post<any>(environment.infotApiUrl + action, imenu)
       .pipe(map(data => {
-        var servicerequests = [];
+        var imenus = [];
         data.forEach(item => {
-          //var servicerequest = this.mapToservicerequests(item);
-          servicerequests.push(<Servicerequest>servicerequest);
+          //var imenu = this.mapToImenus(item);
+          imenus.push(<Imenu>imenu);
         });
 
-        return servicerequests;
+        return imenus;
       }));
   }
 
   delete(id: number) {
     console.log("delete: " + id);
 
-    var action = "serviceRequest_request/" + id;
+    var action = "menu/" + id;
     return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
@@ -104,7 +104,7 @@ export class ServicerequestService {
   deleteAll(ids: string) {
     console.log("delete: " + ids);
 
-    var action = "serviceRequest_request?ids=" + ids;
+    var action = "menu?ids=" + ids;
     return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;

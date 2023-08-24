@@ -1,23 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 //import { MatPaginator, MatTableDataSource, MatSortable, MatSortHeader, MatSort, MatFormFieldControl, MatInputModule,MatDatepickerInputEvent, MatSlideToggleChange } from "@angular/material";
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, timer, interval, Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { map, catchError } from 'rxjs/operators';
-
 import { Rooms } from 'src/app/models/Rooms';
 import { RoomsService } from 'src/app/services/rooms.service';
-import { FormControl } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { RoomsDetailComponent } from '../roomsdetail/roomsdetail.component'
 import { PatientRecordComponent } from '../patientrecord/patientrecord.component'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
+import { ServicerequestDetailComponent } from '../servicerequest-detail/servicerequest-detail.component';
+import { PendingServiceRequestComponent } from '../pending-servicerequests/pending-servicerequests.component';
 
 @Component({
   selector: 'app-roomslist',
@@ -27,31 +19,31 @@ import Swal from "sweetalert2";
 export class RoomsListComponent {
 
   rooms = [];
-  paginatedRooms:any = [];
+  paginatedRooms: any = [];
   index: number = 1;
   limit: number = 10;
-  roomOptions=['Active',"Don't Disturb",'Discharge','Admit Patient']
-  roomType=['Patient','Admin','ICU','Surgery','Waiting']
+  roomOptions = ['Active', "Don't Disturb", 'Discharge', 'Admit Patient']
+  roomType = ['Patient', 'Admin', 'ICU', 'Surgery', 'Waiting']
   page = 0;
   size = 10;
 
   constructor(private http: HttpClient, private roomsService: RoomsService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
-    this.loadData(); 
+    this.loadData();
   }
-  
-  loadData(){
+
+  loadData() {
     this.roomsService.loadData(this.index, this.limit).subscribe(results => {
       this.paginatedRooms = results
-      this.getData({pageIndex: this.page, pageSize: this.size});
+      this.getData({ pageIndex: this.page, pageSize: this.size });
     });
   }
 
   getData(obj) {
-    let index=0,
-    startingIndex=obj.pageIndex * obj.pageSize,
-    endingIndex=startingIndex + obj.pageSize;
+    let index = 0,
+      startingIndex = obj.pageIndex * obj.pageSize,
+      endingIndex = startingIndex + obj.pageSize;
 
     this.rooms = this.paginatedRooms.filter(() => {
       index++;
@@ -81,8 +73,8 @@ export class RoomsListComponent {
           });
 
           this.loadData();
-          this.getData({pageIndex: this.page, pageSize: this.size});
-          
+          this.getData({ pageIndex: this.page, pageSize: this.size });
+
         });
       }
       else {
@@ -94,18 +86,18 @@ export class RoomsListComponent {
       }
     })
   }
-  onRoomOptionChange(value){
+  onRoomOptionChange(value) {
 
-  } 
-  searchRoom(searchText):any{ 
+  }
+  searchRoom(searchText): any {
     if (searchText) {
       this.rooms = this.paginatedRooms.filter(room => room.roomNo.toLowerCase().includes(searchText.toLowerCase()));
     } else {
-      this.rooms= this.paginatedRooms;
+      this.rooms = this.paginatedRooms;
     }
   }
 
-  onRoomTypeChange(value){
+  onRoomTypeChange(value) {
     if (value) {
       this.rooms = this.paginatedRooms.filter(room => room.roomType.toLowerCase().includes(value.toLowerCase()));
     } else {
@@ -121,25 +113,25 @@ export class RoomsListComponent {
       data: { id: 0 }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result)
-      this.loadData();
-      this.getData({pageIndex: this.page, pageSize: this.size});
-      
+      if (result)
+        this.loadData();
+      this.getData({ pageIndex: this.page, pageSize: this.size });
+
     });
   }
-  
+
   onEdit(data: any) {
     const dialogRef = this.dialog.open(RoomsDetailComponent, {
       width: '1050px',
       data: { id: data.id, room: data }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result)      
-      this.loadData();
-      this.getData({pageIndex: this.page, pageSize: this.size});      
+      if (result)
+        this.loadData();
+      this.getData({ pageIndex: this.page, pageSize: this.size });
     });
   }
-  checkPatientRecord(room:Rooms) {
+  checkPatientRecord(room: Rooms) {
     console.log(room)
     const dialogRef = this.dialog.open(PatientRecordComponent, {
       width: '750px',
@@ -148,5 +140,41 @@ export class RoomsListComponent {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+
+
+  showServiceRequests(data) {
+
+
+
+
+      const dialogRef = this.dialog.open(PendingServiceRequestComponent, {
+        width: '650px',
+        data: { servicerequest: data }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.loadData();
+      });
+
   
+
+  }
+  addServiceRequests() {
+
+        const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
+      width: '650px',
+      data: { id: 0 }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.snakbar.open('Servicerequest created successfully.', 'Dismise', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      });
+
+      this.loadData();
+    });
+
+  }
+
+
 }

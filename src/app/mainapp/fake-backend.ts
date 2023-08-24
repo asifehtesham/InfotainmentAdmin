@@ -80,11 +80,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             // }
 
 
-            if (request.url.startsWith(`${environment.apiUrl}iptv?index=1&limit=10`) && request.method === 'GET') {
-                console.log("Fake interceptor page/");
-                console.log(request.url);
-                return ok({data:IptvData});
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}iptv?index=1&limit=10`) && request.method === 'GET') {
+            //     console.log("Fake interceptor page/");
+            //     console.log(request.url);
+            //     return ok({data:IptvData});
+            // }
             if (request.url.startsWith(`${environment.apiUrl}rooms?index=1&limit=10`) && request.method === 'GET') {
                 console.log("Fake interceptor page/");
                 console.log(request.url);

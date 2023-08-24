@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, timer, interval, Subscription } from 'rxjs
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 
-import { Servicerequest } from 'src/app/models/Servicerequest';
+import { ServiceStatus, Servicerequest } from 'src/app/models/Servicerequest';
 import { ServicerequestService } from 'src/app/services/servicerequest.service';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,14 +25,13 @@ import Swal from "sweetalert2";
   styleUrls: ['./servicerequest-list.component.scss']
 })
 export class ServicerequestListComponent {
-
+  ServiceStatus = ServiceStatus;
   subscription: Subscription;
   displayedColumns: string[] = ['select',
     'patientId',
     'serviceId',
     'roomNo',
-    'serviceRequestStatus',
-    'assignedTo',
+    'status',
     'id',
   ];
   servicerequest = [];
@@ -229,4 +228,23 @@ export class ServicerequestListComponent {
     });
   }
   reload() { }
+
+
+  updateStatus(s,e){
+
+    let element = e;
+    element.status = s;
+    
+    this.servicerequestService.update(element).subscribe(result => {
+      if (result) {
+        this.snakbar.open('Your status has been updated successfully.', 'Ok', {
+          duration: 2000,
+        });
+        this.loadData();
+      }
+
+    });
+
+
+  }
 }

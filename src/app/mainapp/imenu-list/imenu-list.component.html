@@ -6,7 +6,7 @@
             <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
                 <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
                     <div class="page-sub-title">
-                        IPTV LIST
+                        MENU LIST
                     </div>
                     <div>
                         <a mat-button mat-flat-button color="warn" (click)="onAdd()">
@@ -38,15 +38,10 @@
                                         </mat-checkbox>
                                     </td>
                                 </ng-container>
-                                <ng-container matColumnDef="projectID">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Project</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.branch.title}} </td>
-                                </ng-container>
-                                <ng-container matColumnDef="categoryID">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.category.name}} </td>
-                                </ng-container>
-
+                                <!-- <ng-container matColumnDef="countryID">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+                                    <td mat-cell *matCellDef="let element"> {{element.countryID}} </td>
+                                </ng-container> -->
                                 <ng-container matColumnDef="title">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
                                     <td mat-cell *matCellDef="let element"> {{element.title}} </td>
@@ -56,10 +51,10 @@
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Title Ar</th>
                                     <td mat-cell *matCellDef="let element"> {{element.titleAr}} </td>
                                 </ng-container>
-                                <ng-container matColumnDef="serviceURL">
+                                <!-- <ng-container matColumnDef="serviceURL">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Service URL</th>
                                     <td mat-cell *matCellDef="let element"> {{element.serviceURL}} </td>
-                                </ng-container>
+                                </ng-container> -->
                                 <ng-container matColumnDef="sortOrder">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Sort Order</th>
                                     <td mat-cell *matCellDef="let element"> {{element.sortOrder}} </td>

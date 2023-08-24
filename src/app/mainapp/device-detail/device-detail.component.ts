@@ -43,9 +43,6 @@ export class DeviceDetailComponent {
   
   ];
 
-  @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
-  @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
-
   editorConfig: any = EditorConfig;
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private deviceService: DeviceService, private snakbar: MatSnackBar, private dialog: MatDialog,
@@ -86,16 +83,10 @@ export class DeviceDetailComponent {
     });
   }
 
-  ngAfterViewInit(): void {
-    if (this.device.image != null)
-      this.imageControl.setImage(this.device.image.data);
-  }
-
   setForm() {
 
     this.f.title.setValue(this.device.title);
     this.f.titleAr.setValue(this.device.titleAr);
-    this.f.imageURL.setValue(this.device.imageURL);
     this.f.deviceType.setValue(this.device.deviceType);
     this.f.sortOrder.setValue(this.device.sortOrder);
     this.f.active.setValue(this.device.active);
@@ -114,7 +105,6 @@ export class DeviceDetailComponent {
       'titleAr': ['', [
         Validators.maxLength(500),
       ]],
-      'imageURL': ['', []],
       'deviceType': ['', []],
       'sortOrder': ['', []],
       'active': ['', []]
@@ -136,7 +126,6 @@ export class DeviceDetailComponent {
       id: this.id,
       title: this.f.title.value,
       titleAr: this.f.titleAr.value,
-      imageURL: this.f.imageURL.value,
       deviceType: this.f.deviceType.value,
       sortOrder: this.f.sortOrder.value,
       active: (this.f.active.value == true) ? true : false
@@ -150,8 +139,6 @@ export class DeviceDetailComponent {
       observer = this.deviceService.update(device);
     observer.subscribe(result => {
       this.id = result.id;
-      if (this.imageControl.file)
-        this.imageControl.startUpload(result.id, "ID", "Device", false, false);
 
       if (result.id)
         this.snakbar.open('Device saved successfully.', 'Dismise', {

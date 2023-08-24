@@ -1,6 +1,3 @@
-
-
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 //import { MatPaginator, MatTableDataSource, MatSortable, MatSortHeader, MatSort, MatFormFieldControl, MatInputModule,MatDatepickerInputEvent, MatSlideToggleChange } from "@angular/material";
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -8,8 +5,8 @@ import { BehaviorSubject, Observable, timer, interval, Subscription } from 'rxjs
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 
-import { IPTV } from 'src/app/models/IPTV';
-import { IPTVService } from 'src/app/services/iptv.service';
+import { Imenu } from 'src/app/models/Imenu';
+import { ImenuService } from 'src/app/services/imenu.service';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,52 +14,56 @@ import { MatSort } from '@angular/material/sort';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
-import { IPTVDetailComponent } from '../iptv-detail/iptv-detail.component'
+import { ImenuDetailComponent } from '../imenu-detail/imenu-detail.component'
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
+import { ImenuData } from 'src/app/data/ImenuData';
 
 @Component({
-  selector: 'app-iptv-list',
-  templateUrl: './iptv-list.component.html',
-  styleUrls: ['./iptv-list.component.scss']
+  selector: 'app-imenu-list',
+  templateUrl: './imenu-list.component.html',
+  styleUrls: ['./imenu-list.component.scss']
 })
-export class IPTVListComponent {
+export class ImenuListComponent {
 
   subscription: Subscription;
   displayedColumns: string[] = ['select',
-    'projectID',
-    'categoryID',
+    //'countryID',
     'title',
     'titleAr',
-    'serviceURL',
+   // 'serviceURL',
     'sortOrder',
     'active',
     'id'];
-  iptv = [];
+  imenu = [];
   search = new FormControl();
   index: number = 1;
   limit: number = 10;
   pageTotal: number = 20;
 
+
   public loadEmptyMsg: boolean = false;
-  public dataSource = new MatTableDataSource<IPTV>();
-  selection = new SelectionModel<IPTV>(true, []);
+  public dataSource = new MatTableDataSource<Imenu>();
+  selection = new SelectionModel<Imenu>(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sortable: MatSort;
 
-  constructor(private http: HttpClient, private iptvService: IPTVService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
+
+
+
+  
+  constructor(private http: HttpClient, private imenuService: ImenuService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
 
-    // let i = 0;
-    // this.iptvData.forEach(element => {
 
-    //     this.iptvService.add(element).subscribe(results => {
-    //     });  
+    
 
-    // });
+
+  
+
 
 
 
@@ -75,7 +76,7 @@ export class IPTVListComponent {
     this.search.valueChanges.subscribe(
       value => {
         if (value.length == 0) {
-          this.iptvService.loadData().pipe(map((results => {
+          this.imenuService.loadData().pipe(map((results => {
             //return results;
             this.dataSource.data = results;
           })));
@@ -83,7 +84,7 @@ export class IPTVListComponent {
           return;
         }
 
-        this.iptvService.search(value).subscribe(results => {
+        this.imenuService.search(value).subscribe(results => {
           //this.loadEmptyMsg = true;
           console.log('come to the subscriber');
           this.dataSource.data = results;
@@ -94,7 +95,7 @@ export class IPTVListComponent {
   }
 
   loadData() {
-    this.iptvService.loadData(this.index, this.limit).subscribe(results => {
+    this.imenuService.loadData(this.index, this.limit).subscribe(results => {
       this.loadEmptyMsg = true;
       console.log('come to the subscriber');
       this.dataSource.data = results;
@@ -107,17 +108,17 @@ export class IPTVListComponent {
 
     this.loadData();
   }
-  chkActive_changed(ambulance: any, $event: MatSlideToggleChange) {
+  chkactive_changed(ambulance: any, $event: MatSlideToggleChange) {
 
-    console.log("chkActive_changed: " + ambulance.id);
+    console.log("chkactive_changed: " + ambulance.id);
     console.log($event.checked);
 
-    ambulance.IsActive = $event.checked;
-    this.iptvService.editactive(ambulance).subscribe();
+    ambulance.Isactive = $event.checked;
+    this.imenuService.editactive(ambulance).subscribe();
 
   }
 
-  ondelete(iptv: any) {
+  ondelete(imenu: any) {
 
     Swal.fire({
       title: 'Are you sure?',
@@ -130,7 +131,7 @@ export class IPTVListComponent {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.iptvService.delete(iptv.id).subscribe(params => {
+        this.imenuService.delete(imenu.id).subscribe(params => {
 
           this.snakbar.open('Record has been deleted successfully.', 'Dismise', {
             duration: 3000,
@@ -144,7 +145,7 @@ export class IPTVListComponent {
       else {
         Swal.fire(
           'Cancelled',
-          'Your IPTV is safe :)',
+          'Your Imenu is safe :)',
           'error'
         )
       }
@@ -169,7 +170,7 @@ export class IPTVListComponent {
         if (willDelete.isConfirmed) {
 
           var ids = this.selection.selected.map(x => x.id).join(",");
-          this.iptvService.deleteAll(ids).subscribe(result => {
+          this.imenuService.deleteAll(ids).subscribe(result => {
             if (result) {
               this.snakbar.open('Your record(s) has been deleted successfully.', 'Ok', {
                 duration: 2000,
@@ -201,7 +202,7 @@ export class IPTVListComponent {
 
     this.selection.select(...this.dataSource.data);
   }
-  checkboxLabel(row?: IPTV): string {
+  checkboxLabel(row?: Imenu): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -213,7 +214,7 @@ export class IPTVListComponent {
 
     console.log("onAdd() ........... trigger");
 
-    const dialogRef = this.dialog.open(IPTVDetailComponent, {
+    const dialogRef = this.dialog.open(ImenuDetailComponent, {
       width: '650px',
       data: { id: 0 }
     });
@@ -223,9 +224,9 @@ export class IPTVListComponent {
   }
 
   onEdit(data: any) {
-    const dialogRef = this.dialog.open(IPTVDetailComponent, {
+    const dialogRef = this.dialog.open(ImenuDetailComponent, {
       width: '650px',
-      data: { id: data.id, iptv: data }
+      data: { id: data.id, imenu: data }
     });
     dialogRef.afterClosed().subscribe(result => {
       this.loadData();

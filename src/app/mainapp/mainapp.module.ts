@@ -93,6 +93,7 @@ import { RoomsDetailComponent } from './roomsdetail/roomsdetail.component';
 import { PatientRecordComponent } from './patientrecord/patientrecord.component';
 import { MagazineDetailComponent } from './magazine-detail/magazine-detail.component';
 import { MagazineListComponent } from './magazine-list/magazine-list.component';
+
 import { NewspaperListComponent } from './newspaper-list/newspaper-list.component';
 import { NewspaperDetailComponent } from './newspaper-detail/newspaper-detail.component';
 import { SocialMediaDetailComponent } from './social-media-detail/social-media-detail.component';
@@ -117,6 +118,10 @@ import { IptvCategoryDetailComponent } from './iptv-category-detail/iptv-categor
 import { IptvCategoryListComponent } from './iptv-category-list/iptv-category-list.component';
 import { DeviceDetailComponent } from './device-detail/device-detail.component';
 import { DeviceListComponent } from './device-list/device-list.component';
+
+import { ImenuDetailComponent } from './imenu-detail/imenu-detail.component';
+import { ImenuListComponent } from './imenu-list/imenu-list.component';
+import { PendingServiceRequestComponent } from "./pending-servicerequests/pending-servicerequests.component";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -156,6 +161,18 @@ const routes: Routes = [
       {
         path: "magazine",
         component: MagazineListComponent,
+        canActivate: [AuthGuard],
+      },
+
+      {
+        path: "imenu",
+        component: ImenuListComponent,
+        canActivate: [AuthGuard],
+      },
+
+      {
+        path: "infotainment-menu",
+        component: ImenuListComponent,
         canActivate: [AuthGuard],
       },
       {
@@ -315,7 +332,7 @@ const routes: Routes = [
         component: FloorListComponent,
         canActivate: [AuthGuard],
       },
-      
+
       {
         path: "service-request",
         component: ServicerequestListComponent,
@@ -344,12 +361,6 @@ const routes: Routes = [
         component: IPTVListComponent,
         canActivate: [AuthGuard],
       },
-      {
-        path: "magazine",
-        component: MagazineListComponent,
-        canActivate: [AuthGuard],
-      },
-
 
       {
         path: "room-service",
@@ -462,7 +473,12 @@ const routes: Routes = [
     SocialMediaTypeListComponent,
     SocialMediaTypeDetailComponent,
     BranchDetailComponent,
-    BranchListComponent
+    BranchListComponent,
+    ImenuDetailComponent,
+    ImenuListComponent,
+    PendingServiceRequestComponent,
+
+
   ],
   imports: [
     RouterModule.forChild(routes),

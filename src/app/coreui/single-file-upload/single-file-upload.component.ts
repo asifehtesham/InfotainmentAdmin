@@ -27,7 +27,7 @@ export class SingleFileUploadComponent implements OnInit {
 
   @Input() text = 'Upload';
   @Input() param = 'file';
-  @Input() target = environment.apiUrl;
+  @Input() target = environment.infotApiUrl;
   @Input() action = 'attachment';
   @Input() accept = 'image/*';
   @Output() complete = new EventEmitter<string>();

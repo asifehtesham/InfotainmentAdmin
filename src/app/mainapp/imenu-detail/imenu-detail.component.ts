@@ -10,31 +10,33 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Floor } from 'src/app/models/Floor';
+import { Imenu } from 'src/app/models/Imenu';
 import { EditorConfig } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
-import { FloorService } from 'src/app/services/floor.service';
+import { ImenuService } from 'src/app/services/imenu.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
-import { BranchService } from 'src/app/services/branch.service';
+// import { CountryService } from 'src/app/services/country.service';
+
+
 
 @Component({
-  selector: 'app-floor-detail',
-  templateUrl: './floor-detail.component.html',
-  styleUrls: ['./floor-detail.component.scss']
+  selector: 'app-imenu-detail',
+  templateUrl: './imenu-detail.component.html',
+  styleUrls: ['./imenu-detail.component.scss']
 })
-export class FloorDetailComponent {
+export class ImenuDetailComponent {
 
   templates: Templates[] = [];
   id: number;
-  floor: Floor;
-  floorForm: FormGroup;
+  imenu: Imenu;
+  imenuForm: FormGroup;
 
   url: string = '';
   done: any;
-  isFloorSaved: boolean = true;
+  isImenuSaved: boolean = true;
   
-  branches: SelectModel[];
+  countries: SelectModel[];
 
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
@@ -42,67 +44,72 @@ export class FloorDetailComponent {
 
   editorConfig: any = EditorConfig;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private floorService: FloorService, private snakbar: MatSnackBar, 
-    private branchService: BranchService,
-    private dialog: MatDialog,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private imenuService: ImenuService, 
+    //private countryService: CountryService,
+    private snakbar: MatSnackBar, private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     console.log("request");
     console.log(request);
     //this.id = request.id;
     if (request) {
       this.id = request.id;
-      this.floor = request.floor;
+      this.imenu = request.imenu;
     }
   }
 
   ngOnInit() {
 
 
+    // var temp = [];
+    // this.countryService.loadData().subscribe((results) => {
+    //   temp.push({ id: 0, name: "No Country" });
+    //   results.forEach((element) => {
+    //     temp.push({ id: element.id, name: element.name });
+    //   });
+    // });
+    // this.countries = temp;
+
+
+
     
-    var temp = [];
-    this.branchService.loadData().subscribe((results) => {
-
-      console.log("results ............ ",results)
-
-      temp.push({ id: 0, title: "No Branch" });
-      results.forEach((element) => {
-        temp.push({ id: element.id, title: element.title });
-      });
-    });
-    this.branches = temp;
-
-
     this.route.params.subscribe(params => {
-      console.log("floorID para:" + this.id);
+      console.log("imenuID para:" + this.id);
 
       this.buildForm();
 
-      if (this.floor != null)
+      if (this.imenu != null)
         this.setForm();
-      if (this.floor == null && this.id > 0) {
-        this.floorService.loadByID(this.id).subscribe(results => {
-          this.floor = results;
+      if (this.imenu == null && this.id > 0) {
+        this.imenuService.loadByID(this.id).subscribe(results => {
+          this.imenu = results;
           this.setForm();
         });
       }
     });
   }
 
+  ngAfterViewInit(): void {
+    if (this.imenu.image != null)
+      this.imageControl.setImage(this.imenu.image.data);
+  }
 
   setForm() {
 
-    this.f.title.setValue(this.floor.title);
-    this.f.titleAr.setValue(this.floor.titleAr);
-    this.f.branchId.setValue(this.floor.branchId);
-    this.f.sortOrder.setValue(this.floor.sortOrder);
-    this.f.active.setValue(this.floor.active);
+    // this.f.countryID.setValue(this.imenu.countryID);
+    this.f.title.setValue(this.imenu.title);
+    this.f.titleAr.setValue(this.imenu.titleAr);
+    this.f.imageURL.setValue(this.imenu.imageURL);
+    this.f.serviceURL.setValue(this.imenu.serviceURL);
+    this.f.sortOrder.setValue(this.imenu.sortOrder);
+    this.f.active.setValue(this.imenu.active);
   }
 
   buildForm() {
-    this.floorForm = this.fb.group({
+    this.imenuForm = this.fb.group({
       'ID': [this.id, [
         //Validators.required
       ]],
+      // 'countryID': ['', []],
       'title': ['', [
         Validators.required,
         Validators.maxLength(500),
@@ -111,14 +118,15 @@ export class FloorDetailComponent {
       'titleAr': ['', [
         Validators.maxLength(500),
       ]],
-      'branchId': ['', []],
+      'imageURL': ['', []],
+      'serviceURL': ['', []],
       'sortOrder': ['', []],
       'active': ['', []]
     });
 
   }
 
-  get f() { return this.floorForm.controls; }
+  get f() { return this.imenuForm.controls; }
 
   save() {
     this.saveData();
@@ -128,28 +136,30 @@ export class FloorDetailComponent {
   ImagePath: string = "";
   saveData() {
 
-    var floor: Floor = {
+    var imenu: Imenu = {
       id: this.id,
+      // countryID: this.f.countryID.value,
       title: this.f.title.value,
       titleAr: this.f.titleAr.value,
-      branchId: this.f.branchId.value,
+      imageURL: this.f.imageURL.value,
+      serviceURL: this.f.serviceURL.value,
       sortOrder: this.f.sortOrder.value,
       active: (this.f.active.value == true) ? true : false
     }
 
     // ///////////////////////////////////////////////////
     var observer: Observable<any>;
-    if (floor.id == null || floor.id <= 0)
-      observer = this.floorService.add(floor);
+    if (imenu.id == null || imenu.id <= 0)
+      observer = this.imenuService.add(imenu);
     else
-      observer = this.floorService.update(floor);
+      observer = this.imenuService.update(imenu);
     observer.subscribe(result => {
       this.id = result.id;
       if (this.imageControl.file)
-        this.imageControl.startUpload(result.id, "ID", "Floor", false, false);
+        this.imageControl.startUpload(result.id, "ID", "Imenu", false, false);
 
       if (result.id)
-        this.snakbar.open('Floor saved successfully.', 'Dismise', {
+        this.snakbar.open('Imenu saved successfully.', 'Dismise', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -159,7 +169,7 @@ export class FloorDetailComponent {
   }
 
   revert() {
-    this.floorForm.reset();
+    this.imenuForm.reset();
   }
 
   onFileComplete(data: any) {

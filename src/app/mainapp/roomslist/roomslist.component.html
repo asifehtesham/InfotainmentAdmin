@@ -13,13 +13,15 @@
                                 <mat-icon>close</mat-icon>
                             </a>
                         </mat-form-field>
-                        <mat-label class="label ml-3 ">Room Options</mat-label>
+                        <!-- <mat-label class="label ml-3 ">Room Options</mat-label>
                         <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
                             <mat-select (selectionChange)='onRoomOptionChange($event.value)' value="">
                                     <mat-option value="">All</mat-option>                                                                      
                                 <mat-option *ngFor="let option of roomOptions" [value]="option">{{option}}</mat-option>      
                             </mat-select>
-                        </mat-form-field>
+                        </mat-form-field> -->
+
+
                         <mat-label class="label ml-3 ">Room Type</mat-label>
                         <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
                             <mat-select (selectionChange)='onRoomTypeChange($event.value)' value="">
@@ -73,6 +75,19 @@
                     <button *ngIf="!room.status" mat-button matTooltip="Call" matTooltipPosition="below">
                         <mat-icon>phone</mat-icon>
                     </button>
+
+                    <button  mat-button matTooltip="Requests" (click)="showServiceRequests(room.serviceRequest)" matTooltipPosition="below">
+                        <mat-icon>notifications</mat-icon>
+                    </button>
+
+                    
+                    <button  mat-button matTooltip="Add Request" (click)="addServiceRequests()" matTooltipPosition="below">
+                                <mat-icon>add_alert</mat-icon>  
+                    </button>
+
+                    
+
+                    
                 </mat-card-actions>
             </mat-card>
 

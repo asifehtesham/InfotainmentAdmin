@@ -38,7 +38,13 @@ export class ServicerequestDetailComponent {
 
   services: SelectModel[];
   rooms: SelectModel[];
-  requestStatus: [{ id: 0, title: 'Pending ' }]
+  requestStatus = [
+    { id: 0, title: 'Pending' },
+    { id: 1, title: 'InProgress' },
+    { id: 2, title: 'Closed' },
+    { id: 3, title: 'Rejected' },
+    { id: 4, title: 'CancelledByPatient' }
+  ]
 
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
@@ -57,6 +63,9 @@ export class ServicerequestDetailComponent {
     console.log(request);
     //this.id = request.id;
     if (request) {
+
+      console.log("request.=.=.=",request);
+
       this.id = request.id;
       this.servicerequest = request.servicerequest;
     }
@@ -81,14 +90,14 @@ export class ServicerequestDetailComponent {
     this.services = temp;
 
 
-    var temp = [];
+    var temp1 = [];
     this.roomsService.loadData().subscribe((results) => {
-      temp.push({ id: 0, title: "No Rooms" });
+      temp1.push({ id: 0, title: "No Rooms" });
       results.forEach((element) => {
-        temp.push({ id: element.id, title: element.id });
+        temp1.push({ id: element.roomNo, title: element.roomNo });
       });
     });
-    this.rooms = temp;
+    this.rooms = temp1;
 
 
 
@@ -122,9 +131,15 @@ export class ServicerequestDetailComponent {
     this.f.serviceId.setValue(this.servicerequest.serviceId);
     this.f.roomNo.setValue(this.servicerequest.roomNo);
     this.f.request.setValue(this.servicerequest.request);
-    this.f.serviceRequestStatus.setValue(this.servicerequest.serviceRequestStatus);
-    this.f.assignedTo.setValue(this.servicerequest.assignedTo);
+    this.f.status.setValue(this.servicerequest.status);
+    this.f.assignedTo.setValue(0);
+    this.f.admissionNo.setValue(this.servicerequest.admissionNo);
+    this.f.patientName.setValue(this.servicerequest.patientName);
   
+
+    
+
+
   
   }
 
@@ -145,10 +160,11 @@ export class ServicerequestDetailComponent {
       'serviceId': ['', []],
       'roomNo': ['', []],
       'request': ['', []],
-      'serviceRequestStatus': ['', []],
+      'status': ['', []],
       'assignedTo': ['', []],
+      'admissionNo': ['', []],
+      'patientName': ['', []],
       'sortOrder': ['', []],
-      'active': ['', []]
     });
 
   }
@@ -167,16 +183,28 @@ export class ServicerequestDetailComponent {
 
       patientId: this.f.patientId.value,
       serviceId: this.f.serviceId.value,
-      roomNo: this.f.roomNo.value,
+      roomNo:  this.f.roomNo.value,
       request: this.f.request.value,
-      serviceRequestStatus: this.f.serviceRequestStatus.value,
-      assignedTo: this.f.assignedTo.value,
-      active: (this.f.active.value == true) ? true : false
+      status: this.f.status.value,
+      assignedTo: 0,
+      admissionNo: this.f.admissionNo.value,
+      patientName: this.f.patientName.value,
+      
+
+      
+
+
     }
 
     // ///////////////////////////////////////////////////
     var observer: Observable<any>;
-    if (servicerequest.id == null || servicerequest.id <= 0)
+
+
+    console.log("servicerequest.id....",servicerequest.id);
+
+
+
+    if (this.id == null || this.id <= 0)
       observer = this.servicerequestService.add(servicerequest);
     else
       observer = this.servicerequestService.update(servicerequest);

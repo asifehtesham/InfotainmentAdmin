@@ -2,9 +2,8 @@ import { DateTime } from 'luxon';
 import { EntityBase } from './EntityBase';
 import { Attachment } from './Attachment';
 
-export interface IPTV extends EntityBase {
-    projectID: number;
-    categoryID: number;
+export interface Imenu extends EntityBase {
+    //countryID: number;
     title: string;
     titleAr: string;
     imageURL: string;

@@ -5,7 +5,7 @@ import { Attachment } from './Attachment';
 export interface Device extends EntityBase {
     title: string;
     titleAr: string;
-    imageURL: string;
+    imageURL?: string;
     deviceType: string;
     image?: Attachment;
 }
