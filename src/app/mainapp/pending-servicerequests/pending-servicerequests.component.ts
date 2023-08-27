@@ -19,6 +19,7 @@ import { Templates } from 'src/app/models/Templates';
 import { BranchService } from 'src/app/services/branch.service';
 import { RoomServiceService } from 'src/app/services/roomService.service';
 import { RoomsService } from 'src/app/services/rooms.service';
+import { ServicerequestDetailComponent } from '../servicerequest-detail/servicerequest-detail.component';
 
 @Component({
   selector: 'app-pending-servicerequest-detail',
@@ -77,10 +78,10 @@ export class PendingServiceRequestComponent {
         temp.push({ id: element.id, title: element.title });
       });
     });
-    
-    console.log("temp",temp);
 
-    
+    console.log("temp", temp);
+
+
     this.services = temp;
 
 
@@ -94,6 +95,26 @@ export class PendingServiceRequestComponent {
     this.rooms = temp1;
 
   }
+  addServiceRequests() {
+
+    const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
+      width: '650px',
+      data: { id: 0 }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result?.id) {
+        this.snakbar.open('Servicerequest created successfully.', 'Dismise', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
+      }
+
+    });
+
+  }
+
 
 }
 
