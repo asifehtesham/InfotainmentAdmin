@@ -142,37 +142,32 @@ export class RoomsListComponent {
     });
   }
 
-
-  showServiceRequests(data) {
-
-
-
-
-      const dialogRef = this.dialog.open(PendingServiceRequestComponent, {
-        width: '650px',
-        data: { servicerequest: data }
-      });
-      dialogRef.afterClosed().subscribe(result => {
-        this.loadData();
-      });
-
-  
-
+  showServiceRequests(room) {
+    const dialogRef = this.dialog.open(PendingServiceRequestComponent, {
+      width: '650px',
+      data: { room: room }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    
+    });
   }
   addServiceRequests() {
 
-        const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
+    const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
       width: '650px',
       data: { id: 0 }
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.snakbar.open('Servicerequest created successfully.', 'Dismise', {
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      });
-
-      this.loadData();
+      // console.log('done',result)
+      // if(result){
+      //   this.loadData();
+      //   this.getData({ pageIndex: this.page, pageSize: this.size });
+      //   this.snakbar.open('Service Request created successfully.', 'Dismise', {
+      //     duration: 3000,
+      //     horizontalPosition: 'right',
+      //     verticalPosition: 'top',
+      //   });
+      // }
     });
 
   }

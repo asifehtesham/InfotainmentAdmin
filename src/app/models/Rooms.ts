@@ -9,4 +9,5 @@ export interface Rooms extends EntityBase {
     ip: string;
     status: boolean; 
     sortOrder:number;
+    currentAdmission?:any
 }

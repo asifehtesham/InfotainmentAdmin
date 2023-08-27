@@ -3,21 +3,17 @@ import { EntityBase } from './EntityBase';
 import { Attachment } from './Attachment';
 
 export interface Servicerequest extends EntityBase {
-    patientId: number;
     serviceId: number;
-    roomNo: number;
     request: string;
     requestOn?: DateTime;
     status: ServiceStatus;
     assignedTo: number,
-    admissionNo: string, 
-    patientName: string, 
 }
 
 export enum ServiceStatus {
-"Pending"=1,
-"InProgress"=2,
-"Closed"=3,
-"Rejected"=4,
-"CancelledByPatient"=5
+    "Pending"=0,
+    "InProgress"=1,
+    "Closed"=2,
+    "Rejected"=3,
+    "CancelledByPatient"=4
 }
