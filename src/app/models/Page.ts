@@ -1,3 +1,4 @@
+import { Attachment } from './Attachment';
 import { EntityBase } from './EntityBase';
 
 export interface Page extends EntityBase {
@@ -6,4 +7,5 @@ export interface Page extends EntityBase {
     SelectedTemplate?: number;
     isPublish?: boolean;
     currentVersion?: string;
+    image?: Attachment;
 }

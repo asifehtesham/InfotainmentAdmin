@@ -48,6 +48,7 @@
                 fxFlex="50"
                 #imageControl
                 (complete)="onFileComplete($event)"
+                [target]="apiUrl"
               >
               </app-single-file-upload>
             </div>
@@ -293,7 +294,7 @@
                 <mat-label class="label m-2">Content</mat-label>
                 <app-text-component
                   (contentDataChange)="update($event)"
-                  [contentData]="blog?.content"
+                  [contentData]="contentData"
                   [components]="components"
 
 

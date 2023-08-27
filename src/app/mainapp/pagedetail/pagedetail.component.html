@@ -1,140 +1,200 @@
 <form [formGroup]="pageForm">
-
-    <div class="m-3">
-        <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
-            <div fxFlex>
-                <h5 mat-dialog-title class="title-sub">Page Detail</h5>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
-
-                <button mat-flat-button [mat-dialog-close]="true" color="primary" type="submit" (click)="save()"
-                    [disabled]="!pageForm.valid">
-                    <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
-                </button>
-                <button mat-icon-button mat-dialog-close cdkFocusInitial>
-                    <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
-                </button>
-
-            </div>
-        </div>
-    </div>
-    <mat-divider></mat-divider>
-    <!-- <mat-dialog-content> -->
-    <!-- <input type="hidden" id="PageID" formControlName="PageID"> -->
-    <div fxLayout="column" fxFlexFill>
-
-        <mat-tab-group>
-            <mat-tab label="Page Info">
-                <ng-template mat-tab-label>
-                    Basic Info
-                </ng-template>
-                <ng-template matTabContent>
-                    <mat-dialog-content>
-                        <div fxLayout="column" fxLayoutAlign="start stretch">
-
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Title</mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-
-                                    <input type="text" id="title" class="input" placeholder="Enter Title" appSlugTransform
-                                        formControlName="title" required matInput #title>
-                                    <button mat-icon-button *ngIf="title.value" matSuffix md-icon-button
-                                        aria-label="Clear" (click)="title.value=''">
-                                        <mat-icon>close</mat-icon>
-                                    </button>
-                                    <mat-error *ngIf="">
-                                        Please enter a valid Title
-                                    </mat-error>
-
-                                </mat-form-field>
-                            </div>
-
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">slug</mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="slug" class="input" placeholder="Enter slug"
-                                        formControlName="slug" required matInput #slug>
-                                    <button mat-icon-button *ngIf="slug.value" matSuffix md-icon-button
-                                        aria-label="Clear" (click)="slug.value=''">
-                                        <mat-icon>close</mat-icon>
-                                    </button>
-                                    <mat-error *ngIf="">
-                                        Please enter a valid slug
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-
-                            <div fxLayout="column" *ngIf="temp" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Template</mat-label>
-                                <mat-form-field class="full-width" fxFlex appearance="outline">
-                                    <mat-select formControlName="Template" placeholder="Template">
-                                        <mat-option *ngFor="let template of pageTemplate" [value]="template.value">
-                                            {{template.viewValue}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="pageForm.controls['Template'].hasError('required')">
-                                        Template is required
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </mat-dialog-content>
-                </ng-template>
-            </mat-tab>
-            <mat-tab>
-                <ng-template mat-tab-label>
-                    SEO
-                </ng-template>
-                <ng-template matTabContent>
-
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>Key</th>
-                            <th>Value</th> 
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <th>Keywords</th>
-                                <th>HTML,CSS, JS</th> 
-                                <th> <BUTTon>Remove</BUTTon></th>
-                            </tr>
-                            <tr>
-                                <th>Content</th>
-                                <th>lorem ipsom lorem ipsom lorem ipsom</th> 
-                                <th> <button> Remove </button></th>
-                            </tr>
-                        </tbody>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        
-                    </table>
-                </ng-template>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
-    <!-- </mat-dialog-content> -->
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
-        <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
-        <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" [disabled]="!pageForm.valid"
-            (click)="save()">
-            <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
+  <div class="m-3">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      style="height: 40px"
+    >
+      <div fxFlex>
+        <h5 mat-dialog-title class="title-sub">Page Detail</h5>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+        <button
+          mat-flat-button
+          [mat-dialog-close]="true"
+          color="primary"
+          type="submit"
+          (click)="save()"
+          [disabled]="!pageForm.valid"
+        >
+          <mat-icon
+            class="customfab-icon-white"
+            fontSet="fa"
+            fontIcon="fa-save"
+          ></mat-icon>
+          Save
         </button>
-    </mat-dialog-actions>
+        <button mat-icon-button mat-dialog-close cdkFocusInitial>
+          <mat-icon
+            class="fa fa-large mr-2"
+            fontSet="fa"
+            fontIcon="fa-times"
+          ></mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <!-- <mat-dialog-content> -->
+  <!-- <input type="hidden" id="PageID" formControlName="PageID"> -->
+  <div fxLayout="column" fxFlexFill>
+    <mat-tab-group>
+      <mat-tab label="Page Info">
+        <ng-template mat-tab-label> Basic Info </ng-template>
+        <ng-template matTabContent>
+          <mat-dialog-content>
+            <div fxLayout="column" fxLayoutAlign="start stretch">
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Title</mat-label>
+
+                <app-single-file-upload
+                  fxFlex="50"
+                  [target]="apiUrl"
+                  #imageControl
+                  (complete)="onFileComplete($event)"
+                >
+                </app-single-file-upload>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">Title</mat-label>
+                <mat-form-field
+                  fxLayout="column"
+                  class="full-width"
+                  fxFlex
+                  appearance="outline"
+                >
+                  <input
+                    type="text"
+                    id="title"
+                    class="input"
+                    placeholder="Enter Title"
+                    appSlugTransform
+                    formControlName="title"
+                    required
+                    matInput
+                    #title
+                  />
+                  <button
+                    mat-icon-button
+                    *ngIf="title.value"
+                    matSuffix
+                    md-icon-button
+                    aria-label="Clear"
+                    (click)="title.value = ''"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                  <mat-error *ngIf=""> Please enter a valid Title </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                <mat-label class="label m-2">slug</mat-label>
+                <mat-form-field
+                  fxLayout="column"
+                  class="full-width"
+                  fxFlex
+                  appearance="outline"
+                >
+                  <input
+                    type="text"
+                    id="slug"
+                    class="input"
+                    placeholder="Enter slug"
+                    formControlName="slug"
+                    required
+                    matInput
+                    #slug
+                  />
+                  <button
+                    mat-icon-button
+                    *ngIf="slug.value"
+                    matSuffix
+                    md-icon-button
+                    aria-label="Clear"
+                    (click)="slug.value = ''"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                  <mat-error *ngIf=""> Please enter a valid slug </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div
+                fxLayout="column"
+                *ngIf="temp"
+                fxLayoutAlign="start stretch"
+                fxLayoutGap
+              >
+                <mat-label class="label m-2">Template</mat-label>
+                <mat-form-field class="full-width" fxFlex appearance="outline">
+                  <mat-select formControlName="Template" placeholder="Template">
+                    <mat-option
+                      *ngFor="let template of pageTemplate"
+                      [value]="template.value"
+                    >
+                      {{ template.viewValue }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error
+                    *ngIf="pageForm.controls['Template'].hasError('required')"
+                  >
+                    Template is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-dialog-content>
+        </ng-template>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label> SEO </ng-template>
+        <ng-template matTabContent>
+          <table>
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th>Value</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <th>Keywords</th>
+                <th>HTML,CSS, JS</th>
+                <th><BUTTon>Remove</BUTTon></th>
+              </tr>
+              <tr>
+                <th>Content</th>
+                <th>lorem ipsom lorem ipsom lorem ipsom</th>
+                <th><button>Remove</button></th>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <!-- </mat-dialog-content> -->
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+    <button
+      mat-raised-button
+      [mat-dialog-close]="true"
+      color="primary"
+      type="submit"
+      [disabled]="!pageForm.valid"
+      (click)="save()"
+    >
+      <mat-icon
+        class="customfab-icon-white"
+        fontSet="fa"
+        fontIcon="fa-save"
+      ></mat-icon>
+      Save
+    </button>
+  </mat-dialog-actions>
 </form>

@@ -898,6 +898,7 @@ export class PagebuilderComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
 
+      // console.log("result.content .=.=",result.content)
 
       if (result?.content) {
 

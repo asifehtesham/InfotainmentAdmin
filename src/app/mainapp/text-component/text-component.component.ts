@@ -53,6 +53,9 @@ export class TextComponent implements OnInit {
 
 
   async ngOnInit() {
+
+    console.log("this.contentData ........",this.contentData)
+
     this.contentForm.controls.content.setValue(this.contentData);
   }
 

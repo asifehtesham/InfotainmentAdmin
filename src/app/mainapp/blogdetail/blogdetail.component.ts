@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Blog } from 'src/app/models/Blog';
-import { EditorConfig } from 'src/environments/environment';
+import { EditorConfig,environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService } from 'src/app/services/blog.service';
 import { TemplatesService } from 'src/app/services/templates.service';
@@ -105,6 +105,8 @@ export class BlogdetailComponent {
   editorConfig: any = EditorConfig;
   isApproved = 0
   contentData: any;
+
+  apiUrl = environment.apiUrl;
  
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
@@ -209,7 +211,10 @@ export class BlogdetailComponent {
 
   ngOnInit() {
 
-    this.contentData = '<h2> test</h2>'; //this.blog.content;
+
+
+    
+
     this.loadTreeData()
     this.filteredCategories = this.myControl.valueChanges.pipe(
       startWith(null),
@@ -234,9 +239,11 @@ export class BlogdetailComponent {
           //this.loadEmptyMsg = true;
           this.blog = results;
 
+          this.contentData = this.blog.content
+
           this.f.slug.setValue(this.blog.slug);
           this.f.title.setValue(this.blog.title);
-          this.f.content.setValue(this.blog.content);
+         // this.f.content.setValue(this.blog.content);
           this.f.authorId.setValue(this.blog.authorId);
           this.f.availableStartDate.setValue(this.blog.availableStartDate);
           this.f.availableEndDate.setValue(this.blog.availableEndDate);

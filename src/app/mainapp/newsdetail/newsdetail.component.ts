@@ -11,11 +11,13 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { News } from 'src/app/models/News';
-import { EditorConfig } from 'src/environments/environment';
+import { EditorConfig,environment } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { NewsService } from 'src/app/services/news.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
+
+
 
 @Component({
   selector: 'app-newsdetail',
@@ -38,11 +40,15 @@ export class NewsdetailComponent {
     { id: '2', viewValue: 'Template 2' }
   ];
 
+
+  
   //Parentnews: News[];
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
 
   editorConfig: any = EditorConfig;
+
+  apiUrl =  environment.apiUrl;
 
   //#region Tag chip
   visible = true;
@@ -75,6 +81,11 @@ export class NewsdetailComponent {
   }
 
   ngOnInit() {
+
+    
+
+
+
     // this.questionService.loadData().subscribe(results => {
     //   //this.loadEmptyMsg = true;
     //   console.log('come to the subscriber');

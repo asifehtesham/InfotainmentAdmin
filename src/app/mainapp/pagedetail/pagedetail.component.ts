@@ -33,7 +33,7 @@ import {
 import { Page } from "src/app/models/Page";
 import { PageContent } from "src/app/models/PageContent";
 
-import { EditorConfig } from "src/environments/environment";
+import { EditorConfig,environment } from "src/environments/environment";
 import { ActivatedRoute } from "@angular/router";
 import { Router } from "@angular/router";
 
@@ -79,6 +79,11 @@ export class PagedetailComponent {
   data: Page;
   temp = true;
 
+  
+  apiUrl =  environment.apiUrl;
+
+
+
   @ViewChild("tagInput", { static: false })
   tagInput: ElementRef<HTMLInputElement>;
   @ViewChild("auto", { static: false }) matAutocomplete: MatAutocomplete;
@@ -101,6 +106,15 @@ export class PagedetailComponent {
       this.data = request.page;
     }
   }
+
+
+
+  
+  ngAfterViewInit(): void {
+    if (this.data.image != null)
+      this.imageControl.setImage(this.data.image.data);
+  }
+
   ngOnInit() {
     console.log("this.data+++++", this.data);
 
@@ -202,6 +216,12 @@ export class PagedetailComponent {
         console.log("result----------", result);
 
         if (result.id) {
+
+
+
+          if (this.imageControl.file)
+          this.imageControl.startUpload(result.id, "ID", "Page", false, false);
+  
 
           // Swal.fire({
           //   title: "Congractulations!",

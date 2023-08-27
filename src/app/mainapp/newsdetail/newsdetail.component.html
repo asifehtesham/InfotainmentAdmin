@@ -26,7 +26,15 @@
         <ng-template matTabContent>
           <mat-dialog-content>
             <div fxLayout="column" fxLayoutAlign="start stretch">
-              <app-single-file-upload fxFlex="50" #imageControl (complete)="onFileComplete($event)">
+
+              
+
+
+  
+
+  <!-- apiUrl
+  infotApiUrl -->
+              <app-single-file-upload fxFlex="50" [target]="apiUrl"  #imageControl   (complete)="onFileComplete($event)">
               </app-single-file-upload>
             </div>
             <div fxLayout="column" fxLayoutAlign="start stretch">
