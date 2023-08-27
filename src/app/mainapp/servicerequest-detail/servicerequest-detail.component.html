@@ -27,76 +27,24 @@
                     <mat-dialog-content>
                  
                         <div fxLayout="column" fxLayoutAlign="start stretch">
-                            <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Title</mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="title" class="input" placeholder="Enter Title"
-                                        formControlName="title" required matInput #title appSlugTransform />
-                                    <a mat-icon-button *ngIf="title.value" matSuffix md-icon-button aria-label="Clear"
-                                        (click)="title.value = ''">
-                                        <mat-icon>close</mat-icon>
-                                    </a>
-                                    <mat-error *ngIf=""> Please enter a valid Title </mat-error>
-                                </mat-form-field>
-                            </div> -->
-
-
-
-
-              
-<!-- ......................START -->
-
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Patient Id</mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="patientId" class="input" placeholder="Enter Patient Id"
-                                        formControlName="patientId" required matInput #patientId appSlugTransform />
-                                    <a mat-icon-button *ngIf="patientId.value" matSuffix md-icon-button aria-label="Clear"
-                                        (click)="patientId.value = ''">
-                                        <mat-icon>close</mat-icon>
-                                    </a>
-                                    <mat-error *ngIf=""> Please enter a valid Patient Id </mat-error>
-                                </mat-form-field>
-                            </div>
-
-
-               
-
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Select Service</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                 <mat-select formControlName="serviceId" placeholder="Select Service">
-                                    <mat-option *ngFor="let service of services" [value]="service.id">{{ service.title
-                                    }}</mat-option>
+                                    <mat-option *ngFor="let service of services" [value]="service.id">{{ service.title}}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
                             </div>
-
-
-
-                            <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">Select Room</mat-label>
-                              
-
-                            <mat-autocomplete formControlName="roomNo" #auto="matAutocomplete">
-                                <mat-option *ngFor="let room of rooms" [value]="room.id">
-                                  {{room.roomNo}}
-                                </mat-option>
-                              </mat-autocomplete>
-                            </div> -->
-
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                            <div fxLayout="column"*ngIf="roomShow" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Select Room</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                <mat-select formControlName="roomNo" placeholder="Select Room">
-                                    <mat-option *ngFor="let room of rooms" [value]="room.id">{{ room.title
-                                    }}</mat-option>
+                                <mat-select (selectionChange)="checkRoom($event.value)" placeholder="Select Room">
+                                    <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo}}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
                             </div>
 
-
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap class="d-none">
                                 <mat-label class="label m-2">Request Status</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                 <mat-select formControlName="status" placeholder="Select status">
@@ -105,92 +53,23 @@
                                 </mat-select>
                                 </mat-form-field>
                             </div>
-
-
-                            <!-- ..................... END -->
-
-                            
-                            
-                                                       
-
-
-
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Request</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="request" class="input" placeholder="Enter Title"
-                                        formControlName="request" required matInput #request appSlugTransform />
-                                    <a mat-icon-button *ngIf="request.value" matSuffix md-icon-button aria-label="Clear"
-                                        (click)="request.value = ''">
-                                        <mat-icon>close</mat-icon>
-                                    </a>
-                                    <mat-error *ngIf=""> Please enter a valid Title Ar </mat-error>
+                                    <input type="text" id="request" class="input" placeholder="Enter Request"
+                                        formControlName="request" required matInput #request />
+                                     
                                 </mat-form-field>
                             </div>
 
-
-                            <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">AssignedTo </mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="assignedTo" class="input" placeholder="Enter Title"
-                                        formControlName="assignedTo" required matInput #assignedTo appSlugTransform />
-                                    <a mat-icon-button *ngIf="assignedTo.value" matSuffix md-icon-button aria-label="Clear"
-                                        (click)="assignedTo.value = ''">
-                                        <mat-icon>close</mat-icon>
-                                    </a>
-                                    <mat-error *ngIf=""> Please enter a valid Assigned To </mat-error>
-                                </mat-form-field>
-                            </div> -->
-
-
-
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">admissionNo </mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="admissionNo" class="input" placeholder="Enter Title"
-                                        formControlName="admissionNo" required matInput #admissionNo appSlugTransform />
-                                    <a mat-icon-button *ngIf="admissionNo.value" matSuffix md-icon-button aria-label="Clear"
-                                        (click)="admissionNo.value = ''">
-                                        <mat-icon>close</mat-icon>
-                                    </a>
-                                    <mat-error *ngIf=""> Please enter a valid admissionNo </mat-error>
-                                </mat-form-field>
-                            </div>
-
-
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-label class="label m-2">patientName </mat-label>
-                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="patientName" class="input" placeholder="Enter Title"
-                                        formControlName="patientName" required matInput #patientName appSlugTransform />
-                                    <a mat-icon-button *ngIf="patientName.value" matSuffix md-icon-button aria-label="Clear"
-                                        (click)="patientName.value = ''">
-                                        <mat-icon>close</mat-icon>
-                                    </a>
-                                    <mat-error *ngIf=""> Please enter a valid patientName </mat-error>
-                                </mat-form-field>
-                            </div>
-
-
-
-
-                            
-
-
-
-                            <!-- <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
-                                <mat-checkbox class="full-width" formControlName="active" fxFlex>Active</mat-checkbox>
-                            </div> -->
                         </div>
                     </mat-dialog-content>
                 </ng-template>
             </mat-tab>
         </mat-tab-group>
-    </div>
-    <!-- </mat-dialog-content> -->
+    </div> 
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
-        <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
         <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" [disabled]="!servicerequestForm.valid"
             (click)="save()">
             <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>

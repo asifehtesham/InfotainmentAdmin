@@ -33,8 +33,13 @@ export class PendingServiceRequestComponent {
   servicerequest: any;
   url: string = '';
   done: any;
+  paginatedRooms: any = [];
+  page = 0;
+  size = 10;
+  index: number = 1;
+  limit: number = 10;
   isServicerequestSaved: boolean = true;
-
+  room:any
   services: SelectModel[];
   rooms: SelectModel[];
   requestStatus = [
@@ -50,9 +55,6 @@ export class PendingServiceRequestComponent {
 
   editorConfig: any = EditorConfig;
 
-
-
-
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private servicerequestService: ServicerequestService, private roomServiceService: RoomServiceService, private snakbar: MatSnackBar,
     private roomsService: RoomsService,
 
@@ -62,14 +64,12 @@ export class PendingServiceRequestComponent {
     console.log(request);
     //this.id = request.id;
     if (request) {
-      this.servicerequest = request.servicerequest;
+      this.room=request.room
+      this.servicerequest = request.room.serviceRequest;
     }
   }
 
   ngOnInit() {
-
-
-
 
     var temp = [];
     this.roomServiceService.loadData().subscribe((results) => {
@@ -99,12 +99,14 @@ export class PendingServiceRequestComponent {
 
     const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
       width: '650px',
-      data: { id: 0 }
+      data: { id: 0, room:this.room , servicerequest:this.servicerequest}
     });
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result?.id) {
-        this.snakbar.open('Servicerequest created successfully.', 'Dismise', {
+      if (result) {
+        this.loadData();
+        this.getData({ pageIndex: this.page, pageSize: this.size });
+        this.snakbar.open('Service Request saved successfully.', 'Dismise', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -115,6 +117,23 @@ export class PendingServiceRequestComponent {
 
   }
 
+  loadData() {
+   
+    this.roomsService.loadData(this.index, this.limit).subscribe(results => {
+      this.paginatedRooms = results
+      this.getData({ pageIndex: this.page, pageSize: this.size });
+    });
+  }
 
+  getData(obj) {
+    let index = 0,
+      startingIndex = obj.pageIndex * obj.pageSize,
+      endingIndex = startingIndex + obj.pageSize;
+
+    this.rooms = this.paginatedRooms.filter(() => {
+      index++;
+      return (index > startingIndex && index <= endingIndex) ? true : false;
+    });
+  }
 }
 
