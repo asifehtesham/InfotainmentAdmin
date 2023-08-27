@@ -75,29 +75,42 @@
             </ng-template>
         </mat-tab>
         <mat-tab label="History">
-                <ng-template mat-tab-label> Admission History </ng-template>
-                <ng-template matTabContent>
-                    <mat-dialog-content>
-                            
-                            <mat-card *ngFor="let his of admissionHistory">
-                                    <mat-card-content>
-                                       {{his.admissionNo}}
-                            
-                                    </mat-card-content>
-                                </mat-card>
+            <ng-template mat-tab-label> Admission History </ng-template>
+            <ng-template matTabContent>
+                <mat-dialog-content>
+                    <div fxLayout="column" fxLayoutAlign="start stretch">
                         
-                    </mat-dialog-content>
-                </ng-template>
-            </mat-tab>
-            <mat-tab label="History">
-                    <ng-template mat-tab-label> Activity </ng-template>
-                    <ng-template matTabContent>
-                        <mat-dialog-content>
+                            <mat-card *ngFor="let his of admissionHistory"  style="width: 100%; padding: 10px;  border: 2px solid #bebebe;">
                                 
-                            
-                        </mat-dialog-content>
-                    </ng-template>
-                </mat-tab>
+                                <div style="display: flex; justify-content: right;">
+                                    <mat-card-title class="page-sub-title">Patient Name : {{ his.patientName }}</mat-card-title>
+                                </div>
+                                <div style="display: flex; justify-content: right;">
+                                    <mat-card-title class="page-sub-title">Admission Number : {{ his.admissionNo }}</mat-card-title>                        
+                                </div>
+                                <div style="display: flex; justify-content: right;">
+                                    <mat-card-title class="page-sub-title">File Number : {{ his.fileNo }}</mat-card-title>                        
+                                </div>
+            
+                                <mat-card-title class="page-sub-title">Assigned Doctor : {{ his.assignedDoctor }}</mat-card-title>
+                                <mat-card-subtitle>Admission Date : {{ his.admitDate }}</mat-card-subtitle>
+
+
+                                </mat-card>
+
+                    </div>
+                </mat-dialog-content>
+            </ng-template>
+        </mat-tab>
+        <mat-tab label="History">
+            <ng-template mat-tab-label> Activity </ng-template>
+            <ng-template matTabContent>
+                <mat-dialog-content>
+                        
+                    
+                </mat-dialog-content>
+            </ng-template>
+        </mat-tab>
     </mat-tab-group>
 </div>
 <mat-dialog-actions align="end">
