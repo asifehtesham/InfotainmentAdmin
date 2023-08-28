@@ -207,33 +207,31 @@ export class DashboardService {
     }];
   }
   barChart() {
-    // var data = []
-    // menu.forEach(element => { 
-    //   data.push({
-    //     name: element.title,
-    //     colorByPoint: true,      
-    //     data:[15.41]
-    //   })
-    // });
-    // console.log("asd",data)
-    // return data
-
-   
     return [
       {
         name: 'Home',
         colorByPoint: true,      
-        data:[15.41]
+        data:[115.41]
       },
       {
         name: 'About',
         colorByPoint: true,      
-        data:[12]
+        data:[524]
       },
       {
         name: 'News',
         colorByPoint: true,      
-        data:[23]
+        data:[800]
+      },
+      {
+        name: 'Blogs',
+        colorByPoint: true,      
+        data:[500]
+      },
+      {
+        name: 'Events',
+        colorByPoint: true,      
+        data:[900]
       }
     ];
   }

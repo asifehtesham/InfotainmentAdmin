@@ -47,7 +47,7 @@ export class PieComponent implements OnInit {
         enabled: false
       },
       series: [{
-        name: 'Blogs',
+        name: 'Admissions',
         colorByPoint: true,
         data: this.data
       }]

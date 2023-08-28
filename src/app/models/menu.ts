@@ -60,15 +60,10 @@ export const menus = [
         'open': false,
     },
     //////////////////////////// infot start
-
-
-
-
     {
         'name': 'Rooms',
         'icon': 'building',
-        'link': 'cms',
-        //'link': '/mainapp/categories',
+        'link': '/mainapp/rooms',
         'open': false,
         'sub': [
             {
@@ -79,39 +74,25 @@ export const menus = [
             },
 
             {
+                'name': 'Manage Requests',
+                //'icon': 'building',
+                'link': '/mainapp/service-request',
+                'open': false,
+            },
+            {
                 'name': 'Manage Services',
                 //'icon': 'building',
                 'link': '/mainapp/room-service',
                 'open': false,
             },
             {
-                'name': 'Manage Requests',
-                //'icon': 'building',
-                'link': '/mainapp/service-request',
-                'open': false,
-            },
-
-
-
-            {
                 'name': 'Manage Devices',
                 //'icon': 'building',
                 'link': '/mainapp/device',
                 'open': false,
             },
-
-
-
         ]
     },
-
-
-
-
-
-
-    
-
     {
         'name': 'Branches',
         'icon': 'rss',
@@ -141,7 +122,7 @@ export const menus = [
     {
         'name': 'Entertainment',
         'icon': 'rss',
-        'link': '/mainapp/branch',
+        'link': '/mainapp/imenu',
         'open': false,
         'sub': [
             
@@ -200,7 +181,7 @@ export const menus = [
     {
         'name': 'TV Channels',
         'icon': 'rss',
-        'link': '/mainapp/branch',
+        'link': '/mainapp/iptv',
         'open': false,
         'sub': [
             
@@ -236,7 +217,7 @@ export const menus = [
     {
         'name': 'CMS',
         'icon': 'rocket',
-        'link': 'cms',
+        'link': '/mainapp/pagelist',
         //'link': '/mainapp/categories',
         'open': false,
         'sub': [

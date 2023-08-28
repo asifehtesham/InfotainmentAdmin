@@ -34,7 +34,7 @@
                 <mat-label class="label m-2">Title</mat-label>
                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                   <input type="text" id="title" class="input" placeholder="Enter Title" formControlName="title" required
-                    matInput #title appSlugTransform />
+                    matInput #title />
                   <a mat-icon-button *ngIf="title.value" matSuffix md-icon-button aria-label="Clear"
                     (click)="title.value = ''">
                     <mat-icon>close</mat-icon>
@@ -45,10 +45,10 @@
 
 
               <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                <mat-label class="label m-2">Title</mat-label>
+                <mat-label class="label m-2">Title Ar</mat-label>
                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                   <input type="text" id="titleAr" class="input" placeholder="Enter Title in Arabic" formControlName="titleAr" required
-                    matInput #titleAr appSlugTransform />
+                    matInput #titleAr />
                   <a mat-icon-button *ngIf="titleAr.value" matSuffix md-icon-button aria-label="Clear"
                     (click)="titleAr.value = ''">
                     <mat-icon>close</mat-icon>

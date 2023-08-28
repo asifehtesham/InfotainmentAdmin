@@ -7,7 +7,8 @@ export interface Servicerequest extends EntityBase {
     request: string;
     requestOn?: DateTime;
     status: ServiceStatus;
-    assignedTo: number,
+    assignedTo: number;
+    roomNo?:any
 }
 
 export enum ServiceStatus {

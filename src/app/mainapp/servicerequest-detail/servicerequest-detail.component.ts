@@ -36,7 +36,6 @@ export class ServicerequestDetailComponent {
   url: string = '';
   done: any;
   isServicerequestSaved: boolean = true;
-  
   services: any;
   rooms:any= [];
   room:any
@@ -146,7 +145,13 @@ export class ServicerequestDetailComponent {
       observer = this.servicerequestService.update(servicerequest);
     observer.subscribe(result => {
       this.id = result.id;
-    
+      if (result) 
+       
+        this.snakbar.open('Service Request saved successfully.', 'Dismise', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
     });
 
   }
@@ -155,6 +160,6 @@ export class ServicerequestDetailComponent {
     this.servicerequestForm.reset();
   }
 
- 
+   
 }
 

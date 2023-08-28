@@ -7,13 +7,14 @@
   <mat-card>
     <mat-card-content>
       <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
-        <div
-          fxLayout="row"
+        <div fxLayout="row"
           fxLayoutAlign="space-between center"
-          style="height: 40px"
-        >
+          style="height: 40px">
           <div class="page-sub-title">Service Request LIST</div>
           <div>
+            <button mat-button style="cursor:pointer;color:cornflowerblue" (click)="showFilter=!showFilter">
+              <mat-icon>search</mat-icon>
+              Advanced Filters</button>
             <a mat-button mat-flat-button color="warn" (click)="onAdd()">
               <mat-icon>add</mat-icon> Add
             </a>
@@ -28,12 +29,40 @@
             </button>
           </div>
         </div>
+        <div class="filter" *ngIf="showFilter">
+            <mat-form-field appearance="outline" style="width:18%">
+                <input type="text" id="roomNoSearch" class="input" placeholder="Search"
+                    matInput #roomNoSearch (keyup)="searchRoom($event.target['value'])"/>
+                <a mat-button *ngIf="roomNoSearch.value" matSuffix md-button
+                    aria-label="Clear" (click)="roomNoSearch.value = ''">
+                    <mat-icon>close</mat-icon>
+                </a>
+            </mat-form-field>
+            <mat-label class="label ml-2">Service:</mat-label>
+            <mat-form-field class="ml-2" appearance="outline">
+                <mat-select (selectionChange)='filterService($event.value)' placeholder="Select Service">
+                    <mat-option value="">All</mat-option>                                      
+                      <mat-option *ngFor="let service of services" [(value)]="service.id">{{service.title}}</mat-option>  
+                </mat-select>
+            </mat-form-field>
+            <mat-label class="label ml-2">Request Status:</mat-label>
+            <mat-form-field class="ml-2" appearance="outline">
+                <mat-select (selectionChange)='reqStatus($event.value)' placeholder="Select Request Status">
+                    <mat-option value="">All</mat-option>                                      
+                    <mat-option value="0"> Pending</mat-option>
+                    <mat-option value="1"> InProgress</mat-option>
+                    <mat-option value="2"> Closed</mat-option>
+                    <mat-option value="3"> Rejected</mat-option>
+                        
+                </mat-select>
+            </mat-form-field>
+        </div>
         <div fxLayout="column" fxLayoutAlign="start stretch">
           <div>
             <ng-container
               *ngIf="dataSource.filteredData.length > 0; else loading"
             >
-              <table mat-table [dataSource]="dataSource" matSort>
+              <table mat-table [dataSource]="filteredData" matSort>
                 <!-- Checkbox Column -->
                 <ng-container matColumnDef="select">
                   <th mat-header-cell *matHeaderCellDef>
@@ -60,7 +89,7 @@
 
                 <ng-container matColumnDef="patientId">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    Patient Id
+                    File No
                   </th>
                   <td mat-cell *matCellDef="let element">
                     {{ element.patientId }}
@@ -83,13 +112,7 @@
                   <td mat-cell *matCellDef="let element">
                     {{ element.roomNo }}
                   </td>
-                </ng-container>
-
-                <!-- <ng-container matColumnDef="serviceRequestStatus">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>serviceRequestStatus</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.status | enumtostring: ServiceStatus}} </td>
-                                </ng-container> -->
-
+                </ng-container> 
                 <ng-container matColumnDef="status">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
                     Status
