@@ -1,17 +1,17 @@
 <div fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all" fxLayoutGap="10px">    
-    <div fxLayout="row" fxLayoutAlign="space-between start" class="stats-cards">
-        <app-card-icon fxFlex="15" label="Total Rooms" total="8" icon="pagelines" color="#43c751"></app-card-icon>
-        <app-card-icon fxFlex="15" label="Users" total="12" icon="users" color="#fd9833"></app-card-icon>
-        <app-card-icon fxFlex="15" label="Branches" total="2" icon="wrench" color="#746efe"></app-card-icon>
-        <app-card-icon fxFlex="15" label="Active Rooms" total="6" icon="calendar" color="#ff784d"></app-card-icon> 
-        <app-card-icon fxFlex="15" label="Tv Channels" total="16" icon="feed" color="#ff784h"></app-card-icon> 
-        <app-card-icon fxFlex="15" label="Newspaper" total="12" icon="envelope" color="pink"></app-card-icon> 
+    <div fxLayout="row" fxLayoutAlign="space-between start" class="stats-cards" >
+        <app-card-icon class="card_height" fxFlex="15" label="Total Rooms" total="1500" icon="pagelines" color="#43c751"></app-card-icon>
+        <app-card-icon class="card_height" fxFlex="15" label="Users" total="1152" icon="users" color="#fd9833"></app-card-icon>
+        <app-card-icon class="card_height" fxFlex="15" label="Branches" total="6" icon="wrench" color="#746efe"></app-card-icon>
+        <app-card-icon class="card_height" fxFlex="15" label="Active Rooms" total="1200" icon="calendar" color="#ff784d"></app-card-icon> 
+        <app-card-icon class="card_height" fxFlex="15" label="Tv Channels" total="120" icon="feed" color="#ff784h"></app-card-icon> 
+        <app-card-icon class="card_height" fxFlex="15" label="Newspaper" total="36" icon="envelope" color="pink"></app-card-icon> 
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="stats-cards">
          <mat-card appearance="outlined">
             <mat-card-content>
-                <label class="title-semi">Patient Admissions (11)</label>
+                <label class="title-semi">Patient Admissions (141)</label>
                 <div fxLayoutAlign="stretch" class="stats-cards">
                     <app-pie [data]="pieChart" style="width:530px"></app-pie>    
                 </div>
@@ -19,7 +19,7 @@
         </mat-card>
         <mat-card appearance="outlined">
             <mat-card-content>
-                <label class="title-semi">Menu  (2) Hits</label>
+                <label class="title-semi">Menu  (152) Hits</label>
                 <!-- <span class="float-right">Current Rooms</span> -->
                 <br>
                 <div fxLayoutAlign="space-between">
@@ -32,7 +32,7 @@
                 </div> 
                 <mat-label class="label m-2">Menu:</mat-label>
                 <mat-form-field class="ml-2 mt-3 mb-5 w-50" style="height:20px" appearance="outline">
-                    <mat-select (selectionChange)='blogsChart($event.value)'>
+                    <mat-select (selectionChange)='blogsChart($event.value)' placeholder="Select Menu">
                         <mat-option *ngFor="let menu of menues" [value]="menu.id">{{menu.title}}</mat-option>    
                     </mat-select>
                 </mat-form-field>

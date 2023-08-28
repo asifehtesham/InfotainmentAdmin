@@ -83,16 +83,7 @@
                     <button  mat-button matTooltip="Requests" (click)="showServiceRequests(room)" matTooltipPosition="below">
                         <mat-icon *ngIf="room.serviceRequest.length >=1"  matBadge="{{room.serviceRequest.length}}" matBadgeColor="warn">notifications</mat-icon>
                         <mat-icon *ngIf="room.serviceRequest.length ==0" >notifications</mat-icon>
-                    </button>
-
-                    
-                    <!-- <button  mat-button matTooltip="Add Request" (click)="addServiceRequests()" matTooltipPosition="below">
-                                <mat-icon>add_alert</mat-icon>  
-                    </button> -->
-
-                    
-
-                    
+                    </button>    
                 </mat-card-actions>
             </mat-card>
 

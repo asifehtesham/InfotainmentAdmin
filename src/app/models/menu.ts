@@ -60,15 +60,10 @@ export const menus = [
         'open': false,
     },
     //////////////////////////// infot start
-
-
-
-
     {
         'name': 'Rooms',
         'icon': 'building',
-        'link': 'cms',
-        //'link': '/mainapp/categories',
+        'link': '/mainapp/rooms',
         'open': false,
         'sub': [
             {
@@ -96,19 +91,8 @@ export const menus = [
                 'link': '/mainapp/device',
                 'open': false,
             },
-
-
-
         ]
     },
-
-
-
-
-
-
-    
-
     {
         'name': 'Branches',
         'icon': 'rss',
@@ -233,7 +217,7 @@ export const menus = [
     {
         'name': 'CMS',
         'icon': 'rocket',
-        'link': 'cms',
+        'link': '/mainapp/pagelist',
         //'link': '/mainapp/categories',
         'open': false,
         'sub': [

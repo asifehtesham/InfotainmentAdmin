@@ -17,7 +17,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ServicerequestDetailComponent } from '../servicerequest-detail/servicerequest-detail.component'
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import Swal from "sweetalert2";
+import Swal from "sweetalert2"; 
+import { RoomServiceService } from 'src/app/services/roomService.service';
 
 @Component({
   selector: 'app-servicerequest-list',
@@ -35,11 +36,13 @@ export class ServicerequestListComponent {
     'id',
   ];
   servicerequest = [];
+  showFilter:boolean=false
   search = new FormControl();
   index: number = 1;
   limit: number = 10;
   pageTotal: number = 20;
-
+  filteredData:any
+  services:any
   public loadEmptyMsg: boolean = false;
   public dataSource = new MatTableDataSource<Servicerequest>();
   selection = new SelectionModel<Servicerequest>(true, []);
@@ -47,56 +50,51 @@ export class ServicerequestListComponent {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sortable: MatSort;
 
-  constructor(private http: HttpClient, private servicerequestService: ServicerequestService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
+  constructor(private roomService:RoomServiceService, private http: HttpClient, private servicerequestService: ServicerequestService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
-
-
-
-
-    // this.NewspaperData.forEach(element => {
-    //   console.log("element", element);
-    //   this.newsPaperService.add(element).subscribe(res => {
-    //   })
-    // });
-
-
-
     this.loadData();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sortable;
-    this.loadData();
-
-
-    this.search.valueChanges.subscribe(
-      value => {
-        if (value.length == 0) {
-          this.servicerequestService.loadData().pipe(map((results => {
-            //return results;
-            this.dataSource.data = results;
-          })));
-
-          return;
-        }
-
-        this.servicerequestService.search(value).subscribe(results => {
-          //this.loadEmptyMsg = true;
-          console.log('come to the subscriber');
-          this.dataSource.data = results;
-          return results;
-        });
-      });
+    this.loadServiceData()
 
   }
 
   loadData() {
     this.servicerequestService.loadData(this.index, this.limit).subscribe(results => {
-      this.loadEmptyMsg = true;
-      console.log('come to the subscriber');
       this.dataSource.data = results;
+      this.filteredData=results
+    });
+  }
+  loadServiceData() {
+    this.roomService.loadData(this.index, this.limit).subscribe(results => {
+      this.services=results
     });
   }
 
+  searchRoom(searchText): any {
+    if (searchText) {
+      this.filteredData = this.dataSource.data.filter(room => room.roomNo.toLowerCase().includes(searchText.toLowerCase()));
+    } else {
+      this.filteredData = this.dataSource.data;
+    }
+  }
+
+  reqStatus(value) {
+    if (value) {
+      // console.log(value,this.dataSource.data)
+      this.filteredData = this.dataSource.data.filter(room => room.status==value);
+    } else {
+      this.filteredData = this.dataSource.data;      
+    }
+  }
+
+  filterService(value){
+    if (value) {
+      this.filteredData = this.dataSource.data.filter(room => room.serviceId==value);
+    } else {
+      this.filteredData = this.dataSource.data;      
+    }
+  }
+   
   page(event) {
     this.index = event.pageIndex + 1;
     this.limit = event.pageSize;
@@ -203,8 +201,6 @@ export class ServicerequestListComponent {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
-
-
   onAdd() {
 
     console.log("onAdd() ........... trigger");
