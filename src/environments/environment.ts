@@ -9,7 +9,7 @@ export const environment = {
   siteUrl: "http://10.201.204.180:9203",
   //CHAT_URL: "ws://echo.websocket.org/",
   CHAT_URL: "ws://localhost:5000/ws",
-  OPENAI_API_KEY: "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",
+  OPENAI_API_KEY: "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",
   production: false
 };
 
