@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all" fxLayoutGap="10px">    
-    <div fxLayout="row" fxLayoutAlign="space-between start" class="stats-cards" >
+    <div fxLayout="row" fxLayoutAlign="space-between start" >
         <app-card-icon class="card_height" fxFlex="15" label="Total Rooms" total="1500" icon="pagelines" color="#43c751"></app-card-icon>
         <app-card-icon class="card_height" fxFlex="15" label="Users" total="1152" icon="users" color="#fd9833"></app-card-icon>
         <app-card-icon class="card_height" fxFlex="15" label="Branches" total="6" icon="wrench" color="#746efe"></app-card-icon>
@@ -8,16 +8,16 @@
         <app-card-icon class="card_height" fxFlex="15" label="Newspaper" total="36" icon="envelope" color="pink"></app-card-icon> 
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="stats-cards">
-         <mat-card appearance="outlined">
+    <div fxLayoutGap="10px">
+         <mat-card fxFlex="50" appearance="outlined">
             <mat-card-content>
                 <label class="title-semi">Patient Admissions (141)</label>
-                <div fxLayoutAlign="stretch" class="stats-cards">
-                    <app-pie [data]="pieChart" style="width:530px"></app-pie>    
+                <div fxLayoutAlign="stretch">
+                    <app-pie fxFlex="100" [data]="pieChart"></app-pie>    
                 </div>
             </mat-card-content>
         </mat-card>
-        <mat-card appearance="outlined">
+        <mat-card fxFlex="50" appearance="outlined">
             <mat-card-content>
                 <label class="title-semi">Menu  (152) Hits</label>
                 <!-- <span class="float-right">Current Rooms</span> -->
@@ -36,16 +36,16 @@
                         <mat-option *ngFor="let menu of menues" [value]="menu.id">{{menu.title}}</mat-option>    
                     </mat-select>
                 </mat-form-field>
-                <div fxLayoutAlign="stretch" class="stats-cards">
-                        <app-bar [data]="barChart"></app-bar>
+                <div fxLayoutAlign="stretch">
+                        <app-bar fxFlex="100" [data]="barChart"></app-bar>
                     
                 </div>
             </mat-card-content>
         </mat-card>
     </div> 
 
-    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="stats-cards">
-        <mat-card appearance="outlined">
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+        <mat-card fxFlex="50" appearance="outlined">
             <mat-card-content>
                 <label class="title-semi">POLL RESULTS</label>
                 <div fxLayoutGap="30px">
@@ -147,11 +147,11 @@
                     <br>
 
                 </div>
-                <!-- <div fxLayoutAlign="stretch" class="stats-cards">  
+                <!-- <div fxLayoutAlign="stretch">  
                 </div>  -->
             </mat-card-content>
         </mat-card>
-        <mat-card appearance="outlined">
+        <mat-card fxFlex="50" appearance="outlined">
             <mat-card-content>
                 <label class="title-semi">Home Page  (2) Views</label>
                 <span class="float-right">TRENDING PAGE</span>
@@ -166,43 +166,32 @@
                 </div> 
                 <mat-label class="label m-2">Pages:</mat-label>
                 <mat-form-field class="ml-2 mt-3 mb-5 w-50" style="height:20px" appearance="outline">
-                    <mat-select (selectionChange)='pageChart($event.value)'>
+                    <mat-select (selectionChange)='pageChart($event.value)' placeholder="Select Page">
                         <mat-option *ngFor="let page of pages" [value]="page.id">{{page.title}}</mat-option>    
                     </mat-select>
                 </mat-form-field>
-                <div fxLayoutAlign="stretch" class="stats-cards">
-                    <app-area [data]="bigChart"></app-area>
-                    
-                        <!-- <app-bar [data]="barChart"></app-bar> -->
-                    
+                <div fxLayoutAlign="stretch">
+                    <app-area fxFlex="100" [data]="bigChart"></app-area>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>  
  
 
-    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px" class="stats-cards">
-            <mat-card appearance="outlined">
+    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
+            <mat-card fxFlex="50" appearance="outlined">
                <mat-card-content>
-                   <label class="title-semi">Channels  (2) Hits</label>
-                   <!-- <span class="float-right">Current Rooms</span> -->
+                   <label class="title-semi">Channels  (2) Hits</label> 
                    <br>
-                   <!-- <div fxLayoutAlign="space-between">
-                       <span class=" mt-1" style="background: rgb(255, 69, 96); color: rgb(255, 69, 96); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
-                       <span>Active Room (9)</span>
-                       <span class="mt-1" style="background: rgb(0, 143, 251); color: rgb(0, 143, 251); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
-                       <span>Do not Distrub (6)</span>
-                       <span class="mt-1" style="background: rgb(0, 227, 150); color: rgb(0, 227, 150); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
-                       <span>Discharge (2)</span>
-                   </div>  -->
+                   
                    <mat-label class="label m-2">Channels:</mat-label>
                    <mat-form-field class="ml-2 mt-3 mb-5 w-50" style="height:20px" appearance="outline">
-                       <mat-select >
+                       <mat-select placeholder="Select Channel">
                            <mat-option *ngFor="let menu of menues" [value]="menu.id">{{menu.title}}</mat-option>    
                        </mat-select>
                    </mat-form-field>
-                   <div fxLayoutAlign="stretch" class="stats-cards">
-                           <app-bar [data]="barChannelsChart"></app-bar>
+                   <div fxLayoutAlign="stretch">
+                           <app-bar fxFlex="100" fxFlex="100" [data]="barChannelsChart"></app-bar>
                        
                    </div>
                </mat-card-content>
