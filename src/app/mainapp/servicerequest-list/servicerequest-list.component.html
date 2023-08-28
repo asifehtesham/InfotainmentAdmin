@@ -1,18 +1,14 @@
-<div
-  fxFlex
-  fxLayout="column"
-  fxLayoutAlign="space-between stretch"
-  class="content-container-all"
->
+<div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
   <mat-card>
     <mat-card-content>
       <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+        
         <div fxLayout="row"
           fxLayoutAlign="space-between center"
           style="height: 40px">
           <div class="page-sub-title">Service Request LIST</div>
           <div>
-            <button mat-button style="cursor:pointer;color:cornflowerblue" (click)="showFilter=!showFilter">
+            <button mat-button style="cursor:pointer;color:cornflowerblue;margin-right:6px" (click)="showFilter=!showFilter">
               <mat-icon>search</mat-icon>
               Advanced Filters</button>
             <a mat-button mat-flat-button color="warn" (click)="onAdd()">
@@ -57,11 +53,15 @@
                 </mat-select>
             </mat-form-field>
         </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="mt-3">
+    <mat-card-content>
+      <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">    
         <div fxLayout="column" fxLayoutAlign="start stretch">
           <div>
-            <ng-container
-              *ngIf="dataSource.filteredData.length > 0; else loading"
-            >
+            <ng-container *ngIf="dataSource.filteredData.length > 0; else loading">
               <table mat-table [dataSource]="filteredData" matSort>
                 <!-- Checkbox Column -->
                 <ng-container matColumnDef="select">
@@ -173,7 +173,7 @@
               <app-loading align="center"></app-loading>
             </ng-template>
           </div>
-        </div>
+        </div>    
       </div>
     </mat-card-content>
   </mat-card>
