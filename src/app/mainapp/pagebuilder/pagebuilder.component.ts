@@ -900,19 +900,19 @@ export class PagebuilderComponent implements OnInit {
 
       // console.log("result.content .=.=",result.content)
 
+      console.log("result",result);
+
+      
       if (result?.content) {
 
         let c = result.content.toString();
 
 
-        document
-          .getElementById("save_trigger")
-          .setAttribute("isComponent", '1');
 
 
         console.log(`document.getElementById("save_trigger").attributes["isComponent"].value`, document.getElementById("save_trigger").attributes["isComponent"].value);
 
-        if (document.getElementById("save_trigger").attributes["isComponent"].value == 1) {
+        if (document.getElementById("save_trigger").attributes["isComponent"].value == '1') {
           this.editor.getSelected().replaceWith(c);
         } else {
           this.editor.setComponents(c, {
@@ -920,6 +920,12 @@ export class PagebuilderComponent implements OnInit {
           });
         }
 
+        
+        document
+          .getElementById("save_trigger")
+          .setAttribute("isComponent", '0');
+
+      
 
       }
 

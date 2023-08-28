@@ -1,25 +1,43 @@
-<form >
-    <div class="m-3">
-        <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px">
-            <div fxFlex>
-                <h5 mat-dialog-title class="title-sub">Pending Service Requests</h5>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
-                <button (click)="addServiceRequests()" mat-flat-button [mat-dialog-close]="true" color="primary" type="submit">
-                    <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-add"></mat-icon>
-                    NEW REQUEST
-                </button>
-                <button mat-icon-button mat-dialog-close cdkFocusInitial>
-                    <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
-                </button>
-            </div>
-        </div>
+<form>
+  <div class="m-3">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      style="height: 40px"
+    >
+      <div fxFlex>
+        <h5 mat-dialog-title class="title-sub">Pending Service Requests</h5>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+        <button
+          (click)="addServiceRequests()"
+          mat-flat-button
+          [mat-dialog-close]="true"
+          color="primary"
+          type="submit"
+        >
+          <mat-icon
+            class="customfab-icon-white"
+            fontSet="fa"
+            fontIcon="fa-add"
+          ></mat-icon>
+          NEW REQUEST
+        </button>
+        <button mat-icon-button mat-dialog-close cdkFocusInitial>
+          <mat-icon
+            class="fa fa-large mr-2"
+            fontSet="fa"
+            fontIcon="fa-times"
+          ></mat-icon>
+        </button>
+      </div>
     </div>
-    <mat-divider></mat-divider>
-    <!-- <mat-dialog-content> -->
- 
-    <div fxLayout="column" fxFlexFill>
-        <!-- <mat-tab-group>
+  </div>
+  <mat-divider></mat-divider>
+  <!-- <mat-dialog-content> -->
+
+  <div fxLayout="column" fxFlexFill>
+    <!-- <mat-tab-group>
             <mat-tab label="Page Info">
                 <ng-template mat-tab-label> Basic Info </ng-template>
                 <ng-template matTabContent>
@@ -28,40 +46,145 @@
             </mat-tab>
         </mat-tab-group> -->
 
+    <mat-dialog-content>
+      <div fxLayout="column" fxLayoutAlign="start stretch">
+       
+        <div *ngIf="servicerequest.length > 0? false:true ">
+          <h2> No Service Requests</h2>
+        </div>
 
-        <mat-dialog-content>
-                 
-            <div fxLayout="column" fxLayoutAlign="start stretch">
-             
-                    <mat-card *ngFor="let req of servicerequest"  style="width: 100%; padding: 10px;  border: 1px solid #bebebe;margin-bottom:10px">
-                      
-                        <div style="display: flex; justify-content: right;">
-                           <mat-card-title class="page-sub-title">Admission Number : {{ req.admissionNo }}</mat-card-title>                        
-                        </div>
+        <mat-card
+          *ngFor="let req of servicerequest"
+          style="
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bebebe;
+            margin-bottom: 10px;
+          "
+        >
+          <div style="display: flex; justify-content: right">
+            <mat-card-title class="page-sub-title"
+              >Admission Number : {{ req.admissionNo }}</mat-card-title
+            >
+          </div>
 
-                        <div style="display: flex; justify-content: right;">
-                            <mat-card-title class="page-sub-title">Patient Id : {{ req.patientId }}</mat-card-title>
-                        </div>
- 
-  
-                        <mat-card-title class="page-sub-title">Service Name : {{ req.service.title }}</mat-card-title>
-                        <mat-card-title class="page-sub-title">Service Status : {{ req.status }}</mat-card-title>
-                        <mat-card-title class="page-sub-title">Service Request : {{ req.request }}</mat-card-title>
+          <div style="display: flex; justify-content: right">
+            <mat-card-title class="page-sub-title"
+              >Patient Id : {{ req.patientId }}</mat-card-title
+            >
+          </div>
 
-                      </mat-card>
+          <mat-card-title class="page-sub-title"
+            >Service Name : {{ req.service.title }}</mat-card-title
+          >
+
+          <div style="display: flex; margin:2px; justify-content: space-between;">
+            <mat-card-title class="page-sub-title"
+              >Service Status : {{req.status | enumtostring: ServiceStatus}}
+            </mat-card-title>
+
+
+            <div style="margin-left: 10px;">
+              <span
+                style="
+                
+                margin: 5px;
+                  cursor: pointer;
+                  font-size: 12px;
+                  color: #fff;
+                  border-radius: 5px;
+                  padding: 5px;
+                  background-color: #28a745;
+                  font-weight: 800;
+                "
+                (click)="updateStatus(1, req)"
+                >In Progress</span
+              >
+
+              <span
+                style="
+                margin: 5px;
+                  cursor: pointer;
+                  font-size: 12px;
+                  color: #fff;
+                  border-radius: 5px;
+                  padding: 5px;
+                  background-color: #007bff;
+                  font-weight: 800;
+                "
+                (click)="updateStatus(2, req)"
+                >Closed</span
+              >
+
+              <span
+                style="
+                
+                margin: 5px;
+                  cursor: pointer;
+                  font-size: 12px;
+                  color: #fff;
+                  border-radius: 5px;
+                  padding: 5px;
+                  background-color: red;
+                  font-weight: 800;
+                "
+                (click)="updateStatus(3, req)"
+                >Rejected</span
+              >
+
+              <!-- <button
+                mat-raised-button
+                [value]="1"
+                (click)="updateStatus(1, req)"
+                color="primary"
+              >
+                InProgress
+              </button>
+              <button
+                mat-raised-button
+                [value]="2"
+                (click)="updateStatus(2, req)"
+              >
+                Closed
+              </button>
+              <button
+                mat-raised-button
+                [value]="3"
+                (click)="updateStatus(3, req)"
+                color="warn"
+              >
+                Rejected
+              </button> -->
 
             </div>
-        </mat-dialog-content>
+            <!-- 
 
+    <mat-selectbutt
+                            #status
+                            [(value)]="req.status"
+                            (selectionChange)="updateStatus(req.status, req)"
+                            placeholder="Change Status"
+                          >
+                            <mat-option [value]="1"> InProgress</mat-option>
+                            <mat-option [value]="2"> Closed</mat-option>
+                            <mat-option [value]="3"> Rejected</mat-option>
+                          </mat-select> -->
+          </div>
 
-    </div>
-    <!-- </mat-dialog-content> -->
-    <mat-dialog-actions align="end">
-        <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
-        <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
-        <!-- <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" >
+          <mat-card-title class="page-sub-title"
+            >Service Request : {{ req.request }}</mat-card-title
+          >
+        </mat-card>
+      </div>
+    </mat-dialog-content>
+  </div>
+  <!-- </mat-dialog-content> -->
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+    <!-- <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" >
             <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>
             Save
         </button> -->
-    </mat-dialog-actions>
+  </mat-dialog-actions>
 </form>

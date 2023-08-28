@@ -239,11 +239,15 @@ export class BlogdetailComponent {
           //this.loadEmptyMsg = true;
           this.blog = results;
 
-          this.contentData = this.blog.content
+
+           this.contentData = this.blog.content
+
+           console.log("this.contentData ++++",this.contentData);
+
 
           this.f.slug.setValue(this.blog.slug);
           this.f.title.setValue(this.blog.title);
-         // this.f.content.setValue(this.blog.content);
+        //  this.f.content.setValue(this.blog.content);
           this.f.authorId.setValue(this.blog.authorId);
           this.f.availableStartDate.setValue(this.blog.availableStartDate);
           this.f.availableEndDate.setValue(this.blog.availableEndDate);

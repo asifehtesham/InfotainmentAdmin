@@ -10,7 +10,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Servicerequest } from 'src/app/models/Servicerequest';
+import { Servicerequest,ServiceStatus } from 'src/app/models/Servicerequest';
 import { EditorConfig } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { ServicerequestService } from 'src/app/services/servicerequest.service';
@@ -27,7 +27,7 @@ import { ServicerequestDetailComponent } from '../servicerequest-detail/servicer
   styleUrls: ['./pending-servicerequests.component.scss']
 })
 export class PendingServiceRequestComponent {
-
+  ServiceStatus = ServiceStatus;
   templates: Templates[] = [];
   id: number;
   servicerequest: any;
@@ -133,6 +133,32 @@ export class PendingServiceRequestComponent {
     this.rooms = this.paginatedRooms.filter(() => {
       index++;
       return (index > startingIndex && index <= endingIndex) ? true : false;
+    });
+  }
+
+
+  updateStatus(s,e){
+
+    let element = e;
+    element.status = s;
+    
+    this.servicerequestService.update(element).subscribe(result => {
+      if (result) {
+        this.snakbar.open('Your status has been updated successfully.', 'Ok', {
+          duration: 2000,
+        });
+        this.loadData();
+
+        
+
+        let selectedArr = this.servicerequest.indexOf(element);
+        if (selectedArr != -1){
+          this.servicerequest.splice(selectedArr, 1);
+        } 
+
+
+      }
+
     });
   }
 }

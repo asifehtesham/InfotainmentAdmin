@@ -77,13 +77,6 @@ export const menus = [
                 'link': '/mainapp/rooms',
                 'open': false,
             },
-
-            {
-                'name': 'Manage Services',
-                //'icon': 'building',
-                'link': '/mainapp/room-service',
-                'open': false,
-            },
             {
                 'name': 'Manage Requests',
                 //'icon': 'building',
@@ -91,8 +84,12 @@ export const menus = [
                 'open': false,
             },
 
-
-
+            {
+                'name': 'Manage Services',
+                //'icon': 'building',
+                'link': '/mainapp/room-service',
+                'open': false,
+            },
             {
                 'name': 'Manage Devices',
                 //'icon': 'building',
@@ -141,7 +138,7 @@ export const menus = [
     {
         'name': 'Entertainment',
         'icon': 'rss',
-        'link': '/mainapp/branch',
+        'link': '/mainapp/imenu',
         'open': false,
         'sub': [
             
@@ -200,7 +197,7 @@ export const menus = [
     {
         'name': 'TV Channels',
         'icon': 'rss',
-        'link': '/mainapp/branch',
+        'link': '/mainapp/iptv',
         'open': false,
         'sub': [
             
