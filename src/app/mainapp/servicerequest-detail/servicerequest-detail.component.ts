@@ -50,11 +50,8 @@ export class ServicerequestDetailComponent {
   editorConfig: any = EditorConfig;
   constructor(private route: ActivatedRoute, private fb: FormBuilder, private servicerequestService: ServicerequestService, private roomServiceService: RoomServiceService, private snakbar: MatSnackBar,
     private roomsService: RoomsService,
-
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
-    console.log("request",request);
-    //this.id = request.id;
     if (request) {
       this.id = request.id;
       this.room =request.room;
@@ -75,9 +72,7 @@ export class ServicerequestDetailComponent {
          
     }); 
 
-
     this.route.params.subscribe(params => {
-      console.log("servicerequestID para:" + this.id);
 
       this.buildForm();
 
@@ -85,22 +80,18 @@ export class ServicerequestDetailComponent {
      
         this.setForm();
       if (this.servicerequest == null && this.id > 0) {
-     
-             
         this.servicerequestService.loadByID(this.id).subscribe(results => {
           this.servicerequest = results;
           this.setForm();
         });
       }
     });
-
   }
-  checkRoom(room){
+  selectRoom(room){
     this.room=room
   }
 
   setForm() {
-   
     this.f.serviceId.setValue(this.servicerequest.serviceId);
     this.f.request.setValue(this.servicerequest.request);
     this.f.status.setValue(this.servicerequest.status);
@@ -115,7 +106,6 @@ export class ServicerequestDetailComponent {
       'request': ['', []],
       'status': ['', []]
     });
-
   }
 
   get f() { return this.servicerequestForm.controls; }
@@ -135,10 +125,8 @@ export class ServicerequestDetailComponent {
       admissionNo:  this.room.currentAdmission?this.room.currentAdmission.admissionNo:'0',
       patientName:  this.room.currentAdmission?this.room.currentAdmission.patientName:'0'
     }
-
     // ///////////////////////////////////////////////////
     var observer: Observable<any>;
-
     if (this.id == null || this.id <= 0)
       observer = this.servicerequestService.add(servicerequest);
     else
@@ -146,20 +134,14 @@ export class ServicerequestDetailComponent {
     observer.subscribe(result => {
       this.id = result.id;
       if (result) 
-       
         this.snakbar.open('Service Request saved successfully.', 'Dismise', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
         });
     });
-
   }
-
   revert() {
     this.servicerequestForm.reset();
   }
-
-   
 }
-

@@ -94,7 +94,7 @@ export class DeviceService {
   delete(id: number) {
     console.log("delete: " + id);
 
-    var action = "device/" + id;
+    var action = "devices/" + id;
     return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
@@ -104,7 +104,7 @@ export class DeviceService {
   deleteAll(ids: string) {
     console.log("delete: " + ids);
 
-    var action = "device?ids=" + ids;
+    var action = "devices?ids=" + ids;
     return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;

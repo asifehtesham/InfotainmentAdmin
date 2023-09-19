@@ -25,6 +25,7 @@ import { RoomServiceService } from 'src/app/services/roomService.service';
   templateUrl: './servicerequest-list.component.html',
   styleUrls: ['./servicerequest-list.component.scss']
 })
+
 export class ServicerequestListComponent {
   ServiceStatus = ServiceStatus;
   subscription: Subscription;
@@ -40,7 +41,11 @@ export class ServicerequestListComponent {
   search = new FormControl();
   index: number = 1;
   limit: number = 10;
-  pageTotal: number = 20;
+  pageNumber = 0;
+  pageSize = 10;
+
+  paginatedServices: any = [];
+
   filteredData:any
   services:any
   public loadEmptyMsg: boolean = false;
@@ -57,11 +62,24 @@ export class ServicerequestListComponent {
     this.loadServiceData()
 
   }
-
+  
   loadData() {
     this.servicerequestService.loadData(this.index, this.limit).subscribe(results => {
+      this.paginatedServices=results 
       this.dataSource.data = results;
-      this.filteredData=results
+      // this.filteredData=results
+      this.getData({ pageIndex: this.pageNumber, pageSize: this.pageSize });
+
+    });
+  }
+  getData(obj) {
+    let index = 0,
+      startingIndex = obj.pageIndex * obj.pageSize,
+      endingIndex = startingIndex + obj.pageSize;
+
+    this.filteredData = this.paginatedServices.filter(() => {
+      index++;
+      return (index > startingIndex && index <= endingIndex) ? true : false;
     });
   }
   loadServiceData() {
@@ -95,12 +113,13 @@ export class ServicerequestListComponent {
     }
   }
    
-  page(event) {
+  pages(event) {
     this.index = event.pageIndex + 1;
     this.limit = event.pageSize;
 
     this.loadData();
   }
+  
   chkActive_changed(ambulance: any, $event: MatSlideToggleChange) {
 
     console.log("chkActive_changed: " + ambulance.id);
@@ -126,7 +145,7 @@ export class ServicerequestListComponent {
 
         this.servicerequestService.delete(servicerequest.id).subscribe(params => {
 
-          this.snakbar.open('Record has been deleted successfully.', 'Dismise', {
+          this.snakbar.open('Request has been deleted successfully.', 'Dismise', {
             duration: 3000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
@@ -138,7 +157,7 @@ export class ServicerequestListComponent {
       else {
         Swal.fire(
           'Cancelled',
-          'Your Servicerequest is safe :)',
+          'Your Service Request is safe.',
           'error'
         )
       }
@@ -181,6 +200,7 @@ export class ServicerequestListComponent {
         }
       });
   }
+
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
@@ -195,36 +215,35 @@ export class ServicerequestListComponent {
 
     this.selection.select(...this.dataSource.data);
   }
+
   checkboxLabel(row?: Servicerequest): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
   }
+
   onAdd() {
-
-    console.log("onAdd() ........... trigger");
-
     const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
-      width: '650px',
+      width: '750px',
       data: { id: 0 }
     });
     dialogRef.afterClosed().subscribe(result => {
+      if(result)
       this.loadData();
     });
   }
 
   onEdit(data: any) {
     const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
-      width: '650px',
+      width: '750px',
       data: { id: data.id, servicerequest: data }
     });
     dialogRef.afterClosed().subscribe(result => {
+      if(result)
       this.loadData();
     });
   }
-  reload() { }
-
 
   updateStatus(s,e){
 
@@ -233,10 +252,12 @@ export class ServicerequestListComponent {
     
     this.servicerequestService.update(element).subscribe(result => {
       if (result) {
-        this.snakbar.open('Your status has been updated successfully.', 'Ok', {
-          duration: 2000,
-        });
         this.loadData();
+        this.snakbar.open('Your status has been updated successfully.', 'Ok', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
       }
 
     });

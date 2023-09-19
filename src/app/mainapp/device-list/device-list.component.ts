@@ -101,7 +101,7 @@ export class DeviceListComponent {
 
   }
 
-  ondelete(device: any) {
+  ondelete(device: Device) {
 
     Swal.fire({
       title: 'Are you sure?',

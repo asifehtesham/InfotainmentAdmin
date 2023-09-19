@@ -16,16 +16,14 @@
             </div>
         </div>
     </div>
-    <mat-divider></mat-divider>
-    <!-- <mat-dialog-content> -->
+    <mat-divider></mat-divider> 
     <input type="hidden" id="ID" formControlName="ID" />
     <div fxLayout="column" fxFlexFill>
         <mat-tab-group>
             <mat-tab label="Page Info">
                 <ng-template mat-tab-label> Basic Info </ng-template>
                 <ng-template matTabContent>
-                    <mat-dialog-content>
-                 
+                    <mat-dialog-content> 
                         <div fxLayout="column" fxLayoutAlign="start stretch">
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Select Service</mat-label>
@@ -38,18 +36,16 @@
                             <div fxLayout="column"*ngIf="roomShow" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Select Room</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                <mat-select (selectionChange)="checkRoom($event.value)" placeholder="Select Room">
-                                    <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo}}</mat-option>
+                                <mat-select (selectionChange)="selectRoom($event.value)" placeholder="Select Room">
+                                    <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo }}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
-                            </div>
-
+                            </div> 
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap class="d-none">
                                 <mat-label class="label m-2">Request Status</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                 <mat-select formControlName="status" placeholder="Select status">
-                                    <mat-option *ngFor="let req of requestStatus" [value]="req.id">{{ req.title
-                                    }}</mat-option>
+                                    <mat-option *ngFor="let req of requestStatus" [value]="req.id">{{ req.title }}</mat-option>
                                 </mat-select>
                                 </mat-form-field>
                             </div>
@@ -58,10 +54,8 @@
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                     <textarea id="request" class="input" placeholder="Enter Request"
                                         formControlName="request" required matInput #request></textarea>
-                                     
                                 </mat-form-field>
                             </div>
-
                         </div>
                     </mat-dialog-content>
                 </ng-template>

@@ -1,0 +1,26 @@
+ <div class="m-3">
+    <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px">
+        <div fxFlex>
+            <h5 mat-dialog-title class="title-sub">Add Devices</h5>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+            
+            <button mat-icon-button mat-dialog-close cdkFocusInitial>
+                <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider> 
+
+<div fxLayout="column" fxFlexFill>
+    <mat-tab-group>
+        <mat-tab label="Devices">
+                <ng-template mat-tab-label> Devices </ng-template>
+                <ng-template matTabContent>
+                    <app-roomdevices></app-roomdevices>
+                </ng-template>
+            </mat-tab>
+    </mat-tab-group>
+</div>
+    

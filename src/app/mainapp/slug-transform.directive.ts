@@ -19,8 +19,7 @@ export class SlugTransformDirective {
     if (text.charAt(0) == " ") {
       text = text.trim();
     }
-    if (text.charAt(text.length - 1) == "-") {
-      //text = (text.replace(/-/g, ""));
+    if (text.charAt(text.length - 1) == "-") { 
     }
     text = text.replace(/ +/g, "-");
     text = text.replace(/--/g, "-");
