@@ -50,6 +50,7 @@
             
             <mat-card class="mat-elevation-z8" style="width:95%;padding:10px">
                 <div class="activeIcon">
+                    <a (click)="onAddDevices(room)"><mat-icon matTooltip="Add Devices" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px">devices</mat-icon></a>
                     <a (click)="onEdit(room)"><mat-icon matTooltip="Edit" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px">edit</mat-icon></a>
                     <a (click)="onDelete(room)"><mat-icon matTooltip="Delete" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px;">delete</mat-icon></a>
                     <span *ngIf="room.currentAdmission" class="statusActive"  matTooltip="Reserved" matTooltipPosition="below"></span>

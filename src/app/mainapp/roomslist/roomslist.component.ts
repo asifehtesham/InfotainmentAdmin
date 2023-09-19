@@ -6,7 +6,8 @@ import { RoomsService } from 'src/app/services/rooms.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RoomsDetailComponent } from '../roomsdetail/roomsdetail.component'
 import { PatientRecordComponent } from '../patientrecord/patientrecord.component'
-import { AdmitPatientComponent } from '../admitpatient/admitpatient.component'
+import { AdmitPatientComponent } from '../admitpatient/admitpatient.component';
+import { AddRoomDeviceComponent } from '../addroomdevice/addroomdevice.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 import { ServicerequestDetailComponent } from '../servicerequest-detail/servicerequest-detail.component';
@@ -21,10 +22,10 @@ export class RoomsListComponent {
 
   rooms = [];
   paginatedRooms: any = [];
-  index: number = 1;
-  limit: number = 10;
   roomOptions = ['Active', "Don't Disturb", 'Discharge', 'Admit Patient']
   roomType = ['Patient', 'Admin', 'ICU', 'Surgery', 'Waiting']
+  index: number = 1;
+  limit: number = 10;
   page = 0;
   size = 10;
 
@@ -123,7 +124,7 @@ export class RoomsListComponent {
 
   onEdit(data: any) {
     const dialogRef = this.dialog.open(RoomsDetailComponent, {
-      width: '1050px',
+      width: '750px',
       data: { id: data.id, room: data }
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -177,6 +178,15 @@ export class RoomsListComponent {
     console.log(room)
     const dialogRef = this.dialog.open(AdmitPatientComponent, {
       width: '750px',
+      data: { room: room }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+  onAddDevices(room:Rooms) {
+    const dialogRef = this.dialog.open(AddRoomDeviceComponent, {
+      width: '1050px',
       data: { room: room }
     });
     dialogRef.afterClosed().subscribe(result => {

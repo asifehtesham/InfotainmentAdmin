@@ -92,6 +92,7 @@ import { RoomsListComponent } from './roomslist/roomslist.component';
 import { RoomsDetailComponent } from './roomsdetail/roomsdetail.component';
 import { PatientRecordComponent } from './patientrecord/patientrecord.component';
 import { AdmitPatientComponent } from './admitpatient/admitpatient.component';
+import { AddRoomDeviceComponent } from './addroomdevice/addroomdevice.component';
 import { MagazineDetailComponent } from './magazine-detail/magazine-detail.component';
 import { MagazineListComponent } from './magazine-list/magazine-list.component';
 
@@ -453,6 +454,7 @@ const routes: Routes = [
     RoomsListComponent,
     RoomsDetailComponent,
     AdmitPatientComponent,
+    AddRoomDeviceComponent,
     PatientRecordComponent,
     FloorDetailComponent,
     FloorListComponent,

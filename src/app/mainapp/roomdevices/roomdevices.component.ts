@@ -39,10 +39,11 @@ export class RoomDevicesComponent implements OnInit {
       console.log("devices request");
       console.log(request);
       if (request) {
-        this.roomId = request.id;
+        this.roomId = request.room.id;
       }
     }
   ngOnInit() {
+    // console.log(1)
     this.loadDevices(0,'')
     this.loadNonDevices(0,'')
     this.dataSource = new MatTableDataSource(this.data);
@@ -53,7 +54,7 @@ export class RoomDevicesComponent implements OnInit {
   }
 
   loadDevices(sort,search) {
-    if(this.roomId) {
+    if(this.roomId) { 
       this.roomDevicesService.loadInstalledDevices(this.roomId,sort,search).subscribe(results => {
         console.log("load Devices",results,this.roomId)
 
