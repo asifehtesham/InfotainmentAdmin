@@ -1,203 +1,468 @@
-<div fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all" fxLayoutGap="10px">    
-    <div fxLayout="row" fxLayoutAlign="space-between start" >
-        <app-card-icon class="card_height" fxFlex="15" label="Total Rooms" total="1500" icon="pagelines" color="#43c751"></app-card-icon>
-        <app-card-icon class="card_height" fxFlex="15" label="Users" total="1152" icon="users" color="#fd9833"></app-card-icon>
-        <app-card-icon class="card_height" fxFlex="15" label="Branches" total="6" icon="wrench" color="#746efe"></app-card-icon>
-        <app-card-icon class="card_height" fxFlex="15" label="Active Rooms" total="1200" icon="calendar" color="#ff784d"></app-card-icon> 
-        <app-card-icon class="card_height" fxFlex="15" label="Tv Channels" total="120" icon="feed" color="#ff784h"></app-card-icon> 
-        <app-card-icon class="card_height" fxFlex="15" label="Newspaper" total="36" icon="envelope" color="pink"></app-card-icon> 
-    </div>
+<div fxLayout="row wrap" fxLayoutGap="16px grid">
+  <app-card-icon
+    class="card_height"
+    fxFlex="15"
+    fxFlex.xs="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="25%"
+    label="Total Rooms"
+    total="1500"
+    icon="pagelines"
+    color="#43c751"
+  ></app-card-icon>
 
-    <div fxLayoutGap="10px">
-         <mat-card fxFlex="50" appearance="outlined">
-            <mat-card-content>
-                <label class="title-semi">Patient Admissions (141)</label>
-                <div fxLayoutAlign="stretch">
-                    <app-pie fxFlex="100" [data]="pieChart"></app-pie>    
-                </div>
-            </mat-card-content>
-        </mat-card>
-        <mat-card fxFlex="50" appearance="outlined">
-            <mat-card-content>
-                <label class="title-semi">Menu  (152) Hits</label>
-                <!-- <span class="float-right">Current Rooms</span> -->
-                <br>
-                <div fxLayoutAlign="">
-                    <span class=" mt-1" style="background: rgb(255, 69, 96); color: rgb(255, 69, 96); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
-                    <span class="ml-2">Active Menu (9)</span>
-                    <!-- <span class="mt-1" style="background: rgb(0, 143, 251); color: rgb(0, 143, 251); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
+  <app-card-icon
+    class="card_height"
+    fxFlex="15"
+    fxFlex.xs="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="25%"
+    fxFlex.lg="20%"
+    label="Users"
+    total="1152"
+    icon="users"
+    color="#fd9833"
+  ></app-card-icon>
+
+  <app-card-icon
+    class="card_height"
+    fxFlex="15"
+    fxFlex.xs="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="25%"
+    fxFlex.lg="20%"
+    label="Branches"
+    total="6"
+    icon="wrench"
+    color="#746efe"
+  ></app-card-icon>
+
+  <app-card-icon
+    class="card_height"
+    fxFlex="15"
+    fxFlex.xs="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="25%"
+    fxFlex.lg="20%"
+    label="Active Rooms"
+    total="1200"
+    icon="calendar"
+    color="#ff784d"
+  ></app-card-icon>
+
+  <app-card-icon
+    class="card_height"
+    fxFlex="15"
+    fxFlex.xs="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="25%"
+    fxFlex.lg="20%"
+    label="Tv Channels"
+    total="120"
+    icon="feed"
+    color="#ff784h"
+  ></app-card-icon>
+
+  <app-card-icon
+    class="card_height"
+    fxFlex="15"
+    fxFlex.xs="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="25%"
+    fxFlex.lg="20%"
+    label="Newspaper"
+    total="36"
+    icon="envelope"
+    color="pink"
+  ></app-card-icon>
+</div>
+
+<!-- <div fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all" fxLayoutGap="10px">     -->
+
+<div class="mt-3" fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div 
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="50%"
+    fxFlex.lg="50%"
+    fxLayout="row"
+    fxLayoutAlign.xs="center center"
+  >
+    <mat-card >
+      <mat-card-content>
+        <label class="title-semi">Patient Admissions (141)</label>
+    
+        <div fxLayoutAlign="stretch">
+          <app-pie style="width: 400px; height: 400px;"
+          [data]="pieChart"></app-pie>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="50%"
+    fxFlex.lg="50%"
+    fxLayout="row"
+    fxLayoutAlign.xs="center center"
+  >
+    <mat-card appearance="outlined">
+      <mat-card-content>
+        <label class="title-semi">Menu (152) Hits</label>
+
+        <div fxLayoutAlign="">
+          <span
+            class="mt-1"
+            style="
+              background: rgb(255, 69, 96);
+              color: rgb(255, 69, 96);
+              height: 10px;
+              width: 10px;
+              left: 0px;
+              top: 0px;
+              border-width: 0px;
+              border-color: rgb(255, 255, 255);
+              border-radius: 5px;
+            "
+          ></span>
+          <span class="ml-2">Active Menu (9)</span>
+          <!-- <span class="mt-1" style="background: rgb(0, 143, 251); color: rgb(0, 143, 251); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
                     <span>Do not Distrub (6)</span>
                     <span class="mt-1" style="background: rgb(0, 227, 150); color: rgb(0, 227, 150); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
                     <span>Discharge (2)</span> -->
-                </div> 
-                <mat-label class="label m-2">Menu:</mat-label>
-                <mat-form-field class="ml-2 mt-3 mb-5 w-50" style="height:20px" appearance="outline">
-                    <mat-select (selectionChange)='blogsChart($event.value)' placeholder="Select Menu">
-                        <mat-option *ngFor="let menu of menues" [value]="menu.id">{{menu.title}}</mat-option>    
-                    </mat-select>
-                </mat-form-field>
-                <div fxLayoutAlign="stretch">
-                        <app-bar fxFlex="100" [data]="barChart"></app-bar>
-                    
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div> 
+        </div>
+        <mat-label class="label m-2">Menu:</mat-label>
+        <mat-form-field
+          class="ml-2 mt-3 mb-5 w-50"
+          style="height: 20px"
+          appearance="outline"
+        >
+          <mat-select
+            (selectionChange)="blogsChart($event.value)"
+            placeholder="Select Menu"
+          >
+            <mat-option *ngFor="let menu of menues" [value]="menu.id">{{
+              menu.title
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div fxLayoutAlign="stretch">
+          <app-bar style="width: 400px; height: 400px;" [data]="barChart"></app-bar>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
-        <mat-card fxFlex="50" appearance="outlined">
-            <mat-card-content>
-                <label class="title-semi">POLL RESULTS</label>
-                <div fxLayoutGap="30px">
-                    <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-sm-3 border-right">
-                                <label class="mb-0">Total <br> Polls</label>
-                                <h4 class="font-30 font-weight-bold text-green">12</h4>
-                            </div>
-                            <div class="col-sm-3 border-right">
-                                <label class="mb-0">On Going Polls</label>
-                                <h4 class="font-30 font-weight-bold text-yellow">32</h4>
-                            </div>
-                            <div class="col-sm-3 border-right">
-                                <label class="mb-0">Upcoming Polls</label>
-                                <h4 class="font-30 font-weight-bold text-blue">1</h4>
-                            </div>
-                            <div class="col-sm-3">
-                                <label class="mb-0">Finished Polls</label>
-                                <h4 class="font-30 font-weight-bold text-red">12</h4>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="ml-4 mr-4">
-                        <b>Poll: Who will be winner?
-                            <b class="float-right">2 Votes</b>
-                        </b>
-                        <!-- @foreach($question->options as $option) -->
-                            <div class="clearfix">
-                                <div class="float-left"><strong>12 %</strong></div>
-                                <div class="float-right"><small class="text-muted"> Option A</small></div>
-                            </div>
-                            <div class="progress progress-xs">
-                                <div class="progress-bar bg-green progress-bar-striped active" role="progressbar" aria-valuenow='12' aria-valuemin='0' aria-valuemax='100' style="width: 12%"></div>
-                            </div>
-                            <div class="clearfix">
-                                    <div class="float-left"><strong>50 %</strong></div>
-                                    <div class="float-right"><small class="text-muted"> Option B</small></div>
-                                </div>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar bg-green progress-bar-striped active" role="progressbar" aria-valuenow='50' aria-valuemin='0' aria-valuemax='100' style="width: 50%"></div>
-                                </div>
-                        <!-- @endforeach -->
-                    </div>
-                    <br>
-    
-                    <div class="ml-4 mr-4">
-                            <b>Poll: Who will become PM?
-                                <b class="float-right">4 Votes</b>
-                            </b>
-                            <!-- @foreach($question->options as $option) -->
-                                <div class="clearfix">
-                                    <div class="float-left"><strong>35 %</strong></div>
-                                    <div class="float-right"><small class="text-muted"> Bilawal Bhtto</small></div>
-                                </div>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar bg-green progress-bar-striped active" role="progressbar" aria-valuenow='35' aria-valuemin='0' aria-valuemax='100' style="width: 35%"></div>
-                                </div>
-                                <div class="clearfix">
-                                        <div class="float-left"><strong>75 %</strong></div>
-                                        <div class="float-right"><small class="text-muted"> Imran Khan</small></div>
-                                    </div>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar bg-green progress-bar-striped active" role="progressbar" aria-valuenow='75' aria-valuemin='0' aria-valuemax='100' style="width: 75%"></div>
-                                    </div>
-                                    <div class="clearfix">
-                                            <div class="float-left"><strong>10 %</strong></div>
-                                            <div class="float-right"><small class="text-muted"> Army</small></div>
-                                        </div>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar bg-green progress-bar-striped active" role="progressbar" aria-valuenow='10' aria-valuemin='0' aria-valuemax='100' style="width: 10%"></div>
-                                        </div>
-                            <!-- @endforeach -->
-                    </div>
-                    <br>
-    
-                    <div class="ml-4 mr-4">
-                            <b>Poll: Who will win match?
-                                <b class="float-right">2 Votes</b>
-                            </b>
-                            <!-- @foreach($question->options as $option) -->
-                                <div class="clearfix">
-                                    <div class="float-left"><strong>100 %</strong></div>
-                                    <div class="float-right"><small class="text-muted"> Pakistan</small></div>
-                                </div>
-                                <div class="progress progress-xs">
-                                    <div class="progress-bar bg-green progress-bar-striped active" role="progressbar" aria-valuenow='100' aria-valuemin='0' aria-valuemax='100' style="width: 100%"></div>
-                                </div>
-                                <div class="clearfix">
-                                        <div class="float-left"><strong>0 %</strong></div>
-                                        <div class="float-right"><small class="text-muted"> India</small></div>
-                                    </div>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar bg-green progress-bar-striped active" role="progressbar" aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' style="width: 0%"></div>
-                                    </div>
-                            <!-- @endforeach -->
-                    </div>
-                    <br>
+  
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="50%"
+    fxFlex.lg="50%"
+    fxLayout="row"
+    fxLayoutAlign.xs="center center"
+  >
+    <mat-card >
+      <mat-card-content style="width: 425px; height: 600px;">
 
-                </div>
-                <!-- <div fxLayoutAlign="stretch">  
+        
+        <label class="title-semi">POLL RESULTS</label>
+        <div fxLayoutGap="30px">
+          <div class="card-body">
+            <div class="row text-center">
+              <div class="col-sm-3 border-right">
+                <label class="mb-0"
+                  >Total <br />
+                  Polls</label
+                >
+                <h4 class="font-30 font-weight-bold text-green">12</h4>
+              </div>
+              <div class="col-sm-3 border-right">
+                <label class="mb-0">On Going Polls</label>
+                <h4 class="font-30 font-weight-bold text-yellow">32</h4>
+              </div>
+              <div class="col-sm-3 border-right">
+                <label class="mb-0">Upcoming Polls</label>
+                <h4 class="font-30 font-weight-bold text-blue">1</h4>
+              </div>
+              <div class="col-sm-3">
+                <label class="mb-0">Finished Polls</label>
+                <h4 class="font-30 font-weight-bold text-red">12</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="ml-4 mr-4">
+            <b
+              >Poll: Who will be winner?
+              <b class="float-right">2 Votes</b>
+            </b>
+            <!-- @foreach($question->options as $option) -->
+            <div class="clearfix">
+              <div class="float-left"><strong>12 %</strong></div>
+              <div class="float-right">
+                <small class="text-muted"> Option A</small>
+              </div>
+            </div>
+            <div class="progress progress-xs">
+              <div
+                class="progress-bar bg-green progress-bar-striped active"
+                role="progressbar"
+                aria-valuenow="12"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 12%"
+              ></div>
+            </div>
+            <div class="clearfix">
+              <div class="float-left"><strong>50 %</strong></div>
+              <div class="float-right">
+                <small class="text-muted"> Option B</small>
+              </div>
+            </div>
+            <div class="progress progress-xs">
+              <div
+                class="progress-bar bg-green progress-bar-striped active"
+                role="progressbar"
+                aria-valuenow="50"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 50%"
+              ></div>
+            </div>
+            <!-- @endforeach -->
+          </div>
+          <br />
+
+          <div class="ml-4 mr-4">
+            <b
+              >Poll: Who will become PM?
+              <b class="float-right">4 Votes</b>
+            </b>
+            <!-- @foreach($question->options as $option) -->
+            <div class="clearfix">
+              <div class="float-left"><strong>35 %</strong></div>
+              <div class="float-right">
+                <small class="text-muted"> Bilawal Bhtto</small>
+              </div>
+            </div>
+            <div class="progress progress-xs">
+              <div
+                class="progress-bar bg-green progress-bar-striped active"
+                role="progressbar"
+                aria-valuenow="35"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 35%"
+              ></div>
+            </div>
+            <div class="clearfix">
+              <div class="float-left"><strong>75 %</strong></div>
+              <div class="float-right">
+                <small class="text-muted"> Imran Khan</small>
+              </div>
+            </div>
+            <div class="progress progress-xs">
+              <div
+                class="progress-bar bg-green progress-bar-striped active"
+                role="progressbar"
+                aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 75%"
+              ></div>
+            </div>
+            <div class="clearfix">
+              <div class="float-left"><strong>10 %</strong></div>
+              <div class="float-right">
+                <small class="text-muted"> Army</small>
+              </div>
+            </div>
+            <div class="progress progress-xs">
+              <div
+                class="progress-bar bg-green progress-bar-striped active"
+                role="progressbar"
+                aria-valuenow="10"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 10%"
+              ></div>
+            </div>
+            <!-- @endforeach -->
+          </div>
+          <br />
+
+          <div class="ml-4 mr-4">
+            <b
+              >Poll: Who will win match?
+              <b class="float-right">2 Votes</b>
+            </b>
+            <!-- @foreach($question->options as $option) -->
+            <div class="clearfix">
+              <div class="float-left"><strong>100 %</strong></div>
+              <div class="float-right">
+                <small class="text-muted"> Pakistan</small>
+              </div>
+            </div>
+            <div class="progress progress-xs">
+              <div
+                class="progress-bar bg-green progress-bar-striped active"
+                role="progressbar"
+                aria-valuenow="100"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 100%"
+              ></div>
+            </div>
+            <div class="clearfix">
+              <div class="float-left"><strong>0 %</strong></div>
+              <div class="float-right">
+                <small class="text-muted"> India</small>
+              </div>
+            </div>
+            <div class="progress progress-xs">
+              <div
+                class="progress-bar bg-green progress-bar-striped active"
+                role="progressbar"
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style="width: 0%"
+              ></div>
+            </div>
+            <!-- @endforeach -->
+          </div>
+          <br />
+        </div>
+        <!-- <div fxLayoutAlign="stretch">  
                 </div>  -->
-            </mat-card-content>
-        </mat-card>
-        <mat-card fxFlex="50" appearance="outlined">
-            <mat-card-content>
-                <label class="title-semi">Home Page  (2) Views</label>
-                <span class="float-right">TRENDING PAGE</span>
-                <br>
-                <div fxLayoutAlign="space-between">
-                    <span class=" mt-1" style="background: rgb(255, 69, 96); color: rgb(255, 69, 96); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
-                    <span>Unique Users (9)</span>
-                    <span class="mt-1" style="background: rgb(0, 143, 251); color: rgb(0, 143, 251); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
-                    <span>Non Auth Users (6)</span>
-                    <span class="mt-1" style="background: rgb(0, 227, 150); color: rgb(0, 227, 150); height: 10px; width: 10px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 5px;"></span>
-                    <span>Auth Users (2)</span>
-                </div> 
-                <mat-label class="label m-2">Pages:</mat-label>
-                <mat-form-field class="ml-2 mt-3 mb-5 w-50" style="height:20px" appearance="outline">
-                    <mat-select (selectionChange)='pageChart($event.value)' placeholder="Select Page">
-                        <mat-option *ngFor="let page of pages" [value]="page.id">{{page.title}}</mat-option>    
-                    </mat-select>
-                </mat-form-field>
-                <div fxLayoutAlign="stretch">
-                    <app-area fxFlex="100" [data]="bigChart"></app-area>
-                </div>
-            </mat-card-content>
-        </mat-card>
-    </div>  
- 
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="10px">
-            <mat-card fxFlex="50" appearance="outlined">
-               <mat-card-content>
-                   <label class="title-semi">Channels  (2) Hits</label> 
-                   <br>
-                   
-                   <mat-label class="label m-2">Channels:</mat-label>
-                   <mat-form-field class="ml-2 mt-3 mb-5 w-50" style="height:20px" appearance="outline">
-                       <mat-select placeholder="Select Channel">
-                           <mat-option *ngFor="let menu of menues" [value]="menu.id">{{menu.title}}</mat-option>    
-                       </mat-select>
-                   </mat-form-field>
-                   <div fxLayoutAlign="stretch">
-                           <app-bar fxFlex="100" fxFlex="100" [data]="barChannelsChart"></app-bar>
-                       
-                   </div>
-               </mat-card-content>
-           </mat-card>
-       </div> 
-    <mat-divider></mat-divider>
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="50%"
+    fxFlex.lg="50%"
+    fxLayout="row"
+    fxLayoutAlign.xs="center center"
+  >
+    <mat-card >
+      <mat-card-content>
+        <label class="title-semi">Home Page (2) Views</label>
+        <span class="float-right">TRENDING PAGE</span>
+        <br />
+        <div fxLayoutAlign="space-between">
+          <span
+            class="mt-1"
+            style="
+              background: rgb(255, 69, 96);
+              color: rgb(255, 69, 96);
+              height: 10px;
+              width: 10px;
+              left: 0px;
+              top: 0px;
+              border-width: 0px;
+              border-color: rgb(255, 255, 255);
+              border-radius: 5px;
+            "
+          ></span>
+          <span>Unique Users (9)</span>
+          <span
+            class="mt-1"
+            style="
+              background: rgb(0, 143, 251);
+              color: rgb(0, 143, 251);
+              height: 10px;
+              width: 10px;
+              left: 0px;
+              top: 0px;
+              border-width: 0px;
+              border-color: rgb(255, 255, 255);
+              border-radius: 5px;
+            "
+          ></span>
+          <span>Non Auth Users (6)</span>
+          <span
+            class="mt-1"
+            style="
+              background: rgb(0, 227, 150);
+              color: rgb(0, 227, 150);
+              height: 10px;
+              width: 10px;
+              left: 0px;
+              top: 0px;
+              border-width: 0px;
+              border-color: rgb(255, 255, 255);
+              border-radius: 5px;
+            "
+          ></span>
+          <span>Auth Users (2)</span>
+        </div>
+        <mat-label class="label m-2">Pages:</mat-label>
+        <mat-form-field
+          class="ml-2 mt-3 mb-5 w-50"
+          style="height: 20px"
+          appearance="outline"
+        >
+          <mat-select
+            (selectionChange)="pageChart($event.value)"
+            placeholder="Select Page"
+          >
+            <mat-option *ngFor="let page of pages" [value]="page.id">{{
+              page.title
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div fxLayoutAlign="stretch">
+          <app-area style="width: 400px; height: 400px;"  [data]="bigChart"></app-area>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
-    <br>
+  <div
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="50%"
+    fxFlex.lg="50%"
+    fxLayout="row"
+    fxLayoutAlign.xs="center center"
+  >
+    <mat-card >
+      <mat-card-content>
+        <label class="title-semi">Channels (2) Hits</label>
+        <br />
+
+        <mat-label class="label m-2">Channels:</mat-label>
+        <mat-form-field
+          class="ml-2 mt-3 mb-5 w-50"
+          style="height: 20px"
+          appearance="outline"
+        >
+          <mat-select placeholder="Select Channel">
+            <mat-option *ngFor="let menu of menues" [value]="menu.id">{{
+              menu.title
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div fxLayoutAlign="stretch">
+          <app-bar style="width: 400px; height: 400px;"
+            [data]="barChannelsChart"
+          ></app-bar>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+
+  
 </div>
+
+<mat-divider></mat-divider>
+
+<br />
+<!-- </div> -->

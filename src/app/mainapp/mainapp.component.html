@@ -46,13 +46,19 @@
                         <!-- <cdk-toolbar [sidenav]="sidenav" [drawer]="drawer" [sidebar]="sidenav2" [matDrawerShow]="matDrawerShow" style="z-index: 500"></cdk-toolbar> -->
 
 
-                        <perfect-scrollbar psScrollable fxLayout="column"
+                        <!-- <perfect-scrollbar psScrollable fxLayout="column"
                             style="height: calc(100% - 70px); padding:0px ;">
-                            <div fxFlex style="margin: 0 0px;">
-                                <router-outlet></router-outlet>
-                            </div>
+                        </perfect-scrollbar> -->
 
-                        </perfect-scrollbar>
+
+                        <div fxLayout="column" >
+                        
+                        <div fxFlex  style="margin: 0 0px;">
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+
+
                     </mat-drawer-content>
                 </mat-drawer-container>
             </mat-drawer-content>

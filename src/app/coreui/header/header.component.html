@@ -6,10 +6,18 @@
             <mat-icon>menu</mat-icon>
         </button>
         <mat-divider></mat-divider> -->
-        <span class="page-title">
+
+        <button fxHide.md fxHide.lg fxHide.sm mat-icon-button (click)="toggleSideBar()" class="headerButton">
+            <mat-icon>menu</mat-icon>
+        </button>
+        
+
+        <span fxHide.xs class="page-title">
             <!-- <img src="./assets/hmg.png" width="60px"> -->
             INFOTAINMENT
         </span>
+
+        
         
         <!-- <mat-form-field id="search" appearance="" class="ml-5">
             <input placeholder="Search" style="height:0%" minlength="2" matInput #search>
@@ -57,25 +65,47 @@
                     </mat-menu>
                 </li>
 
-                <li>
-                    <button mat-icon-button (click)="changeLocale()" class="icon-button">
-                        <!-- <mat-icon matBadge="" matBadgeColor="warn">notifications</mat-icon> -->
-                        <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa"
-                            fontIcon="fa-envelope"></mat-icon>
 
+                <li fxHide.md fxHide.lg fxHide.sm   >
+                    <button mat-button [matMenuTriggerFor]="language1" class="headerButton">
+                        <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+                        Menu </button>
+                        
+                    <mat-menu #language1="matMenu">
+                        <button mat-menu-item  (click)="changeLocale()" >
+                        <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa"
+                                fontIcon="fa-envelope"></mat-icon> <p>Messages</p>
+                        </button>
+
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item  (click)="changeLocale()" >
+                            <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa" fontIcon="fa-bell">
+                            </mat-icon> Notifications
+                        </button>
+
+                        
+                        <mat-divider></mat-divider>
+                        <button mat-menu-item (click)="signout()">
+                            <mat-icon>exit_to_app</mat-icon>
+                            Log out
+                        </button>
+                    </mat-menu>
+                </li>
+
+                <li fxHide.xs>
+                    <button mat-icon-button (click)="changeLocale()" class="icon-button">
+                     <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa"
+                            fontIcon="fa-envelope"></mat-icon>
                     </button>
                 </li>
-                <li>
+                <li fxHide.xs>
                     <button mat-icon-button (click)="changeLocale()" class="icon-button">
-                        <!-- <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon> -->
                         <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa" fontIcon="fa-bell"></mat-icon>
                     </button>
                 </li>
-                <li>
+                <li fxHide.xs>
                     <button mat-icon-button [matMenuTriggerFor]="menu" class="icon-button">
-                        <!-- <mat-icon class="custom-icon" fontSet="fa" fontIcon="fa-user-circle"></mat-icon> -->
                         <mat-icon matBadgeColor="warn" class="fa fa-normal" fontSet="fa" fontIcon="fa-user"></mat-icon>
-                        <!-- <i class="fa-solid fa-circle-user"></i> -->
                     </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="signout()">

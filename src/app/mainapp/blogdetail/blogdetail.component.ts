@@ -86,14 +86,26 @@ export class BlogdetailComponent {
      place_holder : "I'm a placeholder var, check the code"
     },
     {
-      label:'placeholder 2',
+      label:'aspTextbox',
       type : 'placeholder-var1',
+      value : '<asp:Textbox ID="{}" width="{}"></asp:Textbox>',
+      place_holder : "<input></input>"
+     },
+     {
+      label:'aspGrid',
+      type : 'placeholder-var2',
+      value : '<asp:Gridbox ID="{}" width="{}"></asp:Gridbox>',
+      place_holder : "<div class='gjs-row'><div class='gjs-cell'>Long text</div><div class='gjs-cell'></div><div class='gjs-cell'></div></div>"
+     },
+    {
+      label:'placeholder 2',
+      type : 'placeholder-var3',
       value : '{{ SOME_VAR_EXAMPLE_21 }}',
-      place_holder : "I'm a placeholder var, check the code1"
+      place_holder : " 111 I'm a placeholder var, check the code1"
      },
      {
       label:'placeholder 3',
-      type : 'placeholder-var2',
+      type : 'placeholder-var4',
       value : '{{ SOME_VAR_EXAMPLE_2 }}',
       place_holder : "I'm a placeholder var, check the code2"
      }        

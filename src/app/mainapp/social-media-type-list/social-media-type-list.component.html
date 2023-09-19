@@ -1,23 +1,48 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
 
+
+    <mat-card>
+        <mat-card-content>
+
+            <div fxLayout="row wrap" fxLayoutGap="16px grid">
+                <div
+                  fxFlex.xs="100%"
+                  fxFlex.sm="50%"
+                  fxFlex.md="50%"
+                  fxFlex.lg="50%"
+                  fxLayout="row" fxLayoutAlign.xs="center center"
+                >
+                <div class="page-sub-title">
+                    Social Media Type LIST
+                </div>
+                </div>
+
+                     <div
+                      fxFlex.xs="100%"
+                      fxFlex.sm="50%"
+                      fxFlex.md="50%"
+                      fxFlex.lg="50%"
+                      fxLayout="row" fxLayoutAlign.xs="center center"
+                    >
+                    <a mat-button mat-flat-button color="warn" (click)="onAdd()">
+                        <mat-icon>add</mat-icon> Add
+                    </a>
+                    &nbsp;
+                    <button mat-button mat-flat-button color="warn" (click)="onRemoveAll()">
+                        <mat-icon>delete</mat-icon> Delete
+                    </button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+
+
     <mat-card>
         <mat-card-content>
 
             <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
-                <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
-                    <div class="page-sub-title">
-                        Social Media Type LIST
-                    </div>
-                    <div>
-                        <a mat-button mat-flat-button color="warn" (click)="onAdd()">
-                            <mat-icon>add</mat-icon> Add
-                        </a>
-                        &nbsp;
-                        <button mat-button mat-flat-button color="warn" (click)="onRemoveAll()">
-                            <mat-icon>delete</mat-icon> Delete
-                        </button>
-                    </div>
-                </div>
+          
                 <div fxLayout="column" fxLayoutAlign="start stretch">
                     <div>
                         <ng-container *ngIf="dataSource.filteredData.length > 0 else loading">
