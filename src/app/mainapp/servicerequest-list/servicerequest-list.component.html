@@ -1,32 +1,82 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
   <mat-card>
     <mat-card-content>
-      <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+      <!-- <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+         -->
+
+
+
+
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+          <div
+            fxFlex.xs="100%"
+            fxFlex.sm="50%"
+            fxFlex.md="50%"
+            fxFlex.lg="50%"
+            fxLayout="row" fxLayoutAlign.xs="center center"
+          >
+          
+                <div class="page-sub-title">Service Request LIST 
+                <button mat-button style="cursor:pointer;color:cornflowerblue;margin-right:6px" (click)="showFilter=!showFilter">
+                  <mat-icon>search</mat-icon></button>
+                </div>
+          </div>
         
-        <div fxLayout="row"
-          fxLayoutAlign="space-between center"
-          style="height: 40px">
-          <div class="page-sub-title">Service Request List</div>
-          <div>
-            <button mat-button style="cursor:pointer;color:cornflowerblue;margin-right:6px" (click)="showFilter=!showFilter">
-              <mat-icon>search</mat-icon>
-              Advanced Filters</button>
-            <a mat-button mat-flat-button color="warn" (click)="onAdd()">
+
+
+
+
+          <div fxFlex.xs="100%"
+              fxFlex.sm="50%"
+              fxFlex.md="50%"
+              fxFlex.lg="50%"
+              fxLayout="row" fxLayoutAlign.xs="center center"
+              fxLayoutAlign.sm="end start"
+              fxLayoutAlign.md="end start"
+              fxLayoutAlign.lg="end start">
+            
+            <a mat-button  mat-flat-button color="warn" (click)="onAdd()">
               <mat-icon>add</mat-icon> Add
             </a>
-            &nbsp;
+
             <button
               mat-button
               mat-flat-button
               color="warn"
               (click)="onRemoveAll()"
+              class="ml-2"
             >
               <mat-icon>delete</mat-icon> Delete
             </button>
+
           </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
         <div class="filter" *ngIf="showFilter">
-            <mat-form-field appearance="outline" style="width:18%">
+
+
+          
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+          <div
+            fxFlex.xs="100%"
+            fxFlex.sm="50%"
+            fxFlex.md="33%"
+            fxFlex.lg="33%"
+            fxLayout="row" fxLayoutAlign.xs="center center"
+          >
+
+
+            <mat-form-field appearance="outline" >
                 <input type="text" id="roomNoSearch" class="input" placeholder="Search by Room No"
                     matInput #roomNoSearch (keyup)="searchRoom($event.target['value'])"/>
                 <a mat-button *ngIf="roomNoSearch.value" matSuffix md-button
@@ -34,15 +84,59 @@
                     <mat-icon>close</mat-icon>
                 </a>
             </mat-form-field>
+
+            </div>
+
+
+            <!-- <div
+            fxFlex.xs="100%"
+            fxFlex.sm="100%"
+            fxFlex.md="50%"
+            fxFlex.lg="50%"
+            fxLayout="row" fxLayoutAlign.xs="center center"
+          >
             <mat-label class="label ml-2">Service:</mat-label>
-            <mat-form-field class="ml-2" appearance="outline">
+
+            </div> -->
+
+
+
+            <div
+            fxFlex.xs="100%"
+            fxFlex.sm="50%"
+            fxFlex.md="33%"
+            fxFlex.lg="33%"
+            fxLayout="row" fxLayoutAlign.xs="center center"
+          >
+
+            <mat-form-field  appearance="outline">
                 <mat-select (selectionChange)='filterService($event.value)' placeholder="Select Service">
                     <mat-option value="">All</mat-option>                                      
                       <mat-option *ngFor="let service of services" [(value)]="service.id">{{service.title}}</mat-option>  
                 </mat-select>
             </mat-form-field>
+
+            </div>
+
+
+            <!-- <div
+            fxFlex.xs="100%"
+            fxFlex.sm="100%"
+            fxFlex.md="50%"
+            fxFlex.lg="50%"
+            fxLayout="row" fxLayoutAlign.xs="center center"
+          >
             <mat-label class="label ml-2">Request Status:</mat-label>
-            <mat-form-field class="ml-2" appearance="outline">
+            </div> -->
+
+            
+            <div
+            fxFlex.xs="100%"
+            fxFlex.sm="50%"
+            fxFlex.md="33%"
+            fxFlex.lg="33%"
+            fxLayout="row" fxLayoutAlign.xs="center center" >
+            <mat-form-field  appearance="outline">
                 <mat-select (selectionChange)='reqStatus($event.value)' placeholder="Select Request Status">
                     <mat-option value="">All</mat-option>                                      
                     <mat-option value="0"> Pending</mat-option>
@@ -51,9 +145,16 @@
                     <mat-option value="3"> Rejected</mat-option>
                         
                 </mat-select>
-            </mat-form-field>
-        </div>
-      </div>
+              </mat-form-field>
+            </div>
+
+
+            </div>
+          </div>
+
+  
+
+
     </mat-card-content>
   </mat-card>
   <mat-card class="mt-3">

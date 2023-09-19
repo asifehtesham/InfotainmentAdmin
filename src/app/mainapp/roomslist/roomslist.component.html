@@ -1,105 +1,269 @@
-<div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
+<div
+  fxFlex
+  fxLayout="column"
+  fxLayoutAlign="space-between stretch"
+  class="content-container-all"
+>
+
+
     <mat-card>
         <mat-card-content>
-            <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
-                <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
-                    <div class="page-sub-title" fxLayoutAlign="space-between center" >
-                        Rooms List
-                        <mat-form-field fxLayout="column" class="full-width ml-5 mr-2 " fxFlex appearance="outline">
-                            <input type="text" id="roomNoSearch" class="input" placeholder="Search by Room ID"
-                                matInput #roomNoSearch (keyup)="searchRoom($event.target['value'])"/>
-                            <a mat-icon-button *ngIf="roomNoSearch.value" matSuffix md-icon-button
-                                aria-label="Clear" (click)="roomNoSearch.value = ''">
-                                <mat-icon>close</mat-icon>
-                            </a>
-                        </mat-form-field>
-                        <!-- <mat-label class="label ml-3 ">Room Options</mat-label>
-                        <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
-                            <mat-select (selectionChange)='onRoomOptionChange($event.value)' value="">
-                                    <mat-option value="">All</mat-option>                                                                      
-                                <mat-option *ngFor="let option of roomOptions" [value]="option">{{option}}</mat-option>      
-                            </mat-select>
-                        </mat-form-field> -->
+
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+           
+              <div
+              fxFlex="100%"
+              fxFlex.xs="100%"
+              fxFlex.sm="20%"
+              fxFlex.md="10%"
+              fxFlex.lg="10%"   
+            >
+              <mat-label class="label mr-3">Room List</mat-label>
+
+              </div>
 
 
-                        <mat-label class="label ml-3 ">Room Type</mat-label>
-                        <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
-                            <mat-select (selectionChange)='onRoomTypeChange($event.value)' value="">
-                                <mat-option value="">All</mat-option>                                      
-                                <mat-option *ngFor="let type of roomType" [value]="type">{{type}}</mat-option>      
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div>
-                    
-                        <button mat-button mat-flat-button color="warn" (click)="onAdd()">
-                            <mat-icon>add</mat-icon> Add
-                        </button>
-                        
-                    </div>
-                </div>
-                 
-            </div>
 
-        </mat-card-content>
+              <div
+              fxFlex="100%"
+              fxFlex.xs="100%"
+              fxFlex.sm="80%"
+              fxFlex.md="30%"
+              fxFlex.lg="30%"   
+            >
+              <mat-form-field
+                fxLayout="column"
+                class="full-width "
+                fxFlex
+                appearance="outline"
+              >
+                <input
+                  type="text"
+                  id="roomNoSearch"
+                  class="input"
+                  placeholder="Search by Room ID"
+                  matInput
+                  #roomNoSearch
+                  (keyup)="searchRoom($event.target['value'])"
+                />
+                <a
+                  mat-icon-button
+                  *ngIf="roomNoSearch.value"
+                  matSuffix
+                  md-icon-button
+                  aria-label="Clear"
+                  (click)="roomNoSearch.value = ''"
+                >
+                  <mat-icon>close</mat-icon>
+                </a>
+              </mat-form-field>
+
+              </div>
+
+
+
+
+              <div
+              fxFlex="100%"
+              fxFlex.xs="100%"
+              fxFlex.sm="20%"
+              fxFlex.md="10%"
+              fxFlex.lg="10%">
+              <mat-label class="label mr-1">Room Type</mat-label>
+              </div>
+
+
+              
+              <div
+              fxFlex="100%"
+              fxFlex.xs="100%"
+              fxFlex.sm="80%"
+              fxFlex.md="30%"
+              fxFlex.lg="30%">
+              <mat-form-field
+                fxLayout="column"
+                class="full-width"
+                fxFlex
+                appearance="outline"
+              >
+                <mat-select
+                  (selectionChange)="onRoomTypeChange($event.value)"
+                  value=""
+                >
+                  <mat-option value="">All</mat-option>
+                  <mat-option *ngFor="let type of roomType" [value]="type">{{
+                    type
+                  }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              </div>
+
+            <!-- </div> -->
+            <!-- <div> -->
+
+
+
+                <div
+                fxFlex="100%"
+                fxFlex.xs="100%"
+                fxFlex.sm="100%"
+                fxFlex.md="20%"
+                fxFlex.lg="20%"
+                fxLayout="row" fxLayoutAlign.xs="center center"
+                fxLayoutAlign.sm="end start" 
+              >
+
+              <button mat-button mat-flat-button color="warn" (click)="onAdd()">
+                <mat-icon>add</mat-icon> Add
+              </button>
+
+              </div>
+
+
+            <!-- </div> -->
+          </div>
+
+
+        </mat-card-content>          
     </mat-card>
 
-    <mat-grid-list *ngIf="rooms.length > 0 else loading" class="mt-3" cols="4" rowHeight="9:5">
-        <mat-grid-tile  *ngFor="let room of rooms">
-            
-            
-            <mat-card class="mat-elevation-z8" style="width:95%;padding:10px">
-                <div class="activeIcon">
-                    <a (click)="onAddDevices(room)"><mat-icon matTooltip="Add Devices" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px">devices</mat-icon></a>
-                    <a (click)="onEdit(room)"><mat-icon matTooltip="Edit" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px">edit</mat-icon></a>
-                    <a (click)="onDelete(room)"><mat-icon matTooltip="Delete" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px;">delete</mat-icon></a>
-                    <span *ngIf="room.currentAdmission" class="statusActive"  matTooltip="Reserved" matTooltipPosition="below"></span>
-                    <span *ngIf="!room.currentAdmission" class="statusNotActive"  matTooltip="Empty" matTooltipPosition="below"></span>
-                </div>
-                <div style="cursor:pointer; margin-left:5%">
-                    <mat-card-title class="page-sub-title">{{room.roomNo}}</mat-card-title>
-                    <mat-card-subtitle>{{room.roomType}}</mat-card-subtitle>
-                    <mat-card-subtitle>{{room.branch.title}}</mat-card-subtitle> 
-                </div>
-                <mat-card-content>
-                </mat-card-content>
-                <mat-card-actions >
-                    <button *ngIf="room.currentAdmission" mat-button (click)="checkPatientRecord(room)"  matTooltip="View Patient" matTooltipPosition="below">
-                        <mat-icon>local_hotel</mat-icon>
-                    </button>
-                    <button mat-button *ngIf="room.currentAdmission"  matTooltip="Don't Disturb" matTooltipPosition="below">
-                        <mat-icon>do_not_disturb_on_total_silence</mat-icon>
-                    </button>
-                    <button mat-button *ngIf="room.currentAdmission" matTooltip="Discharge" matTooltipPosition="below">
-                        <mat-icon>space-shuttle</mat-icon>
-                    </button>
-                    
-                    <button (click)="onAdmitPatient(room)" *ngIf="!room.currentAdmission" mat-button matTooltip="Admit Patient" matTooltipPosition="below">
-                        <mat-icon>spatial_audio_off</mat-icon>
-                    </button>
-                    <button *ngIf="!room.currentAdmission" mat-button matTooltip="Call" matTooltipPosition="below">
-                        <mat-icon>phone</mat-icon>
-                    </button>
+  <!-- <mat-grid-list *ngIf="rooms.length > 0 else loading" class="mt-3" cols="4" rowHeight="9:5"> -->
+  <!-- <mat-grid-tile  *ngFor="let room of rooms"> -->
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div
+        fxFlex="25%"
+        fxFlex.xs="100%"
+        fxFlex.sm="50%"
+        fxFlex.md="33%"
+        fxFlex.lg="25%"
+        *ngFor="let room of rooms"
+      >
+        <mat-card class="mat-elevation-z4">
+          <div class="activeIcon">
+            <a (click)="onAddDevices(room)">
+              <mat-icon matTooltip="Add Devices" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px">devices</mat-icon>
+            </a>
+            <a (click)="onEdit(room)"
+              ><mat-icon
+                matTooltip="Edit"
+                matTooltipPosition="below"
+                style="font-size: large; cursor: pointer; margin-right: 10px"
+                >edit</mat-icon
+              ></a
+            >
+            <a (click)="onDelete(room)"
+              ><mat-icon
+                matTooltip="Delete"
+                matTooltipPosition="below"
+                style="font-size: large; cursor: pointer; margin-right: 10px"
+                >delete</mat-icon
+              ></a
+            >
+            <span
+              *ngIf="room.currentAdmission"
+              class="statusActive"
+              matTooltip="Reserved"
+              matTooltipPosition="below"
+            ></span>
+            <span
+              *ngIf="!room.currentAdmission"
+              class="statusNotActive"
+              matTooltip="Empty"
+              matTooltipPosition="below"
+            ></span>
+          </div>
+          <mat-card-content>
+            <div style="cursor: pointer; margin-left: 5%">
+              <mat-card-title class="page-sub-title">{{
+                room.roomNo
+              }}</mat-card-title>
+              <mat-card-subtitle>{{ room.roomType }}</mat-card-subtitle>
+              <mat-card-subtitle>{{ room.branch.title }}</mat-card-subtitle>
+            </div>
+          </mat-card-content>
 
-                    <button  mat-button matTooltip="Requests" (click)="showServiceRequests(room)" matTooltipPosition="below">
-                        <mat-icon *ngIf="room.serviceRequest.length >=1"  matBadge="{{room.serviceRequest.length}}" matBadgeColor="warn">notifications</mat-icon>
-                        <mat-icon *ngIf="room.serviceRequest.length ==0" >notifications</mat-icon>
-                    </button>    
-                </mat-card-actions>
-            </mat-card>
+          <mat-card-actions>
+            <button
+              *ngIf="room.currentAdmission"
+              mat-button
+              (click)="checkPatientRecord(room)"
+              matTooltip="View Patient"
+              matTooltipPosition="below"
+            >
+              <mat-icon>local_hotel</mat-icon>
+            </button>
+            <button
+              mat-button
+              *ngIf="room.currentAdmission"
+              matTooltip="Don't Disturb"
+              matTooltipPosition="below"
+            >
+              <mat-icon>do_not_disturb_on_total_silence</mat-icon>
+            </button>
+            <button
+              mat-button
+              *ngIf="room.currentAdmission"
+              matTooltip="Discharge"
+              matTooltipPosition="below"
+            >
+              <mat-icon>space-shuttle</mat-icon>
+            </button>
 
-        </mat-grid-tile>
+            <button
+              (click)="onAdmitPatient(room)"
+              *ngIf="!room.currentAdmission"
+              mat-button
+              matTooltip="Admit Patient"
+              matTooltipPosition="below"
+            >
+              <mat-icon>spatial_audio_off</mat-icon>
+            </button>
+            <button
+              *ngIf="!room.currentAdmission"
+              mat-button
+              matTooltip="Call"
+              matTooltipPosition="below"
+            >
+              <mat-icon>phone</mat-icon>
+            </button>
 
-    </mat-grid-list>
+            <button
+              mat-button
+              matTooltip="Requests"
+              (click)="showServiceRequests(room)"
+              matTooltipPosition="below"
+            >
+              <mat-icon
+                *ngIf="room.serviceRequest.length >= 1"
+                matBadge="{{ room.serviceRequest.length }}"
+                matBadgeColor="warn"
+                >notifications</mat-icon
+              >
+              <mat-icon *ngIf="room.serviceRequest.length == 0"
+                >notifications</mat-icon
+              >
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  <!-- </mat-grid-tile> -->
 
-    <mat-paginator [length]="paginatedRooms.length"
-        [pageSize]="size"
-        [pageIndex]="page"
-        [pageSizeOptions]="[5, 10, 50, 100]"
-        (page)="getData($event)">
-    </mat-paginator>
+  <!-- </mat-grid-list> -->
 
-    <ng-template #loading>
-        <app-loading align="center"></app-loading>
-    </ng-template> 
+  <mat-paginator
+    [length]="paginatedRooms.length"
+    [pageSize]="size"
+    [pageIndex]="page"
+    [pageSizeOptions]="[5, 10, 50, 100]"
+    (page)="getData($event)"
+  >
+  </mat-paginator>
+
+  <ng-template #loading>
+    <app-loading align="center"></app-loading>
+  </ng-template>
 </div>

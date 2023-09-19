@@ -1,35 +1,49 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="space-between stretch" class="content-container-all">
 
+
+
     <mat-card>
         <mat-card-content>
 
-            <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
-                <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+            <div fxLayout="row wrap" fxLayoutGap="16px grid">
+                <div
+                  fxFlex.xs="100%"
+                  fxFlex.sm="50%"
+                  fxFlex.md="50%"
+                  fxFlex.lg="50%"
+                  fxLayout="row" fxLayoutAlign.xs="center center"
+                >
                     <div class="page-sub-title">
                         Service LIST
                     </div>
-                    <div>
-                        <a mat-button mat-flat-button color="warn" (click)="onAdd()">
-                            <mat-icon>add</mat-icon> Add
-                        </a>
-                        &nbsp;
-                        <button mat-button mat-flat-button color="warn" (click)="onRemoveAll()">
-                            <mat-icon>delete</mat-icon> Delete
-                        </button>
-                    </div>
                 </div>
-                <div fxLayout="column" fxLayoutAlign="start stretch">
-                    <!-- <mat-form-field>
-                        <mat-label>Filter</mat-label>
-                        <input matInput placeholder="" #searchInput [formControl]="search">
 
-                        <!-- <mat-icon matSuffix>mode_search</mat-icon> -- >
-                    <mat-icon matPrefix fontSet="fa" fontIcon="fa-search"></mat-icon>
-                    <button mat-button *ngIf="searchInput.value" matSuffix md-icon-button aria-label="Clear"
-                        (click)="reload()">
-                        <mat-icon>close</mat-icon>
+                <div
+                  fxFlex.xs="100%"
+                  fxFlex.sm="50%"
+                  fxFlex.md="50%"
+                  fxFlex.lg="50%"
+                  fxLayout="row" fxLayoutAlign.xs="center center">
+                    <a mat-button mat-flat-button color="warn" (click)="onAdd()">
+                        <mat-icon>add</mat-icon> Add
+                    </a>
+                    
+                    <button class="ml-3" mat-button mat-flat-button color="warn" (click)="onRemoveAll()">
+                        <mat-icon>delete</mat-icon> Delete
                     </button>
-                    </mat-form-field> -->
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+
+    <mat-card class="mt-3">
+        <mat-card-content>
+
+            <div fxLayout="column" fxFlexFill fxLayoutGap cols="1">
+          
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                  
                     <div>
                         <ng-container *ngIf="dataSource.filteredData.length > 0 else loading">
                             <table mat-table [dataSource]="dataSource" matSort>

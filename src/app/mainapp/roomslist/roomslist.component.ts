@@ -150,6 +150,7 @@ export class RoomsListComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
     
+      this.loadData();
     });
   }
   addServiceRequests() {
