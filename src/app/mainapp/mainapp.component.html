@@ -1,4 +1,4 @@
-<mat-drawer-container  *ngIf="onlyPage"  >
+<mat-drawer-container *ngIf="onlyPage">
     <mat-drawer [mode]="sideNavMode" class="sidenav" #sidenav [opened]="true" style="overflow: hidden;"
         class="'mat-drawer-collaped'">
         <app-sidebar fxFlex (toggleSideBarForMe)="sideBarToggler()"></app-sidebar>
@@ -15,11 +15,11 @@
 
 
 
-        
+
         <mat-drawer-container>
 
-                            <!-- working -->
-                            <!-- <mat-drawer [mode]="sideNavMode" class="sidenav" #sidenav [opened]="true" style="overflow: hidden;"
+            <!-- working -->
+            <!-- <mat-drawer [mode]="sideNavMode" class="sidenav" #sidenav [opened]="true" style="overflow: hidden;"
                         [@draweranimation]="!sideNavOpened? 'enter' : 'leave'"
                         class="(!iconOnly)?'mat-drawer-full':'mat-drawer-collaped'">
                         <app-sidenav [iconOnly]="sideNavOpened"></app-sidenav>
@@ -38,7 +38,7 @@
                         </mat-toolbar>
                         <app-sidenav [iconOnly]="true"></app-sidenav>
                     </mat-drawer> -->
-                    <mat-drawer-content cdk-scrollable cdkScrollable>
+                    <mat-drawer-content cdk-scrollable cdkScrollable fxFlexFill fxLayout="column">
                         <!-- style="overflow: hidden;" -->
                         <!-- <app-header  (toggleSideBarForMe)="sideBarToggler($event)"></app-header> -->
                         <app-header (toggleSideBarForMe)="sideBarToggler()"></app-header>
@@ -46,19 +46,20 @@
                         <!-- <cdk-toolbar [sidenav]="sidenav" [drawer]="drawer" [sidebar]="sidenav2" [matDrawerShow]="matDrawerShow" style="z-index: 500"></cdk-toolbar> -->
 
 
-                        <perfect-scrollbar psScrollable fxLayout="column"
+                        <div fxFlex fxFlexFill style="margin: 0 0px; height: 100% !important;">
+                            <router-outlet></router-outlet>
+                        </div>
+                        <!-- <perfect-scrollbar psScrollable fxLayout="column"
                             style="height: calc(100% - 70px); padding:0px ;">
-                            <div fxFlex style="margin: 0 0px;">
-                                <router-outlet></router-outlet>
-                            </div>
+                            
 
-                        </perfect-scrollbar>
+                        </perfect-scrollbar> -->
                     </mat-drawer-content>
                 </mat-drawer-container>
             </mat-drawer-content>
 
 
-            
+
             <mat-drawer #sidenav2 position="end" mode="over">
                 <app-sidebar></app-sidebar>
             </mat-drawer>
@@ -69,4 +70,4 @@
 
 
 
-<router-outlet *ngIf="!onlyPage" ></router-outlet>
+<router-outlet *ngIf="!onlyPage"></router-outlet>

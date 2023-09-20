@@ -124,7 +124,10 @@ import { DeviceListComponent } from './device-list/device-list.component';
 import { ImenuDetailComponent } from './imenu-detail/imenu-detail.component';
 import { ImenuListComponent } from './imenu-list/imenu-list.component';
 import { PendingServiceRequestComponent } from "./pending-servicerequests/pending-servicerequests.component";
-
+import { WorkflowDesignerComponent } from './ruleengine/workflow-designer/workflow-designer.component';
+import { SqdDesignerComponent } from './ruleengine/sqd-designer/sqd-designer.component';
+//import { SequenceComponent, Step} from '@omneedia/workflow-designer/designer/src/mo'
+//import { SequentialWorkflowDesignerModule } from '@omneedia/workflow-designer/angular/designer/src/sequential-workflow-designer.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -385,7 +388,11 @@ const routes: Routes = [
         component: SocialMediaListComponent,
         canActivate: [AuthGuard],
       },
-
+      {
+        path: "workflow-designer",
+        component: WorkflowDesignerComponent,
+        canActivate: [AuthGuard],
+      },
       {
         path: "admin",
         loadChildren: () =>
@@ -481,6 +488,8 @@ const routes: Routes = [
     ImenuDetailComponent,
     ImenuListComponent,
     PendingServiceRequestComponent,
+    WorkflowDesignerComponent,
+    SqdDesignerComponent,
 
 
   ],
@@ -501,6 +510,8 @@ const routes: Routes = [
     CdkTreeModule,
     FlexLayoutModule,
     FormsModule,
+    //SequentialWorkflowModelMo,
+    //SequentialWorkflowDesignerModule,
     CalendarCommonModule,
     CalendarMonthModule,
     CalendarWeekModule,
