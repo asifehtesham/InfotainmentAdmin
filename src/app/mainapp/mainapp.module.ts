@@ -110,6 +110,8 @@ import { RoomDevicesComponent } from "./roomdevices/roomdevices.component";
 
 import { FloorDetailComponent } from './floor-detail/floor-detail.component';
 import { FloorListComponent } from './floor-list/floor-list.component';
+import { RuleDetailComponent } from './ruleengine/rule-detail/rule-detail.component';
+
 
 
 import { ServicerequestDetailComponent } from './servicerequest-detail/servicerequest-detail.component';
@@ -126,6 +128,8 @@ import { ImenuListComponent } from './imenu-list/imenu-list.component';
 import { PendingServiceRequestComponent } from "./pending-servicerequests/pending-servicerequests.component";
 import { WorkflowDesignerComponent } from './ruleengine/workflow-designer/workflow-designer.component';
 import { SqdDesignerComponent } from './ruleengine/sqd-designer/sqd-designer.component';
+import { WorkflowListComponent } from './ruleengine/workflow-list/workflow-list.component';
+import { WorkflowDetailComponent } from './ruleengine/workflow-detail/workflow-detail.component';
 //import { SequenceComponent, Step} from '@omneedia/workflow-designer/designer/src/mo'
 //import { SequentialWorkflowDesignerModule } from '@omneedia/workflow-designer/angular/designer/src/sequential-workflow-designer.module';
 
@@ -313,6 +317,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: "workflows",
+        component: WorkflowListComponent,
+        canActivate: [AuthGuard],
+      },
+
+      {
         path: "form_designer",
         component: FormDesignerComponent,
         canActivate: [AuthGuard],
@@ -464,6 +474,7 @@ const routes: Routes = [
     AddRoomDeviceComponent,
     PatientRecordComponent,
     FloorDetailComponent,
+    RuleDetailComponent,
     FloorListComponent,
     ServicerequestDetailComponent,
     ServicerequestListComponent,
@@ -490,6 +501,8 @@ const routes: Routes = [
     PendingServiceRequestComponent,
     WorkflowDesignerComponent,
     SqdDesignerComponent,
+    WorkflowListComponent,
+    WorkflowDetailComponent,
 
 
   ],

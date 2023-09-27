@@ -1,0 +1,126 @@
+<form [formGroup]="ruleForm">
+    <div class="m-3">
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px">
+            <div fxFlex>
+                <h5 mat-dialog-title class="title-sub">Rule Detail</h5>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+                <button mat-flat-button [mat-dialog-close]="true" color="primary" type="submit" (click)="save()"
+                    [disabled]="!ruleForm.valid">
+                    <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>
+                    Save
+                </button>
+                <button mat-icon-button mat-dialog-close cdkFocusInitial>
+                    <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <!-- <mat-dialog-content> -->
+    <input type="hidden" id="ID" formControlName="ID" />
+    <div fxLayout="column" fxFlexFill>
+        <mat-tab-group>
+            <mat-tab label="Page Info">
+                <ng-template mat-tab-label> Basic Info </ng-template>
+                <ng-template matTabContent>
+                    <mat-dialog-content>
+
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Rule Name</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="ruleName" class="input" placeholder="Enter Rule Name"
+                                        formControlName="ruleName" required matInput #ruleName appSlugTransform />
+                                    <a mat-icon-button *ngIf="ruleName.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="ruleName.value = ''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error *ngIf=""> Please enter a valid Rule Name </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Expression</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="expression" class="input" placeholder="Enter Expression"
+                                        formControlName="expression" required matInput #expression appSlugTransform />
+                                    <a mat-icon-button *ngIf="expression.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="expression.value = ''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error *ngIf=""> Please enter a valid Expression </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Select Operator</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <mat-select formControlName="operator" placeholder="Select Operator">
+                                        <mat-option *ngFor="let dt of Operators" [value]="dt.id">
+                                            {{dt.viewValue}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+
+
+
+
+
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Success Event</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="successEvent" class="input" placeholder="Enter successEvent"
+                                        formControlName="successEvent" required matInput #successEvent />
+
+                                    <a mat-icon-button *ngIf="successEvent.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="successEvent.value = ''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error *ngIf=""> Please enter a valid successEvent </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Error Message</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="errorMessage" class="input" placeholder="Enter errorMessage"
+                                        formControlName="errorMessage" required matInput #errorMessage />
+                                    <a mat-icon-button *ngIf="errorMessage.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="errorMessage.value = ''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error *ngIf=""> Please enter a valid errorMessage </mat-error>
+                                </mat-form-field>
+                            </div>
+
+
+
+
+
+                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-checkbox class="full-width" formControlName="enabled" fxFlex>Enabled</mat-checkbox>
+                            </div>
+                        </div>
+                    </mat-dialog-content>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <!-- </mat-dialog-content> -->
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+        <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
+        <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" [disabled]="!ruleForm.valid"
+            (click)="save()">
+            <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>
+            Save
+        </button>
+    </mat-dialog-actions>
+</form>

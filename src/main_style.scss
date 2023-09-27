@@ -166,6 +166,10 @@ body {
   margin: 1rem 0 !important;
 }
 
+.p-2 {
+  padding: 0.5rem !important;
+}
+
 .navlink {
   font-size: 14px;
   font-weight: 400;
@@ -180,15 +184,19 @@ span.gjs-pn-btn.fa {
   font-size: 18px !important;
   padding-top: 7px;
 }
-.timepicker-overlay{
+
+.timepicker-overlay {
   z-index: 1000 !important
 }
+
 .mat-mdc-form-field-infix {
   display: flex !important
 }
-.mat-button-toggle-checked{
+
+.mat-button-toggle-checked {
   background-color: #6f8bdd
 }
-.mat-mdc-paginator-range-label{
-  margin:0 !important
+
+.mat-mdc-paginator-range-label {
+  margin: 0 !important
 }

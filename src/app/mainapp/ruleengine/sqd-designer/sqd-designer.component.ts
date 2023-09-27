@@ -94,7 +94,7 @@ export class SqdDesignerComponent implements AfterViewInit, OnChanges, OnDestroy
     if (isFirstChange) {
       return;
     }
-    if (this.designer && changes['definition'] && changes['definition'].currentValue === this.designer.getDefinition()) {
+    if (this.designer && changes['toolboxConfiguration'] && changes['definition'] && changes['definition'].currentValue === this.designer.getDefinition()) {
       // The same reference = no change.
       return;
     }
@@ -153,6 +153,7 @@ export class SqdDesignerComponent implements AfterViewInit, OnChanges, OnDestroy
           this.onReady.emit(designer);
         });
       });
+
       designer.onDefinitionChanged.subscribe(() => {
         this.ngZone.run(() => {
           this.onDefinitionChanged.emit(designer.getDefinition());

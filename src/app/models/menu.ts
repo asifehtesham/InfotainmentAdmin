@@ -105,19 +105,19 @@ export const menus = [
                 'link': '/mainapp/branch',
                 'open': false,
             },
-        
+
             {
                 'name': 'Manage Floor',
                 //'icon': 'rss',
                 'link': '/mainapp/floor',
                 'open': false,
             },
-        
+
 
         ]
     },
 
- 
+
 
     {
         'name': 'Entertainment',
@@ -125,14 +125,14 @@ export const menus = [
         'link': '/mainapp/imenu',
         'open': false,
         'sub': [
-            
+
             {
                 'name': 'Menu',
                 //'icon': 'newspaper',
                 'link': '/mainapp/imenu',
                 'open': false,
             },
-        
+
             {
                 'name': 'Newspaper',
                 //'icon': 'newspaper',
@@ -157,7 +157,7 @@ export const menus = [
                 'link': '/mainapp/feedbackType',
                 'open': false,
             },
-          {
+            {
                 'name': 'Social Media Type',
                 //'icon': 'photo-video',
                 'link': '/mainapp/socialmediatype',
@@ -169,7 +169,7 @@ export const menus = [
                 'link': '/mainapp/socialmedia',
                 'open': false,
             },
-        
+
 
         ]
     },
@@ -177,28 +177,28 @@ export const menus = [
 
 
 
-    
+
     {
         'name': 'TV Channels',
         'icon': 'rss',
         'link': '/mainapp/iptv',
         'open': false,
         'sub': [
-            
+
             {
                 'name': 'Manage Channels',
                 //'icon': 'rss',
                 'link': '/mainapp/iptv',
                 'open': false,
             },
-        
+
             {
                 'name': 'Manage Categories',
                 //'icon': 'rss',
                 'link': '/mainapp/iptv-category',
                 'open': false,
             },
-           
+
         ]
     },
 
@@ -212,7 +212,7 @@ export const menus = [
         'link': '/mainapp/country',
         'open': false,
     },
-  
+
     //////////////////////////// infot end 
     {
         'name': 'CMS',
@@ -284,6 +284,12 @@ export const menus = [
         'name': 'Forms',
         'icon': 'edit',
         'link': '/mainapp/forms',
+        'open': false,
+    },
+    {
+        'name': 'Workflows',
+        'icon': 'edit',
+        'link': '/mainapp/workflows',
         'open': false,
     },
     // {

@@ -6,7 +6,17 @@
     },
     "/info/api/*": {
         "target": "http://10.201.204.180:9204",
-        "pathRewrite": {"^/info": ""},
+        "pathRewrite": {
+            "^/info": ""
+        },
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/workflow/api/*": {
+        "target": "https://localhost:7220",
+        "pathRewrite": {
+            "^/workflow": ""
+        },
         "secure": false,
         "logLevel": "debug"
     },

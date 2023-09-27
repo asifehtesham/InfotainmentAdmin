@@ -10,6 +10,14 @@
     <ng-template #globalEditor let-editor>
         <h2>Global Editor</h2>
 
+
+
+        <button mat-button (click)="AddNewRule()">
+            <mat-icon class="customfab-icon-black-sm">add</mat-icon>
+            Add New Rule
+        </button>
+
+
         <h3>Velocity</h3>
         <mat-form-field class="full-width">
             <input matInput type="number" [value]="editor.definition.properties.velocity"
@@ -17,25 +25,173 @@
         </mat-form-field>
     </ng-template>
 
-    <ng-template #stepEditor let-editor>
-        <h2>Step Editor</h2>
+    <ng-template #stepEditor let-editor fxLayout="column">
+        <div class="p-2">
+            <h2>Rule Editor</h2>
 
-        <mat-tab-group>
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">Name</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input type="text" id="Title" class="input" placeholder="Enter Title" [value]="editor.step.name"
+                            (input)="updateName(editor.step, $event, editor.context)" required matInput #Title>
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid Title
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">Expression</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.expression"
+                            (input)="updateProperty(editor.step.properties, 'expression', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid Title
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">Operator</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+
+
+                        <mat-select placeholder="Type" #durationType>
+                            <mat-option *ngFor="let dt of Operators" [value]="editor.step.properties.operator">
+                                {{dt.viewValue}}</mat-option>
+                        </mat-select>
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please select Operator
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">Success Event</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+
+
+                        <input matInput type="text" [value]="editor.step.properties.successEvent"
+                            (input)="updateProperty(editor.step.properties, 'successEvent', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please select Operator
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">Error Message</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+
+                        <input matInput type="text" [value]="editor.step.properties.errorMessage"
+                            (input)="updateProperty(editor.step.properties, 'errorMessage', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please select Operator
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+
+                <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">Enabled</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+
+                        <input matInput type="bool" [value]="editor.step.properties.enabled"
+                            (input)="updateProperty(editor.step.properties, 'enabled', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please select Operator
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+        <!-- <mat-tab-group>
             <mat-tab label="Basic">
                 <h3>Name</h3>
                 <mat-form-field class="full-width">
                     <input matInput type="text" [value]="editor.step.name"
                         (input)="updateName(editor.step, $event, editor.context)" />
                 </mat-form-field>
-            </mat-tab>
-            <mat-tab label="Details">
-                <h3>Velocity</h3>
                 <mat-form-field class="full-width">
-                    <input matInput type="number" [value]="editor.step.properties.velocity"
-                        (input)="updateProperty(editor.step.properties, 'velocity', $event, editor.context)" />
+                    <input matInput type="text" [value]="editor.step.properties.expression"
+                        (input)="updateProperty(editor.step.properties, 'expression', $event, editor.context)" />
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-select placeholder="Type" #durationType>
+                        <mat-option *ngFor="let dt of Operators" [value]="editor.step.properties.operator">
+                            {{dt.viewValue}}</mat-option>
+                    </mat-select>
+
+                    <input matInput type="number" [value]="editor.step.properties.operator"
+                        (input)="updateProperty(editor.step.properties, 'operator', $event, editor.context)" />
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput type="text" [value]="editor.step.properties.successEvent"
+                        (input)="updateProperty(editor.step.properties, 'successEvent', $event, editor.context)" />
+                </mat-form-field>
+                <mat-form-field class="full-width"><input matInput type="text"
+                        [value]="editor.step.properties.errorMessage"
+                        (input)="updateProperty(editor.step.properties, 'errorMessage', $event, editor.context)" />
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input matInput type="bool" [value]="editor.step.properties.enabled"
+                        (input)="updateProperty(editor.step.properties, 'enabled', $event, editor.context)" />
                 </mat-form-field>
             </mat-tab>
-        </mat-tab-group>
+        </mat-tab-group> -->
     </ng-template>
     <!-- 
 <div class="block">
