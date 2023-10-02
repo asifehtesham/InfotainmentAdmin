@@ -262,7 +262,7 @@ export class WorkflowDesignerComponent implements OnInit, AfterViewInit {
 
     // console.log("changed");
     // console.log("this.preSeq", this.preSeq);
-    // console.log("this.definition", this.definition.sequence);
+    console.log("this.definition", this.definition);
 
     //this.preSeq.filter(x=> this.definition.sequence.find(y=> y.id == x.id))
     var diff = this.definition.sequence.filter(x => !this.preSeq.find(y => y.id == x.id));
