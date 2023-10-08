@@ -60,14 +60,13 @@ export class ServicerequestListComponent {
   ngOnInit() {
     this.loadData();
     this.loadServiceData()
-
   }
   
   loadData() {
     this.servicerequestService.loadData(this.index, this.limit).subscribe(results => {
       this.paginatedServices=results 
       this.dataSource.data = results;
-      // this.filteredData=results
+      console.log("results",results)
       this.getData({ pageIndex: this.pageNumber, pageSize: this.pageSize });
 
     });
@@ -130,7 +129,7 @@ export class ServicerequestListComponent {
 
   }
 
-  ondelete(servicerequest: any) {
+  ondelete(servicerequest: Servicerequest) {
 
     Swal.fire({
       title: 'Are you sure?',
@@ -226,7 +225,7 @@ export class ServicerequestListComponent {
   onAdd() {
     const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
       width: '750px',
-      data: { id: 0 }
+      data: { data: 0 }
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result)
@@ -234,10 +233,10 @@ export class ServicerequestListComponent {
     });
   }
 
-  onEdit(data: any) {
+  onEdit(data: Servicerequest) {
     const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
       width: '750px',
-      data: { id: data.id, servicerequest: data }
+      data: { data: data }
     });
     dialogRef.afterClosed().subscribe(result => {
       if(result)

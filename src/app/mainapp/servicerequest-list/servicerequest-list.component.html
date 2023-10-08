@@ -193,7 +193,7 @@
                     File No
                   </th>
                   <td mat-cell *matCellDef="let element">
-                    {{ element.patientId }}
+                    {{ element.patientId!=0?element.patientId:"No Patient " }}
                   </td>
                 </ng-container>
 

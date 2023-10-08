@@ -20,6 +20,7 @@ import { BranchService } from 'src/app/services/branch.service';
 import { RoomServiceService } from 'src/app/services/roomService.service';
 import { RoomsService } from 'src/app/services/rooms.service';
 import { Rooms } from 'src/app/models/Rooms';
+import { AnyMxRecord } from 'node:dns';
 
 @Component({
   selector: 'app-servicerequest-detail',
@@ -30,15 +31,16 @@ export class ServicerequestDetailComponent {
 
   templates: Templates[] = [];
   id: number;
-  servicerequest: Servicerequest;
+  servicerequest: any;
   servicerequestForm: FormGroup;
   roomShow:boolean=true;
   url: string = '';
   done: any;
   isServicerequestSaved: boolean = true;
   services: any;
-  rooms:any= [];
+  rooms: any= [];
   room:any
+  selectedroom:any
   requestStatus = [
     { id: 0, title: 'Pending' },
     { id: 1, title: 'InProgress' },
@@ -53,40 +55,49 @@ export class ServicerequestDetailComponent {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
     if (request) {
-      this.id = request.id;
-      this.room =request.room;
-      // this.servicerequest =request.servicerequest
+      console.log("request",request)
+      if(request.room){
+        this.room=request.room
+        this.roomShow=false        
+      }else{
+        this.room=request.data.room
+        this.roomShow=true                
+      }
+      this.id = request.data.id;
+      this.servicerequest = request.data
     }
   }
 
-  ngOnInit() {  
-    if(this.room){
-      this.roomShow=false
-    }
+  ngOnInit() {
     
     this.roomServiceService.loadData().subscribe((results) => {
       this.services=results
     });
     this.roomsService.loadData().subscribe((results) => {
       this.rooms= results 
-         
+      this.rooms.forEach(element => {
+        if(element.roomNo==this.room.roomNo){
+          this.selectedroom = element
+        }
+      });
     }); 
-
-    this.route.params.subscribe(params => {
+    
+    // this.route.params.subscribe(params => {
 
       this.buildForm();
 
-      if (this.servicerequest != null)
+      // if (this.servicerequest != null)
      
-        this.setForm();
-      if (this.servicerequest == null && this.id > 0) {
-        this.servicerequestService.loadByID(this.id).subscribe(results => {
-          this.servicerequest = results;
+        // this.setForm();
+      // if (this.servicerequest == null && this.id > 0) {
+        // this.servicerequestService.loadByID(this.id).subscribe(results => {
+          // this.servicerequest = results;
           this.setForm();
-        });
-      }
-    });
+        // });
+      // }
+    // });
   }
+
   selectRoom(room){
     this.room=room
   }
@@ -95,6 +106,7 @@ export class ServicerequestDetailComponent {
     this.f.serviceId.setValue(this.servicerequest.serviceId);
     this.f.request.setValue(this.servicerequest.request);
     this.f.status.setValue(this.servicerequest.status);
+    // this.room=this.servicerequest.room
   }
 
   buildForm() {
@@ -113,7 +125,7 @@ export class ServicerequestDetailComponent {
   save() {
     this.saveData();
   }
-  saveData() { 
+  saveData() {
     var servicerequest = {
       ID:this.id,
       patientId: this.room.currentAdmission?this.room.currentAdmission.fileNo:'0',
@@ -131,15 +143,15 @@ export class ServicerequestDetailComponent {
       observer = this.servicerequestService.add(servicerequest);
     else
       observer = this.servicerequestService.update(servicerequest);
-    observer.subscribe(result => {
-      this.id = result.id;
-      if (result) 
-        this.snakbar.open('Service Request saved successfully.', 'Dismise', {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-        });
-    });
+      observer.subscribe(result => {
+        this.id = result.id;
+        if (result) 
+          this.snakbar.open('Service Request saved successfully.', 'Dismise', {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          });
+      });
   }
   revert() {
     this.servicerequestForm.reset();

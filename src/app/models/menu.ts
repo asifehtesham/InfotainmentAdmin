@@ -317,15 +317,20 @@ export const menus = [
         'open': false,
         'sub': [
             {
-                'name': 'Roles',
-                'icon': 'user-unlock',
-                'link': '/mainapp/roles',
+                'name': 'User',
+                // 'icon': 'user',
+                'link': '/mainapp/users',
                 'open': false,
             },
             {
-                'name': 'User',
-                'icon': 'user',
-                'link': '/mainapp/users',
+                'name': 'Cohort',
+                'link': '/mainapp/cohort',
+                'open': false,
+            },
+            {
+                'name': 'Roles',
+                'icon': 'user-unlock',
+                'link': '/mainapp/roles',
                 'open': false,
             },
         ]

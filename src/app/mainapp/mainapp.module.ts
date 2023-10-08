@@ -57,7 +57,10 @@ import { GallerylistComponent } from "./gallerylist/gallerylist.component";
 import { BannerlistComponent } from "./bannerlist/bannerlist.component";
 import { BannerdetailComponent } from "./bannerdetail/bannerdetail.component";
 import { UserdetailComponent } from "./userdetail/userdetail.component";
+import { CohortdetailComponent } from "./cohortdetail/cohortdetail.component";
+import { AssignUsersCohortComponent } from "./assignusers/assignusers.component";
 import { UserlistComponent } from "./userlist/userlist.component";
+import { CohortlistComponent } from "./cohortlist/cohortlist.component";
 import { MenulistComponent } from "./menulist/menulist.component";
 import { RolesSelectionComponent } from "./roles-selection/roles-selection.component";
 
@@ -295,6 +298,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
+        path: "cohort",
+        component: CohortlistComponent,
+        canActivate: [AuthGuard],
+      },
+      {
         path: "events",
         component: CalenderComponent,
         canActivate: [AuthGuard],
@@ -427,7 +435,10 @@ const routes: Routes = [
     BannerlistComponent,
     BannerdetailComponent,
     UserdetailComponent,
+    CohortdetailComponent,
+    AssignUsersCohortComponent,
     UserlistComponent,
+    CohortlistComponent,
     RolesSelectionComponent,
     customComponentList,
     customComponentBuilder,

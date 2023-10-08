@@ -17,7 +17,6 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
 import { BannerdetailComponent } from '../bannerdetail/bannerdetail.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-bannerlist',

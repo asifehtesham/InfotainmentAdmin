@@ -99,7 +99,7 @@ export class PendingServiceRequestComponent {
 
     const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
       width: '650px',
-      data: { id: 0, room:this.room , servicerequest:this.servicerequest}
+      data: { room:this.room , data:this.servicerequest}
     });
     dialogRef.afterClosed().subscribe(result => {
 

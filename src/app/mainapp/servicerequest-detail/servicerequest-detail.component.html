@@ -36,9 +36,9 @@
                             <div fxLayout="column"*ngIf="roomShow" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Select Room</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                <mat-select (selectionChange)="selectRoom($event.value)" placeholder="Select Room">
-                                    <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo }}</mat-option>
-                                </mat-select>
+                                    <mat-select (selectionChange)="selectRoom($event.value)" [value]="selectedroom" placeholder="Select Room">
+                                        <mat-option *ngFor="let room of rooms" [value]="room">{{ room.roomNo }}</mat-option>
+                                    </mat-select>
                                 </mat-form-field>
                             </div> 
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap class="d-none">

@@ -1,0 +1,95 @@
+<mat-dialog-content>
+  <mat-label class="label m-2">Cohort</mat-label>
+  <hr>    
+  <table>
+    <tr>
+      <td>
+        <div class="mat-elevation-z8">
+          <mat-table #table [dataSource]="dataSource" style="width:450px" cdkDropList #list1="cdkDropList"
+            [cdkDropListData]="dataSource.data" [cdkDropListConnectedTo]="[list2]"
+            (cdkDropListDropped)="dropUsers($event)" cdkDropListSortingDisabled id="table">
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef style="padding:initial">
+                <mat-checkbox (change)="$event ? masterToggle() : null" 
+                  [checked]="selection.hasValue() && isAllSelected()" 
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let row" style="padding:initial">
+                <mat-checkbox (click)="$event.stopPropagation()" 
+                              (change)="$event ? selection.toggle(row) : null" 
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="currentUsers">
+              <mat-header-cell *matHeaderCellDef> Current users </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+            </ng-container>
+           
+            
+    
+            <mat-header-row *matHeaderRowDef="displayedColumnsUsers"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsUsers;"  cdkDrag [cdkDragData]="row" >
+              </mat-row>
+            </mat-table>
+
+          <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        </div>
+      </td>
+      <td class="left_right" style="width:80px">
+        <a class="raised-button" mat-raised-button color="primary" (click)="moveToSecondTable()">
+          <span class="material-icons">chevron_right</span>
+        </a>
+        <a class="raised-button mt-2" mat-raised-button color="primary" (click)="moveToFirstTable()">
+          <span class="material-icons">chevron_left</span>
+        </a>
+
+      </td>
+      <td>   
+        <div class="mat-elevation-z8">
+          <mat-table #table [dataSource]="nonUsersDataSource" style="width:400px" cdkDropList #list2="cdkDropList" [cdkDropListData]="nonUsersDataSource.data"
+            [cdkDropListConnectedTo]="[list1]" cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)" id="table">
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef style="padding:initial">
+                <mat-checkbox (change)="$event ? masterCheckedToggle() : null" 
+                  [checked]="checkedSelection.hasValue() && isAllCheckedSelected()" 
+                  [indeterminate]="checkedSelection.hasValue() && !isAllCheckedSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let row" style="padding:initial">
+                <mat-checkbox (click)="$event.stopPropagation()" 
+                  (change)="$event ? checkedSelection.toggle(row) : null" 
+                  [checked]="checkedSelection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="potentialUsers">
+              <mat-header-cell *matHeaderCellDef> Potential users </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+            </ng-container>
+             
+             
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsNonUsers"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsNonUsers;" cdkDropListSortingDisabled cdkDrag (click)="checkedSelection.toggle(row)">
+            </mat-row>
+          </mat-table>
+          <mat-paginator #checkedpaginator [pageSize]="5" [pageSizeOptions]=" [5, 10, 20]"></mat-paginator>
+        </div>
+      </td>
+    </tr>
+  </table>
+</mat-dialog-content>
+<mat-dialog-actions align="end"> 
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button> 
+    
+</mat-dialog-actions>

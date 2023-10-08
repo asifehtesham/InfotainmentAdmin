@@ -16,6 +16,7 @@ import { PollData } from '../data/PollData';
 import { GalleryData } from '../data/GalleryData';
 import { BannerData } from '../data/BannerData';
 import { UserData } from '../data/UserData';
+import { CohortData } from '../data/CohortData';
 import { RoleData } from '../data/RoleData';
 import { SEOData } from '../data/SEOData';
 
@@ -270,7 +271,12 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 console.log(request.url);
                 return ok(UserData[0]);
             }
-
+            if (request.url.startsWith(`${environment.apiUrl}cohort`) && request.method === 'GET') {
+                console.log("Fake interceptor cohort/");
+                console.log(request.url);
+                return ok(CohortData);
+            }
+            
             if (request.url.startsWith(`${environment.apiUrl}user`) && request.method === 'GET') {
                 console.log("Fake interceptor user/");
                 console.log(request.url);

@@ -50,52 +50,20 @@ export class UserlistComponent {
       console.log('come to the subscriber');
       this.dataSource.data = results;
     });
-
-
-    this.search.valueChanges.subscribe(
-      value => {
-        if (value.length == 0) {
-          this.userService.loadData().pipe(map((results => {
-            //return results;
-            this.dataSource.data = results;
-          })));
-
-          return;
-        }
-
-        this.userService.search(value).subscribe(results => {
-          //this.loadEmptyMsg = true;
-          console.log('come to the subscriber');
-          this.dataSource.data = results;
-          return results;
-        });
-      });
-
   }
 
+  ondelete(user: any) {
 
-  chkActive_changed(ambulance: any, $event: MatSlideToggleChange) {
-
-    console.log("chkActive_changed: " + ambulance.id);
-    console.log($event.checked);
-
-    ambulance.IsActive = $event.checked;
-    this.userService.editactive(ambulance).subscribe();
-
-  }
-
-  ondelete(ambulance: any) {
-
-    console.log("delete: " + ambulance.id);
+    console.log("delete: " + user.id);
     //console.log($event.checked);
 
-    //ambulance.IsActive = $event.checked;
-    this.userService.delete(ambulance.id).subscribe(params => {
+    //user.IsActive = $event.checked;
+    this.userService.delete(user.id).subscribe(params => {
       console.log('come to the subscriber: ');
       console.log(params);
 
       if (params) {
-        const index: number = this.dataSource.data.indexOf(ambulance);
+        const index: number = this.dataSource.data.indexOf(user);
         if (index !== -1) {
           this.dataSource.data.splice(index, 1);
         }
