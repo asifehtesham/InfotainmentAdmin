@@ -6,6 +6,7 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { User } from '../models/Users';
 import { environment } from 'src/environments/environment';
 import { PageData } from '../data/PageData';
+
 import { ComponentsData } from '../data/ComponentsData';
 
 
@@ -36,6 +37,9 @@ import { ServicerequestData } from '../data/ServicerequestData';
 
 
 import { IptvCategoryData } from '../data/IptvCategoryData';
+import { WorkflowData } from '../data/WorkflowData';
+import { RuleData } from '../data/RuleData';
+
 
 
 @Injectable()
@@ -68,6 +72,26 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 console.log("Fake interceptor page/");
                 console.log(request.url);
                 return ok({'success':true});
+            }
+
+
+
+
+            if (request.url.startsWith(`${environment.workflowApiUrl}workflow`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok(WorkflowData);
+            }
+
+
+            
+            console.log("...  url:");
+            console.log(`${environment.workflowApiUrl}rule`);
+
+            if (request.url.startsWith(`${environment.workflowApiUrl}rule`) && request.method === 'GET') {
+                console.log("Fake interceptor page/");
+                console.log(request.url);
+                return ok(RuleData);
             }
 
 

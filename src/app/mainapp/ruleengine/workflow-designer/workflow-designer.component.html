@@ -17,6 +17,14 @@
             Add New Rule
         </button>
 
+        <button mat-button (click)="SaveRule()">
+            <mat-icon class="customfab-icon-black-sm">save</mat-icon>
+            Save Rule
+        </button>
+
+        
+
+
 
         <h3>Velocity</h3>
         <mat-form-field class="full-width">
@@ -46,8 +54,8 @@
                 </div>
 
 
-                <div fxLayout="column" fxLayoutAlign="start stretch">
-                    <mat-label class="label m-2">Expression</mat-label>
+                <div *ngIf="editor.step.properties?.expression_title" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.expression_title}}</mat-label>
                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                         <input matInput type="text" [value]="editor.step.properties.expression"
                             (input)="updateProperty(editor.step.properties, 'expression', $event, editor.context)" />
@@ -63,8 +71,153 @@
 
 
 
-                <div fxLayout="column" fxLayoutAlign="start stretch">
-                    <mat-label class="label m-2">Operator</mat-label>
+
+                
+                <div *ngIf="editor.step.properties?.email" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.emailTitle}}</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.email"
+                            (input)="updateProperty(editor.step.properties, 'email', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid email
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div *ngIf="editor.step.properties?.subject" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.subjectTitle}}</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.subject"
+                            (input)="updateProperty(editor.step.properties, 'subject', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid subject
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                
+                <div *ngIf="editor.step.properties?.body" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.bodyTitle}}</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.body"
+                            (input)="updateProperty(editor.step.properties, 'body', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid body
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                
+                <div *ngIf="editor.step.properties?.mobileNumber" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.mobileNumberTitle}}</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.mobileNumber"
+                            (input)="updateProperty(editor.step.properties, 'mobileNumber', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid mobile number
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+
+
+                <div *ngIf="editor.step.properties?.message" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.messageTitle}}</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.message"
+                            (input)="updateProperty(editor.step.properties, 'message', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid Message
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+                
+                <div *ngIf="editor.step.properties?.url" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.urlTitle}}</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.url"
+                            (input)="updateProperty(editor.step.properties, 'url', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid url
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div *ngIf="editor.step.properties?.method" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.methodTitle}}</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.method"
+                            (input)="updateProperty(editor.step.properties, 'method', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid method
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+
+                <div *ngIf="editor.step.properties?.userId" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.userIdTitle}}</mat-label>
+                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                        <input matInput type="text" [value]="editor.step.properties.userId"
+                            (input)="updateProperty(editor.step.properties, 'userId', $event, editor.context)" />
+                        <button mat-icon-button *ngIf="Title.value" matSuffix md-icon-button aria-label="Clear"
+                            (click)="Title.value=''">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                        <mat-error *ngIf="">
+                            Please enter a valid userId
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+
+
+
+
+
+
+                <div *ngIf="editor.step.properties?.operatorTitle && editor.step.sequence.length > 0" fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.operatorTitle}}</mat-label>
                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
 
 
@@ -82,11 +235,8 @@
                     </mat-form-field>
                 </div>
 
-
-
-
-                <div fxLayout="column" fxLayoutAlign="start stretch">
-                    <mat-label class="label m-2">Success Event</mat-label>
+                <div   *ngIf="editor.step.properties?.success_event_title " fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.success_event_title}}</mat-label>
                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
 
 
@@ -102,10 +252,8 @@
                     </mat-form-field>
                 </div>
 
-
-
-                <div fxLayout="column" fxLayoutAlign="start stretch">
-                    <mat-label class="label m-2">Error Message</mat-label>
+                <div *ngIf="editor.step.properties?.errorMessageTitle"  fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.errorMessageTitle}}</mat-label>
                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
 
                         <input matInput type="text" [value]="editor.step.properties.errorMessage"
@@ -120,11 +268,8 @@
                     </mat-form-field>
                 </div>
 
-
-
-
-                <div fxLayout="column" fxLayoutAlign="start stretch">
-                    <mat-label class="label m-2">Enabled</mat-label>
+                <div *ngIf="editor.step.properties?.enabled_title " fxLayout="column" fxLayoutAlign="start stretch">
+                    <mat-label class="label m-2">{{editor.step.properties.enabled_title}}</mat-label>
                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
 
                         <input matInput type="bool" [value]="editor.step.properties.enabled"
@@ -138,26 +283,13 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         </div>
+
+
+
+
+        
         <!-- <mat-tab-group>
             <mat-tab label="Basic">
                 <h3>Name</h3>
@@ -212,3 +344,4 @@
 </div> -->
 
 </div>
+

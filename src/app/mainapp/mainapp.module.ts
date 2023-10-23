@@ -129,6 +129,9 @@ import { PendingServiceRequestComponent } from "./pending-servicerequests/pendin
 import { WorkflowDesignerComponent } from './ruleengine/workflow-designer/workflow-designer.component';
 import { SqdDesignerComponent } from './ruleengine/sqd-designer/sqd-designer.component';
 import { WorkflowListComponent } from './ruleengine/workflow-list/workflow-list.component';
+import { RuleListComponent } from './ruleengine/rule-list/rule-list.component';
+
+
 import { WorkflowDetailComponent } from './ruleengine/workflow-detail/workflow-detail.component';
 //import { SequenceComponent, Step} from '@omneedia/workflow-designer/designer/src/mo'
 //import { SequentialWorkflowDesignerModule } from '@omneedia/workflow-designer/angular/designer/src/sequential-workflow-designer.module';
@@ -321,6 +324,11 @@ const routes: Routes = [
         component: WorkflowListComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: "rules",
+        component: RuleListComponent,
+        canActivate: [AuthGuard],
+      },
 
       {
         path: "form_designer",
@@ -502,6 +510,7 @@ const routes: Routes = [
     WorkflowDesignerComponent,
     SqdDesignerComponent,
     WorkflowListComponent,
+    RuleListComponent,
     WorkflowDetailComponent,
 
 

@@ -29,6 +29,7 @@ import { WorkflowService } from 'src/app/services/ruleengine/workflow.service';
 
 import { MatDialog } from '@angular/material/dialog';
 import { RuleDetailComponent } from '../rule-detail/rule-detail.component';
+import { Task } from 'src/app/models/ruleengine/Task';
 
 
 
@@ -130,6 +131,8 @@ const definition = {
     }
   ]
 };
+
+
 function createStep(name: string): Step {
   return {
     id: Uid.next(),
@@ -156,11 +159,39 @@ function createRule(rule: Rule): SequentialStep {
       expression: rule.expression,
       enabled: rule.enabled,
       velocity: 1,
+      operatorTitle: 'Operator',
+      errorMessageTitle: 'Error Message',
+      success_event_title: 'Success Event',
+      expression_title: 'Expression',
+      enabled_title: 'Enabled'
     },
     sequence: [
       // steps...
     ]
   };
+}
+
+
+
+function createTask(rule: Task): SequentialStep {
+  console.log("Rule id: ", rule.id.toString());
+  
+  
+  console.log("rule ... .. ",rule);
+  
+  let res =  {
+    componentType: 'task',
+    id: Uid.next(),
+    type: 'task',
+    name: rule.ruleName,
+    properties: {...rule.prop},
+    sequence: [
+      // steps...
+    ]
+  };
+  
+  console.log("res .. .. .. ",res);
+  return res;
 }
 
 function createSwitchRule(name: string): BranchedStep {
@@ -196,14 +227,28 @@ export class WorkflowDesignerComponent implements OnInit, AfterViewInit {
   id: number;
   rules: Array<Rule>;
   allRules: Array<Rule>;
+  tasks: Array<Task>;
+
   steps: Array<Step> = [];
   allsteps: Array<Step> = [];
+  tasklist: Array<Step> = [];
+
+
+
+
+
+
   private designer?: Designer;
 
   workflowRule: WorkflowRule;
   preSeq: Array<Step>;
 
   public definition: Definition = this.createDefinition();
+
+
+  public response: Definition;
+
+
   public definitionJSON?: string;
   public isValid?: boolean;
 
@@ -231,14 +276,53 @@ export class WorkflowDesignerComponent implements OnInit, AfterViewInit {
     };
   }
 
+
+
+
+
+
+  createIfStep(id, _true, _false) {
+    return {
+      id,
+      componentType: 'switch',
+      type: 'if',
+      name: 'If',
+      branches: {
+        'true': _true,
+        'false': _false
+      },
+      properties: {}
+    };
+  }
+
+
+
+
+
   public toolboxConfiguration: ToolboxConfiguration = {
     groups: [
       {
         name: 'Step',
         steps: this.allsteps //[createStep("Step"), createRule("Rule"), createSwitchRule("s_rule")]
+      },
+      {
+        name: 'Logic',
+        steps: [
+          this.createIfStep(null, [], []),
+        ]
       }
     ]
+
+
+
+
   };
+
+
+
+
+
+
 
 
   public readonly stepsConfiguration: StepsConfiguration = {
@@ -256,72 +340,36 @@ export class WorkflowDesignerComponent implements OnInit, AfterViewInit {
   }
 
   public onDefinitionChanged(definition: Definition) {
-    this.definition = definition;
+
+    console.log('changed', definition);
+
+
+    this.response = definition;
     this.updateIsValid();
     this.updateDefinitionJSON();
 
-    // console.log("changed");
-    // console.log("this.preSeq", this.preSeq);
-    console.log("this.definition", this.definition);
 
-    //this.preSeq.filter(x=> this.definition.sequence.find(y=> y.id == x.id))
-    var diff = this.definition.sequence.filter(x => !this.preSeq.find(y => y.id == x.id));
-    console.log("diff: ", diff);
 
-    var diff1 = this.preSeq.filter(x => !this.definition.sequence.find(y => y.id == x.id));
-    console.log("diff: ", diff1);
-
-    // let seq = [...this.definition.sequence];
-    // let preSeq = [...this.preSeq];
-    // let iFlag = false;
-    // for (let i = 0; i < seq.length; i++) {
-
-    //   iFlag = false;
-    //   for (let j = 0; j < preSeq.length; j++) {
-    //     if (seq[i].id == seq[j].id) {
-    //       console.log("seq[j].id", seq[j].id);
-    //       iFlag = false
-    //     } else {
-    //       iFlag = true
-    //     }
-
-    //     if (iFlag) {
-    //       console.log("iFlag", iFlag);
-    //       console.log("seq[j]", seq[j]);
-    //     }
+    // Assign and Remove Workflow
+    // var diff = this.definition.sequence.filter(x => !this.preSeq.find(y => y.id == x.id));
+    // var diff1 = this.preSeq.filter(x => !this.definition.sequence.find(y => y.id == x.id));
+    // this.preSeq = this.definition.sequence;
+    // if (diff.length > 0) {
+    //   this.workflowRule = {
+    //     worflowId: this.id,
+    //     ruleId: parseInt(diff[0].properties['id'].toString())
     //   }
+    //   this.workflowService.assignRule(this.workflowRule).subscribe(results => {
+    //     diff[0].properties['workflow_rule_id'] = results.id;
+    //   });
+    // }
+    // if (diff1.length > 0) {
+    //   this.workflowService.removeRule(parseInt(diff1[0].properties['workflow_rule_id'].toString())).subscribe(results => {
+    //   });
     // }
 
 
-    this.preSeq = this.definition.sequence;
-    //console.log("id is", diff[0].properties['id']);
-    //console.log("id type: ", typeof (diff[0].properties['id']));
 
-    //Assign Rule
-    if (diff.length > 0) {
-      this.workflowRule = {
-        worflowId: this.id,
-        ruleId: parseInt(diff[0].properties['id'].toString())
-      }
-
-      this.workflowService.assignRule(this.workflowRule).subscribe(results => {
-        //this.rules = results;
-        console.log("workflow rules");
-        //console.log(this.rules);
-        diff[0].properties['workflow_rule_id'] = results.id;
-        console.log(diff);
-      });
-    }
-    //Remove Rules
-    if (diff1.length > 0) {
-
-
-
-      this.workflowService.removeRule(parseInt(diff1[0].properties['workflow_rule_id'].toString())).subscribe(results => {
-        //this.rules = results;
-        console.log("workflow rules");
-      });
-    }
   }
 
   public updateName(step: Step, event: Event, context: StepEditorContext) {
@@ -346,8 +394,13 @@ export class WorkflowDesignerComponent implements OnInit, AfterViewInit {
     this.toolboxConfiguration = {
       groups: [
         {
-          name: 'Step',
+          name: 'Rules',
           steps: this.allsteps //[createStep("Step"), createRule("Rule"), createSwitchRule("s_rule")]
+        },
+
+        {
+          name: 'Tasks',
+          steps: this.tasklist
         }
       ]
     };
@@ -403,6 +456,97 @@ export class WorkflowDesignerComponent implements OnInit, AfterViewInit {
       this.allRules.forEach(x => {
         this.allsteps.push(createRule(x));
       });
+
+
+      this.tasks = [
+        {
+          "parentRuleId": 0,
+          "workflowRuleId": 16,
+          "ruleName": "Email",
+          "id": 4,
+          "active": false,
+          "sortOrder": 0,
+          "prop": {
+            'email': 'test@email.com',
+            'name': 'test name',
+            'subject': 'test subject',
+            'body':'test body',
+            'emailTitle': 'Email',
+            'nameTitle': 'Name',
+            'subjectTitle': 'Subject',
+            'bodyTitle': 'Title'
+          }
+        },
+        {
+          "parentRuleId": 0,
+          "workflowRuleId": 16,
+          "ruleName": "Api Call",
+          "id": 4,
+          "active": false,
+          "sortOrder": 0,
+          "prop": {
+            'url': 'http://test.com/api',
+            'urlTitle':'URL',
+            'method': 'POST',
+            'methodTitle': 'Method',
+            'body': '{email:"test@test.com"}',
+            'bodyTitle': 'Body'
+          }
+        },
+
+        {
+          "parentRuleId": 0,
+          "workflowRuleId": 16,
+          "ruleName": "Whatsapp",
+          "id": 4,
+          "active": false,
+          "sortOrder": 0,
+          "prop": {
+            'mobileNumber': '009665272727',
+            'message': 'Hi, this is demo message.',
+            'mobileNumberTitle': 'Mobile Number',
+            'messageTitle': 'Message',
+          }
+        },
+
+
+        {
+          "parentRuleId": 0,
+          "workflowRuleId": 16,
+          "ruleName": "SMS Notification",
+          "id": 4,
+          "active": false,
+          "sortOrder": 0,
+          "prop": {
+            'mobileNumber': '009665272727',
+            'message': 'Hi, this is demo sms.',
+            'mobileNumberTitle': 'Mobile Number',
+            'messageTitle': 'Message',
+          }
+        },
+
+        {
+          "parentRuleId": 0,
+          "workflowRuleId": 16,
+          "ruleName": "Create Task",
+          "id": 4,
+          "active": false,
+          "sortOrder": 0,
+          "prop": {
+            'userId': '1',
+            'userIdTitle': 'User',
+          }
+        },
+      ];
+
+
+      this.tasks.forEach(x => {
+        this.tasklist.push(createTask(x));
+      });
+
+
+
+
       //this.allsteps = [createStep("Step"), createRule("Rule"), createSwitchRule("s_rule")];
       this.reloadToolbox();
       //this.setForm();
@@ -413,13 +557,88 @@ export class WorkflowDesignerComponent implements OnInit, AfterViewInit {
 
   loadData() {
 
+
+
+
+    var tempData =
+      [
+        {
+          "id": "asda",
+          "enabled": true,
+          "errorMessage": "asda",
+          "expression": "asdas= ssdsd",
+          "operator": "0",
+          "rule": [
+            {
+              "id": "werwerewr",
+              "enabled": true,
+              "errorMessage": "werwerewr",
+              "expression": "raererwr",
+              "operator": "0",
+              "rule": []
+            }
+          ]
+        },
+        {
+          "id": "tretertert",
+          "enabled": true,
+          "errorMessage": "tretertert",
+          "expression": "test",
+          "operator": "0",
+          "rule": [
+            {
+              "id": "sdssdfsdfsd",
+              "enabled": true,
+              "errorMessage": "sdssdfsdfsd",
+              "expression": "test == 2323",
+              "operator": "1",
+              "success_event": "sdfsdfsdf",
+              "workflow_rule_id": 0,
+              "rule": [
+                {
+                  "id": "asda",
+                  "enabled": true,
+                  "errorMessage": "asda",
+                  "expression": "asdas= ssdsd",
+                  "operator": "0",
+                  "success_event": "ads",
+                  "workflow_rule_id": 0,
+                  "rule": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sdssdfsdfsd",
+          "enabled": true,
+          "errorMessage": "sdssdfsdfsd",
+          "expression": "test == 2323",
+          "operator": "1",
+          "rule": []
+        }
+      ];
+
+
+
+
+
+    console.log("previous data", tempData)
+
+    let respMessage = this.getChildRule(tempData)
+    console.log("after formating", respMessage);
+
+    // this.steps.push(createRule(x));
+
     this.workflowService.getRules(this.id).subscribe(results => {
-      //this.loadEmptyMsg = true;
       this.rules = results;
       this.steps = [];
       this.rules.forEach(x => {
-        this.steps.push(createRule(x));
+        //   this.steps.push(createRule(x));
       });
+
+      this.steps = respMessage;
+
       this.reloadDefinitionClicked();
       console.log("workflow rules");
       console.log("this.definition.sequence", this.definition.sequence);
@@ -442,6 +661,108 @@ export class WorkflowDesignerComponent implements OnInit, AfterViewInit {
         duration: 2000,
       });
     });
+  }
+
+  appendChildRule(arr) {
+    let temp = {}
+    var resp = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i]?.sequence?.length > 0) {
+
+        temp = {
+          'id': arr[i].properties.errorMessage,
+          'enabled': arr[i].properties.enabled,
+          'errorMessage': arr[i].properties.errorMessage,
+          'expression': arr[i].properties.expression,
+          'operator': arr[i].properties.operator,
+          'success_event': arr[i].properties.success_event,
+          'workflow_rule_id': arr[i].properties.workflow_rule_id,
+          'rule': this.appendChildRule(arr[i].sequence)
+        }
+      } else {
+        temp = {
+          'id': arr[i].properties.errorMessage,
+          'enabled': arr[i].properties.enabled,
+          'errorMessage': arr[i].properties.errorMessage,
+          'expression': arr[i].properties.expression,
+          'operator': arr[i].properties.operator,
+          'success_event': arr[i].properties.success_event,
+          'workflow_rule_id': arr[i].properties.workflow_rule_id,
+          'rule': []
+        }
+      }
+      resp.push(temp);
+    }
+
+    return resp;
+  }
+
+
+
+
+  getChildRule(arr) {
+
+    let temp = {}
+    var resp = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].rule.length > 0) {
+
+        temp = {
+          'componentType': 'container',
+          'id': Uid.next(),
+          'type': 'rule',
+          'name': 'test rule name',
+          'properties': {
+            'id': arr[i].id,
+            'workflow_rule_id': arr[i].workflowRuleId,
+            'operator': arr[i].operator,
+            'errorMessage': arr[i].errorMessage,
+            'success_event': arr[i].successEvent,
+            'expression': arr[i].expression,
+            'enabled': arr[i].enabled,
+            'velocity': 1,
+          },
+          'sequence': this.getChildRule(arr[i].rule)
+        }
+
+      } else {
+        temp = {
+          'componentType': 'container',
+          'id': Uid.next(),
+          'type': 'rule',
+          'name': 'test rule name',
+          'properties': {
+            'id': arr[i].id,
+            'workflow_rule_id': arr[i].workflowRuleId,
+            'operator': arr[i].operator,
+            'errorMessage': arr[i].errorMessage,
+            'success_event': arr[i].successEvent,
+            'expression': arr[i].expression,
+            'enabled': arr[i].enabled,
+            'velocity': 1,
+          },
+          'sequence': []
+        }
+      }
+      resp.push(temp);
+    }
+
+    return resp;
+  }
+
+
+
+
+  SaveRule() {
+
+
+    //appendChildRule
+
+    // console.log("this.definition",this.response);
+    let resp: any;
+    resp = this.appendChildRule(this.response.sequence);
+    console.log("resp", resp);
+    console.log("Save Rule Trigerred");
   }
 
 

@@ -292,6 +292,13 @@ export const menus = [
         'link': '/mainapp/workflows',
         'open': false,
     },
+    {
+        'name': 'Rules',
+        'icon': 'edit',
+        'link': '/mainapp/rules',
+        'open': false,
+    },
+
     // {
     //     'name': 'Events',
     //     'icon': 'calendar-alt',

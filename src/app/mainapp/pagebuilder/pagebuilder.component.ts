@@ -406,6 +406,11 @@ export class PagebuilderComponent implements OnInit {
               .getElementById("save_trigger")
               .setAttribute("customComponent", editor.getSelected().toHTML());
 
+
+            document
+              .getElementById("save_trigger")
+              .setAttribute("isComponent", '1');
+
             document.getElementById("openCustomHtml").click();
           },
         });
@@ -900,9 +905,9 @@ export class PagebuilderComponent implements OnInit {
 
       // console.log("result.content .=.=",result.content)
 
-      console.log("result",result);
+      console.log("result", result);
 
-      
+
       if (result?.content) {
 
         let c = result.content.toString();
@@ -913,19 +918,29 @@ export class PagebuilderComponent implements OnInit {
         console.log(`document.getElementById("save_trigger").attributes["isComponent"].value`, document.getElementById("save_trigger").attributes["isComponent"].value);
 
         if (document.getElementById("save_trigger").attributes["isComponent"].value == '1') {
-          this.editor.getSelected().replaceWith(c);
+          
+          
+          console.log("this.editor.getSelected()",this.editor.getSelected()); 
+          
+          console.log("c",c);
+
+          //c
+          this.editor.getSelected().replaceWith('<div><h2>test </h2> </div>');
+        
+        
+        
         } else {
           this.editor.setComponents(c, {
             avoidStore: false,
           });
         }
 
-        
+
         document
           .getElementById("save_trigger")
           .setAttribute("isComponent", '0');
 
-      
+
 
       }
 
@@ -1035,9 +1050,9 @@ export class PagebuilderComponent implements OnInit {
       //   this.editor.getSelected().replaceWith(e.content);
 
       // } else {
-        this.editor.setComponents(e.content, {
-          avoidStore: false,
-        });
+      this.editor.setComponents(e.content, {
+        avoidStore: false,
+      });
       // }
 
     } else {
