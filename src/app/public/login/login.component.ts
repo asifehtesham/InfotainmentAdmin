@@ -120,9 +120,6 @@ export class LoginComponent implements OnInit {
     // }
   }
   login() {
-    this.router.navigate(["/mainapp/dashboard"]);
-
-
     console.log("login click");
     console.log(this.f.username.value);
 

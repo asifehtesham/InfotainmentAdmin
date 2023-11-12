@@ -41,14 +41,13 @@ export class UserService {
 
   loadData(): Observable<User[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}user`)
+    return this.http.get<any>(`${environment.infotApiUrl}users`)
       .pipe(
         map(data => {
           var user: Array<User> = [];
-          data.forEach(item => {
+          data.data.forEach(item => {
             user.push(<User>item);
           });
-          console.log(user);
           return user;
         }),
       );

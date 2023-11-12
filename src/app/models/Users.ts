@@ -12,6 +12,5 @@ export class User {
     isActive: boolean;
     token?: string;
     auth_token?: string;
-
     UserRoles?: Array<Roles>;
 }

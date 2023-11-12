@@ -59,6 +59,7 @@ export class BloglistComponent {
 
     this.blogService.loadData().subscribe(results => {
       this.loadEmptyMsg = true;
+      console.log(results)
       console.log('come to the subscriber');
       this.dataSource.data = results;
     });

@@ -63,7 +63,7 @@ export class AuthService {
         console.log("AuthenticationService: " + username + ", " + password)
         //TODO: call the login service here 
         
-      return this.http.post<any>(`${environment.apiUrl}account/login`, { username, password })
+      return this.http.post<any>(`${environment.infotApiUrl}users/login`, { username, password })
           .pipe(map(user => {
               console.log('login successful');
               console.log(user);

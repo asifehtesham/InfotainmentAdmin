@@ -46,6 +46,7 @@ export class UserlistComponent {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sortable;
     this.userService.loadData().subscribe(results => {
+      console.log(results)
       this.loadEmptyMsg = true;
       console.log('come to the subscriber');
       this.dataSource.data = results;
