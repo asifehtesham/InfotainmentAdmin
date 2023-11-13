@@ -21,13 +21,20 @@ export class CohortService {
     console.log("addcohorts: ");
     console.log(cohort);
 
-    var action = (cohort.id <= 0) ? "cohort/add" : "cohort/edit"
-    return this.http.post<any>(environment.apiUrl + action, cohort)
+    var action = "cohort/"
+    return this.http.post<any>(environment.infotApiUrl + action, cohort)
       .pipe(map(data => {
         return data;
       }));
   }
-
+  edit(cohort: Cohort) {
+    console.log("updatecohorts: ");
+    console.log(cohort);
+    return this.http.put<any>(environment.infotApiUrl + "cohort", cohort)
+      .pipe(map((data: Cohort) => {
+        return data;
+      }));
+  }
   deleteAll(ids) {
     console.log("delete: " + ids);
 
@@ -59,11 +66,11 @@ export class CohortService {
 
   loadData(): Observable<Cohort[]> {
 
-    return this.http.get<any>(`${environment.apiUrl}cohort`)
+    return this.http.get<any>(`${environment.infotApiUrl}cohort`)
       .pipe(
         map(data => {
           var cohort: Array<Cohort> = [];          
-          data.forEach(item => {
+          data.data.forEach(item => {
             cohort.push(<Cohort>item);
           });
           console.log(cohort);
@@ -74,8 +81,8 @@ export class CohortService {
 
   delete(id: number) {
     console.log("delete: " + id);
-    var action = "user/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    var action = "cohort/" + id;
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));

@@ -37,10 +37,10 @@
 
                                     <input type="text" id="name" class="input" placeholder="Enter Name"
                                         formControlName="name" required matInput #name>
-                                    <button mat-icon-button *ngIf="name.value" matSuffix md-icon-button
+                                    <a mat-icon-button *ngIf="name.value" matSuffix md-icon-button
                                         aria-label="Clear" (click)="name.value=''">
                                         <mat-icon>close</mat-icon>
-                                    </button>
+                                </a>
                                     <mat-error *ngIf="">
                                         Please enter a valid name
                                     </mat-error>

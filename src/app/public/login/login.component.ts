@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/mainapp/dashboard']);
     }
 
     window['onSignIn'] = (user) => ngZone.run(() => this.onSignIn(user));
@@ -64,8 +64,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
     //debugger;
     this.buildForm();
 
@@ -92,8 +90,8 @@ export class LoginComponent implements OnInit {
       ],
     });
 
-    this.userForm.valueChanges.subscribe(data => this.onValueChanged(data));
-    this.onValueChanged();
+    // this.userForm.valueChanges.subscribe(data => this.onValueChanged(data));
+    // this.onValueChanged();
   }
 
   // convenience getter for easy access to form fields
@@ -129,9 +127,9 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.userForm.invalid) {
-      return;
-    }
+    // if (this.userForm.invalid) {
+    //   return;
+    // }
 
     this.loading = true;
     //TODO: Uncommment the following lines to allow subscribe
@@ -156,6 +154,8 @@ export class LoginComponent implements OnInit {
           });
           this.f.username.setErrors({ 'incorrect': true });
           this.f.password.setErrors({ 'incorrect': true });
+          //  this.submitted=false
+           this.f.password.setValue('')
           //this.error = "Invalid Username or Password";
           this.loading = false;
         });

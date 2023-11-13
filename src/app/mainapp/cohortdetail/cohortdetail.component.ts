@@ -34,18 +34,20 @@ export class CohortdetailComponent {
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
       console.log("request",request);
-      if(request)
-      this.cohort=request.cohort
+      if(request) {
+        this.cohort=request.cohort
+        this.id= request.cohort.id
+      }
   }
 
   ngOnInit() {
     this.buildForm();
     if(this.cohort){
-      console.log(this.cohort)
+      console.log("c",this.cohort)
       this.f.id.setValue(this.cohort.id);
-      this.f.name.setValue(this.cohort.name);
+      this.f.name.setValue(this.cohort.cohortName);
       this.contentData = this.cohort.description
-      this.f.isVisible.setValue(this.cohort.isVisible);
+      this.f.isVisible.setValue(this.cohort.visible);
     }
   }
 
@@ -75,18 +77,31 @@ export class CohortdetailComponent {
   saveData() {
     var cohort: Cohort = {
       id: this.id,
-      name: this.f.name.value,
-      description: this.f.description.value,
-      isVisible: this.f.isVisible.value,
+      cohortName: this.f.name.value,
+      description: this.contentData,
+      visible: this.f.isVisible.value,
     }
-    this.cohortService.add(cohort).subscribe(result => {
+    console.log("before add" ,cohort)
+
+    var observer: Observable<any>;
+    if (cohort.id == null || cohort.id <= 0)
+      observer = this.cohortService.add(cohort);
+    else
+      observer = this.cohortService.edit(cohort);
+
+    observer.subscribe(result => {
+      console.log("Response from server:");
+      console.log(result);
+      console.log(result.id);
       this.id = result.id;
-    });
+     });
   }
 
   revert() { this.cohortForm.reset(); }
+
   update(data){
-    this.f.content.setValue(data);
+    // this.f.content.setValue(data); 
+  this.contentData=data
   }
 }
 

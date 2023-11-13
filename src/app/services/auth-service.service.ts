@@ -77,7 +77,6 @@ export class AuthService {
                   this.currentUserSubject.next(user);
                   console.log('stored user to local storage');
               }
-
               return user;
           }));
           

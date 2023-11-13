@@ -28,7 +28,7 @@ export class CohortlistComponent {
   subscription: Subscription;
   displayedColumns: string[] = ['select',
     'name',
-    'noofusers',
+    'noOfUsers',
     'description',
     'isVisible',
     'id'];
@@ -70,14 +70,38 @@ export class CohortlistComponent {
   }
 
   ondelete(cohort: Cohort) {
-    this.cohortService.delete(cohort.id).subscribe(params => {
-      console.log('come to the subscriber: ');
-      console.log(params);
-
-      if (params) {
-        this.loadData()
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cohortService.delete(cohort.id).subscribe(params => {
+          console.log('come to the subscriber: ');
+          console.log(params);
+    
+          if (params) {
+            this.snakbar.open('Cohort has been deleted successfully.', 'Dismise', {
+              duration: 3000,
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+            });
+            this.loadData()
+          }
+        });
       }
-    });
+      else {
+        Swal.fire(
+          'Cancelled',
+          'Your Cohort is safe :)',
+          'error'
+        )
+      }
+    })
   }
 
   onRemoveAll() { 
@@ -145,7 +169,9 @@ export class CohortlistComponent {
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      console.log(result)
       if(result)
+      this.loadData()
       this.snakbar.open('Cohort created successfully.', 'Dismise', {
         duration: 3000,
         horizontalPosition: 'right',
@@ -156,13 +182,15 @@ export class CohortlistComponent {
   }
 
   onEdit(cohort: Cohort) {
-    const dialogRef = this.dialog.open(CohortdetailComponent, {
+    const dialogRef = this.dialog.open(CohortdetailComponent, { 
       width: '650px',
       data: { cohort: cohort }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       if(result)
+      this.loadData()
+      
       this.snakbar.open('Cohort updated successfully.', 'Dismise', {
         duration: 3000,
         horizontalPosition: 'right',

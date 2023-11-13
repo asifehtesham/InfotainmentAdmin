@@ -2,9 +2,10 @@ import { User } from "./Users";
 
 export class Cohort {
     id: number;
-    name: string;
-    isVisible: boolean;
+    cohortName: string;
+    visible: boolean;
     description?: string;
     users?: User;
     noofusers?:any;
+    
 }

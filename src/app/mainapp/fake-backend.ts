@@ -271,11 +271,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             //     console.log(request.url);
             //     return ok(UserData[0]);
             // }
-            if (request.url.startsWith(`${environment.apiUrl}cohort`) && request.method === 'GET') {
-                console.log("Fake interceptor cohort/");
-                console.log(request.url);
-                return ok(CohortData);
-            }
+            // if (request.url.startsWith(`${environment.apiUrl}cohort`) && request.method === 'GET') {
+            //     console.log("Fake interceptor cohort/");
+            //     console.log(request.url);
+            //     return ok(CohortData);
+            // }
             
             // if (request.url.startsWith(`${environment.apiUrl}user`) && request.method === 'GET') {
             //     console.log("Fake interceptor user/");
