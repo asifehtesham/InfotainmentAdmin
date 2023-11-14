@@ -33,29 +33,27 @@ export class UserdetailComponent {
     @Inject(MAT_DIALOG_DATA) public request: any) {
     
       console.log("request",request);
-    //this.id = request.id;
+      if(request){
+        this.user = request.user
+        this.id = request.user.id;
+      }
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-      console.log("userID para:" + this.id);
 
       this.buildForm();
 
-      if (this.id > 0) {
-        this.userService.loadByID(this.id).subscribe(results => {
-          this.user = results;
+      if (this.user) {
           this.f.id.setValue(this.user.id);
-          this.f.username.setValue(this.user.username);
-          this.f.password.setValue(this.user.password);
-          this.f.email.setValue(this.user.email);
-          this.f.mobile.setValue(this.user.mobile);
           this.f.title.setValue(this.user.title);
+          this.f.username.setValue(this.user.username);
           this.f.firstName.setValue(this.user.firstName);
           this.f.lastName.setValue(this.user.lastName);
-          this.f.isActive.setValue(this.user.isActive);
-        });
+          this.f.email.setValue(this.user.email);
+          this.f.mobile.setValue(this.user.mobile);
+          this.f.password.setValue(this.user.password);
+          this.f.active.setValue(this.user.active);
       }
     });
   }
@@ -63,7 +61,7 @@ export class UserdetailComponent {
   buildForm() {
     console.log("build form ");
     this.userForm = this.fb.group({
-      'ID': [this.id, []],
+      'id': [this.id, []],
       'username': ['', [
         Validators.required,
         Validators.maxLength(500),
@@ -75,7 +73,7 @@ export class UserdetailComponent {
       'title': ['', []],
       'firstName': ['', []],
       'lastName': ['', []],
-      'isActive': ['', []]
+      'active': ['', []]
     });
   }
 
@@ -90,17 +88,26 @@ export class UserdetailComponent {
     var user: User = {
       id: this.id,
       username: this.f.username.value,
-      password: this.f.password.value,
+      // password: this.f.password.value,
       email: this.f.email.value,
       mobile: this.f.mobile.value,
       title: this.f.title.value,
       firstName: this.f.firstName.value,
       lastName: this.f.lastName.value,
-      isActive: this.f.isActive.value,
+      active: this.f.active.value,
     }
-    this.userService.add(user).subscribe(result => {
+    
+    var observer: Observable<any>;
+    if (user.id == null || user.id <= 0)
+      observer = this.userService.add(user);
+    else
+      observer = this.userService.update(user);
+
+    observer.subscribe(result => {
+      console.log("Response from server:");
+      console.log(result);
       this.id = result.id;
-    });
+     });
   }
 
   revert() { this.userForm.reset(); }

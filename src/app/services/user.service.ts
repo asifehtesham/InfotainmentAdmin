@@ -19,26 +19,21 @@ export class UserService {
     console.log("addUsers: ");
     console.log(user);
 
-    var action = (user.id <= 0) ? "user/add" : "user/edit"
-    return this.http.post<any>(environment.apiUrl + action, user)
+    return this.http.post<any>(environment.infotApiUrl + 'users', user)
       .pipe(map(data => {
         return data;
       }));
   }
 
-  loadByID(id: number): Observable<User> {
-    console.log('loadByID' + id);
-    return this.http.get<any>(`${environment.apiUrl}user/${id}`)
-      .pipe(
-        map(data => {
-          console.log('loadData successful' + data);
-
-          console.log(<User>data);
-          return <User>data;
-        }),
-      );
+  update(user :User){
+    console.log("updateUsers: ");
+    console.log(user);
+ 
+    return this.http.put<any>(environment.infotApiUrl + 'users', user)
+      .pipe(map(data => {
+        return data;
+      }));
   }
-
   loadData(): Observable<User[]> {
 
     return this.http.get<any>(`${environment.infotApiUrl}users`)
@@ -55,8 +50,8 @@ export class UserService {
 
   delete(id: number) {
     console.log("delete: " + id);
-    var action = "user/" + id;
-    return this.http.delete<any>(environment.apiUrl + action)
+    var action = "users/" + id;
+    return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
       }));
@@ -64,7 +59,7 @@ export class UserService {
 
   handleError(operation: String) {
     return (err: any) => {
-      let errMsg = `error in ${operation}() retrieving ${environment.apiUrl}`;
+      let errMsg = `error in ${operation}() retrieving ${environment.infotApiUrl}`;
       console.log(`${errMsg}:`, err)
       if (err instanceof HttpErrorResponse) {
         // you could extract more info about the error if you want, e.g.:

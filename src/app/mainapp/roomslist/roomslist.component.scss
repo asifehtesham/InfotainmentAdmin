@@ -2,6 +2,7 @@
     display:flex;
     justify-content:flex-end;
     padding: 5px;
+    margin-top: 10px
 }
  .statusActive{
     background: rgb(255, 69, 96); color: rgb(255, 69, 96); height: 15px; width: 15px; left: 0px; top: 0px; border-width: 0px; border-color: rgb(255, 255, 255); border-radius: 10px;
@@ -22,4 +23,12 @@
  .column-label {
    margin-right: 8px;
    font-size: 1rem;
+ }
+ mat-icon{
+   color:black;
+   font-size: 20px
+ }
+ .complaint{
+  cursor:pointer;
+  margin-right:15px
  }

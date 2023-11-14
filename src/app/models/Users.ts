@@ -9,7 +9,7 @@ export class User {
     title: string;
     firstName: string;
     lastName: string;
-    isActive: boolean;
+    active: boolean;
     token?: string;
     auth_token?: string;
     UserRoles?: Array<Roles>;

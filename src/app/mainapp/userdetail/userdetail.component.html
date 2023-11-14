@@ -20,7 +20,7 @@
     </div>
     <mat-divider></mat-divider>
     <!-- <mat-dialog-content> -->
-    <input type="hidden" id="ID" formControlName="ID">
+    <input type="hidden" id="id" formControlName="id">
     <div fxLayout="column" fxFlexFill>
 
         <mat-tab-group>
@@ -32,17 +32,32 @@
                     <mat-dialog-content>
 
                         <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Title</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
 
+                                    <input type="text" id="title" class="input" placeholder="Enter title"
+                                        formControlName="title" required matInput #title>
+                                    <a mat-icon-button *ngIf="title.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="title.value=''">
+                                        <mat-icon>close</mat-icon>
+                                </a>
+                                    <mat-error *ngIf="">
+                                        Please enter a valid title
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Username</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
 
                                     <input type="text" id="username" class="input" placeholder="Enter username"
                                         formControlName="username" required matInput #username>
-                                    <button mat-icon-button *ngIf="username.value" matSuffix md-icon-button
+                                    <a mat-icon-button *ngIf="username.value" matSuffix md-icon-button
                                         aria-label="Clear" (click)="username.value=''">
                                         <mat-icon>close</mat-icon>
-                                    </button>
+                                </a>
                                     <mat-error *ngIf="">
                                         Please enter a valid username
                                     </mat-error>
@@ -55,10 +70,10 @@
                                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                         <input type="text" id="firstName" class="input" placeholder="Enter first Name"
                                             formControlName="firstName" required matInput #firstName>
-                                        <button mat-icon-button *ngIf="firstName.value" matSuffix md-icon-button
+                                        <a mat-icon-button *ngIf="firstName.value" matSuffix md-icon-button
                                             aria-label="Clear" (click)="firstName.value=''">
                                             <mat-icon>close</mat-icon>
-                                        </button>
+                                    </a>
                                         <mat-error *ngIf="">
                                             Please enter a valid first name
                                         </mat-error>
@@ -71,10 +86,10 @@
                                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                         <input type="text" id="lastName" class="input" placeholder="Enter last Name"
                                             formControlName="lastName" required matInput #lastName>
-                                        <button mat-icon-button *ngIf="lastName.value" matSuffix md-icon-button
+                                        <a mat-icon-button *ngIf="lastName.value" matSuffix md-icon-button
                                             aria-label="Clear" (click)="lastName.value=''">
                                             <mat-icon>close</mat-icon>
-                                        </button>
+                                    </a>
                                         <mat-error *ngIf="">
                                             Please enter a valid last name
                                         </mat-error>
@@ -87,10 +102,10 @@
                                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                         <input type="text" id="email" class="input" placeholder="Enter email"
                                             formControlName="email" required matInput #email>
-                                        <button mat-icon-button *ngIf="email.value" matSuffix md-icon-button
+                                        <a mat-icon-button *ngIf="email.value" matSuffix md-icon-button
                                             aria-label="Clear" (click)="email.value=''">
                                             <mat-icon>close</mat-icon>
-                                        </button>
+                                    </a>
                                         <mat-error *ngIf="">
                                             Please enter a valid email
                                         </mat-error>
@@ -103,10 +118,10 @@
                                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
                                         <input type="text" id="mobile" class="input" placeholder="Enter mobile"
                                             formControlName="mobile" required matInput #mobile>
-                                        <button mat-icon-button *ngIf="mobile.value" matSuffix md-icon-button
+                                        <a mat-icon-button *ngIf="mobile.value" matSuffix md-icon-button
                                             aria-label="Clear" (click)="mobile.value=''">
                                             <mat-icon>close</mat-icon>
-                                        </button>
+                                    </a>
                                         <mat-error *ngIf="">
                                             Please enter a valid mobile
                                         </mat-error>
@@ -114,7 +129,28 @@
                                 </div>
                             </div>
 
+                            <!-- <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap>
+                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10" fxFlex>
+                                    <mat-label class="label m-2">Password</mat-label>
+                                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                        <input type="text" id="password" class="input" placeholder="Enter password"
+                                            formControlName="password" required matInput #password>
+                                        <a mat-icon-button *ngIf="password.value" matSuffix md-icon-button
+                                            aria-label="Clear" (click)="password.value=''">
+                                            <mat-icon>close</mat-icon>
+                                    </a>
+                                        <mat-error *ngIf="">
+                                            Please enter a valid password
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div> -->
 
+                            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10" fxFlexFill>
+                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
+                                    <mat-checkbox class="full-width" formControlName="active" fxFlex>Is Active</mat-checkbox>
+                                </div>
+                                </div>
 
                         </div>
                     </mat-dialog-content>
@@ -132,18 +168,13 @@
     </div>
     <!-- </mat-dialog-content> -->
     <mat-dialog-actions align="end">
-        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10" fxFlexFill>
-            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
-                <mat-checkbox class="full-width" formControlName="isActive" fxFlex>Active</mat-checkbox>
-            </div>
-            <div>
+       
                 <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
                 <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
                 <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit"
                     [disabled]="!userForm.valid" (click)="save()">
                     <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
                 </button>
-            </div>
-        </div>
+            
     </mat-dialog-actions>
 </form>

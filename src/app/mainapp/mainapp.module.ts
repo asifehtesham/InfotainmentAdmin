@@ -127,6 +127,7 @@ import { DeviceListComponent } from './device-list/device-list.component';
 import { ImenuDetailComponent } from './imenu-detail/imenu-detail.component';
 import { ImenuListComponent } from './imenu-list/imenu-list.component';
 import { PendingServiceRequestComponent } from "./pending-servicerequests/pending-servicerequests.component";
+import { PatientComplaintComponent } from "./patient-complaint/patient-complaint.component";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -492,6 +493,7 @@ const routes: Routes = [
     ImenuDetailComponent,
     ImenuListComponent,
     PendingServiceRequestComponent,
+    PatientComplaintComponent
 
 
   ],

@@ -142,6 +142,16 @@
       >
         <mat-card class="mat-elevation-z4">
           <div class="activeIcon">
+              <a (click)="onViewComplaints(room)">
+                <span *ngIf="room.serviceComplaintList.length >= 1" class="complaint"
+                    matBadge="{{ room.serviceComplaintList.length }}"
+                    matBadgeColor="warn" matTooltip="View complaints" matTooltipPosition="below">
+                  <img width="23px" src="assets/complaint.png">
+                </span>
+                <span *ngIf="room.serviceComplaintList.length == 0" matTooltip="View complaints" matTooltipPosition="below" class="complaint">
+                  <img width="23px" src="assets/complaint.png">
+                </span>
+                </a>
             <a (click)="onAddDevices(room)">
               <mat-icon matTooltip="Add Devices" matTooltipPosition="below" style="font-size:large;cursor:pointer;margin-right:10px">devices</mat-icon>
             </a>
@@ -184,53 +194,53 @@
             </div>
           </mat-card-content>
 
-          <mat-card-actions>
-            <button
+          <mat-card-actions style="justify-content: space-evenly;">
+            <a
               *ngIf="room.currentAdmission"
-              mat-button
+              
               (click)="checkPatientRecord(room)"
               matTooltip="View Patient"
               matTooltipPosition="below"
             >
               <mat-icon>local_hotel</mat-icon>
-            </button>
-            <button
-              mat-button
+          </a>
+            <a
+              
               *ngIf="room.currentAdmission"
               matTooltip="Don't Disturb"
               matTooltipPosition="below"
             >
               <mat-icon>do_not_disturb_on_total_silence</mat-icon>
-            </button>
-            <button
-              mat-button
+        </a>
+            <a
+              
               *ngIf="room.currentAdmission"
               matTooltip="Discharge"
               matTooltipPosition="below"
             >
               <mat-icon>space-shuttle</mat-icon>
-            </button>
+      </a>
 
-            <button
+            <a
               (click)="onAdmitPatient(room)"
               *ngIf="!room.currentAdmission"
-              mat-button
+              
               matTooltip="Admit Patient"
               matTooltipPosition="below"
             >
               <mat-icon>spatial_audio_off</mat-icon>
-            </button>
-            <button
+    </a>
+            <a
               *ngIf="!room.currentAdmission"
-              mat-button
+              
               matTooltip="Call"
               matTooltipPosition="below"
             >
               <mat-icon>phone</mat-icon>
-            </button>
+  </a>
 
-            <button
-              mat-button
+            <a
+              
               matTooltip="Requests"
               (click)="showServiceRequests(room)"
               matTooltipPosition="below"
@@ -244,7 +254,7 @@
               <mat-icon *ngIf="room.serviceRequest.length == 0"
                 >notifications</mat-icon
               >
-            </button>
+</a>
           </mat-card-actions>
         </mat-card>
       </div>

@@ -35,8 +35,8 @@ export class CohortdetailComponent {
     @Inject(MAT_DIALOG_DATA) public request: any) {
       console.log("request",request);
       if(request) {
-        this.cohort=request.cohort
-        this.id= request.cohort.id
+        this.cohort = request.cohort
+        this.id = request.cohort.id
       }
   }
 
@@ -92,7 +92,6 @@ export class CohortdetailComponent {
     observer.subscribe(result => {
       console.log("Response from server:");
       console.log(result);
-      console.log(result.id);
       this.id = result.id;
      });
   }

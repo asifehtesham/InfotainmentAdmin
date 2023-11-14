@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 import { ServicerequestDetailComponent } from '../servicerequest-detail/servicerequest-detail.component';
 import { PendingServiceRequestComponent } from '../pending-servicerequests/pending-servicerequests.component';
+import { PatientComplaintComponent } from '../patient-complaint/patient-complaint.component';
 
 @Component({
   selector: 'app-roomslist',
@@ -191,6 +192,16 @@ export class RoomsListComponent {
       data: { room: room }
     });
     dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+  onViewComplaints(room: Rooms) {
+    const dialogRef = this.dialog.open(PatientComplaintComponent, {
+      width: '650px',
+      data: { room: room }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    
+      // this.loadData();
     });
   }
 }
