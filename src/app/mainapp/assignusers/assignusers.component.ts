@@ -1,7 +1,6 @@
 import { Component, OnInit,AfterViewInit, ViewChild,Inject, TemplateRef, Input } from '@angular/core';
 import { CdkDragDrop,CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { DateTime } from 'luxon';
-import { roomDevicesService } from 'src/app/services/roomDevices.service';
+import { DateTime } from 'luxon'; 
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,6 +8,7 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginator } from '@angular/material/paginator';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { cohortAssigneeUsersService } from 'src/app/services/cohortAssigneeUsers.service';
 
 @Component({
   selector: 'app-assignusers',
@@ -34,7 +34,7 @@ export class AssignUsersCohortComponent implements OnInit {
   sortBy:string=''
   sortByPotentialUsers:string=''
   
-  constructor(private roomDevicesService:roomDevicesService, private snakbar: MatSnackBar,
+  constructor(private cohortAssigneeUsersService:cohortAssigneeUsersService, private snakbar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public request: any) {
       console.log("users request");
       console.log(request);
@@ -65,7 +65,7 @@ export class AssignUsersCohortComponent implements OnInit {
 
   loadCurrentUsers(sort,search) {
     if(this.cohortId) { 
-      this.roomDevicesService.loadInstalledDevices(this.cohortId,sort,search).subscribe(results => {
+      this.cohortAssigneeUsersService.loadCohortUsers(this.cohortId,sort,search).subscribe(results => {
         console.log("load users",results,this.cohortId)
 
         this.data.splice(0,this.data.length)
@@ -82,7 +82,7 @@ export class AssignUsersCohortComponent implements OnInit {
 
   loadPotentialUsers(sort,search) {
     if(this.cohortId) {
-      this.roomDevicesService.loadNotInstalledDevices(this.cohortId,sort,search).subscribe(results => {
+      this.cohortAssigneeUsersService.loadNonCohortUsers(this.cohortId,sort,search).subscribe(results => {
         console.log("load potential users",results,this.cohortId)
         
         this.checkedData.splice(0,this.checkedData.length)
@@ -111,7 +111,7 @@ export class AssignUsersCohortComponent implements OnInit {
     console.log("remove pre",prevData)
     var observer: Observable<any>;
     if (this.cohortId != null || this.cohortId > 0){
-      observer = this.roomDevicesService.removeDevics(this.cohortId,prevData);
+      observer = this.cohortAssigneeUsersService.removeUser(this.cohortId,prevData);
     }
     observer.subscribe(result => {
       console.log("response of remove participant",result); 
@@ -149,14 +149,14 @@ export class AssignUsersCohortComponent implements OnInit {
   }
   postCurrentUser(prevData){
     console.log("pre",prevData)
-    var roomDevice = {
+    var cohortUsers = {
       cohortId: this.cohortId,
-      deviceId: prevData.id,
+      userId: prevData.id,
     }
     var observer: Observable<any>;
-    if (roomDevice.cohortId != null || roomDevice.cohortId > 0){
+    if (cohortUsers.cohortId != null || cohortUsers.cohortId > 0){
       
-      observer = this.roomDevicesService.addDevice(roomDevice);
+      observer = this.cohortAssigneeUsersService.addUser(cohortUsers);
     }
     observer.subscribe(result => {
       console.log("response of add participant",result); 
