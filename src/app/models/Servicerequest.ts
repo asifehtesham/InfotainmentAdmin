@@ -18,3 +18,11 @@ export enum ServiceStatus {
     "Rejected"=3,
     "CancelledByPatient"=4
 }
+export enum ComplainStatus {
+    "VeryBad" = 1,
+    "Poor" = 2,
+    "Medium" = 3,
+    "Good" = 4,
+    "Excelent" = 5,
+
+}

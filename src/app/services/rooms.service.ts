@@ -6,13 +6,15 @@ import { map, catchError } from 'rxjs/operators';
 import { Rooms } from '../models/Rooms';
 import { AuthService } from './auth-service.service';
 import { JsonPipe } from '@angular/common';
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomsService {
 
-  constructor(private http: HttpClient, private authenticationService: AuthService
+  constructor(private http: HttpClient, private authenticationService: AuthService, private snakbar: MatSnackBar,
   ) { }
 
   add(room: Rooms) {
@@ -90,7 +92,46 @@ export class RoomsService {
         return rooms;
       }));
   }
+  checkInPatient(admit) {
+    
+    const connection = new HubConnectionBuilder().configureLogging(LogLevel.Information).withUrl(environment.signalR_URL).build()
 
+    connection.start().then(function () {
+      console.log("signalR connected");
+      console.log(admit)
+      //roomNO, admissionNo, PatientFileNb
+      connection.send("CheckinPatient", admit.roomNo, admit.admissionNo, admit.fileNo).finally(function () {
+        connection.stop();
+        console.log("signalR disconnected");
+      });
+    });
+  }
+  checkOutPatient(room) {
+    
+    
+    const connection = new HubConnectionBuilder().configureLogging(LogLevel.Information).withUrl(environment.signalR_URL).build()
+    
+    this.snakbar.open('Patient is discharged successfully.', 'Dismise', {
+      duration: 3000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top',
+    });
+    connection.start().then(function () {
+      console.log("signalR connected");
+      console.log(room.roomNo,room.currentAdmission.fileNo,room.currentAdmission.admissionNo)
+      //roomNO, admissionNo, PatientFileNb
+
+      connection.send("CheckoutPatient", room.roomNo, room.currentAdmission.admissionNo, room.currentAdmission.fileNo).finally(function () {
+        connection.stop();
+        
+        console.log('checkout')
+      });
+    });
+    
+  }
+  doNotDisturb(room) {
+
+  }
   delete(id: number) {
     console.log("delete: " + id);
 

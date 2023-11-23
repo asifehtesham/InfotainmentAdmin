@@ -34,7 +34,7 @@ export class NewspaperDetailComponent {
   newsPaperForm: FormGroup;
 
   url: string = '';
-  done: any;
+ 
   isNewsPaperSaved: boolean = true;
 
   

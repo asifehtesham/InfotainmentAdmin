@@ -91,7 +91,7 @@ export class RoomServiceService {
         return services;
       }));
   }
-
+  
   delete(id: number) {
     console.log("delete: " + id);
 

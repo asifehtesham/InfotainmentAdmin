@@ -1,0 +1,142 @@
+<form [formGroup]="roomTypeForm">
+    <div class="m-3">
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="height: 40px;">
+            <div fxFlex>
+                <h5 mat-dialog-title class="title-sub">Room Type Detail</h5>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+
+
+                <button mat-flat-button [mat-dialog-close]="true" color="primary" type="submit" (click)="save()"
+                    [disabled]="!roomTypeForm.valid">
+                    <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
+                </button>
+                <button mat-icon-button mat-dialog-close cdkFocusInitial>
+                    <mat-icon class="fa fa-large mr-2" fontSet="fa" fontIcon="fa-times"></mat-icon>
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <mat-divider></mat-divider> 
+    <input type="hidden" id="ID" formControlName="id">
+    <div fxLayout="column" fxFlexFill> 
+        <mat-tab-group>
+            <mat-tab label="Page Info">
+                <ng-template mat-tab-label>
+                    Basic Info
+                </ng-template>
+                <ng-template matTabContent>
+                    <mat-dialog-content>
+                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <app-single-file-upload fxFlex="50" #imageControl (complete)="onFileComplete($event)">
+                                </app-single-file-upload>
+                            </div>
+                            
+
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Title</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="title" class="input" placeholder="Enter Title"
+                                        formControlName="title" required matInput #title>
+                                    <a mat-icon-button *ngIf="title.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="title.value=''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error class="mt-1" *ngIf="title.value==''">
+                                        Please enter a valid title
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Font Type</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="fontType" class="input" placeholder="Enter Font Type"
+                                        formControlName="fontType" required matInput #fontType>
+                                    <a mat-icon-button *ngIf="fontType.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="fontType.value=''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error class="mt-1" *ngIf="fontType.value==''">
+                                        Please enter a valid fontType
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            
+                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Font Color</mat-label>
+                                <input class="form-control" (colorPickerChange)="onChangeColor($event)"
+                                readonly
+                                    [value]="color" 
+                                    [style.background]="color"
+                                    [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+                                    [(colorPicker)]="color" 
+                                    matInput/>
+                               
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-checkbox class="full-width" formControlName="showFirstMenu" fxFlex>Show First Menu</mat-checkbox>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">First Menu Code</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="firstMenuCode" class="input" placeholder="Enter First Menu Code"
+                                        formControlName="firstMenuCode" required matInput #firstMenuCode>
+                                    <a mat-icon-button *ngIf="firstMenuCode.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="firstMenuCode.value=''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error class="mt-1" *ngIf="firstMenuCode.value==''">
+                                        Please enter a valid First Menu Code
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-checkbox class="full-width" formControlName="showSecondMenu" fxFlex>Show Second Menu</mat-checkbox>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">Second Menu Code</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="secondMenuCode" class="input" placeholder="Enter Second Menu Code"
+                                        formControlName="secondMenuCode" required matInput #secondMenuCode>
+                                    <a mat-icon-button *ngIf="secondMenuCode.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="secondMenuCode.value=''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error class="mt-1" *ngIf="secondMenuCode.value==''">
+                                        Please enter a valid Second Menu Code
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                           
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <mat-label class="label m-2">General Menu Code</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                    <input type="text" id="generalMenuCode" class="input" placeholder="Enter General Menu Code"
+                                        formControlName="generalMenuCode" required matInput #generalMenuCode>
+                                    <a mat-icon-button *ngIf="generalMenuCode.value" matSuffix md-icon-button
+                                        aria-label="Clear" (click)="generalMenuCode.value=''">
+                                        <mat-icon>close</mat-icon>
+                                    </a>
+                                    <mat-error class="mt-1" *ngIf="generalMenuCode.value==''">
+                                        Please enter a valid General Menu Code
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                           
+                        </div>
+                    </mat-dialog-content>
+                </ng-template>
+            </mat-tab>
+            
+        </mat-tab-group>
+    </div> 
+    <mat-dialog-actions align="end"> 
+        <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button> 
+        <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit"
+            [disabled]="!roomTypeForm.valid" (click)="save()">
+            <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon> Save
+        </button> 
+    </mat-dialog-actions>
+</form>

@@ -10,7 +10,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Servicerequest,ServiceStatus } from 'src/app/models/Servicerequest';
+import { Servicerequest,ServiceStatus, ComplainStatus } from 'src/app/models/Servicerequest';
 import { EditorConfig } from 'src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
 import { ServicerequestService } from 'src/app/services/servicerequest.service';
@@ -25,6 +25,7 @@ import { ServicerequestDetailComponent } from '../servicerequest-detail/servicer
 })
 export class PatientComplaintComponent {
   ServiceStatus = ServiceStatus;
+  ComplainStatus = ComplainStatus;
   
   id: number;
   serviceComplaintList: any;

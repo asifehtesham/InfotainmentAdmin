@@ -28,11 +28,13 @@ export class PolldetailComponent {
   id: number;
   poll: Poll;
   pollForm: FormGroup; 
-  ImageTitle: string = "";
-  ImagePath: string = "";
-  sortId:number = 1;
   sortOption:any = []  
   option: Option;
+  sortId:number = 1;
+  
+  ImageTitle: string = "";
+  ImagePath: string = "";
+  
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
 

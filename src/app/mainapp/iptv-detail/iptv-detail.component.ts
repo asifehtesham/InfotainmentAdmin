@@ -141,7 +141,7 @@ export class IPTVDetailComponent {
         Validators.minLength(1)
       ]],
       'titleAr': ['', [
-        Validators.maxLength(500),
+        // Validators.maxLength(500),
       ]],
       'imageURL': ['', []],
       'serviceURL': ['', []],

@@ -35,6 +35,12 @@ export class RoomsListComponent {
   ngOnInit() {
     this.loadData();
   }
+  ngAfterViewInit(){
+    setInterval( ()=>{
+      this.loadData()
+    console.log('interval works')
+    }, 5000)
+  }
 
   loadData() {
     this.roomsService.loadData(this.index, this.limit).subscribe(results => {
@@ -52,6 +58,7 @@ export class RoomsListComponent {
       index++;
       return (index > startingIndex && index <= endingIndex) ? true : false;
     });
+    console.log(this.rooms)
   }
 
   onDelete(room: Rooms) {
@@ -150,7 +157,7 @@ export class RoomsListComponent {
       data: { room: room }
     });
     dialogRef.afterClosed().subscribe(result => {
-    
+
       this.loadData();
     });
   }
@@ -175,18 +182,35 @@ export class RoomsListComponent {
 
   }
 
+  disChargePatient(room) {
+    console.log("discharge", room)
+    this.roomsService.checkOutPatient(room)
+    this.loadData();
+    this.getData({ pageIndex: this.page, pageSize: this.size });
 
-  onAdmitPatient(room:Rooms) {
+  }
+
+  doNotDisturb(room) {
+    console.log("do not disturb", room)    
+    this.roomsService.doNotDisturb(room)
+    
+    this.loadData();
+    this.getData({ pageIndex: this.page, pageSize: this.size });
+
+  }
+
+  onAdmitPatient(room: Rooms) {
     console.log(room)
     const dialogRef = this.dialog.open(AdmitPatientComponent, {
       width: '750px',
       data: { room: room }
     });
     dialogRef.afterClosed().subscribe(result => {
-
+      console.log("1",result)
+      
     });
   }
-  onAddDevices(room:Rooms) {
+  onAddDevices(room: Rooms) {
     const dialogRef = this.dialog.open(AddRoomDeviceComponent, {
       width: '1050px',
       data: { room: room }
@@ -200,7 +224,7 @@ export class RoomsListComponent {
       data: { room: room }
     });
     dialogRef.afterClosed().subscribe(result => {
-    
+
       // this.loadData();
     });
   }

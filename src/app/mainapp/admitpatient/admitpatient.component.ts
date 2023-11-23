@@ -19,12 +19,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RoomsService } from 'src/app/services/rooms.service';
 import { TemplatesService } from 'src/app/services/templates.service';
 import { Templates } from 'src/app/models/Templates';
-import { BranchService } from 'src/app/services/branch.service';
 import { FloorService } from 'src/app/services/floor.service';
 import { AdmitPatientService } from 'src/app/services/admitPatient.service';
-import { Branch } from 'src/app/models/Branch';
 import { Floor } from 'src/app/models/Floor';
 import { PatientAdmission } from 'src/app/models/PatientAdmission'
+
 @Component({
   selector: 'app-admitpatient',
   templateUrl: './admitpatient.component.html',
@@ -34,7 +33,6 @@ export class AdmitPatientComponent {
   id: number;
   room: Rooms;
   patientAdmission:PatientAdmission;
-  branches: any =[]; 
   admitPatientForm: FormGroup; 
   gender=[
     {
@@ -65,14 +63,13 @@ export class AdmitPatientComponent {
     }
   ]
   editorConfig: any = EditorConfig;
-  constructor( private admitPatientService:AdmitPatientService,private fb: FormBuilder,private route: ActivatedRoute, private branchService:BranchService,private floorService: FloorService, private roomsService: RoomsService, private snakbar: MatSnackBar, private dialog: MatDialog,
+  constructor( private admitPatientService:AdmitPatientService,private fb: FormBuilder,private route: ActivatedRoute, private floorService: FloorService, private roomsService: RoomsService, private snakbar: MatSnackBar, private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
       console.log("add patient");
       if (request) {
         this.room = request.room;
-  // this.f.roomNo.setValue(this.room.roomNo)
         
-        // console.log("room",this.room.roomNo)
+        // console.log("room",this.room)
       }
     }
     
@@ -83,7 +80,8 @@ export class AdmitPatientComponent {
   
         this.buildForm();
         this.f.roomNo.setValue(this.room.roomNo)
-  
+        this.f.branchId.setValue(this.room.branch.shortName)
+
         if (this.patientAdmission != null)
           this.setForm();
         if (this.patientAdmission == null && this.id > 0) {
@@ -93,11 +91,6 @@ export class AdmitPatientComponent {
           });
         }
       });     
-      this.branchService.loadData().subscribe(results => {
-        results.forEach(element => {
-          this.branches.push(element);
-        }); 
-      });
     }
   
     setForm() {
@@ -146,13 +139,13 @@ export class AdmitPatientComponent {
     }
    
     saveData() {
-  this.f.roomNo.setValue(this.room.roomNo)
+      // this.f.roomNo.setValue(this.room.roomNo)
       var admit: PatientAdmission = {
         id: this.id,
-        roomNo: this.f.roomNo.value,
+        roomNo: this.room.roomNo,
         admissionNo: this.f.admissionNo.value,
         fileNo: this.f.fileNo.value,
-        branchId: this.f.branchId.value,
+        branchId: this.room.branchId,
         admitDate: this.f.admitDate.value,
         assignedDoctor: this.f.assignedDoctor.value,
         patientName: this.f.patientName.value,
@@ -171,11 +164,13 @@ export class AdmitPatientComponent {
         this.id = result.id;
         
         if (result.id)
+
           this.snakbar.open('Patient Admitted successfully.', 'Dismise', {
             duration: 3000,
             horizontalPosition: 'right',
             verticalPosition: 'top',
           });
+          
       });
   
     }

@@ -1,0 +1,130 @@
+<mat-dialog-content>
+  <mat-label class="label m-2">Devices</mat-label>
+   <hr>
+
+  <!-- <div>
+    <div style="float:left">
+      <mat-form-field style="width:300px">
+        <mat-label>Installed Devices Filter</mat-label>
+        <input matInput #searchInput (keyup.enter)="filterFromDevices($event)">
+        <mat-icon matPrefix fontSet="fa" fontIcon="fa-search"></mat-icon>
+        <a mat-button *ngIf="searchInput.value" matSuffix md-icon-button aria-label="Clear"><mat-icon>close</mat-icon></a>
+      </mat-form-field>
+      <mat-form-field class="ml-1" style="width:150px;height:52px" appearance="outline">
+          <mat-select (selectionChange)='sortDevices($event.value)' value="0">
+             
+              <mat-option value="0">Position</mat-option>
+              <mat-option value="3">Title</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <i *ngIf="sortDesc" matTooltip="Descending" matTooltipPosition="below" (click)="sortDescDevices(sortBy)" class="fa fa-arrow-up ml-2"></i>
+      <i *ngIf="sortAsc"matTooltip="Ascending" matTooltipPosition="below" (click)="sortAscDevices(sortBy)" class="fa fa-arrow-down ml-2"></i>
+    </div>
+    <div style="float:right">
+      <mat-form-field style="margin-right:6px;width:272px">
+        <mat-label>Devices Filter</mat-label>
+        <input matInput #searchInputUser (keyup.enter)="filterFromNonDevices($event)">
+        <mat-icon matPrefix fontSet="fa" fontIcon="fa-search"></mat-icon>
+        <a mat-button *ngIf="searchInputUser.value" matSuffix md-icon-button aria-label="Clear"><mat-icon>close</mat-icon>
+        </a>
+      </mat-form-field>
+      <mat-form-field style="width:120px;height:51px;margin-right:6px" appearance="outline">
+          <mat-select (selectionChange)='sortUser($event.value)' value="0">
+              
+              <mat-option value="0">Position</mat-option>
+              <mat-option value="1">Title</mat-option>
+          </mat-select>
+      </mat-form-field>
+      <i *ngIf="sortDescNonDevices" matTooltip="Descending" matTooltipPosition="below"  (click)="sortDescNonDevicess(sortByNonDevices)" class="fa fa-arrow-up ml-2"></i>
+      <i *ngIf="sortAscNonDevices"  matTooltip="Ascending" matTooltipPosition="below" (click)="sortAscNonDevicess(sortByNonDevices)" class="fa fa-arrow-down ml-2"></i>
+    </div>
+  </div> -->
+  <table>
+     
+    <tr>
+      <td>
+        <div class="mat-elevation-z8">
+          <mat-table #table [dataSource]="dataSource" style="width:450px" cdkDropList #list1="cdkDropList"
+            [cdkDropListData]="dataSource.data" [cdkDropListConnectedTo]="[list2]"
+            (cdkDropListDropped)="dropDevices($event)" cdkDropListSortingDisabled id="table">
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef style="padding:initial">
+                <mat-checkbox (change)="$event ? masterToggle() : null" 
+                  [checked]="selection.hasValue() && isAllSelected()" 
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let row" style="padding:initial">
+                <mat-checkbox (click)="$event.stopPropagation()" 
+                              (change)="$event ? selection.toggle(row) : null" 
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="installedDevices">
+              <mat-header-cell *matHeaderCellDef> Installed Devices </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+            </ng-container>
+           
+            
+    
+            <mat-header-row *matHeaderRowDef="displayedColumnsDevices"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsDevices;"  cdkDrag [cdkDragData]="row" >
+              </mat-row>
+            </mat-table>
+
+          <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+        </div>
+      </td>
+      <td class="left_right" style="width:80px">
+        <a class="raised-button" mat-raised-button color="primary" (click)="moveToSecondTable()">
+          <span class="material-icons">chevron_right</span>
+        </a>
+        <a class="raised-button mt-2" mat-raised-button color="primary" (click)="moveToFirstTable()">
+          <span class="material-icons">chevron_left</span>
+        </a>
+
+      </td>
+      <td>   
+        <div class="mat-elevation-z8">
+          <mat-table #table [dataSource]="nonDevicesDataSource" style="width:400px" cdkDropList #list2="cdkDropList" [cdkDropListData]="nonDevicesDataSource.data"
+            [cdkDropListConnectedTo]="[list1]" cdkDropListSortingDisabled (cdkDropListDropped)="drop($event)" id="table">
+
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef style="padding:initial">
+                <mat-checkbox (change)="$event ? masterCheckedToggle() : null" 
+                  [checked]="checkedSelection.hasValue() && isAllCheckedSelected()" 
+                  [indeterminate]="checkedSelection.hasValue() && !isAllCheckedSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+
+              <mat-cell *matCellDef="let row" style="padding:initial">
+                <mat-checkbox (click)="$event.stopPropagation()" 
+                  (change)="$event ? checkedSelection.toggle(row) : null" 
+                  [checked]="checkedSelection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="notInstalledDevices">
+              <mat-header-cell *matHeaderCellDef> Not Installed Devices </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+            </ng-container>
+             
+             
+
+            <mat-header-row *matHeaderRowDef="displayedColumnsNonDevices"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumnsNonDevices;" cdkDropListSortingDisabled cdkDrag (click)="checkedSelection.toggle(row)">
+            </mat-row>
+          </mat-table>
+          <mat-paginator #checkedpaginator [pageSize]="5" [pageSizeOptions]=" [5, 10, 20]"></mat-paginator>
+        </div>
+      </td>
+    </tr>
+  </table>
+</mat-dialog-content>

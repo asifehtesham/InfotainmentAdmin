@@ -23,6 +23,10 @@
                 <mat-tab label="Page Info">
                     <ng-template mat-tab-label> Basic Info </ng-template>
                     <ng-template matTabContent>
+                        <div class="arrow">
+                            <span><b>{{room.branch.shortName}}</b></span> > <span><b>{{room.roomNo}}</b></span> 
+                        </div>
+                        
                         <mat-dialog-content>
                             <div fxLayout="column" fxLayoutAlign="start stretch">
                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
@@ -49,14 +53,13 @@
                                     </div>
                                
                                 
-                                <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <!-- <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                     <mat-label class="label m-2">Branch</mat-label>
-                                    <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
-                                        <mat-select formControlName="branchId">
-                                            <mat-option *ngFor="let branch of branches" [value]="branch.id">{{branch.title}}</mat-option>
-                                        
-                                        </mat-select>
-                                    </mat-form-field>
+                                    <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                                            <input type="text" class="input" readonly
+                                                formControlName="branchId" matInput />
+                                        </mat-form-field>
+                                   
                                 </div>
                                 <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                         <mat-label class="label m-2">Room Number</mat-label>
@@ -64,7 +67,7 @@
                                             <input type="text" class="input" readonly
                                                 formControlName="roomNo" matInput />
                                         </mat-form-field>
-                                    </div>
+                                    </div> -->
 
                                     <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                             <mat-label class="label m-2">Admission Date</mat-label>

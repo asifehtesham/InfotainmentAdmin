@@ -32,11 +32,6 @@ export class RoomServicedetailComponent {
   done: any;
   isRoomServiceSaved: boolean = true;
 
-  roomServiceTemplate: SelectModel[] = [
-    { id: '0', viewValue: 'Empty' },
-    { id: '1', viewValue: 'Template 1' },
-    { id: '2', viewValue: 'Template 2' }
-  ];
 
   //ParentroomService: RoomService[];
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;

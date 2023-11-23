@@ -3,9 +3,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { BehaviorSubject, Observable, timer, interval, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators'; 
-import { Cohort } from 'src/app/models/Cohort';
+import { RoomType } from 'src/app/models/RoomType';
 import { UserService } from 'src/app/services/user.service';
-import { CohortService } from 'src/app/services/cohort.service';
+import { RoomTypeService } from 'src/app/services/roomType.service';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -13,30 +13,30 @@ import { MatSort } from '@angular/material/sort';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material/dialog';
-import { CohortdetailComponent } from '../cohortdetail/cohortdetail.component';
-import { AssignUsersCohortComponent } from '../assignusers/assignusers.component';
+import { RoomTypeDetailComponent } from '../room-typedetail/room-typedetail.component'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-cohortlist',
-  templateUrl: './cohortlist.component.html',
-  styleUrls: ['./cohortlist.component.scss']
+  selector: 'app-roomtypelist',
+  templateUrl: './roomtypelist.component.html',
+  styleUrls: ['./roomtypelist.component.scss']
 })
-export class CohortlistComponent {
+export class RoomTypeListComponent {
 
   subscription: Subscription;
+
   displayedColumns: string[] = ['select',
-    'name',
-    'noOfUsers',
-    'description',
-    'isVisible',
+    'title',
+    'fontType',
+    'showFirstMenu',
+    'showSecondMenu',
     'id'];
-  cohort = [];
+  roomType = [];
   Ids:any=[]
 
-  public dataSource:any = new MatTableDataSource<Cohort>();
-  selection = new SelectionModel<Cohort>(true, []);
+  public dataSource:any = new MatTableDataSource<RoomType>();
+  selection = new SelectionModel<RoomType>(true, []);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sortable: MatSort;
@@ -44,7 +44,7 @@ export class CohortlistComponent {
   constructor(
     private snakbar: MatSnackBar,
     private http: HttpClient, 
-    private cohortService: CohortService, 
+    private roomTypeService: RoomTypeService, 
     private dialog: MatDialog) { }
 
   ngOnInit() {
@@ -54,22 +54,12 @@ export class CohortlistComponent {
   }
  
   loadData() {
-    this.cohortService.loadData().subscribe(results => {
+    this.roomTypeService.loadData().subscribe(results => {
       this.dataSource.data = results;
     });
   }
-  onAddUsers(id){
-    const dialogRef = this.dialog.open(AssignUsersCohortComponent, {
-      width: '1050px',
-      data: { id: id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
 
-    });
-  }
-
-  ondelete(cohort: Cohort) {
+  ondelete(roomType: RoomType) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -80,12 +70,12 @@ export class CohortlistComponent {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.cohortService.delete(cohort.id).subscribe(params => {
+        this.roomTypeService.delete(roomType.id).subscribe(params => {
           console.log('come to the subscriber: ');
           console.log(params);
     
           if (params) {
-            this.snakbar.open('Cohort has been deleted successfully.', 'Dismise', {
+            this.snakbar.open('Room Type has been deleted successfully.', 'Dismise', {
               duration: 3000,
               horizontalPosition: 'right',
               verticalPosition: 'top',
@@ -97,7 +87,7 @@ export class CohortlistComponent {
       else {
         Swal.fire(
           'Cancelled',
-          'Your Cohort is safe :)',
+          'Your Room Type is safe :)',
           'error'
         )
       }
@@ -123,7 +113,7 @@ export class CohortlistComponent {
         if (result.isConfirmed) {
           var IdsforDelete =this.Ids
           console.log('remove all',IdsforDelete) 
-          this.cohortService.deleteAll(IdsforDelete).subscribe(params => {
+          this.roomTypeService.deleteAll(IdsforDelete).subscribe(params => {
             console.log('come to the subscriber: ');
             this.loadData()
           })
@@ -131,7 +121,7 @@ export class CohortlistComponent {
         else{
           Swal.fire(
             'Cancelled',
-            'Your cohort is safe',
+            'Your Room Type is safe',
             'error'
           )
         }
@@ -156,7 +146,7 @@ export class CohortlistComponent {
     this.selection.select(...this.dataSource.data);
   }
 
-  checkboxLabel(row?: Cohort): string {
+  checkboxLabel(row?: RoomType): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
@@ -164,7 +154,7 @@ export class CohortlistComponent {
   }
 
   onAdd() {
-    const dialogRef = this.dialog.open(CohortdetailComponent, {
+    const dialogRef = this.dialog.open(RoomTypeDetailComponent, {
       width: '650px',
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -177,10 +167,10 @@ export class CohortlistComponent {
     });
   }
 
-  onEdit(cohort: Cohort) {
-    const dialogRef = this.dialog.open(CohortdetailComponent, { 
+  onEdit(roomType: RoomType) {
+    const dialogRef = this.dialog.open(RoomTypeDetailComponent, { 
       width: '650px',
-      data: { cohort: cohort }
+      data: { roomType: roomType }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

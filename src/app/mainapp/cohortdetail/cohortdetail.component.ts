@@ -82,17 +82,28 @@ export class CohortdetailComponent {
       visible: this.f.isVisible.value,
     }
     console.log("before add" ,cohort)
-
+    var message:string
     var observer: Observable<any>;
-    if (cohort.id == null || cohort.id <= 0)
-      observer = this.cohortService.add(cohort);
-    else
+    if (cohort.id == null || cohort.id <= 0){
+      observer = this.cohortService.add(cohort); 
+      message = "Created";
+    }
+    else{
       observer = this.cohortService.edit(cohort);
+      message = "Updated"
+    }
 
     observer.subscribe(result => {
       console.log("Response from server:");
       console.log(result);
       this.id = result.id;
+      if(result.id){
+        this.snakbar.open('Cohort '+message+' successfully.', 'Dismise', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
+      }
      });
   }
 

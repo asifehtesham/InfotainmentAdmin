@@ -7,33 +7,34 @@ import { Rooms } from '../models/Rooms';
 import { PatientAdmission } from '../models/PatientAdmission';
 import { AuthService } from './auth-service.service';
 import { JsonPipe } from '@angular/common';
+import { RoomsService } from 'src/app/services/rooms.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdmitPatientService {
-
-  constructor(private http: HttpClient, private authenticationService: AuthService
+  
+  constructor(private roomsService: RoomsService,private http: HttpClient, private authenticationService: AuthService
   ) { }
-
+  
   add(admit: PatientAdmission) {
     console.log(admit)
+
+    this.roomsService.checkInPatient(admit)
     var action = 'rooms/admission';
     return this.http.post<any>(environment.infotApiUrl + action, admit)
-      .pipe(map(data => {
-        return data;
-      }));
+    .pipe(map(data => {
+      return data;
+    }));
   }
-
-
+  
   update(admit: PatientAdmission) {
     var action = 'rooms/admission';
     return this.http.put<any>(environment.infotApiUrl + action, admit)
-      .pipe(map(data => {
-        return data;
-      }));
+    .pipe(map(data => {
+      return data;
+    }));
   }
-
 
   loadByID(roomNo: number): Observable<PatientAdmission> {
     return this.http.get<any>(`${environment.infotApiUrl}rooms/admission?roomNo=${roomNo}`)

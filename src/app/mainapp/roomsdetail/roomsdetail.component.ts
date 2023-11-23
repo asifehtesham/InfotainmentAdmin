@@ -119,6 +119,7 @@ export class RoomsDetailComponent {
       id: this.id,
       roomNo: this.f.roomNo.value,
       roomType: this.f.roomType.value,
+      roomTypeId:this.f.roomType.value,
       floorId: this.f.floorId.value,
       branchId: this.f.branchId.value,
       ip: this.f.ip.value,

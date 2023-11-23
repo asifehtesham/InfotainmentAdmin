@@ -62,7 +62,7 @@ export const menus = [
     //////////////////////////// infot start
     {
         'name': 'Rooms',
-        'icon': 'building',
+        'icon': 'hospital-alt',
         'link': '/mainapp/rooms',
         'open': false,
         'sub': [
@@ -70,6 +70,12 @@ export const menus = [
                 'name': 'Manage Rooms',
                 // 'icon': 'building',
                 'link': '/mainapp/rooms',
+                'open': false,
+            },
+            {
+                'name': 'Manage Room Types',
+                // 'icon': 'building',
+                'link': '/mainapp/room-types',
                 'open': false,
             },
             {
@@ -94,8 +100,20 @@ export const menus = [
         ]
     },
     {
+        'name': 'Nursing Station',
+        'icon': 'user-nurse',
+        'link': '/mainapp/nurse-station',
+        'open': false,
+    },
+    // {
+    //     'name': 'Service Request',
+    //     'icon': 'concierge-bell',
+    //     'link': '/mainapp/nursing-servie-request',
+    //     'open': false,
+    // },
+    {
         'name': 'Branches',
-        'icon': 'rss',
+        'icon': 'code-branch',
         'link': '/mainapp/branch',
         'open': false,
         'sub': [
@@ -173,14 +191,9 @@ export const menus = [
 
         ]
     },
-
-
-
-
-    
     {
         'name': 'TV Channels',
-        'icon': 'rss',
+        'icon': 'tv',
         'link': '/mainapp/iptv',
         'open': false,
         'sub': [
@@ -264,7 +277,7 @@ export const menus = [
     },
     {
         'name': 'Blogs',
-        'icon': 'rss',
+        'icon': 'blog',
         'link': '/mainapp/blogs',
         'open': false,
     },

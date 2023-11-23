@@ -46,6 +46,7 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
 import { NewsdetailComponent } from "./newsdetail/newsdetail.component";
 import { NewslistComponent } from "./newslist/newslist.component";
 import { RoomServicedetailComponent } from "./roomServiceDetail/roomServicedetail.component";
+import { RoomTypeDetailComponent } from "./room-typedetail/room-typedetail.component"
 import { RoomServicelistComponent } from "./roomServiceList/roomServicelist.component";
 import { ServicelistComponent } from "./servicelist/servicelist.component";
 import { ServicedetailComponent } from "./servicedetail/servicedetail.component";
@@ -92,6 +93,8 @@ import { GamesListComponent } from './games-list/games-list.component';
 import { IPTVListComponent } from './iptv-list/iptv-list.component';
 import { IPTVDetailComponent } from './iptv-detail/iptv-detail.component';
 import { RoomsListComponent } from './roomslist/roomslist.component';
+import { RoomTypeListComponent } from './roomtypelist/roomtypelist.component';
+import { NurseStationListComponent } from './nursestationlist/nursestationlist.component';
 import { RoomsDetailComponent } from './roomsdetail/roomsdetail.component';
 import { PatientRecordComponent } from './patientrecord/patientrecord.component';
 import { AdmitPatientComponent } from './admitpatient/admitpatient.component';
@@ -128,6 +131,9 @@ import { ImenuDetailComponent } from './imenu-detail/imenu-detail.component';
 import { ImenuListComponent } from './imenu-list/imenu-list.component';
 import { PendingServiceRequestComponent } from "./pending-servicerequests/pending-servicerequests.component";
 import { PatientComplaintComponent } from "./patient-complaint/patient-complaint.component";
+import { NursingStationDetailComponent } from 'src/app/mainapp/nursestationdetail/nursestationdetail.component';
+import { AssignRoomToStationDetailComponent } from 'src/app/mainapp/assignroomtostation/assignroomtostation.component';
+import { NursingServiceRequestListComponent } from 'src/app/mainapp/nursingservicerequestlist/nursingservicerequestlist.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -162,6 +168,22 @@ const routes: Routes = [
       {
         path: "rooms",
         component: RoomsListComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: "room-types",
+        component: RoomTypeListComponent,
+        canActivate: [AuthGuard]
+      },
+      
+      {
+        path: "nurse-station",
+        component: NurseStationListComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: "nursing-servie-request",
+        component: NursingServiceRequestListComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -426,6 +448,7 @@ const routes: Routes = [
     NewsdetailComponent,
     NewslistComponent,
     RoomServicedetailComponent,
+    RoomTypeDetailComponent,
     RoomServicelistComponent,
     ServicelistComponent,
     ServicedetailComponent,
@@ -464,12 +487,17 @@ const routes: Routes = [
     GamesDetailComponent,
     GamesListComponent,
     RoomsListComponent,
+    RoomTypeListComponent,
+    NurseStationListComponent,
     RoomsDetailComponent,
     AdmitPatientComponent,
     AddRoomDeviceComponent,
     PatientRecordComponent,
     FloorDetailComponent,
+    NursingStationDetailComponent,
+    AssignRoomToStationDetailComponent,
     FloorListComponent,
+    NursingServiceRequestListComponent,
     ServicerequestDetailComponent,
     ServicerequestListComponent,
     DeviceDetailComponent,

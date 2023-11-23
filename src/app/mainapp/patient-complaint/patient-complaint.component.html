@@ -73,95 +73,8 @@
 
           <div style="display: flex; margin:2px; justify-content: space-between;">
             <mat-card-title class="page-sub-title"
-              >Service Status : {{req.feedBackType | enumtostring: ServiceStatus}}
+              >Service Status : {{req.feedBackType | enumtostring: ComplainStatus}}
             </mat-card-title>
-
-
-            <div style="margin-left: 10px;">
-              <span
-                style="
-                
-                margin: 5px;
-                  cursor: pointer;
-                  font-size: 12px;
-                  color: #fff;
-                  border-radius: 5px;
-                  padding: 5px;
-                  background-color: #28a745;
-                  font-weight: 800;
-                "
-                (click)="updateStatus(1, req)"
-                >In Progress</span
-              >
-
-              <span
-                style="
-                margin: 5px;
-                  cursor: pointer;
-                  font-size: 12px;
-                  color: #fff;
-                  border-radius: 5px;
-                  padding: 5px;
-                  background-color: #007bff;
-                  font-weight: 800;
-                "
-                (click)="updateStatus(2, req)"
-                >Closed</span
-              >
-
-              <span
-                style="
-                
-                margin: 5px;
-                  cursor: pointer;
-                  font-size: 12px;
-                  color: #fff;
-                  border-radius: 5px;
-                  padding: 5px;
-                  background-color: red;
-                  font-weight: 800;
-                "
-                (click)="updateStatus(3, req)"
-                >Rejected</span
-              >
-
-              <!-- <button
-                mat-raised-button
-                [value]="1"
-                (click)="updateStatus(1, req)"
-                color="primary"
-              >
-                InProgress
-              </button>
-              <button
-                mat-raised-button
-                [value]="2"
-                (click)="updateStatus(2, req)"
-              >
-                Closed
-              </button>
-              <button
-                mat-raised-button
-                [value]="3"
-                (click)="updateStatus(3, req)"
-                color="warn"
-              >
-                Rejected
-              </button> -->
-
-            </div>
-            <!-- 
-
-    <mat-selectbutt
-                            #status
-                            [(value)]="req.status"
-                            (selectionChange)="updateStatus(req.status, req)"
-                            placeholder="Change Status"
-                          >
-                            <mat-option [value]="1"> InProgress</mat-option>
-                            <mat-option [value]="2"> Closed</mat-option>
-                            <mat-option [value]="3"> Rejected</mat-option>
-                          </mat-select> -->
           </div>
 
           <!-- <mat-card-title class="page-sub-title"
@@ -174,10 +87,6 @@
   <!-- </mat-dialog-content> -->
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
-    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button> -->
-    <!-- <button mat-raised-button [mat-dialog-close]="true" color="primary" type="submit" >
-            <mat-icon class="customfab-icon-white" fontSet="fa" fontIcon="fa-save"></mat-icon>
-            Save
-        </button> -->
+    
   </mat-dialog-actions>
 </form>
