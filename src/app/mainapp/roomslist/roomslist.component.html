@@ -94,11 +94,17 @@
             <span *ngIf="room.currentAdmission" class="statusActive" matTooltip="Reserved" matTooltipPosition="below"></span>
             <span *ngIf="!room.currentAdmission" class="statusNotActive" matTooltip="Empty" matTooltipPosition="below"></span>
           </div>
-          <mat-card-content>
+          <mat-card-content  style="display:flex;    justify-content: space-between;">
             <div style="cursor: pointer; margin-left: 5%">
               <mat-card-title class="page-sub-title">{{ room.roomNo }}</mat-card-title>
               <mat-card-subtitle>{{ room.roomType }}</mat-card-subtitle>
               <mat-card-subtitle>{{ room.branch.title }}</mat-card-subtitle>
+            </div>
+            <div>
+              <a *ngIf="room.currentAdmission && room.currentAdmission.doNotDisturb" style="cursor:pointer" matTooltip="Don't Disturb" matTooltipPosition="below" >
+                <img style="max-width:60px" src="assets/ic_donotdisturb_icon.png">
+                <!-- <mat-icon fontSet="fa" fontIcon="fa-minus-circle"> </mat-icon> -->
+              </a>
             </div>
           </mat-card-content>
 
@@ -107,11 +113,8 @@
               matTooltipPosition="below">
               <mat-icon>local_hotel</mat-icon>
             </a>
-            <a *ngIf="room.currentAdmission && room.currentAdmission.doNotDisturb" matTooltip="Don't Disturb" matTooltipPosition="below" >
-
-              <mat-icon fontSet="fa" fontIcon="fa-minus-circle"> </mat-icon>
-            </a>
-            <a *ngIf="room.currentAdmission && room.currentAdmission.status==0" matTooltip="Discharge" matTooltipPosition="below" (click)="disChargePatient(room)">
+           
+            <a *ngIf="room.currentAdmission && room.currentAdmission.status==0" style="cursor:pointer" matTooltip="Discharge" matTooltipPosition="below" (click)="disChargePatient(room)">
               <mat-icon>space-shuttle</mat-icon>
             </a>
 

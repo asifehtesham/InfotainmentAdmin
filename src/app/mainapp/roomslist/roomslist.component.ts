@@ -35,12 +35,12 @@ export class RoomsListComponent {
   ngOnInit() {
     this.loadData();
   }
-  ngAfterViewInit(){
-    setInterval( ()=>{
-      this.loadData()
-    console.log('interval works')
-    }, 5000)
-  }
+  // ngAfterViewInit(){
+  //   setInterval( ()=>{
+  //     this.loadData()
+  //   console.log('interval works')
+  //   }, 5000)
+  // }
 
   loadData() {
     this.roomsService.loadData(this.index, this.limit).subscribe(results => {
