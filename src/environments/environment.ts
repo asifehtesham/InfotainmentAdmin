@@ -4,9 +4,10 @@
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 export const environment = {
-  apiUrl: "/api/",
+  apiUrl: "https://hmgpharmacyapi.hmg.com/cms/api/",
   infotApiUrl: "https://hmgpharmacyapi.hmg.com/infotainment/api/",
-  siteUrl: "http://10.201.204.180:9203",
+  
+  // siteUrl:"https://hmgpharmacyapi.hmg.com/cms/api/",
   signalR_URL: "https://hmgpharmacyapi.hmg.com/infotainment/signalrtc",
   //CHAT_URL: "ws://echo.websocket.org/",
   CHAT_URL: "ws://localhost:5000/ws",

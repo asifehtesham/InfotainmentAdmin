@@ -180,6 +180,8 @@ export class RoomDevicesComponent implements OnInit {
     var roomDevice = {
       roomId: this.roomId,
       deviceId: prevData.id,
+      deviceIP: "string",
+      serviceUrl: "string"
     }
     var observer: Observable<any>;
     if (roomDevice.roomId != null || roomDevice.roomId > 0){

@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-        console.log("AuthenticationService: " + username + ", " + password)
+        // console.log("AuthenticationService: " + username + ", " + password)
         //TODO: call the login service here 
         
       return this.http.post<any>(`${environment.infotApiUrl}users/login`, { username, password })
@@ -72,8 +72,10 @@ export class AuthService {
               //user && user.auth_token
               if (true) {
                 console.log('storing user to local storage');
+                user['username']=username;
                   // store user details and jwt token in local storage to keep user logged in between page refreshes
                   localStorage.setItem('currentUser', JSON.stringify(user));
+                  
                   this.currentUserSubject.next(user);
                   console.log('stored user to local storage');
               }

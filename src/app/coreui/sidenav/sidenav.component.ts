@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { menus } from 'src/app/models/menu';
+import { menus ,nurse_Menu } from 'src/app/models/menu';
 //import { Variable } from '@angular/compiler/src/render3/r3_ast';
 
 import { User } from 'src/app/models/Users';
@@ -14,13 +14,18 @@ import { slidePanel, slidePanel1 } from "../../animations";
 })
 export class SidenavComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+    this.currentUser =JSON.parse(localStorage.getItem('currentUser')).username
+  }
   //constructor(user: User) { 
   //this.user = user;
   //}
-
+  
+  currentUser
+  
   @Input() iconOnly: boolean = false;
   public menus = menus;
+  public nurse_Menu = nurse_Menu;
   public user: User;
   public username: string;
   public useremail: string;

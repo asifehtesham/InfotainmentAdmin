@@ -6,4 +6,5 @@ export interface RoomService extends EntityBase {
     title: string;
     titleAr: string;
     image?: Attachment;
+    imageURL:string
 }

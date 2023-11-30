@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 import { ServicerequestDetailComponent } from '../servicerequest-detail/servicerequest-detail.component';
 import { PendingServiceRequestComponent } from '../pending-servicerequests/pending-servicerequests.component';
 import { PatientComplaintComponent } from '../patient-complaint/patient-complaint.component';
+import { RoomTypeService } from 'src/app/services/roomType.service';
 
 @Component({
   selector: 'app-roomslist',
@@ -24,16 +25,21 @@ export class RoomsListComponent {
   rooms = [];
   paginatedRooms: any = [];
   roomOptions = ['Active', "Don't Disturb", 'Discharge', 'Admit Patient']
-  roomType = ['Patient', 'Admin', 'ICU', 'Surgery', 'Waiting']
+  roomType = []
   index: number = 1;
   limit: number = 10;
   page = 0;
   size = 10;
 
-  constructor(private http: HttpClient, private roomsService: RoomsService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
+  constructor(private http: HttpClient, private roomTypeService: RoomTypeService, private roomsService: RoomsService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
 
   ngOnInit() {
     this.loadData();
+    this.roomTypeService.loadData().subscribe(results => {
+      results.forEach(element => {
+        this.roomType.push(element);
+      }); 
+    })
   }
   // ngAfterViewInit(){
   //   setInterval( ()=>{
@@ -109,7 +115,7 @@ export class RoomsListComponent {
 
   onRoomTypeChange(value) {
     if (value) {
-      this.rooms = this.paginatedRooms.filter(room => room.roomType.toLowerCase().includes(value.toLowerCase()));
+      this.rooms = this.paginatedRooms.filter(room => room.roomTypeDetails.title.toLowerCase().includes(value.toLowerCase()));
     } else {
       this.rooms = this.paginatedRooms;
     }

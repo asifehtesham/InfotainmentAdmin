@@ -37,7 +37,7 @@
           <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
             <mat-select (selectionChange)="onRoomTypeChange($event.value)" value="">
               <mat-option value="">All</mat-option>
-              <mat-option *ngFor="let type of roomType" [value]="type">{{ type }}
+              <mat-option *ngFor="let type of roomType" [value]="type.title">{{ type.title }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -97,8 +97,8 @@
           <mat-card-content  style="display:flex;    justify-content: space-between;">
             <div style="cursor: pointer; margin-left: 5%">
               <mat-card-title class="page-sub-title">{{ room.roomNo }}</mat-card-title>
-              <mat-card-subtitle>{{ room.roomType }}</mat-card-subtitle>
-              <mat-card-subtitle>{{ room.branch.title }}</mat-card-subtitle>
+              <mat-card-subtitle>{{ room.roomTypeDetails?.title }}</mat-card-subtitle>
+              <mat-card-subtitle>{{ room.branch?.title }}</mat-card-subtitle>
             </div>
             <div>
               <a *ngIf="room.currentAdmission && room.currentAdmission.doNotDisturb" style="cursor:pointer" matTooltip="Don't Disturb" matTooltipPosition="below" >

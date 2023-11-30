@@ -145,8 +145,8 @@ export class FloorDetailComponent {
       observer = this.floorService.update(floor);
     observer.subscribe(result => {
       this.id = result.id;
-      if (this.imageControl.file)
-        this.imageControl.startUpload(result.id, "ID", "Floor", false, false);
+      // if (this.imageControl.file)
+      //   this.imageControl.startUpload(result.id, "ID", "Floor", false, false);
 
       if (result.id)
         this.snakbar.open('Floor saved successfully.', 'Dismise', {

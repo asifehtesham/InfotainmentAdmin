@@ -58,9 +58,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn(googleUser) {
-    //now it gets called
     console.log("Google login called!");
-
   }
 
   ngOnInit() {
@@ -134,20 +132,26 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     //TODO: Uncommment the following lines to allow subscribe
     console.log("Login query para2:" + this.returnUrl);
-    this.authenticationService.login(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
+    if (this.f.username.value && this.f.password.value)
+      this.authenticationService.login(this.f.username.value, this.f.password.value)
+        .pipe(first())
+        .subscribe(
         data => {
-          
+
           console.log("service called successfully");
           console.log(this.returnUrl);
-          if (this.returnUrl == null || this.returnUrl == undefined)
-            this.router.navigate(["/mainapp/dashboard"]);
+          if (this.returnUrl == null || this.returnUrl == undefined) {
+            if (JSON.parse(localStorage.getItem('currentUser')).username == "asifraza") {
+              this.router.navigate(["/mainapp/dashboard"]);
+            }
+            else 
+              this.router.navigate(["/mainapp/nurse-station"]);
+          }
           else
             this.router.navigate([this.returnUrl]);
         },
         error => {
-          
+
           //console.log(error.error)
           this.snakbar.open('Invalid Username or Password', null, {
             duration: 2000,
@@ -155,7 +159,7 @@ export class LoginComponent implements OnInit {
           this.f.username.setErrors({ 'incorrect': true });
           this.f.password.setErrors({ 'incorrect': true });
           //  this.submitted=false
-           this.f.password.setValue('')
+          this.f.password.setValue('')
           //this.error = "Invalid Username or Password";
           this.loading = false;
         });

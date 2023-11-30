@@ -53,12 +53,12 @@ export class FormlistComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sortable: MatSort;
 
+   env=environment.apiUrl;
   constructor(private http: HttpClient, private formService: FormService, private dialog: MatDialog,
     private openAIService: OpenAIService,
     private snakbar: MatSnackBar,
     private route: ActivatedRoute,
     private router: Router) { }
-
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sortable;

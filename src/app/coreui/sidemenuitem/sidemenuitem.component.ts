@@ -13,12 +13,13 @@ export class SidemenuitemComponent implements OnInit {
   @Input() iconOnly: boolean;
   @Input() secondaryMenu = false;
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit() {
   }
 
   openLink() {
+    
       this.menu.open = this.menu.open;
   }
 

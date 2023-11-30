@@ -59,7 +59,6 @@ export class RoomTypeService {
           data.data.forEach(item => {
             roomtype.push(<RoomType>item);
           });
-          console.log(roomtype);
           return roomtype;
         }),
       );

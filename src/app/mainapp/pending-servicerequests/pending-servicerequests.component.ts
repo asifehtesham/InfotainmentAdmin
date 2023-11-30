@@ -141,15 +141,13 @@ export class PendingServiceRequestComponent {
 
     let element = e;
     element.status = s;
-    
+    console.log(element,"aaa")
     this.servicerequestService.update(element).subscribe(result => {
       if (result) {
         this.snakbar.open('Your status has been updated successfully.', 'Ok', {
           duration: 2000,
         });
         this.loadData();
-
-        
 
         let selectedArr = this.servicerequest.indexOf(element);
         if (selectedArr != -1){

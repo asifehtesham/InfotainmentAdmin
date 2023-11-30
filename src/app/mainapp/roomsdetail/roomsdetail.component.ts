@@ -19,6 +19,7 @@ import { BranchService } from 'src/app/services/branch.service';
 import { FloorService } from 'src/app/services/floor.service';
 import { Branch } from 'src/app/models/Branch';
 import { Floor } from 'src/app/models/Floor';
+import { RoomTypeService } from 'src/app/services/roomType.service';
 
 @Component({
   selector: 'app-roomsdetail',
@@ -27,24 +28,51 @@ import { Floor } from 'src/app/models/Floor';
 })
 export class RoomsDetailComponent {
 
+
+  IpData: any;
+  ipaddress: any = "111.111.111.111";
+  currectpattern: any = "";
+  onedata: any = /\d/;
+  splitted: any;
+  maskpattern: any = [];
+  mask: any;
+
   templates: Templates[] = [];
   id: number;
-  room: Rooms;
-  branches: any =[];
-  floors: any=[];
+  room: any;
+  branches: any = [];
+  floors: any = [];
   roomForm: FormGroup;
-  roomTypes=['Patient','Admin','ICU','Surgery','Waiting']
+  roomTypes = []
   url: string = '';
   done: any;
   isIPTVSaved: boolean = true;
- 
+
   editorConfig: any = EditorConfig;
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, private branchService:BranchService,private floorService: FloorService, private roomsService: RoomsService, private snakbar: MatSnackBar, private dialog: MatDialog,
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private roomTypeService: RoomTypeService, private branchService: BranchService, private floorService: FloorService, private roomsService: RoomsService, private snakbar: MatSnackBar, private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public request: any) {
-    console.log("request");
-    console.log(request);
-    //this.id = request.id;
+
+    let data = this.ipaddress.split(".");
+    let j = 0;
+    data.forEach(element => {
+      for (let index = 0; index < element.length; index++) {
+        if (index == 0 && j != 0) {
+          this.maskpattern.push(('.'))
+        }
+        this.maskpattern.push(new RegExp('\\d'))
+      }
+      j++;
+    });
+    console.log("------------------")
+    console.log(this.ipaddress)
+
+    this.mask = {
+      guide: true,
+      showMask: true,
+      mask: this.maskpattern
+    };
+
     if (request) {
       this.id = request.id;
       this.room = request.room;
@@ -70,22 +98,23 @@ export class RoomsDetailComponent {
     this.branchService.loadData().subscribe(results => {
       results.forEach(element => {
         this.branches.push(element);
-      }); 
+      });
     });
-
-    this.floorService.loadData().subscribe(results => {
-       results.forEach(element => {
-         this.floors.push(element)
-       });
+    this.roomTypeService.loadData().subscribe(results => {
+      results.forEach(element => {
+        this.roomTypes.push(element);
+      });
     });
   }
 
   setForm() {
+    this.floors=[this.room.floor]
+
     this.f.roomNo.setValue(this.room.roomNo);
-    this.f.roomType.setValue(this.room.roomType);
+    this.f.roomTypeId.setValue(this.room.roomTypeId);
     this.f.floorId.setValue(this.room.floorId);
     this.f.branchId.setValue(this.room.branchId);
-    this.f.ip.setValue(this.room.ip);
+    this.IpData = this.room.ip;
     this.f.status.setValue(this.room.status);
   }
 
@@ -98,11 +127,11 @@ export class RoomsDetailComponent {
         Validators.required,
         Validators.maxLength(500),
         Validators.minLength(1)]],
-      'roomType': [],
+      'roomTypeId': [],
       'floorId': ['', []],
       'branchId': ['', []],
-      'ip': ['', []],
-      'status': ['', []]
+      'status': ['', []],
+      'ip': ['', []]
     });
 
   }
@@ -110,33 +139,33 @@ export class RoomsDetailComponent {
   get f() { return this.roomForm.controls; }
 
   save() {
-    this.saveData();
-  }
- 
-  saveData() {
 
     var room: Rooms = {
       id: this.id,
       roomNo: this.f.roomNo.value,
-      roomType: this.f.roomType.value,
-      roomTypeId:this.f.roomType.value,
+      roomTypeId: this.f.roomTypeId.value,
       floorId: this.f.floorId.value,
       branchId: this.f.branchId.value,
-      ip: this.f.ip.value,
-      sortOrder:0,
+      ip: this.IpData,
+      sortOrder: 0,
       status: (this.f.status.value == true) ? true : false
     }
- 
+
     var observer: Observable<any>;
-    if (room.id == null || room.id <= 0)
+    var message
+    if (room.id == null || room.id <= 0) {
       observer = this.roomsService.add(room);
-    else
+      message = "Saved"
+    }
+    else {
       observer = this.roomsService.update(room);
+      message = "Updated"
+    }
     observer.subscribe(result => {
       this.id = result.id;
-      
+
       if (result.id)
-        this.snakbar.open('Room saved successfully.', 'Dismise', {
+        this.snakbar.open('Room ' + message + ' successfully.', 'Dismise', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -145,9 +174,15 @@ export class RoomsDetailComponent {
 
   }
 
-  revert() {
-    this.roomForm.reset();
+  revert() { this.roomForm.reset(); }
+
+  findFloors(event) {
+    this.floors = []
+    this.floorService.loadFloors(event.value).subscribe(results => {
+      results.forEach(element => {
+        this.floors.push(element)
+      });
+    });
   }
- 
 }
 

@@ -135,6 +135,8 @@ import { NursingStationDetailComponent } from 'src/app/mainapp/nursestationdetai
 import { AssignRoomToStationDetailComponent } from 'src/app/mainapp/assignroomtostation/assignroomtostation.component';
 import { NursingServiceRequestListComponent } from 'src/app/mainapp/nursingservicerequestlist/nursingservicerequestlist.component';
 
+import { TextMaskModule } from 'angular2-text-mask';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -182,7 +184,12 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       },
       {
-        path: "nursing-servie-request",
+        path: "nursing-service-request",
+        component: NursingServiceRequestListComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: "nursing-service-request/:id",
         component: NursingServiceRequestListComponent,
         canActivate: [AuthGuard]
       },
@@ -250,6 +257,7 @@ const routes: Routes = [
         component: customComponentBuilder,
         canActivate: [AuthGuard],
       },
+
       {
         path: "pagelist",
         component: PagelistComponent,
@@ -551,6 +559,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     AngularEditorModule,
     FlatpickrModule.forRoot(),
+    TextMaskModule,
   ],
   exports: [RouterModule, PagesComponent, SlugTransformDirective],
   providers: [

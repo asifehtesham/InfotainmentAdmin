@@ -19,6 +19,7 @@ import { Subscription, timer } from 'rxjs';
 
 import { switchMap } from 'rxjs/operators';
 import { AssignRoomToStationDetailComponent } from 'src/app/mainapp/assignroomtostation/assignroomtostation.component';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-nursestationlist',
   templateUrl: './nursestationlist.component.html',
@@ -34,20 +35,24 @@ export class NurseStationListComponent {
   limit: number = 10;
   page = 0;
   size = 10;
-
-  constructor(private http: HttpClient, private nursingStationService: nursingStationService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
-
+  currentUser
+  constructor(private http: HttpClient, private nursingStationService: nursingStationService, private dialog: MatDialog, private snakbar: MatSnackBar
+   ,private router:Router, private route: ActivatedRoute) { 
+    this.currentUser =JSON.parse(localStorage.getItem('currentUser')).username
+   }
+  showServiceRequests(nursestation){
+    this.router.navigate([`/mainapp/nursing-service-request/${nursestation.id}`]);
+  }
   ngOnInit() {
     this.loadData()
   }
-  ngAfterViewInit(){
-    setInterval( ()=>{
-      this.loadData()
-    console.log('interval works')
-    }, 5000)
+  // ngAfterViewInit(){
+  //   setInterval( ()=>{
+  //     this.loadData()
+  //   console.log('interval works')
+  //   }, 5000)
   
-}
-
+// }
   loadData() {
     this.nursingStationService.loadData(this.index, this.limit).subscribe(results => {
       this.paginatedStations = results
@@ -102,21 +107,14 @@ export class NurseStationListComponent {
     })
   }
 
-  searchRoom(searchText): any {
+  searchStation(searchText): any {
     if (searchText) {
-      this.nursingstations = this.paginatedStations.filter(room => room.roomNo.toLowerCase().includes(searchText.toLowerCase()));
+      this.nursingstations = this.paginatedStations.filter(station => station.title.toLowerCase().includes(searchText.toLowerCase()));
     } else {
       this.nursingstations = this.paginatedStations;
     }
   }
 
-  onRoomTypeChange(value) {
-    if (value) {
-      this.nursingstations = this.paginatedStations.filter(room => room.roomType.toLowerCase().includes(value.toLowerCase()));
-    } else {
-      this.nursingstations = this.paginatedStations;
-    }
-  }
   onAdd() {
 
     console.log("onAdd() ........... trigger");
@@ -147,7 +145,7 @@ export class NurseStationListComponent {
   onAssignRooms(nursingStation:NursingStation) {
 
     const dialogRef = this.dialog.open(AssignRoomToStationDetailComponent, {
-      width: '650px',
+      width: '1050px',
       data: { nursingStation: nursingStation }
     });
     dialogRef.afterClosed().subscribe(result => {

@@ -2,43 +2,6 @@
   <mat-label class="label m-2">Devices</mat-label>
    <hr>
 
-  <!-- <div>
-    <div style="float:left">
-      <mat-form-field style="width:300px">
-        <mat-label>Installed Devices Filter</mat-label>
-        <input matInput #searchInput (keyup.enter)="filterFromDevices($event)">
-        <mat-icon matPrefix fontSet="fa" fontIcon="fa-search"></mat-icon>
-        <a mat-button *ngIf="searchInput.value" matSuffix md-icon-button aria-label="Clear"><mat-icon>close</mat-icon></a>
-      </mat-form-field>
-      <mat-form-field class="ml-1" style="width:150px;height:52px" appearance="outline">
-          <mat-select (selectionChange)='sortDevices($event.value)' value="0">
-             
-              <mat-option value="0">Position</mat-option>
-              <mat-option value="3">Title</mat-option>
-          </mat-select>
-      </mat-form-field>
-      <i *ngIf="sortDesc" matTooltip="Descending" matTooltipPosition="below" (click)="sortDescDevices(sortBy)" class="fa fa-arrow-up ml-2"></i>
-      <i *ngIf="sortAsc"matTooltip="Ascending" matTooltipPosition="below" (click)="sortAscDevices(sortBy)" class="fa fa-arrow-down ml-2"></i>
-    </div>
-    <div style="float:right">
-      <mat-form-field style="margin-right:6px;width:272px">
-        <mat-label>Devices Filter</mat-label>
-        <input matInput #searchInputUser (keyup.enter)="filterFromNonDevices($event)">
-        <mat-icon matPrefix fontSet="fa" fontIcon="fa-search"></mat-icon>
-        <a mat-button *ngIf="searchInputUser.value" matSuffix md-icon-button aria-label="Clear"><mat-icon>close</mat-icon>
-        </a>
-      </mat-form-field>
-      <mat-form-field style="width:120px;height:51px;margin-right:6px" appearance="outline">
-          <mat-select (selectionChange)='sortUser($event.value)' value="0">
-              
-              <mat-option value="0">Position</mat-option>
-              <mat-option value="1">Title</mat-option>
-          </mat-select>
-      </mat-form-field>
-      <i *ngIf="sortDescNonDevices" matTooltip="Descending" matTooltipPosition="below"  (click)="sortDescNonDevicess(sortByNonDevices)" class="fa fa-arrow-up ml-2"></i>
-      <i *ngIf="sortAscNonDevices"  matTooltip="Ascending" matTooltipPosition="below" (click)="sortAscNonDevicess(sortByNonDevices)" class="fa fa-arrow-down ml-2"></i>
-    </div>
-  </div> -->
   <table>
      
     <tr>

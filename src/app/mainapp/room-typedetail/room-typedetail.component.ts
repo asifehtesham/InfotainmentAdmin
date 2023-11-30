@@ -29,7 +29,39 @@ export class RoomTypeDetailComponent {
   model = {};
   ImageTitle: string = "";
   ImagePath: string = "";
-  
+  fontFamily= [
+    {
+     style: "font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif" ,
+     value:'Arial',
+     text:"Arial"
+    },
+    {
+      style: "font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" ,
+      value:'Calibri',
+      text:"Calibri"
+    },
+    {
+      style: "font-family:'Times New Roman', Times, serif" ,
+      value:"Times New Roman",
+      text:"Times New Roman"
+    },
+    {
+      style: "font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" ,
+      value:'Lucida Sans Unicode',
+      text:"Lucida Sans Unicode"
+    },
+    {
+      style: "font-family:monospace" ,
+      value:'Monospace',
+      text:"Monospace"
+    },
+    {
+      style: "font-family:sans-serif" ,
+      value:'sans-serif',
+      text:"Sans-serif"
+    }
+  ]
+
   @ViewChild('imagefile', { static: true }) imagefile: ElementRef;
   @ViewChild('imageControl', { static: false }) imageControl: SingleFileUploadComponent;
 
@@ -105,9 +137,9 @@ export class RoomTypeDetailComponent {
       fontType:this.f.fontType.value,
       fontColor:this.color,
       title: this.f.title.value,
-      showFirstMenu: this.f.showFirstMenu.value,
+      showFirstMenu: this.f.showFirstMenu.value?true:false,
       firstMenuCode: this.f.firstMenuCode.value,
-      showSecondMenu: this.f.showSecondMenu.value,
+      showSecondMenu: this.f.showSecondMenu.value?true:false,
       secondMenuCode: this.f.secondMenuCode.value,
       generalMenuCode: this.f.generalMenuCode.value,
       

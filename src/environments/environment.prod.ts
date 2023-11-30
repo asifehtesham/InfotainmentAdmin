@@ -1,7 +1,7 @@
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 export const environment = {
-  apiUrl: "/api/",
+  apiUrl: "https://hmgpharmacyapi.hmg.com/cms/api/",
   production: true,
   CHAT_URL: "ws://localhost:5000/ws"
 };

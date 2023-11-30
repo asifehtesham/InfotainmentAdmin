@@ -27,9 +27,9 @@ export class ServicerequestService {
   update(servicerequest: Servicerequest) {
     var action = 'serviceRequest_request';
     return this.http.put<any>(environment.infotApiUrl + action, servicerequest)
-      .pipe(map(data => {
-
-        console.log("data ......................+++", data)
+    .pipe(map(data => {
+      
+              console.log("data ......................+++", data)
         return data;
       }));
   }

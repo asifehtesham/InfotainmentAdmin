@@ -3,30 +3,31 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from "src/environments/environment";
 import { map, catchError } from 'rxjs/operators';
-import { Floor } from '../models/Floor';
-import { AuthService } from './auth-service.service';
+// import { AuthService } from '/auth-service.service';
 import { JsonPipe } from '@angular/common';
+import { AuthService } from 'src/app/services/auth-service.service';
+import { Servicerequest } from 'src/app/models/Servicerequest';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FloorService {
+export class ServicerequestService {
 
   constructor(private http: HttpClient, private authenticationService: AuthService
   ) { }
 
-  add(floor: Floor) {
-    var action = 'floor';
-    return this.http.post<any>(environment.infotApiUrl + action, floor)
+  add(servicerequest: Servicerequest) {
+    var action = 'serviceRequest_request';
+    return this.http.post<any>(environment.infotApiUrl + action, servicerequest)
       .pipe(map(data => {
         return data;
       }));
   }
 
 
-  update(floor: Floor) {
-    var action = 'floor';
-    return this.http.put<any>(environment.infotApiUrl + action, floor)
+  update(servicerequest: Servicerequest) {
+    var action = 'serviceRequest_request';
+    return this.http.put<any>(environment.infotApiUrl + action, servicerequest)
       .pipe(map(data => {
 
         console.log("data ......................+++", data)
@@ -35,82 +36,66 @@ export class FloorService {
   }
 
 
-  loadByID(id: number): Observable<Floor> {
-    return this.http.get<any>(`${environment.infotApiUrl}floor/${id}`)
+  loadByID(id: number): Observable<Servicerequest> {
+    return this.http.get<any>(`${environment.infotApiUrl}serviceRequest_request/${id}`)
       .pipe(
         map(data => {
-          return <Floor>data;
+          return <Servicerequest>data;
         }),
       );
   }
 
-  loadData(index: number = 1, limit: number = 10): Observable<Floor[]> {
+  loadData(index: number = 1, limit: number = 10): Observable<Servicerequest[]> {
 
-    return this.http.get<any>(`${environment.infotApiUrl}floor?index=${index}&limit=${limit}`)
+    return this.http.get<any>(`${environment.infotApiUrl}serviceRequest_request?index=${index}&limit=${limit}`)
       .pipe(
         map(data => {
-          var floor: Array<Floor> = [];
+          var servicerequest: Array<Servicerequest> = [];
           data.data.forEach(item => {
-            floor.push(<Floor>item);
+            servicerequest.push(<Servicerequest>item);
           });
 
-          return floor;
+          return servicerequest;
         }),
       );
   }
 
-  loadFloors(branchId): Observable<Floor[]> {
-
-    return this.http.get<any>(`${environment.infotApiUrl}floor/getfloorsbybranchid/${branchId}`)
+  search(key: string): Observable<Servicerequest[]> {
+    return this.http.get<any>(`${environment.infotApiUrl}serviceRequest_request/search/${key}`)
       .pipe(
         map(data => {
-          var floor: Array<Floor> = [];
-          console.log(data)
+          var servicerequest = [];
           data.forEach(item => {
-            floor.push(<Floor>item);
+            //var cat = this.mapToservicerequests(item);
+            servicerequest.push(<Servicerequest>item);
           });
 
-          return floor;
+          console.log(servicerequest);
+          return servicerequest;
         }),
       );
   }
 
-  search(key: string): Observable<Floor[]> {
-    return this.http.get<any>(`${environment.infotApiUrl}floor/search/${key}`)
-      .pipe(
-        map(data => {
-          var floor = [];
-          data.forEach(item => {
-            //var cat = this.mapTofloors(item);
-            floor.push(<Floor>item);
-          });
-
-          console.log(floor);
-          return floor;
-        }),
-      );
-  }
-
-  editactive(floor: Floor) {
+  editactive(servicerequest: Servicerequest) {
     console.log("editactive: ");
 
     var action = "course/editactive";
-    return this.http.post<any>(environment.infotApiUrl + action, floor)
+    return this.http.post<any>(environment.infotApiUrl + action, servicerequest)
       .pipe(map(data => {
-        var floors = [];
+        var servicerequests = [];
         data.forEach(item => {
-          //var floor = this.mapTofloors(item);
-          floors.push(<Floor>floor);
+          //var servicerequest = this.mapToservicerequests(item);
+          servicerequests.push(<Servicerequest>servicerequest);
         });
 
-        return floors;
+        return servicerequests;
       }));
   }
 
   delete(id: number) {
     console.log("delete: " + id);
 
-    var action = "floor/" + id;
+    var action = "serviceRequest_request/" + id;
     return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;
@@ -120,7 +105,7 @@ export class FloorService {
   deleteAll(ids: string) {
     console.log("delete: " + ids);
 
-    var action = "floor?ids=" + ids;
+    var action = "serviceRequest_request?ids=" + ids;
     return this.http.delete<any>(environment.infotApiUrl + action)
       .pipe(map(data => {
         return data;

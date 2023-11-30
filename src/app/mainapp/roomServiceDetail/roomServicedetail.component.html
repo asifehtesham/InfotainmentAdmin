@@ -56,7 +56,21 @@
                   <mat-error *ngIf=""> Please enter a valid Title Arabic </mat-error>
                 </mat-form-field>
               </div>
-
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                  <mat-label class="label m-2">Image URL</mat-label>
+                  <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
+                    <input type="text" id="imageURL" class="input" placeholder="Enter Title in Arabic" formControlName="imageURL" required
+                      matInput #imageURL />
+                    <a mat-icon-button *ngIf="imageURL.value" matSuffix md-icon-button aria-label="Clear"
+                      (click)="imageURL.value = ''">
+                      <mat-icon>close</mat-icon>
+                    </a>
+                    <mat-error *ngIf=""> Please enter a valid Image URL </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
+                    <mat-checkbox class="full-width" formControlName="active" fxFlex>Status</mat-checkbox>
+                </div>
 
 
 

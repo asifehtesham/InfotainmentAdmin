@@ -28,7 +28,7 @@
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Room Number</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="roomNo" class="input" placeholder="Enter Room ID"
+                                    <input type="text" id="roomNo" class="input" placeholder="Enter Room Number"
                                         formControlName="roomNo" required matInput #roomNo />
                                     <a mat-icon-button *ngIf="roomNo.value" matSuffix md-icon-button
                                         aria-label="Clear" (click)="roomNo.value = ''">
@@ -41,42 +41,42 @@
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Room Type</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
-                                    <mat-select formControlName="roomType">
-                                        <mat-option *ngFor="let room of roomTypes" [value]="room">{{room}}</mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
-                                    <mat-label class="label m-2">Floor</mat-label>
-                                <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
-                                    <mat-select formControlName="floorId">
-                                            <mat-option *ngFor="let floor of floors" [value]="floor.id">{{floor.title}}</mat-option>
+                                    <mat-select formControlName="roomTypeId" placeholder="Select Room Type">
+                                        <mat-option *ngFor="let room of roomTypes" [value]="room.id">{{room.title}}</mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Branch</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
-                                    <mat-select formControlName="branchId">
+                                    <mat-select formControlName="branchId"  placeholder="Select Branch" (selectionChange)="findFloors($event)">
                                         <mat-option *ngFor="let branch of branches" [value]="branch.id">{{branch.title}}</mat-option>
                                     
                                     </mat-select>
                                 </mat-form-field>
                             </div>
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
+                                    <mat-label class="label m-2">Floor</mat-label>
+                                <mat-form-field fxLayout="column" class="full-width ml-2 mr-2" fxFlex appearance="outline">
+                                    <mat-select formControlName="floorId"  placeholder="Select Floor">
+                                            <mat-option *ngFor="let floor of floors" [value]="floor.id">{{floor.title}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                     <mat-label class="label m-2">IP</mat-label>
                                     <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                        <input type="text" id="ip" class="input" placeholder="xxx.xxx.xxx.xxx"
-                                            formControlName="ip" required matInput #ip />
+                                        <input type="text" id="ip" class="input" [textMask]="mask" [(ngModel)]="IpData"
+                                             required matInput #ip formControlName="ip" />
                                         <a mat-icon-button *ngIf="ip.value" matSuffix md-icon-button
                                             aria-label="Clear" (click)="ip.value = ''">
                                             <mat-icon>close</mat-icon>
                                         </a>
                                         <mat-error *ngIf=""> Please enter a valid IP</mat-error>
                                     </mat-form-field>
-                                    
                                 </div>
-                            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
+                                <div>{{IpData}}</div>
+                                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-checkbox class="full-width" formControlName="status" fxFlex>Status</mat-checkbox>
                             </div>
                         </div>

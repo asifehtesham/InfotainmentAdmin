@@ -1,0 +1,23 @@
+{
+    "/api/*": {
+        "target": "http://10.201.204.180:9203",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/info/api/*": {
+        "target": "http://10.201.204.180:9204",
+        "pathRewrite": {"^/info": ""},
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/attachments/*": {
+        "target": "http://10.201.204.180:9203/",
+        "secure": false,
+        "logLevel": "debug"
+    },
+    "/scorm/*": {
+        "target": "https://localhost:9092",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

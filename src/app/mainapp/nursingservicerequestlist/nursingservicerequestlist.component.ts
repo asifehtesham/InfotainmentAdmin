@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 import { map, catchError } from 'rxjs/operators';
 
 import { ServiceStatus, Servicerequest } from 'src/app/models/Servicerequest';
-import { ServicerequestService } from 'src/app/services/servicerequest.service';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -17,8 +16,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ServicerequestDetailComponent } from '../servicerequest-detail/servicerequest-detail.component'
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 import { RoomServiceService } from 'src/app/services/roomService.service';
+import { ActivatedRoute } from '@angular/router';
+import { NursingRequestService } from 'src/app/services/nursingRequest.service';
 
 @Component({
   selector: 'app-nursingservicerequestlist',
@@ -30,14 +31,17 @@ export class NursingServiceRequestListComponent {
   ServiceStatus = ServiceStatus;
   subscription: Subscription;
   displayedColumns: string[] = ['select',
-    'patientId',
-    'serviceId',
     'roomNo',
+    'admissionNo',
+    'patientName',
+    'serviceId',
+    'assignedTo',
+    'request',
     'status',
     'id',
   ];
   servicerequest = [];
-  showFilter:boolean=false
+  showFilter: boolean = false
   search = new FormControl();
   index: number = 1;
   limit: number = 10;
@@ -46,27 +50,48 @@ export class NursingServiceRequestListComponent {
 
   paginatedServices: any = [];
 
-  filteredData:any
-  services:any
+  filteredData: any
+  services: any
   public loadEmptyMsg: boolean = false;
   public dataSource = new MatTableDataSource<Servicerequest>();
   selection = new SelectionModel<Servicerequest>(true, []);
-
+  stationId
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sortable: MatSort;
-
-  constructor(private roomService:RoomServiceService, private http: HttpClient, private servicerequestService: ServicerequestService, private dialog: MatDialog, private snakbar: MatSnackBar) { }
-
-  ngOnInit() {
-    this.loadData();
-    this.loadServiceData()
-  }
   
+  currentUser
+  
+  constructor(private route: ActivatedRoute, private roomService: RoomServiceService, private http: HttpClient, private nursingRequestService: NursingRequestService, private dialog: MatDialog, private snakbar: MatSnackBar) {
+    this.currentUser =JSON.parse(localStorage.getItem('currentUser')).username
+
+   }
+
+  async ngOnInit() {
+    this.stationId = this.route.snapshot.params.id;
+    console.log(this.stationId)
+    if (this.stationId) {
+      await this.loadRequestData(this.stationId);
+      this.loadServiceData()
+    }
+    else {
+      this.loadData()
+    }
+  }
+
   loadData() {
-    this.servicerequestService.loadData(this.index, this.limit).subscribe(results => {
-      this.paginatedServices=results 
+    this.nursingRequestService.loadData( this.index, this.limit).subscribe(results => {
+      this.paginatedServices = results
       this.dataSource.data = results;
-      console.log("results",results)
+      console.log("results", results)
+      this.getData({ pageIndex: this.pageNumber, pageSize: this.pageSize });
+
+    });
+  }
+  loadRequestData(stationId) {
+    this.nursingRequestService.loadRequestData(stationId, this.index, this.limit).subscribe(results => {
+      this.paginatedServices = results
+      this.dataSource.data = results;
+      console.log("results", results)
       this.getData({ pageIndex: this.pageNumber, pageSize: this.pageSize });
 
     });
@@ -83,7 +108,7 @@ export class NursingServiceRequestListComponent {
   }
   loadServiceData() {
     this.roomService.loadData(this.index, this.limit).subscribe(results => {
-      this.services=results
+      this.services = results
     });
   }
 
@@ -98,36 +123,20 @@ export class NursingServiceRequestListComponent {
   reqStatus(value) {
     if (value) {
       // console.log(value,this.dataSource.data)
-      this.filteredData = this.dataSource.data.filter(room => room.status==value);
+      this.filteredData = this.dataSource.data.filter(room => room.status == value);
     } else {
-      this.filteredData = this.dataSource.data;      
+      this.filteredData = this.dataSource.data;
     }
   }
 
-  filterService(value){
+  filterService(value) {
     if (value) {
-      this.filteredData = this.dataSource.data.filter(room => room.serviceId==value);
+      this.filteredData = this.dataSource.data.filter(room => room.serviceId == value);
     } else {
-      this.filteredData = this.dataSource.data;      
+      this.filteredData = this.dataSource.data;
     }
   }
-   
-  pages(event) {
-    this.index = event.pageIndex + 1;
-    this.limit = event.pageSize;
 
-    this.loadData();
-  }
-  
-  chkActive_changed(ambulance: any, $event: MatSlideToggleChange) {
-
-    console.log("chkActive_changed: " + ambulance.id);
-    console.log($event.checked);
-
-    ambulance.IsActive = $event.checked;
-    this.servicerequestService.editactive(ambulance).subscribe();
-
-  }
 
   ondelete(servicerequest: Servicerequest) {
 
@@ -142,7 +151,7 @@ export class NursingServiceRequestListComponent {
     }).then((result) => {
       if (result.isConfirmed) {
 
-        this.servicerequestService.delete(servicerequest.id).subscribe(params => {
+        this.nursingRequestService.delete(servicerequest.id).subscribe(params => {
 
           this.snakbar.open('Request has been deleted successfully.', 'Dismise', {
             duration: 3000,
@@ -181,7 +190,7 @@ export class NursingServiceRequestListComponent {
         if (willDelete.isConfirmed) {
 
           var ids = this.selection.selected.map(x => x.id).join(",");
-          this.servicerequestService.deleteAll(ids).subscribe(result => {
+          this.nursingRequestService.deleteAll(ids).subscribe(result => {
             if (result) {
               this.snakbar.open('Your record(s) has been deleted successfully.', 'Ok', {
                 duration: 2000,
@@ -225,11 +234,11 @@ export class NursingServiceRequestListComponent {
   onAdd() {
     const dialogRef = this.dialog.open(ServicerequestDetailComponent, {
       width: '750px',
-      data: { data: 0 }
+      data: { }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result)
-      this.loadData();
+      if (result)
+        this.loadData();
     });
   }
 
@@ -239,19 +248,21 @@ export class NursingServiceRequestListComponent {
       data: { data: data }
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result)
-      this.loadData();
+      if (result)
+        this.loadData();
     });
   }
 
-  updateStatus(s,e){
+  updateStatus(s, e) {
 
     let element = e;
     element.status = s;
-    
-    this.servicerequestService.update(element).subscribe(result => {
+
+    this.nursingRequestService.update(element).subscribe(result => {
+      
       if (result) {
-        this.loadData();
+        this.loadRequestData(this.stationId);
+        
         this.snakbar.open('Your status has been updated successfully.', 'Ok', {
           duration: 3000,
           horizontalPosition: 'right',

@@ -31,8 +31,8 @@ export class ServicerequestListComponent {
   subscription: Subscription;
   displayedColumns: string[] = ['select',
     'patientId',
-    'serviceId',
     'roomNo',
+    'serviceId',
     'status',
     'id',
   ];

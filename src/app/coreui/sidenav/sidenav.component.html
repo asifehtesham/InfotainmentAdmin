@@ -3,15 +3,13 @@
         <!-- <div *ngIf="!iconOnly" style="border-bottom: solid 1px black;background-repeat: round; background-size: auto;background-image: url(./assets/logo.png);height: 50px;" >
         </div> -->
         <!-- [@slidePanel]="iconOnly? 'enter' : 'leave'" -->
-        <div *ngIf="iconOnly" style="height: 100px;" fxLayoutAlign="space-around center"
-            [@slidePanel]="iconOnly? 'enter' : 'leave'">
-            <img width="50"  src="./assets/logo.png">
+        <div *ngIf="iconOnly" style="height: 100px;" fxLayoutAlign="space-around center" [@slidePanel]="iconOnly? 'enter' : 'leave'">
+            <img width="50" src="./assets/logo.png">
         </div>
 
         <!-- [@slidePanel]="!iconOnly? 'enter' : 'leave'" @slidePanel1 -->
-        <div *ngIf="!iconOnly"  [style.text-align]="'center'" [style.display]="'none'"  [style.padding]="'10px 0px'"
-            [@slidePanel]="!iconOnly? 'enter' : 'leave'">
-            <img width="80" [style.padding]="'10px'"  src="./assets/logo.png">
+        <div *ngIf="!iconOnly" [style.text-align]="'center'" [style.display]="'none'" [style.padding]="'10px 0px'" [@slidePanel]="!iconOnly? 'enter' : 'leave'">
+            <img width="80" [style.padding]="'10px'" src="./assets/logo.png">
 
             <!-- <div class="profile-card">
                 <div fxLayout="column" fxLayoutAlign="center start" class="profile">
@@ -22,7 +20,12 @@
             </div> -->
         </div>
         <mat-divider></mat-divider>
-        <app-sidemenuitem *ngFor="let menu of menus" [menu]="menu" [iconOnly]="iconOnly"> </app-sidemenuitem>
+        <div *ngIf="currentUser=='asifraza'">
+            <app-sidemenuitem *ngFor="let menu of menus" [menu]="menu" [iconOnly]="iconOnly"> </app-sidemenuitem>
+        </div>
+        <div *ngIf="currentUser=='Maryah'">
+            <app-sidemenuitem *ngFor="let menu of nurse_Menu" [menu]="menu" [iconOnly]="iconOnly"> </app-sidemenuitem>
+        </div>
     </div>
 
 </perfect-scrollbar>

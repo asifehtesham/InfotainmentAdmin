@@ -44,10 +44,6 @@ export class RoomServicedetailComponent {
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  tagCtrl = new FormControl();
-  filteredTags: Observable<string[]>;
-  tags: string[] = [];
-  allTags: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
   todo: any = [];
 
   @ViewChild('tagInput', { static: false }) tagInput: ElementRef<HTMLInputElement>;
@@ -64,17 +60,10 @@ export class RoomServicedetailComponent {
       this.id = request.id;
       this.roomService = request.roomService;
     }
-    this.filteredTags = this.tagCtrl.valueChanges.pipe(
-      startWith(null),
-      map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
   }
 
   ngOnInit() {
-    // this.questionService.loadData().subscribe(results => {
-    //   //this.loadEmptyMsg = true;
-    //   console.log('come to the subscriber');
-    //   this.availableQuestions = results;
-    // });
+
 
     this.templatesService.loadData().subscribe(results => {
       results.forEach(element => {
@@ -95,9 +84,8 @@ export class RoomServicedetailComponent {
         this.roomServiceService.loadByID(this.id).subscribe(results => {
           //this.loadEmptyMsg = true;
           this.roomService = results;
+
           this.setForm();
-          //this.f.isPublish.setValue(this.roomService.isPublish);
-          //this.f.IsActive.setValue(this.roomService.IsActive);
 
         });
       }
@@ -105,22 +93,17 @@ export class RoomServicedetailComponent {
   }
 
   ngAfterViewInit(): void {
-    if (this.roomService.image != null)
+    if (this.roomService && this.roomService.image)
       this.imageControl.setImage(this.roomService.image.data);
   }
 
   setForm() {
     this.f.title.setValue(this.roomService.title);
     this.f.titleAr.setValue(this.roomService.titleAr);
+    this.f.imageURL.setValue(this.roomService.imageURL);
+    this.f.active.setValue(this.roomService.active)
 
   }
-  // loadRoomServiceQuestion() {
-  //   this.questionService.getRoomServiceQuestions(this.roomServiceID).subscribe(results => {
-  //     //this.loadEmptyMsg = true;
-  //     console.log('come to the subscriber');
-  //     this.selectedQuestions = results;
-  //   });
-  // }
 
   buildForm() {
     this.roomServiceForm = this.fb.group({
@@ -132,31 +115,31 @@ export class RoomServicedetailComponent {
         Validators.maxLength(500),
         Validators.minLength(1)
       ]],
-      
+
       'titleAr': ['', [
         Validators.required,
         Validators.maxLength(500),
         Validators.minLength(1)
       ]],
-
+      'imageURL': ['', []],
+      'active': ['', []]
     });
 
   }
 
   get f() { return this.roomServiceForm.controls; }
-
-  save() {
-    this.saveData();
-  }
-
   ImageTitle: string = "";
   ImagePath: string = "";
-  saveData() {
+
+
+  save() {
 
     var roomService: RoomService = {
       id: this.id,
       title: this.f.title.value,
       titleAr: this.f.titleAr.value,
+      imageURL: this.f.imageURL.value,
+      active:this.f.active.value
     }
 
     // ///////////////////////////////////////////////////
@@ -171,7 +154,7 @@ export class RoomServicedetailComponent {
         this.imageControl.startUpload(result.id, "ID", "RoomService", false, false);
 
       if (result.id)
-        this.snakbar.open('RoomService saved successfully.', 'Dismise', {
+        this.snakbar.open('Room Service saved successfully.', 'Dismise', {
           duration: 3000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
@@ -215,43 +198,12 @@ export class RoomServicedetailComponent {
   }
 
 
-
-  //#region Chip
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add our tag
-    if ((value || '').trim()) {
-      this.tags.push(value.trim());
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-
-    this.tagCtrl.setValue(null);
-  }
-
-  remove(tag: string): void {
-    const index = this.tags.indexOf(tag);
-
-    if (index >= 0) {
-      this.tags.splice(index, 1);
-    }
-  }
-
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
-    this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue(null);
+
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  private _filter(value: string) {
 
-    return this.allTags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
   }
   //#endregion Chip.
 
@@ -267,14 +219,9 @@ export class RoomServicedetailComponent {
     }
   }
 
-  topics_selectionChange(question) { }
-
-
-
   update(data) {
     this.f.content.setValue(data);
   }
-
 
 }
 

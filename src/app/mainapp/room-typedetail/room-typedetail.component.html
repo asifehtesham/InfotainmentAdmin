@@ -49,18 +49,13 @@
                                     </mat-error>
                                 </mat-form-field>
                             </div>
+                            
                             <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap>
                                 <mat-label class="label m-2">Font Type</mat-label>
                                 <mat-form-field fxLayout="column" class="full-width" fxFlex appearance="outline">
-                                    <input type="text" id="fontType" class="input" placeholder="Enter Font Type"
-                                        formControlName="fontType" required matInput #fontType>
-                                    <a mat-icon-button *ngIf="fontType.value" matSuffix md-icon-button
-                                        aria-label="Clear" (click)="fontType.value=''">
-                                        <mat-icon>close</mat-icon>
-                                    </a>
-                                    <mat-error class="mt-1" *ngIf="fontType.value==''">
-                                        Please enter a valid fontType
-                                    </mat-error>
+                                    <mat-select formControlName="fontType" required placeholder="Select Font">
+                                        <mat-option *ngFor="let font of fontFamily" style="{{font.style}}" [value]="font.value">{{font.text}}</mat-option>
+                                    </mat-select>
                                 </mat-form-field>
                             </div>
                             
